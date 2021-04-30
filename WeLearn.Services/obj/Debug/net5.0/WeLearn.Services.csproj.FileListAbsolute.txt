@@ -1,0 +1,34 @@
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Services.deps.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Services.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\ref\WeLearn.Services.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Services.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Data.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Data.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.csprojAssemblyReference.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.AssemblyInfoInputs.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.AssemblyInfo.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.csproj.CopyComplete
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\ref\WeLearn.Services.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Services.deps.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Services.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\ref\WeLearn.Services.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Services.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Data.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Data.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\bin\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.csprojAssemblyReference.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.AssemblyInfoInputs.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.AssemblyInfo.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.csproj.CopyComplete
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\ref\WeLearn.Services.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Services\obj\Debug\net5.0\WeLearn.Services.pdb

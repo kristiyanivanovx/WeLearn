@@ -1,0 +1,927 @@
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\appsettings.Development.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\appsettings.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.StaticWebAssets.xml
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.exe
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.deps.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.runtimeconfig.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.runtimeconfig.dev.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ref\WeLearn.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Antiforgery.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Cookies.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Authorization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Forms.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Server.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HostFiltering.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.Common.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpOverrides.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpsPolicy.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Identity.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.Routing.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Metadata.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Cors.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Localization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Razor.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.RazorPages.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.TagHelpers.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.Runtime.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCompression.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Rewrite.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.HttpSys.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IIS.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IISIntegration.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Session.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Common.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.StaticFiles.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebSockets.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebUtilities.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.CSharp.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Memory.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Binder.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Ini.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Composite.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Physical.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Http.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Configuration.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Console.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Debug.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventLog.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventSource.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.TraceSource.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.ObjectPool.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.VisualBasic.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.VisualBasic.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Win32.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Win32.Registry.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\mscorlib.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\netstandard.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.AppContext.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Buffers.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.Concurrent.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.Immutable.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.NonGeneric.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.Specialized.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.Annotations.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.DataAnnotations.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.EventBasedAsync.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.TypeConverter.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Configuration.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Console.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Data.Common.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Data.DataSetExtensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Data.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Contracts.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Debug.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.EventLog.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.FileVersionInfo.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Process.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.StackTrace.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.TextWriterTraceListener.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Tools.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.TraceSource.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Tracing.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Drawing.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Drawing.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Dynamic.Runtime.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Formats.Asn1.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Globalization.Calendars.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Globalization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Globalization.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.Brotli.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.FileSystem.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.ZipFile.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.DriveInfo.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.Watcher.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.IsolatedStorage.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.MemoryMappedFiles.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Pipes.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.UnmanagedMemoryStream.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.Expressions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.Parallel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.Queryable.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Memory.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Http.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Http.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.HttpListener.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Mail.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.NameResolution.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.NetworkInformation.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Ping.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Requests.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Security.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.ServicePoint.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Sockets.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebClient.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebHeaderCollection.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebProxy.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebSockets.Client.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebSockets.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Numerics.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Numerics.Vectors.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ObjectModel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.DispatchProxy.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Emit.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Emit.ILGeneration.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Emit.Lightweight.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Metadata.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.TypeExtensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Resources.Reader.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Resources.ResourceManager.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Resources.Writer.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.Unsafe.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.VisualC.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Handles.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.InteropServices.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Intrinsics.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Loader.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Numerics.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Formatters.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Xml.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.AccessControl.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Claims.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Algorithms.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Cng.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Csp.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Encoding.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.X509Certificates.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Xml.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Permissions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Principal.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Principal.Windows.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.SecureString.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ServiceModel.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ServiceProcess.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encoding.CodePages.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encoding.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encoding.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encodings.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.RegularExpressions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Channels.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Overlapped.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.Dataflow.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.Parallel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Thread.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.ThreadPool.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Timer.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Transactions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Transactions.Local.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ValueTuple.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Web.HttpUtility.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Windows.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Windows.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.Linq.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.ReaderWriter.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.Serialization.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XDocument.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XmlDocument.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XmlSerializer.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XPath.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XPath.XDocument.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\WindowsBase.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.Views.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.Views.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\AutoMapper.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Humanizer.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\dotnet-aspnet-codegenerator-design.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.AttributedModel.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.Convention.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.Hosting.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.Runtime.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.TypedParts.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.IO.Pipelines.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Runtime.Caching.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Data.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Services.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Services.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Data.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.csprojAssemblyReference.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.AssemblyInfoInputs.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.AssemblyInfo.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorAssemblyInfo.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorAssemblyInfo.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\staticwebassets\WeLearn.Web.StaticWebAssets.Manifest.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\staticwebassets\WeLearn.Web.StaticWebAssets.xml
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\scopedcss\bundle\WeLearn.Web.styles.css
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.TagHelpers.input.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.TagHelpers.output.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorCoreGenerate.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\Create.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\Watch.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorTargetAssemblyInfo.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorTargetAssemblyInfo.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.Views.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.csproj.CopyComplete
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\ref\WeLearn.Web.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.genruntimeconfig.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\All.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Components\UsersCountSummary\Default.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\ThankYou.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.MvcApplicationPartsAssemblyInfo.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\ByMe.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_LessonPartial.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_MultipleLessonsPartial.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\Edit.cshtml.g.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Unauthorized.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\appsettings.Development.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\appsettings.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.StaticWebAssets.xml
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.exe
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.deps.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.runtimeconfig.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.runtimeconfig.dev.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ref\WeLearn.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Antiforgery.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Cookies.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authentication.OAuth.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Authorization.Policy.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Authorization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Forms.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Server.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Components.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Diagnostics.HealthChecks.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HostFiltering.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Html.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.Common.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Connections.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Http.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpOverrides.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.HttpsPolicy.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Identity.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Localization.Routing.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Metadata.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ApiExplorer.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Cors.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.DataAnnotations.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Formatters.Xml.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Localization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.Razor.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.RazorPages.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.TagHelpers.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Razor.Runtime.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCaching.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.ResponseCompression.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Rewrite.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Routing.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.HttpSys.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IIS.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.IISIntegration.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Session.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Common.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.StaticFiles.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebSockets.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.AspNetCore.WebUtilities.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.CSharp.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Caching.Memory.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Binder.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.CommandLine.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.FileExtensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Ini.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Composite.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Physical.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.FileSystemGlobbing.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Http.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Configuration.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Console.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Debug.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventLog.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.EventSource.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.TraceSource.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.ObjectPool.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.VisualBasic.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.VisualBasic.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Win32.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\Microsoft.Win32.Registry.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\mscorlib.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\netstandard.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.AppContext.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Buffers.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.Concurrent.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.Immutable.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.NonGeneric.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Collections.Specialized.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.Annotations.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.DataAnnotations.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.EventBasedAsync.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ComponentModel.TypeConverter.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Configuration.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Console.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Data.Common.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Data.DataSetExtensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Data.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Contracts.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Debug.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.EventLog.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.FileVersionInfo.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Process.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.StackTrace.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.TextWriterTraceListener.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Tools.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.TraceSource.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Diagnostics.Tracing.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Drawing.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Drawing.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Dynamic.Runtime.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Formats.Asn1.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Globalization.Calendars.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Globalization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Globalization.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.Brotli.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.FileSystem.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Compression.ZipFile.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.DriveInfo.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.FileSystem.Watcher.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.IsolatedStorage.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.MemoryMappedFiles.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.Pipes.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.IO.UnmanagedMemoryStream.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.Expressions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.Parallel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Linq.Queryable.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Memory.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Http.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Http.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.HttpListener.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Mail.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.NameResolution.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.NetworkInformation.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Ping.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Requests.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Security.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.ServicePoint.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.Sockets.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebClient.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebHeaderCollection.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebProxy.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebSockets.Client.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Net.WebSockets.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Numerics.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Numerics.Vectors.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ObjectModel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.DispatchProxy.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Emit.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Emit.ILGeneration.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Emit.Lightweight.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Metadata.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Reflection.TypeExtensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Resources.Reader.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Resources.ResourceManager.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Resources.Writer.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.Unsafe.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.VisualC.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Handles.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.InteropServices.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Intrinsics.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Loader.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Numerics.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Formatters.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Runtime.Serialization.Xml.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.AccessControl.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Claims.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Algorithms.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Cng.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Csp.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Encoding.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.X509Certificates.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Cryptography.Xml.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Permissions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Principal.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.Principal.Windows.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Security.SecureString.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ServiceModel.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ServiceProcess.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encoding.CodePages.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encoding.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encoding.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Encodings.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Text.RegularExpressions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Channels.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Overlapped.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.Dataflow.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Tasks.Parallel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Thread.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.ThreadPool.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Threading.Timer.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Transactions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Transactions.Local.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.ValueTuple.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Web.HttpUtility.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Windows.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Windows.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.Linq.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.ReaderWriter.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.Serialization.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XDocument.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XmlDocument.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XmlSerializer.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XPath.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\System.Xml.XPath.XDocument.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\refs\WindowsBase.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.Views.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Web.Views.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\AutoMapper.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Humanizer.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.Razor.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\dotnet-aspnet-codegenerator-design.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.AttributedModel.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.Convention.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.Hosting.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.Runtime.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Composition.TypedParts.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.IO.Pipelines.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Runtime.Caching.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Data.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Services.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Services.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Data.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\bin\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.csprojAssemblyReference.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.AssemblyInfoInputs.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.AssemblyInfo.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.MvcApplicationPartsAssemblyInfo.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.MvcApplicationPartsAssemblyInfo.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorAssemblyInfo.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorAssemblyInfo.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\staticwebassets\WeLearn.Web.StaticWebAssets.Manifest.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\staticwebassets\WeLearn.Web.StaticWebAssets.xml
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\scopedcss\bundle\WeLearn.Web.styles.css
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.TagHelpers.input.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.TagHelpers.output.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorCoreGenerate.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\All.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\ByMe.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\Create.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\Edit.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\Watch.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Components\UsersCountSummary\Default.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Unauthorized.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_LessonPartial.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_MultipleLessonsPartial.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorTargetAssemblyInfo.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.RazorTargetAssemblyInfo.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.Views.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.csproj.CopyComplete
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\ref\WeLearn.Web.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\WeLearn.Web.genruntimeconfig.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Deleted.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Components\PostsNavigatorDropdown\Default.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Lesson\ByCategory.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Report\Post.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\ThankYou.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Report\PostEdit.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\_CommentPartial.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Shared\Components\AllComments\Default.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Comment\Edit.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Comment\Delete.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Comment\ByMe.cshtml.g.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Web\obj\Debug\net5.0\Razor\Views\Report\PostsByMe.cshtml.g.cs

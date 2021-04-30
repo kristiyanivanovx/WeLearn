@@ -1,0 +1,30 @@
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Infrastructure.deps.json
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\ref\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Data.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Data.pdb
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.AssemblyInfoInputs.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.AssemblyInfo.cs
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.csproj.CopyComplete
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\ref\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\private-things\Visual Studio 2019\source\repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Infrastructure.deps.json
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\ref\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Infrastructure.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Data.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\bin\Debug\net5.0\WeLearn.Data.pdb
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.AssemblyInfoInputs.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.AssemblyInfo.cs
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.csproj.CopyComplete
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\ref\WeLearn.Infrastructure.dll
+D:\Projects\GitHub repos\WeLearn\WeLearn.Infrastructure\obj\Debug\net5.0\WeLearn.Infrastructure.pdb

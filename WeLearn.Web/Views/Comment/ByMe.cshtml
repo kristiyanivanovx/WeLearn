@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CommentMultiModel>
+
+<div class="card-deck">
+    <div class="row">
+        @foreach (var comment in Model)
+        {
+            <div>
+                <div class="card mb-3 card-style-20-rem">
+                    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@comment.PostVideoName" data-poster="@comment.PostVideoLink">
+                        @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
+                        <source src="@comment.PostVideoLink" type="video/mp4" />
+                        <!-- Fallback for browsers that don't support the <video> element -->
+                        <a href="@comment.PostVideoLink" download>Download</a>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">@comment.PostName</h5>
+                        <hr />
+                        <p class="card-text">@comment.PostDescription</p>
+                        <p class="card-text">
+                            <small class="text-muted">Created by - @comment.PostCreatedByUsername | </small>
+                            <small class="text-muted">Category - @comment.PostCategoryName | </small>
+                            <small class="text-muted">Grade - @comment.PostGrade</small>
+                        </p>
+                        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@comment.PostId" class="btn btn-sm btn-outline-dark">
+                            <i class="fas fa-info"></i> Details
+                        </a>
+                        <a asp-controller="Lesson" asp-action="Download" asp-route-link="@comment.PostZippedFileLink" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-arrow-down"></i> Download Resources
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5>Comment Details</h5>
+                        <hr />
+                        <p class="card-text">@comment.Content</p>
+                        <a asp-controller="Comment" asp-action="Edit" asp-route-id="@comment.CommentId" class="btn btn-sm btn-outline-success mb-2">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        @* instead of modal code *@
+                        <a asp-controller="Comment" asp-action="Delete" asp-route-id="@comment.CommentId" class="btn btn-sm btn-outline-danger mb-2">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                        @* *@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*<partial name="_MultipleLessonsPartial" />*@
+@if (Model.Count() == 0)
+{
+    <h1 class="display-4 text-center">You don't have any reports yet.</h1>
+    <hr />
+}
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+
+    <script>
+        const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
+        window.player = player;
+    </script>
+}

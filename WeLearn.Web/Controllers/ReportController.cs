@@ -17,7 +17,6 @@ namespace WeLearn.Web.Controllers
     {
         private readonly IPostsService postsService;
         private readonly IReportsService reportsService;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IHttpContextAccessor httpContextAccessor;
 
         // actions for every kind of report (post, comment, profile)
@@ -27,12 +26,11 @@ namespace WeLearn.Web.Controllers
             IReportsService reportsService,
             IHttpContextAccessor httpContextAccessor)
         {
-            this.userManager = userManager;
             this.httpContextAccessor = httpContextAccessor;
             this.postsService = postsService;
             this.reportsService = reportsService;
         }
-        public async Task<IActionResult> ByMe()
+        public async Task<IActionResult> PostsByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var myReports = await reportsService.CreatedByMeAsync<PostReportModel>(userId);

@@ -100,3 +100,15 @@ body {
 .image-width {
 	width: 65%;
 }
+
+.card-style-80-rem {
+	max-width: 80rem;
+}
+
+.card-style-20-rem {
+	max-width: 20rem;
+}
+
+.card-style-40-rem {
+	max-width: 40rem;
+}

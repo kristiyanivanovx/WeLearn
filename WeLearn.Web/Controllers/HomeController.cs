@@ -10,18 +10,15 @@ namespace WeLearn.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> logger;
         private readonly ICategoriesService categoriesService;
-        private readonly IUserService userService;
+        private readonly IUsersService userService;
         private readonly IPostsService postsService;
 
         public HomeController(
-            ILogger<HomeController> logger, 
             ICategoriesService categoriesService, 
-            IUserService userService,
+            IUsersService userService,
             IPostsService postsService)
         {
-            this.logger = logger;
             this.categoriesService = categoriesService;
             this.userService = userService;
             this.postsService = postsService;

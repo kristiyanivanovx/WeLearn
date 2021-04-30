@@ -51,14 +51,11 @@ namespace WeLearn
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<ICategoriesService, CategoriesService>();
-
             services.AddTransient<IPostsService, PostsService>();
-
             services.AddTransient<IFileDownloadService, FileDownloadService>();
-
-            services.AddTransient<IUserService, UserService>();
-
+            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IReportsService, ReportsService>();
+            services.AddTransient<ICommentsService, CommentsService>();
             
             services.AddRouting(options => options.LowercaseUrls = true);
 

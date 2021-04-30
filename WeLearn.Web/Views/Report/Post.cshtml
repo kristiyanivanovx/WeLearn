@@ -1,10 +1,10 @@
 ﻿@model PostReportModel
 @{
-    ViewData["Title"] = "Reporting Post #" + Model.PostId;
+    ViewData["Title"] = "Reporting post #" + Model.PostId;
 }
 
 <div align="center">
-    <div class="card" style="max-width: 40rem;">
+    <div class="card card-style-40-rem">
         <div>
             <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
                 @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@

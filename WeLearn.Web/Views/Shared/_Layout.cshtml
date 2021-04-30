@@ -24,21 +24,21 @@
                             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WeLearn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Lesson" asp-action="Create">Create New</a>
+                            <a class="nav-link" asp-area="" asp-controller="Lesson" asp-action="Create">Create new</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Lesson" asp-action="All">View All</a>
+                            <a class="nav-link" asp-area="" asp-controller="Lesson" asp-action="All">View all</a>
                         </li>
                     </ul>
-
                     @await Component.InvokeAsync("PostsNavigatorDropdown")
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            My Activity
+                            My activity
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="ByMe">View Uploaded By Me</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="ByMe">View Reports By Me</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="ByMe">Posts created by me</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Comment" asp-action="ByMe">Comments created by me</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="PostsByMe">Posts reported by Me</a>
                         </div>
                     </div>
                     <partial name="_LoginPartial" />
@@ -59,6 +59,10 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @* unobtrusive validation *@
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    @*  *@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

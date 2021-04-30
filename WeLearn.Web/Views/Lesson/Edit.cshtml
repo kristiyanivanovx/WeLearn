@@ -1,11 +1,11 @@
 ﻿@model PostEditModel
 @{
-    ViewData["Title"] = "Edit lesson #" + Model.PostId;
+    ViewData["Title"] = "Editing lesson #" + Model.PostId;
 }
 <h4 class="text-center">Previous video and additional files.</h4>
 <hr />
 <div align="center">
-    <div class="card" style="max-width: 40rem;">
+    <div class="card card-style-40-rem">
         <div>
             <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.OldVideoLink" data-poster="@Model.OldVideoLink">
                 @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
@@ -22,7 +22,7 @@
     </div>
     <br />
     <div class="text-center">
-        <h3>Editing a lesson #@Model.PostId</h3>
+        <h3>Editing lesson #@Model.PostId</h3>
         <hr />
         <form asp-controller="Lesson" asp-action="Edit" method="post" enctype="multipart/form-data">
             <input type="hidden" value="@Model.PostId" asp-for="@Model.PostId" class="form-control" />

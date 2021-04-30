@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
+
 using WeLearn.Data.Context;
 using WeLearn.Infrastructure.ViewModels;
 

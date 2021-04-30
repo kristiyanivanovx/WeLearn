@@ -1,0 +1,67 @@
+﻿@model PostReportModel
+@{
+    ViewData["Title"] = "Editing Report #" + Model.ReportId;
+}
+
+<div class="card-deck">
+    <div class="row">
+            <div>
+                <div class="card mb-3" style="max-width: 20rem;">
+                    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+                        @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
+                        <source src="@Model.VideoLink" type="video/mp4" />
+                        <!-- Fallback for browsers that don't support the <video> element -->
+                        <a href="@Model.VideoLink" download>Download</a>
+                    </video>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.PostName</h5>
+                        <hr />
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text">
+                            <small class="text-muted">Created by - @Model.PostApplicationUserUserName | </small>
+                            <small class="text-muted">Category - @Model.CategoryName | </small>
+                            <small class="text-muted">Grade - @Model.Grade</small>
+                        </p>
+                        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.PostId" class="btn btn-sm btn-outline-dark">
+                            <i class="fas fa-info"></i> Details
+                        </a>
+                        <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.ZippedFile" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-arrow-down"></i> Download Resources
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h5>Report Details</h5>
+                        <hr />
+                        <form asp-controller="Report" asp-action="PostEdit" method="post">
+                            <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
+                            <input type="hidden" value="@Model.ReportingUserId" asp-for="@Model.ReportingUserId" class="form-control" />
+                            <div class="form-group">
+                                <label asp-for="@Model.Subject"></label>
+                                <input asp-for="@Model.Subject" class="form-control" />
+                                <span asp-validation-for="@Model.Subject" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.ReportDescription"></label>
+                                <input asp-for="@Model.ReportDescription" class="form-control" />
+                                <span asp-validation-for="@Model.ReportDescription" class="text-danger"></span>
+                            </div>
+                            <input type="submit" name="submit" value="Save" class="btn btn-sm btn-outline-success" />
+                            <a asp-controller="Report" asp-action="ByMe" class="btn btn-sm btn-outline-dark">
+                                Cancel
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+WeLearn.Web/appsettings.Development.json
+WeLearn.Web/appsettings.json
+*.zip
+*.mp4

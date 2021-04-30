@@ -1,0 +1,17 @@
+﻿@model PostViewModel
+@{
+    ViewData["Title"] = "Watch Lesson #" + Model.PostId;
+}
+
+<partial name="_LessonPartial" />
+<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

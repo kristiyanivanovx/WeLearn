@@ -1,0 +1,65 @@
+﻿@model PostReportModel
+@{
+    ViewData["Title"] = "Reporting Post #" + Model.PostId;
+}
+
+<div align="center">
+    <div class="card" style="max-width: 40rem;">
+        <div>
+            <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+                @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
+                <source src="@Model.VideoLink" type="video/mp4" />
+                <!-- Fallback for browsers that don't support the <video> element -->
+                <a href="@Model.VideoLink" download>Download</a>
+            </video>
+            <div class="card-body">
+                <h5 class="card-title">@Model.PostName</h5>
+                <hr />
+                <p class="card-text">@Model.Description</p>
+                <p class="card-text">
+                    <small class="text-muted">Created by - @Model.PostApplicationUserUserName | </small>
+                    <small class="text-muted">Category - @Model.CategoryName | </small>
+                    <small class="text-muted">Grade - @Model.Grade</small>
+                </p>
+                <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.ZippedFile" class="btn btn-sm btn-outline-dark">
+                    <i class="fas fa-arrow-down"></i> Download Resources
+                </a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="text-center">
+        <h3 class="text-center">Reporting lesson #@Model.PostId</h3>
+        <hr />
+
+        <form asp-controller="Report" asp-action="Post" method="post" enctype="multipart/form-data">
+            <input type="hidden" value="@Model.PostId" asp-for="@Model.PostId" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Subject"></label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReportDescription"></label>
+                <textarea asp-for="ReportDescription" class="form-control"></textarea>
+                <span asp-validation-for="ReportDescription" class="text-danger"></span>
+            </div>
+
+            <input class="btn btn-sm btn-outline-info" type="submit" value="Report" />
+            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.PostId" class="btn btn-sm btn-outline-dark">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

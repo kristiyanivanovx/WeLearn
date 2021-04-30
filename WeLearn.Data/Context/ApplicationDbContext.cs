@@ -55,8 +55,9 @@ namespace WeLearn.Data.Context
             //.WithOne(x => x.Post)
             //.HasForeignKey<Post>(x => x.PostId);
 
-            modelBuilder.Entity<Post>().HasQueryFilter(p => !p.IsDeleted);
-            modelBuilder.Entity<Report>().HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<Post>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<Report>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<Comment>().HasQueryFilter(x => !x.IsDeleted);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -14,13 +14,14 @@ namespace WeLearn.Infrastructure.ViewModels
         public int PostId { get; set; }
 
         [MaxLength(250)]
-        [Display(Name = "Lesson Name")]
+        [Display(Name = "Name")]
         public string LessonName { get; set; }
 
         [MaxLength(1500)]
-        [Display(Name = "Lesson Description")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         public Grade Grade { get; set; }

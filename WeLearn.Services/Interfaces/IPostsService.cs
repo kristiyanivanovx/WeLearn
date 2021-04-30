@@ -27,7 +27,5 @@ namespace WeLearn.Services.Interfaces
         Task UploadMaterialsAsync<T>(T postModel, dynamic uploadsMaterials) where T : IPostModel;
 
         Task<Video> UploadVideoAsync<T>(T postModel, dynamic environmentWebRootPath) where T : IPostModel;
-
-        TypeOut MapBetweenModels<TypeIn, TypeOut>(TypeIn typeIn);
     }
 }

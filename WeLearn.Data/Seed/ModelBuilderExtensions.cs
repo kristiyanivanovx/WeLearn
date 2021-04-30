@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using WeLearn.Data.Models;
 
 namespace WeLearn.Data.Seed
@@ -27,16 +28,16 @@ namespace WeLearn.Data.Seed
 
             modelBuilder.Entity<Comment>().HasData
             (
-                new Comment { CommentId = 1, ApplicationUserId = UserId, Content = "I like it!", PostId = 1 },
-                new Comment { CommentId = 2, ApplicationUserId = UserId, Content = "Good, but can be imroved.", PostId = 2 },
-                new Comment { CommentId = 3, ApplicationUserId = UserId, Content = "This is very nice.", PostId = 3 }
+                new Comment { CommentId = 1, ApplicationUserId = UserId, DateCreated = DateTime.UtcNow, Content = "I like it!", PostId = 1 },
+                new Comment { CommentId = 2, ApplicationUserId = UserId, DateCreated = DateTime.UtcNow, Content = "Good, but can be imroved.", PostId = 2 },
+                new Comment { CommentId = 3, ApplicationUserId = UserId, DateCreated = DateTime.UtcNow, Content = "This is very nice.", PostId = 3 }
             );
 
             modelBuilder.Entity<Report>().HasData
             (
-                new Report { ReportId = 1, Subject = "The language used in title", Description = "Bad language in lesson's title.", PostId = 5},
-                new Report { ReportId = 2, Subject = "Bad words in username", Description = "Tjhis username is unacceptable.", ApplicationUserId = UserId },
-                new Report { ReportId = 3, Subject = "Swearing in comment", Description = "Bad language in comment.", CommentId = 1}
+                new Report { ReportId = 1, DateCreated = DateTime.UtcNow, Subject = "The language used in title", Description = "Bad language in lesson's title.", PostId = 5},
+                new Report { ReportId = 2, DateCreated = DateTime.UtcNow, Subject = "Bad words in username", Description = "Tjhis username is unacceptable.", ApplicationUserId = UserId },
+                new Report { ReportId = 3, DateCreated = DateTime.UtcNow, Subject = "Swearing in comment", Description = "Bad language in comment.", CommentId = 1}
             );
 
             modelBuilder.Entity<Category>().HasData
@@ -83,7 +84,7 @@ namespace WeLearn.Data.Seed
             (
                  new Post { PostId = 1,  VideoId = 1,  MaterialId = 1,  ApplicationUserId = UserId, CategoryId = 1, PostName = "Pronouns, types", Description = "A lecture about pronouns and when to use them." },
                  new Post { PostId = 2,  VideoId = 2,  MaterialId = 2,  ApplicationUserId = UserId, CategoryId = 2, PostName = "Prime numbers", Description = "A natural number greater than 1 that is not a product of two smaller natural numbers." },
-                 new Post { PostId = 3,  VideoId = 3,  MaterialId = 3,  ApplicationUserId = UserId, CategoryId = 3, PostName = "Developing with C#", Description = "About the C# language and the .NET development Platform. First steps/" },
+                 new Post { PostId = 3,  VideoId = 3,  MaterialId = 3,  ApplicationUserId = UserId, CategoryId = 3, PostName = "Developing with C#", Description = "About the C# language and the .NET development Platform. First steps." },
                  new Post { PostId = 4,  VideoId = 4,  MaterialId = 4,  ApplicationUserId = UserId, CategoryId = 4, PostName = "Excel", Description = "Data analysis." },
                  new Post { PostId = 5,  VideoId = 5,  MaterialId = 5,  ApplicationUserId = UserId, CategoryId = 5, PostName = "Bulgaria, Eastern Europe", Description = "Eastern European Countries. Their iconomic growth and political stances. Bulgaria." },
                  new Post { PostId = 6,  VideoId = 6,  MaterialId = 6,  ApplicationUserId = UserId, CategoryId = 6, PostName = "Football", Description = "Kicking a ball on the field." },

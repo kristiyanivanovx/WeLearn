@@ -203,8 +203,15 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
             return videoEntity;
         }
+        public async Task DeletePostAsync(int id)
+        {
+            var post = await context.Posts.FirstOrDefaultAsync(x => x.PostId == id);
+            post.IsDeleted = true;
+            post.DateDeleted = DateTime.UtcNow;
+            await context.SaveChangesAsync();
+        }
 
-        private void DeleteUnusedFilesInTempFolder(dynamic tempDirectory)
+        private static void DeleteUnusedFilesInTempFolder(dynamic tempDirectory)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(tempDirectory);
             foreach (FileInfo file in directoryInfo.GetFiles())
@@ -231,12 +238,6 @@ namespace WeLearn.Services
             return materialEntity;
         }
 
-        public TypeOut MapBetweenModels<TypeIn, TypeOut>(TypeIn typeIn)
-        {
-            TypeOut typeOut = mapper.Map<TypeIn, TypeOut>(typeIn);
-            return typeOut;
-        }
-
         private static string GetUniqueFileName(string fileName)
         {
             fileName = Path.GetFileName(fileName);
@@ -248,11 +249,6 @@ namespace WeLearn.Services
             return uniqueFileName;
         }
 
-        public async Task DeletePostAsync(int id)
-        {
-            var post = context.Posts.FirstOrDefault(x => x.PostId == id);
-            context.Remove(post);
-            await context.SaveChangesAsync();
-        }
+
     }
 }

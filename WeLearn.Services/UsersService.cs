@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace WeLearn.Services
 {
-    public class UserService : IUserService
+    public class UsersService : IUsersService
     {
         //private readonly UserManager<ApplicationUser> userManager;
         private readonly ApplicationDbContext context;
 
-        public UserService(
+        public UsersService(
             //UserManager<ApplicationUser> userManager,
             ApplicationDbContext context)
         {

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Base;
+using WeLearn.Data.Models.Interfaces;
 
 namespace WeLearn.Data.Models
 {
-    public class Comment : BaseModel
+    public class Comment : BaseModel, ISoftDeleteable
     {
         public int CommentId { get; set; }
 
@@ -14,6 +15,8 @@ namespace WeLearn.Data.Models
         public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public int PostId { get; set; }
 

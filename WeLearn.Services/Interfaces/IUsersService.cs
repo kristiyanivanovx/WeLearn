@@ -2,7 +2,7 @@
 
 namespace WeLearn.Services.Interfaces
 {
-    public interface IUserService
+    public interface IUsersService
     {
         Task<int> GetAllUsersCountAsync();
     }

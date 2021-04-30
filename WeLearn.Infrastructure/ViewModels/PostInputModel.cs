@@ -18,6 +18,7 @@ namespace WeLearn.Infrastructure.ViewModels
         [Required(ErrorMessage = "Please add description.")]
         public string Description { get; set; }
 
+        [Display(Name = "Category")]
         [Required(ErrorMessage = "Please pick a category.")]
         public int CategoryId { get; set; }
 

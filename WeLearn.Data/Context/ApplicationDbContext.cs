@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 using System.Threading;
@@ -17,16 +18,8 @@ namespace WeLearn.Data.Context
         }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-           : base(options)
+            : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=.;Database=WeLearn;Integrated Security=True;");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -62,7 +55,7 @@ namespace WeLearn.Data.Context
             base.OnModelCreating(modelBuilder);
         }
 
-         //some random stackoverflow comment
+        //some random stackoverflow comment
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             var AddedEntities = ChangeTracker.Entries()

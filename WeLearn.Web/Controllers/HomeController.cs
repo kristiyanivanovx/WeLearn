@@ -36,6 +36,11 @@ namespace WeLearn.Controllers
             return View(indexViewModel);
         }
 
+        public IActionResult FAQ()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

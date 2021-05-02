@@ -9,7 +9,7 @@
         <div>
             <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.OldVideoLink" data-poster="@Model.OldVideoLink">
                 @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
-                <source src="@Model.OldVideoLink" type="video/mp4" />
+                <source src="@Model.OldVideoLink" type="@Model.OldVideoContentType" />
                 <!-- Fallback for browsers that don't support the <video> element -->
                 <a href="@Model.OldVideoLink" download>Download</a>
             </video>

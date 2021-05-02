@@ -30,6 +30,8 @@ namespace WeLearn.Web.Controllers
             this.postsService = postsService;
             this.reportsService = reportsService;
         }
+
+        [Authorize]
         public async Task<IActionResult> PostsByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;

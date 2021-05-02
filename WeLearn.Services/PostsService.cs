@@ -13,6 +13,8 @@ using WeLearn.Data.Context;
 using WeLearn.Data.Models;
 using WeLearn.Infrastructure.Interfaces;
 using WeLearn.Infrastructure.ViewModels;
+using WeLearn.Infrastructure;
+
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
@@ -22,11 +24,15 @@ namespace WeLearn.Services
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
 
-        private const int MinimumVideoSizeInBytes = 0;
-        private const int MaximumVideoSizeInBytes = 1_000_000_000; // 1000 mb
+       
 
-        private const int MinimumFileSizeInBytes = 0;
-        private const int MaximumFileSizeInBytes = 100_000_000; // 100 mb
+        private const string InvalidFileSizeMessage = 
+            "There was an error with the upload of one of the videos. Contact us or check whether all of your file formats are supported and if their sizes are acceptable.";
+
+        private const string InvalidVideoExtensionOrSizeMessage =
+            "There was an error with the video upload. Contact us or check whether your video format is supported and the size is acceptable.";
+
+        private static readonly HashSet<string> AllowedVideoExtensions = new HashSet<string> { "video/mp4", "video/webm", "video/ogg" };
 
         public PostsService(ApplicationDbContext context, IMapper mapper)
         {
@@ -175,12 +181,19 @@ namespace WeLearn.Services
         {
             foreach (var formFile in postInputModel.Files)
             {
-                if (formFile.Length > MinimumFileSizeInBytes && formFile.Length < MaximumFileSizeInBytes)
+                var isFileSizeAcceptable = formFile.Length > SharedConstants.MinimumFileSizeInBytes && formFile.Length < SharedConstants.MaximumFileSizeInBytes;
+                //var isFileFormatAcceptable = false;
+
+                if (isFileSizeAcceptable)
                 {
                     var uniqueFileName = GetUniqueFileName(formFile.FileName);
                     string filePath2 = Path.Combine(uploadsMaterials, "temp", uniqueFileName);
                     using FileStream fileStream = new FileStream(filePath2, FileMode.Create);
                     await formFile.CopyToAsync(fileStream);
+                }
+                else
+                {
+                    throw new InvalidOperationException(InvalidFileSizeMessage);
                 }
             }
         }
@@ -188,21 +201,32 @@ namespace WeLearn.Services
         public async Task<Video> UploadVideoAsync<T>(T postInputModel, dynamic environmentWebRootPath) where T : IPostModel
         {
             var video = postInputModel.Video;
-            string uniqueFileNameVideo = null;
+            var isVideoFormatAllowed = AllowedVideoExtensions.Contains(video.ContentType);
+            var isVideWithAcceptableSize = video.Length > SharedConstants.MinimumVideoSizeInBytes && video.Length < SharedConstants.MaximumVideoSizeInBytes;
 
-            if (video.Length > MinimumVideoSizeInBytes && video.Length < MaximumVideoSizeInBytes)
+            if (video != null && isVideoFormatAllowed && isVideWithAcceptableSize)
             {
-                uniqueFileNameVideo = GetUniqueFileName(video.FileName);
+                string uniqueFileNameVideo = GetUniqueFileName(video.FileName);
                 var uploadsVideos = Path.Combine(environmentWebRootPath, "uploads", "videos");
                 var filePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
                 await video.CopyToAsync(new FileStream(filePath, FileMode.Create));
+
+                var videoEntity = new Video
+                {
+                    VideoName = video.FileName,
+                    VideoContentType = video.ContentType,
+                    DateCreated = DateTime.UtcNow,
+                    Link = Path.Combine("\\uploads", "videos", uniqueFileNameVideo)
+                };
+
+                await context.Videos.AddAsync(videoEntity);
+                await context.SaveChangesAsync();
+                return videoEntity;
             }
 
-            var videoEntity = new Video { VideoName = video.FileName, DateCreated = DateTime.UtcNow, Link = Path.Combine("\\uploads", "videos", uniqueFileNameVideo) };
-            await context.Videos.AddAsync(videoEntity);
-            await context.SaveChangesAsync();
-            return videoEntity;
+            throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
         }
+
         public async Task DeletePostAsync(int id)
         {
             var post = await context.Posts.FirstOrDefaultAsync(x => x.PostId == id);
@@ -248,7 +272,5 @@ namespace WeLearn.Services
 
             return uniqueFileName;
         }
-
-
     }
 }

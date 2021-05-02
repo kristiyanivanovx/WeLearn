@@ -18,6 +18,8 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string VideoName { get; set; }
 
+        public string VideoContentType { get; set; }
+
         public string VideoLink { get; set; }
 
         public string ZippedFile { get; set; }

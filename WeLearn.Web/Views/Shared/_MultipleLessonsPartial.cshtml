@@ -8,7 +8,7 @@
                 <div class="card mb-3 card-style-20-rem">
                     <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
                         @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
-                        <source src="@item.VideoLink" type="video/mp4" />
+                        <source src="@item.VideoLink" type="@item.VideoContentType" />
                         <!-- Fallback for browsers that don't support the <video> element -->
                         <a href="@item.VideoLink" download>Download</a>
                     </video>

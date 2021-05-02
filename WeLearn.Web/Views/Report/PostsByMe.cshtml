@@ -11,7 +11,7 @@
                 <div class="card mb-3 card-style-20-rem">
                     <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@report.VideoName" data-poster="@report.VideoLink">
                         @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
-                        <source src="@report.VideoLink" type="video/mp4" />
+                        <source src="@report.VideoLink" type="@report.VideoContentType" />
                         <!-- Fallback for browsers that don't support the <video> element -->
                         <a href="@report.VideoLink" download>Download</a>
                     </video>

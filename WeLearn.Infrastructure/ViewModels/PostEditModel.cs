@@ -27,6 +27,7 @@ namespace WeLearn.Infrastructure.ViewModels
         public Grade Grade { get; set; }
 
         public string OldVideoLink { get; set; }
+        public string OldVideoContentType { get; set; }
 
         public string OldFilesLink { get; set; }
 

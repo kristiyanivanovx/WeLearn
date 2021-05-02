@@ -30,6 +30,8 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string PostVideoName { get; set; }
 
+        public string PostVideoContentType { get; set; }
+
         public string PostZippedFileLink { get; set; }
 
         public string PostCreatedByUsername { get; set; }

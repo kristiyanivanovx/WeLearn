@@ -6,7 +6,7 @@
 <div class="card mb-3 card-style-80-rem">
     <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.PostVideoName" data-poster="@Model.PostVideoLink">
         @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
-        <source src="@Model.PostVideoLink" type="video/mp4" />
+        <source src="@Model.PostVideoLink" type="@Model.PostVideoContentType" />
         <!-- Fallback for browsers that don't support the <video> element -->
         <a href="@Model.PostVideoLink" download>Download</a>
     </video>

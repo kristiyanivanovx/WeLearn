@@ -14,6 +14,9 @@ namespace WeLearn.Data.Models
         public string VideoName { get; set; }
 
         [Required]
+        public string VideoContentType { get; set; }
+
+        [Required]
         [MaxLength(250)]
         public string Link { get; set; }
 

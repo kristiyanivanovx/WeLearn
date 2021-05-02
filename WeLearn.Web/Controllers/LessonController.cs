@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 using WeLearn.Data.Models;
 using WeLearn.Infrastructure.ViewModels;
+using WeLearn.Infrastructure;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Controllers
@@ -69,6 +70,7 @@ namespace WeLearn.Controllers
 
         [HttpPost]
         [Authorize]
+        [RequestSizeLimit(SharedConstants.MaximumVideoSizeInBytes)]
         public async Task<IActionResult> Create(PostInputModel postInputModel)
         {
             if (!ModelState.IsValid)
@@ -103,6 +105,7 @@ namespace WeLearn.Controllers
 
         [HttpPost]
         [Authorize]
+        [RequestSizeLimit(SharedConstants.MaximumVideoSizeInBytes)]
         public async Task<IActionResult> Edit(PostEditModel postEditModel)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);

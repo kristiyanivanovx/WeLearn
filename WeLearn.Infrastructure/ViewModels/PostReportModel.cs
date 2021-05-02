@@ -27,6 +27,8 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string VideoLink { get; set; }
 
+        public string VideoContentType { get; set; }
+
         public string ZippedFile { get; set; }
 
         [MaxLength(250)]

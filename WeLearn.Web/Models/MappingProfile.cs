@@ -42,6 +42,7 @@ namespace WeLearn.Services
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName))
                 .ForMember(dest => dest.VideoName, opt => opt.MapFrom(src => src.Video.VideoName))
                 .ForMember(dest => dest.VideoLink, opt => opt.MapFrom(src => src.Video.Link))
+                .ForMember(dest => dest.VideoContentType, opt => opt.MapFrom(src => src.Video.VideoContentType))
                 .ForMember(dest => dest.ZippedFile, opt => opt.MapFrom(src => src.Material.Link));
 
             CreateMap<Post, PostReportModel>()
@@ -98,8 +99,9 @@ namespace WeLearn.Services
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
                 .ForMember(dest => dest.PostId, opt => opt.MapFrom(src => src.PostId))
                 .ForMember(dest => dest.PostName, opt => opt.MapFrom(src => src.Post.PostName))
-                .ForMember(dest => dest.PostVideoLink, opt => opt.MapFrom(src => src.Post.Video.VideoName))
-                .ForMember(dest => dest.PostVideoName, opt => opt.MapFrom(src => src.Post.Video.Link))
+                .ForMember(dest => dest.PostVideoLink, opt => opt.MapFrom(src => src.Post.Video.Link))
+                .ForMember(dest => dest.PostVideoName, opt => opt.MapFrom(src => src.Post.Video.VideoName))
+                .ForMember(dest => dest.PostVideoContentType, opt => opt.MapFrom(src => src.Post.Video.VideoContentType))
                 .ForMember(dest => dest.PostZippedFileLink, opt => opt.MapFrom(src => src.Post.Material.Link))
                 .ForMember(dest => dest.PostCreatedByUsername, opt => opt.MapFrom(src => src.Post.ApplicationUser.UserName))
                 .ForMember(dest => dest.PostGrade, opt => opt.MapFrom(src => src.Post.Grade))

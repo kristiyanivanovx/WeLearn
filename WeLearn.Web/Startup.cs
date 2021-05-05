@@ -50,38 +50,43 @@ namespace WeLearn
 
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
 
-            if (WebHostEnvironment.IsDevelopment())
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+            //if (WebHostEnvironment.IsDevelopment())
+            //{
+            //    services.AddDbContext<ApplicationDbContext>(options =>
+            //        options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
-                services.AddDatabaseDeveloperPageExceptionFilter();
-            }
-            else
-            {
-                // https://github.com/jincod/dotnetcore-buildpack/issues/33#issuecomment-409935057
-                // Heroku provides PostgreSQL connection URL via env variable
-                //parse database URL. Format is postgres://<username>:<password>@<host>:<port>/<dbname>
-                var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            //    services.AddDatabaseDeveloperPageExceptionFilter();
+            //}
+            //else
+            //{
+            //    // https://github.com/jincod/dotnetcore-buildpack/issues/33#issuecomment-409935057
+            //    // Heroku provides PostgreSQL connection URL via env variable
+            //    //parse database URL. Format is postgres://<username>:<password>@<host>:<port>/<dbname>
+            //    var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
-                // Parse connection URL to connection string for Npgsql
-                connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
+            //    // Parse connection URL to connection string for Npgsql
+            //    connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
 
-                var pgUserPass = connectionUrl.Split("@")[0];
-                var pgHostPortDb = connectionUrl.Split("@")[1];
-                var pgHostPort = pgHostPortDb.Split("/")[0];
+            //    var pgUserPass = connectionUrl.Split("@")[0];
+            //    var pgHostPortDb = connectionUrl.Split("@")[1];
+            //    var pgHostPort = pgHostPortDb.Split("/")[0];
 
-                var pgDb = pgHostPortDb.Split("/")[1];
-                var pgUser = pgUserPass.Split(":")[0];
-                var pgPass = pgUserPass.Split(":")[1];
-                var pgHost = pgHostPort.Split(":")[0];
-                var pgPort = pgHostPort.Split(":")[1];
+            //    var pgDb = pgHostPortDb.Split("/")[1];
+            //    var pgUser = pgUserPass.Split(":")[0];
+            //    var pgPass = pgUserPass.Split(":")[1];
+            //    var pgHost = pgHostPort.Split(":")[0];
+            //    var pgPort = pgHostPort.Split(":")[1];
 
-                var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
-                Debug.WriteLine("#=> " + connectionString);
-                Console.WriteLine("#=> " + connectionString);
-                services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-            }
+            //    var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+            //    Debug.WriteLine("#=> " + connectionString);
+            //    Console.WriteLine("#=> " + connectionString);
+            //    services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+            //}
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                   options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddDefaultIdentity<IdentityUser>(options =>
             //services.AddIdentity<ApplicationUser, IdentityRole>(options =>

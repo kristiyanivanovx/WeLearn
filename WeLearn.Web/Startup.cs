@@ -40,13 +40,37 @@ namespace WeLearn
             services.AddControllersWithViews(options =>
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+            if (WebHostEnvironment.IsDevelopment())
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
+                services.AddDatabaseDeveloperPageExceptionFilter();
+            }
+            else
+            {
+                // https://github.com/jincod/dotnetcore-buildpack/issues/33#issuecomment-409935057
+                // Heroku provides PostgreSQL connection URL via env variable
+                var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                // Parse connection URL to connection string for Npgsql
+                connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
+
+                var pgUserPass = connectionUrl.Split("@")[0];
+                var pgHostPortDb = connectionUrl.Split("@")[1];
+                var pgHostPort = pgHostPortDb.Split("/")[0];
+
+                var pgDb = pgHostPortDb.Split("/")[1];
+                var pgUser = pgUserPass.Split(":")[0];
+                var pgPass = pgUserPass.Split(":")[1];
+                var pgHost = pgHostPort.Split(":")[0];
+                var pgPort = pgHostPort.Split(":")[1];
+
+                var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+                services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+            }
 
             //services.AddDefaultIdentity<IdentityUser>(options =>
             //services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -59,6 +83,9 @@ namespace WeLearn
             })
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<ILessonsRepository, LessonRepository>();
+            services.AddTransient<IRepository<SoftDeleteable>, Repository<SoftDeleteable>>();
 
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<ILessonsService, LesonsService>();

@@ -77,7 +77,7 @@ namespace WeLearn
                 var pgHost = pgHostPort.Split(":")[0];
                 var pgPort = pgHostPort.Split(":")[1];
 
-                var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+                var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
                 Debug.WriteLine("#=> " + connectionString);
                 Console.WriteLine("#=> " + connectionString);
                 services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));

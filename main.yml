@@ -7,7 +7,7 @@ on:
     - release/*
 
 jobs:
-  build_welearn:
+  build_welearn-bg:
     # runs-on: ubuntu-16.04
     runs-on: ubuntu-latest
     steps:
@@ -15,7 +15,7 @@ jobs:
     - name: Build and deploy the Docker image
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        APP_NAME: ${{ 'welearn' }}
+        APP_NAME: ${{ 'welearn-bg' }}
       run: |
         cd ./WeLearn/HerokuContainer
         docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com

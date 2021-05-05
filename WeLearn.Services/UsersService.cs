@@ -1,5 +1,5 @@
 ﻿using WeLearn.Services.Interfaces;
-using WeLearn.Data.Context;
+using WeLearn.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -7,14 +7,10 @@ namespace WeLearn.Services
 {
     public class UsersService : IUsersService
     {
-        //private readonly UserManager<ApplicationUser> userManager;
         private readonly ApplicationDbContext context;
 
-        public UsersService(
-            //UserManager<ApplicationUser> userManager,
-            ApplicationDbContext context)
+        public UsersService(ApplicationDbContext context)
         {
-            //this.userManager = userManager;
             this.context = context;
         }
 

@@ -1,49 +1,48 @@
-﻿@model IEnumerable<PostViewModel>
+﻿@model IEnumerable<LessonViewModel>
 
-<div class="card-deck">
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div>
-                <div class="card mb-3 card-style-20-rem">
-                    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
-                        @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
-                        <source src="@item.VideoLink" type="@item.VideoContentType" />
-                        <!-- Fallback for browsers that don't support the <video> element -->
-                        <a href="@item.VideoLink" download>Download</a>
-                    </video>
-                    <div class="card-body">
-                        <h5 class="card-title">@item.PostName</h5>
-                        <hr />
-                        <p class="card-text">@item.Description</p>
-                        <p class="card-text">
-                            <small class="text-muted">Created by - @item.CreatedByUserName | </small>
-                            <small class="text-muted">Category - @item.CategoryName | </small>
-                            <small class="text-muted">Grade - @item.Grade</small>
-                        </p>
-                        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-dark">
-                            <i class="fas fa-info"></i> Details
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4">
+            <div class="card">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
+                    @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
+                    <source src="@item.VideoLink" type="video/mp4" />
+                    <!-- Fallback for browsers that don't support the <video> element -->
+                    <a href="@item.VideoLink" download>Download</a>
+                </video>
+                <div class="card-body">
+                    <h5 class="card-title">@item.LessonName</h5>
+                    <hr />
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-text">
+                        @{ var createdBy = item.CreatedByUserName == null ? "Deleted User" : item.CreatedByUserName; }
+                        <small class="text-muted">Created by - @createdBy | </small>
+                        <small class="text-muted">Category - @item.CategoryName | </small>
+                        <small class="text-muted">Grade - @item.Grade</small>
+                    </p>
+                    <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-dark">
+                        <i class="fas fa-info"></i> Details
+                    </a>
+                    @if (User.Identity.Name == item.CreatedByUserName)
+                    {
+                        <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-edit"></i> Edit
                         </a>
-                        @if (User.Identity.Name == item.CreatedByUserName)
-                        {
-                            <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-success">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            @* instead of modal code *@
-                            <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </a>
-                            @* *@
-                        }
-                        <a asp-controller="Lesson" asp-action="Download" asp-route-link="@item.ZippedFile" class="btn btn-sm btn-outline-info">
-                            <i class="fas fa-arrow-down"></i> Download Resources
+                        @* instead of modal code *@
+                        <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Delete
                         </a>
-                        <a asp-controller="Report" asp-action="Post" asp-route-id="@item.PostId" class="btn btn-sm btn-outline-warning">
-                            <i class="far fa-flag"></i> Report
-                        </a>
-                    </div>
+                        @* *@
+                    }
+                    <a asp-controller="Lesson" asp-action="Download" asp-route-link="@item.ZippedFile" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-arrow-down"></i> Download Resources
+                    </a>
+                    <a asp-controller="Report" asp-action="Lesson" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-warning">
+                        <i class="far fa-flag"></i> Report
+                    </a>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>

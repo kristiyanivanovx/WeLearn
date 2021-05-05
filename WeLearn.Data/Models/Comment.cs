@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WeLearn.Data.Models.Base;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Interfaces;
 
 namespace WeLearn.Data.Models
 {
-    public class Comment : BaseModel, ISoftDeleteable
+    public class Comment : SoftDeleteable, IMetadataHaveable
     {
-        public int CommentId { get; set; }
-
         [Required]
         [MaxLength(1000)]
         public string Content { get; set; }
@@ -16,10 +14,12 @@ namespace WeLearn.Data.Models
 
         public ApplicationUser ApplicationUser { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public int LessonId { get; set; }
 
-        public int PostId { get; set; }
+        public Lesson Lesson { get; set; }
 
-        public Post Post { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public DateTime? DateDeleted { get; set; }
     }
 }

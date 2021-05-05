@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WeLearn.Data.Models.Report>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<partial name="_AdminPartial" />
+
+<h1>Index</h1>
+<p class="text-muted">
+    Note: if the column "Lesson" is present/filled that means the type of report is a lesson report and vice versa,
+    if the column "Comment" is present/filled that means the type of report is a comment report.
+</p>
+<p>
+    @*<a asp-action="Create" class="btn btn-sm btn-outline-success">Create New</a>*@
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lesson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.Name)
+                    <hr />
+                    @Html.DisplayFor(modelItem => item.Lesson.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDeleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    @if (item?.LessonId != null)
+                    {
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary">Watch</a>
+                    }
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success">Edit / Soft delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Hard Delete (Irreversible)</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

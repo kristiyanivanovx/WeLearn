@@ -1,0 +1,15 @@
+﻿@model LessonsNavigationDropdownModel
+
+<div class="dropdown">
+    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        All categories
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @foreach (var category in Model.Categories)
+        {
+            <a class="dropdown-item" asp-controller="Lesson" asp-action="ByCategory" asp-route-categoryname="@category.Name" >
+                @category.Name
+            </a>
+         }
+        </div>
+</div>

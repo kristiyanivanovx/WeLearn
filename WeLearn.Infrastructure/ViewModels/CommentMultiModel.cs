@@ -9,7 +9,7 @@ namespace WeLearn.Infrastructure.ViewModels
     {
         public int CommentId { get; set; }
 
-        public int PostId { get; set; }
+        public int LessonId { get; set; }
 
         [Display(Name = "Content")]
         [Required(ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
@@ -18,22 +18,22 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string ApplicationUserId { get; set; }
 
-        public string PostName { get; set; }
+        public string LessonName { get; set; }
 
-        public string PostDescription { get; set; }
+        public string LessonDescription { get; set; }
 
-        public Grade PostGrade { get; set; }
+        public Grade LessonGrade { get; set; }
 
-        public string PostCategoryName { get; set; }
+        public string LessonCategoryName { get; set; }
 
-        public string PostVideoLink { get; set; }
+        public string LessonVideoLink { get; set; }
 
-        public string PostVideoName { get; set; }
+        public string LessonVideoName { get; set; }
 
-        public string PostVideoContentType { get; set; }
+        public string LessonVideoContentType { get; set; }
 
-        public string PostZippedFileLink { get; set; }
+        public string LessonZippedFileLink { get; set; }
 
-        public string PostCreatedByUsername { get; set; }
+        public string LessonCreatedByUsername { get; set; }
     }
 }

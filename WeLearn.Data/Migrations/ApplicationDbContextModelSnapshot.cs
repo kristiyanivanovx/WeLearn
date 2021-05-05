@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using WeLearn.Data.Context;
+using WeLearn.Data;
 
 namespace WeLearn.Data.Migrations
 {
@@ -18,32 +18,6 @@ namespace WeLearn.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -149,6 +123,38 @@ namespace WeLearn.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("WeLearn.Data.Models.ApplicationRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DateDeleted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
             modelBuilder.Entity("WeLearn.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -161,29 +167,12 @@ namespace WeLearn.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DateDeleted")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -234,17 +223,15 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae1d970f-304d-428d-8c8c-b7927e87f40a",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "user@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Firstname",
-                            LastName = "Lastname",
+                            ConcurrencyStamp = "b0bc5f7e-aab2-47df-b89b-f6ecfa4d2626",
+                            Email = "default@gmail.com",
+                            EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEFsPAQ0HyLcQNB+8I9DpLiuPGu/Y4/VuD19eiAA6EFjlJUoKFdK3atv9eQLJdCdINw==",
+                            NormalizedEmail = "DEFAULT@GMAIL.COM",
+                            NormalizedUserName = "USERNAME",
+                            PasswordHash = "AQAAAAEAACcQAAAAELvBQ0wJw5Vy2RLZcsC+Lkv4VcOgN5iDTekbET1AQjZL77Yln/SKyPgxQvNVSEXeuw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "edf212d4-f29b-4f6b-9f4b-2b5c299bfea4",
+                            SecurityStamp = "2a594a73-47ee-41b1-9462-422cfaeed6d3",
                             TwoFactorEnabled = false,
                             UserName = "Username"
                         });
@@ -252,15 +239,10 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("WeLearn.Data.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("CategoryName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp without time zone");
@@ -268,138 +250,143 @@ namespace WeLearn.Data.Migrations
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
-                    b.HasKey("CategoryId");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            CategoryId = 1,
-                            CategoryName = "Bulgarian Language",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4470),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 1,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(273),
+                            IsDeleted = false,
+                            Name = "Bulgarian Language"
                         },
                         new
                         {
-                            CategoryId = 2,
-                            CategoryName = "Mathematics",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4870),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 2,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1161),
+                            IsDeleted = false,
+                            Name = "Mathematics"
                         },
                         new
                         {
-                            CategoryId = 3,
-                            CategoryName = "Informatics",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4873),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 3,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1165),
+                            IsDeleted = false,
+                            Name = "Informatics"
                         },
                         new
                         {
-                            CategoryId = 4,
-                            CategoryName = "IT",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4875),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 4,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1167),
+                            IsDeleted = false,
+                            Name = "IT"
                         },
                         new
                         {
-                            CategoryId = 5,
-                            CategoryName = "Geography",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4877),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 5,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1169),
+                            IsDeleted = false,
+                            Name = "Geography"
                         },
                         new
                         {
-                            CategoryId = 6,
-                            CategoryName = "Physical Education and Sport",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4878),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 6,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1170),
+                            IsDeleted = false,
+                            Name = "Physical Education and Sport"
                         },
                         new
                         {
-                            CategoryId = 7,
-                            CategoryName = "Literature",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4879),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 7,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1172),
+                            IsDeleted = false,
+                            Name = "Literature"
                         },
                         new
                         {
-                            CategoryId = 8,
-                            CategoryName = "Civic Education",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4881),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 8,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1174),
+                            IsDeleted = false,
+                            Name = "Civic Education"
                         },
                         new
                         {
-                            CategoryId = 9,
-                            CategoryName = "English Language",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4882),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 9,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1177),
+                            IsDeleted = false,
+                            Name = "English Language"
                         },
                         new
                         {
-                            CategoryId = 10,
-                            CategoryName = "Russian Language",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4883),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 10,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1178),
+                            IsDeleted = false,
+                            Name = "Russian Language"
                         },
                         new
                         {
-                            CategoryId = 11,
-                            CategoryName = "History",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4885),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 11,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1179),
+                            IsDeleted = false,
+                            Name = "History"
                         },
                         new
                         {
-                            CategoryId = 12,
-                            CategoryName = "Biology",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4886),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 12,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1181),
+                            IsDeleted = false,
+                            Name = "Biology"
                         },
                         new
                         {
-                            CategoryId = 13,
-                            CategoryName = "Chemistry",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4887),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 13,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1182),
+                            IsDeleted = false,
+                            Name = "Chemistry"
                         },
                         new
                         {
-                            CategoryId = 14,
-                            CategoryName = "Music",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4888),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 14,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1183),
+                            IsDeleted = false,
+                            Name = "Music"
                         },
                         new
                         {
-                            CategoryId = 15,
-                            CategoryName = "Art",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4889),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 15,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1185),
+                            IsDeleted = false,
+                            Name = "Art"
                         },
                         new
                         {
-                            CategoryId = 16,
-                            CategoryName = "Technologies and Entrepreneurship",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4890),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 16,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1186),
+                            IsDeleted = false,
+                            Name = "Technologies and Entrepreneurship"
                         },
                         new
                         {
-                            CategoryId = 17,
-                            CategoryName = "Others",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(4892),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Id = 17,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(1188),
+                            IsDeleted = false,
+                            Name = "Others"
                         });
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -418,220 +405,53 @@ namespace WeLearn.Data.Migrations
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("PostId")
+                    b.Property<int>("LessonId")
                         .HasColumnType("integer");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("LessonId");
 
                     b.ToTable("Comments");
 
                     b.HasData(
                         new
                         {
-                            CommentId = 1,
+                            Id = 1,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             Content = "I like it!",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 863, DateTimeKind.Utc).AddTicks(7146),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 213, DateTimeKind.Utc).AddTicks(2701),
                             IsDeleted = false,
-                            PostId = 1
+                            LessonId = 1
                         },
                         new
                         {
-                            CommentId = 2,
+                            Id = 2,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             Content = "Good, but can be imroved.",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 863, DateTimeKind.Utc).AddTicks(8894),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 213, DateTimeKind.Utc).AddTicks(4931),
                             IsDeleted = false,
-                            PostId = 2
+                            LessonId = 2
                         },
                         new
                         {
-                            CommentId = 3,
+                            Id = 3,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             Content = "This is very nice.",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 863, DateTimeKind.Utc).AddTicks(8898),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 213, DateTimeKind.Utc).AddTicks(4937),
                             IsDeleted = false,
-                            PostId = 3
+                            LessonId = 3
                         });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Material", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.Lesson", b =>
                 {
-                    b.Property<int>("MaterialId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DateDeleted")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.Property<string>("MaterialName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.HasKey("MaterialId");
-
-                    b.ToTable("Materials");
-
-                    b.HasData(
-                        new
-                        {
-                            MaterialId = 1,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(1858),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Teaching"
-                        },
-                        new
-                        {
-                            MaterialId = 2,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2874),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Teaching"
-                        },
-                        new
-                        {
-                            MaterialId = 3,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2877),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Coding"
-                        },
-                        new
-                        {
-                            MaterialId = 4,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2878),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Office Suite"
-                        },
-                        new
-                        {
-                            MaterialId = 5,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2880),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Ukraine"
-                        },
-                        new
-                        {
-                            MaterialId = 6,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2881),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Football"
-                        },
-                        new
-                        {
-                            MaterialId = 7,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2882),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Literature"
-                        },
-                        new
-                        {
-                            MaterialId = 8,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2883),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Human Rights"
-                        },
-                        new
-                        {
-                            MaterialId = 9,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2884),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Modal Verbs"
-                        },
-                        new
-                        {
-                            MaterialId = 10,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2888),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Russian Language"
-                        },
-                        new
-                        {
-                            MaterialId = 11,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2889),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "History"
-                        },
-                        new
-                        {
-                            MaterialId = 12,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2890),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Biology"
-                        },
-                        new
-                        {
-                            MaterialId = 13,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2891),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Chemistry"
-                        },
-                        new
-                        {
-                            MaterialId = 14,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2892),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Music"
-                        },
-                        new
-                        {
-                            MaterialId = 15,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2893),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Painting"
-                        },
-                        new
-                        {
-                            MaterialId = 16,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(2895),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Link = "...",
-                            MaterialName = "Entrepreneurship"
-                        });
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Post", b =>
-                {
-                    b.Property<int>("PostId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -648,9 +468,6 @@ namespace WeLearn.Data.Migrations
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1500)
@@ -665,7 +482,7 @@ namespace WeLearn.Data.Migrations
                     b.Property<int>("MaterialId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("PostName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
@@ -673,7 +490,7 @@ namespace WeLearn.Data.Migrations
                     b.Property<int>("VideoId")
                         .HasColumnType("integer");
 
-                    b.HasKey("PostId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -683,238 +500,383 @@ namespace WeLearn.Data.Migrations
 
                     b.HasIndex("VideoId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Lessons");
 
                     b.HasData(
                         new
                         {
-                            PostId = 1,
+                            Id = 1,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(9976),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(7049),
                             Description = "A lecture about pronouns and when to use them.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 1,
-                            PostName = "Pronouns, types",
+                            Name = "Pronouns, types",
                             VideoId = 1
                         },
                         new
                         {
-                            PostId = 2,
+                            Id = 2,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(730),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8549),
                             Description = "A natural number greater than 1 that is not a product of two smaller natural numbers.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 2,
-                            PostName = "Prime numbers",
+                            Name = "Prime numbers",
                             VideoId = 2
                         },
                         new
                         {
-                            PostId = 3,
+                            Id = 3,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 3,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(733),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8555),
                             Description = "About the C# language and the .NET development Platform. First steps.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 3,
-                            PostName = "Developing with C#",
+                            Name = "Developing with C#",
                             VideoId = 3
                         },
                         new
                         {
-                            PostId = 4,
+                            Id = 4,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 4,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(735),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8557),
                             Description = "Data analysis.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 4,
-                            PostName = "Excel",
+                            Name = "Excel",
                             VideoId = 4
                         },
                         new
                         {
-                            PostId = 5,
+                            Id = 5,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 5,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(736),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8558),
                             Description = "Eastern European Countries. Their iconomic growth and political stances. Ukraine.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 5,
-                            PostName = "Ukraine, Eastern Europe",
+                            Name = "Ukraine, Eastern Europe",
                             VideoId = 5
                         },
                         new
                         {
-                            PostId = 6,
+                            Id = 6,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 6,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(737),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8560),
                             Description = "Kicking a ball on the field.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 6,
-                            PostName = "Football",
+                            Name = "Football",
                             VideoId = 6
                         },
                         new
                         {
-                            PostId = 7,
+                            Id = 7,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 7,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(827),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8561),
                             Description = "A peek into Shakespere's art.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 7,
-                            PostName = "William Shakespere's 106 sonnet",
+                            Name = "William Shakespere's 106 sonnet",
                             VideoId = 7
                         },
                         new
                         {
-                            PostId = 8,
+                            Id = 8,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 8,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(829),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8564),
                             Description = "A lecture about rights of the people.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 8,
-                            PostName = "Human rights",
+                            Name = "Human rights",
                             VideoId = 8
                         },
                         new
                         {
-                            PostId = 9,
+                            Id = 9,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 9,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(830),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8565),
                             Description = "We use modals to show if we believe something is certain, possible or impossible.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 9,
-                            PostName = "Modal verbs",
+                            Name = "Modal verbs",
                             VideoId = 9
                         },
                         new
                         {
-                            PostId = 10,
+                            Id = 10,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 10,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(831),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8566),
                             Description = "A lecture about the verbs of motion and when to use them.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 10,
-                            PostName = "Verbs of motion",
+                            Name = "Verbs of motion",
                             VideoId = 10
                         },
                         new
                         {
-                            PostId = 11,
+                            Id = 11,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 11,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(832),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8568),
                             Description = "A brief peek into our ancestors' life.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 11,
-                            PostName = "Peek in the past",
+                            Name = "Peek in the past",
                             VideoId = 11
                         },
                         new
                         {
-                            PostId = 12,
+                            Id = 12,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 12,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(834),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8573),
                             Description = "A lesson about the different types of cells and their differences.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 12,
-                            PostName = "Cells. Prokaryotic and Eukaryotic",
+                            Name = "Cells. Prokaryotic and Eukaryotic",
                             VideoId = 12
                         },
                         new
                         {
-                            PostId = 13,
+                            Id = 13,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 13,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(835),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8575),
                             Description = "A lesson about acids, they effects on the environtment and usage cases.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 13,
-                            PostName = "Acids, Bases and pH",
+                            Name = "Acids, Bases and pH",
                             VideoId = 13
                         },
                         new
                         {
-                            PostId = 14,
+                            Id = 14,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 14,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(837),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8576),
                             Description = "Genres, instruments and notation.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 14,
-                            PostName = "Popular music",
+                            Name = "Popular music",
                             VideoId = 14
                         },
                         new
                         {
-                            PostId = 15,
+                            Id = 15,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 15,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(838),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8578),
                             Description = "Pigments, brushes, bases, matrices.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 15,
-                            PostName = "Painting",
+                            Name = "Painting",
                             VideoId = 15
                         },
                         new
                         {
-                            PostId = 16,
+                            Id = 16,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 16,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 865, DateTimeKind.Utc).AddTicks(840),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(8579),
                             Description = "Creating a new business, bearing most of the risks and enjoying most of the rewards.",
                             Grade = 0,
                             IsDeleted = false,
                             MaterialId = 16,
-                            PostName = "Entrepreneurship",
+                            Name = "Entrepreneurship",
                             VideoId = 16
+                        });
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Material", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DateDeleted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Materials");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(9331),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Teaching"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(839),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Teaching"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(843),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Coding"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(845),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Office Suite"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(846),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Ukraine"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(847),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Football"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(848),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Literature"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(849),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Human Rights"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(851),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Modal Verbs"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(852),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Russian Language"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(853),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "History"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(854),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Biology"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(855),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Chemistry"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(857),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(858),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Painting"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 215, DateTimeKind.Utc).AddTicks(859),
+                            IsDeleted = false,
+                            Link = "...",
+                            Name = "Entrepreneurship"
                         });
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.Report", b =>
                 {
-                    b.Property<int>("ReportId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -931,12 +893,6 @@ namespace WeLearn.Data.Migrations
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DateResolved")
-                        .HasColumnType("timestamp without time zone");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(2000)
@@ -945,10 +901,7 @@ namespace WeLearn.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsResolved")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("PostId")
+                    b.Property<int?>("LessonId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Subject")
@@ -956,58 +909,56 @@ namespace WeLearn.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.HasKey("ReportId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CommentId");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("LessonId");
 
                     b.ToTable("Reports");
 
                     b.HasData(
                         new
                         {
-                            ReportId = 1,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(177),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 1,
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 213, DateTimeKind.Utc).AddTicks(5948),
                             Description = "Bad language in lesson's title.",
                             IsDeleted = false,
-                            IsResolved = false,
-                            PostId = 5,
+                            LessonId = 5,
                             Subject = "The language used in title"
                         },
                         new
                         {
-                            ReportId = 2,
+                            Id = 2,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(1406),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 213, DateTimeKind.Utc).AddTicks(7769),
                             Description = "This username is unacceptable.",
                             IsDeleted = false,
-                            IsResolved = false,
                             Subject = "Bad words in username"
                         },
                         new
                         {
-                            ReportId = 3,
+                            Id = 3,
                             CommentId = 1,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(1800),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 213, DateTimeKind.Utc).AddTicks(8183),
                             Description = "Bad language in comment.",
                             IsDeleted = false,
-                            IsResolved = false,
                             Subject = "Swearing in comment"
                         });
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.Video", b =>
                 {
-                    b.Property<int>("VideoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp without time zone");
@@ -1015,177 +966,173 @@ namespace WeLearn.Data.Migrations
                     b.Property<DateTime?>("DateDeleted")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateModified")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.Property<string>("VideoContentType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("VideoName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.HasKey("VideoId");
+                    b.HasKey("Id");
 
                     b.ToTable("Videos");
 
                     b.HasData(
                         new
                         {
-                            VideoId = 1,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(6089),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 1,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(2076),
+                            IsDeleted = false,
                             Link = "/uploads/videos/modal-verbs.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Teaching"
+                            Name = "Teaching"
                         },
                         new
                         {
-                            VideoId = 2,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7369),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 2,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4062),
+                            IsDeleted = false,
                             Link = "/uploads/videos/man-teaching.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Teaching"
+                            Name = "Teaching"
                         },
                         new
                         {
-                            VideoId = 3,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7372),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 3,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4066),
+                            IsDeleted = false,
                             Link = "/uploads/videos/coding.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Coding"
+                            Name = "Coding"
                         },
                         new
                         {
-                            VideoId = 4,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7373),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 4,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4068),
+                            IsDeleted = false,
                             Link = "/uploads/videos/office-suite.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Office Suite"
+                            Name = "Office Suite"
                         },
                         new
                         {
-                            VideoId = 5,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7375),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 5,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4069),
+                            IsDeleted = false,
                             Link = "/uploads/videos/eastern-europe.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Ukraine"
+                            Name = "Ukraine"
                         },
                         new
                         {
-                            VideoId = 6,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7376),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 6,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4071),
+                            IsDeleted = false,
                             Link = "/uploads/videos/football.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Football"
+                            Name = "Football"
                         },
                         new
                         {
-                            VideoId = 7,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7377),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 7,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4072),
+                            IsDeleted = false,
                             Link = "/uploads/videos/literature.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Literature"
+                            Name = "Literature"
                         },
                         new
                         {
-                            VideoId = 8,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7379),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 8,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4073),
+                            IsDeleted = false,
                             Link = "/uploads/videos/human-rights.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Human Rights"
+                            Name = "Human Rights"
                         },
                         new
                         {
-                            VideoId = 9,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7380),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 9,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4075),
+                            IsDeleted = false,
                             Link = "/uploads/videos/modal-verbs.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Modal Verbs"
+                            Name = "Modal Verbs"
                         },
                         new
                         {
-                            VideoId = 10,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7381),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 10,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4076),
+                            IsDeleted = false,
                             Link = "/uploads/videos/russian-language.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Russian Language"
+                            Name = "Russian Language"
                         },
                         new
                         {
-                            VideoId = 11,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7382),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 11,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4078),
+                            IsDeleted = false,
                             Link = "/uploads/videos/history.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "History"
+                            Name = "History"
                         },
                         new
                         {
-                            VideoId = 12,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7383),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 12,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4080),
+                            IsDeleted = false,
                             Link = "/uploads/videos/biology.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Biology"
+                            Name = "Biology"
                         },
                         new
                         {
-                            VideoId = 13,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7384),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 13,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4082),
+                            IsDeleted = false,
                             Link = "/uploads/videos/chemistry.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Chemistry"
+                            Name = "Chemistry"
                         },
                         new
                         {
-                            VideoId = 14,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7386),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 14,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4083),
+                            IsDeleted = false,
                             Link = "/uploads/videos/music.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Music"
+                            Name = "Music"
                         },
                         new
                         {
-                            VideoId = 15,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7387),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 15,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4086),
+                            IsDeleted = false,
                             Link = "/uploads/videos/painting.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Painting"
+                            Name = "Painting"
                         },
                         new
                         {
-                            VideoId = 16,
-                            DateCreated = new DateTime(2021, 5, 1, 23, 56, 42, 864, DateTimeKind.Utc).AddTicks(7388),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Id = 16,
+                            ContentType = "video/mp4",
+                            DateCreated = new DateTime(2021, 5, 4, 17, 32, 31, 214, DateTimeKind.Utc).AddTicks(4087),
+                            IsDeleted = false,
                             Link = "/uploads/videos/entrepreneurship.mp4",
-                            VideoContentType = "video/mp4",
-                            VideoName = "Entrepreneurship"
+                            Name = "Entrepreneurship"
                         });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("WeLearn.Data.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1212,7 +1159,7 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("WeLearn.Data.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1238,27 +1185,29 @@ namespace WeLearn.Data.Migrations
                 {
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WeLearn.Data.Models.Post", "Post")
+                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("PostId")
+                        .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
 
-                    b.Navigation("Post");
+                    b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Post", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.Lesson", b =>
                 {
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Posts")
-                        .HasForeignKey("ApplicationUserId");
+                        .WithMany("Lessons")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("WeLearn.Data.Models.Category", "Category")
-                        .WithMany("Posts")
+                        .WithMany("Lessons")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1288,35 +1237,38 @@ namespace WeLearn.Data.Migrations
                 {
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Reports")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("WeLearn.Data.Models.Comment", "Comment")
                         .WithMany()
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WeLearn.Data.Models.Post", "Post")
+                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
                         .WithMany()
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Comment");
 
-                    b.Navigation("Post");
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Posts");
+                    b.Navigation("Lessons");
 
                     b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.Category", b =>
                 {
-                    b.Navigation("Posts");
+                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

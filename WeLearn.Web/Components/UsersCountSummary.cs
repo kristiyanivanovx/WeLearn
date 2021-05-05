@@ -1,21 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using WeLearn.Data.Context;
+using System.Threading.Tasks;
+using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.Components
 {
     public class UsersCountSummary : ViewComponent
     {
-        private readonly ApplicationDbContext context;
+        private readonly IViewComponentsService viewComponentsService;
 
-        public UsersCountSummary(ApplicationDbContext context)
+        public UsersCountSummary(IViewComponentsService viewComponentsService)
         {
-            this.context = context;
+            this.viewComponentsService = viewComponentsService;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var userCount = context.Users.Count();
+            int userCount = await viewComponentsService.GetUsersCountAsync();
             return View(userCount);
         }
     }

@@ -8,16 +8,20 @@ namespace WeLearn.Services
 {
     public interface IReportsService
     {
+        Task EditLessonReportAsync(LessonReportModel model);
+
+        Task<IEnumerable<LessonReportModel>> CreatedByMeToLessonReportVMAsync(string userId);
+
+        Task<IEnumerable<CommentReportModel>> CreatedByMeToCommentReportVMAsync(string userId);
+
         Task<Report> GetReportByIdToReportAsync(int reportId);
 
-        Task EditPostReportAsync(PostReportModel model);
+        Task EditCommentReportAsync(CommentReportModel commentReportModel);
 
-        Task DeletePostReportAsync(Report model);
+        Task DeleteReportAsync(Report model);
 
         Task CreateReportAsync<T>(T model) where T : IReportModel;
 
         Task<T> GetReportById<T>(int reportId) where T : IReportModel;
-
-        Task<IEnumerable<T>> CreatedByMeAsync<T>(string userId) where T : IReportModel;
     }
 }

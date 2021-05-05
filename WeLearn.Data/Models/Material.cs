@@ -1,22 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WeLearn.Data.Models.Base;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using WeLearn.Data.Models.Interfaces;
 
 namespace WeLearn.Data.Models
 {
-    public class Material : BaseModel
+    public class Material : SoftDeleteable, IMetadataHaveable
     {
-        public int MaterialId { get; set; }
-
         [Required]
         [MaxLength(250)]
-        public string MaterialName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [MaxLength(250)]
         public string Link { get; set; }
 
-        //public int PostId { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        //public Post Post { get; set; }
+        public DateTime? DateDeleted { get; set; }
     }
 }

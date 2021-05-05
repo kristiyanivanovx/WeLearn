@@ -5,7 +5,7 @@
         <h5 class="card-title">Leave your comment</h5>
         <hr />
         <form asp-controller="Comment" asp-action="Create" method="post">
-            <input asp-for="PostId" type="hidden" />
+            <input asp-for="LessonId" type="hidden" />
             <div class="form-group">
                 <label asp-for="@Model.CommentContent"></label>
                 <textarea asp-for="@Model.CommentContent" id="content" rows="3" class="form-control"></textarea>

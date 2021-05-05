@@ -1,38 +1,21 @@
-﻿using AutoMapper;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-
-using WeLearn.Data.Context;
-using WeLearn.Infrastructure.ViewModels;
-using WeLearn.Data.Models;
+using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.Components
 {
     public class AllComments : ViewComponent
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly IViewComponentsService viewComponentsService;
 
-        public AllComments(ApplicationDbContext context, IMapper mapper)
+        public AllComments(IViewComponentsService viewComponentsService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.viewComponentsService = viewComponentsService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int postId)
+        public async Task<IViewComponentResult> InvokeAsync(int lessonId)
         {
-            Comment[] comments = await context.Comments
-                .Where(x => x.Post.PostId == postId)
-                .Include(x => x.ApplicationUser)
-                .OrderByDescending(x => x.DateCreated)
-                .ToArrayAsync();
-
-            CommentViewModel[] commentViewModels = mapper.Map<CommentViewModel[]>(comments);
+            var commentViewModels = await viewComponentsService.GenerateCommentViewModelsAsync(lessonId);
             return View(commentViewModels);
         }
     }

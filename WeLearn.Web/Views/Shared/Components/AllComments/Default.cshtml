@@ -6,27 +6,25 @@
         <div class="card-body">
             <h5 class="card-title">@item.UserName wrote</h5>
             <hr />
-            <input asp-for="@item.PostId" type="hidden" />
+            <input asp-for="@item.LessonId" type="hidden" />
             <div class="form-group">
                 <p>
                     @item.CommentContent
                 </p>
                 <small class="text-muted">on @item.DateCreated.ToShortDateString()</small>
             </div>
-            @*@if (User.Identity.Name == item.CreatedByUserName)*@
-            @* { *@
-            <a asp-controller="Comment" asp-action="Edit" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-success">
-                <i class="fas fa-edit"></i> Edit
-            </a>
-            @* instead of modal code *@
-            <a asp-controller="Comment" asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-danger">
-                <i class="fas fa-trash-alt"></i> Delete
-            </a>
+            @if (User.Identity.Name == item.UserName)
+            {
+                <a asp-controller="Comment" asp-action="Edit" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-success">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a asp-controller="Comment" asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-danger">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </a>
+            }  
             <a asp-controller="Report" asp-action="Comment" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-warning">
                 <i class="far fa-flag"></i> Report
             </a>
-            @* *@
-            @* } *@
         </div>
     </div>
 }

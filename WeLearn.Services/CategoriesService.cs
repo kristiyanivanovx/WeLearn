@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using WeLearn.Data.Context;
+using WeLearn.Data;
 using WeLearn.Services.Interfaces;
 using System.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using WeLearn.Data.Models;
 
 namespace WeLearn.Services
 {
@@ -20,19 +21,11 @@ namespace WeLearn.Services
         }
 
         //CategoryViewModel
-        public async Task<IEnumerable<T>> GetAllCategoriesAsync<T>()
+        public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
         {
             var categories = await context.Categories.ToListAsync();
-            var categoriesViewModel = mapper.Map<T[]>(categories);
+            var categoriesViewModel = mapper.Map<Category[]>(categories);
             return categoriesViewModel;
-        }
-
-        //CategoryViewModel
-        public async Task<T> GetCategoryByIdAsync<T>(int id)
-        {
-            var categoryById = await context.Categories.FirstOrDefaultAsync(x => x.CategoryId == id);
-            var categoryByIdViewModel = mapper.Map<T>(categoryById);
-            return categoryByIdViewModel;
         }
 
         public async Task<int> GetAllCategoriesCountAsync()

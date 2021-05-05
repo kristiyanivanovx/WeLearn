@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using WeLearn.Infrastructure.ViewModels;
 using WeLearn.Models;
 using WeLearn.Services.Interfaces;
 
@@ -10,29 +8,16 @@ namespace WeLearn.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICategoriesService categoriesService;
-        private readonly IUsersService userService;
-        private readonly IPostsService postsService;
+        private readonly IHomeService homeService;
 
-        public HomeController(
-            ICategoriesService categoriesService, 
-            IUsersService userService,
-            IPostsService postsService)
+        public HomeController(IHomeService homeService)
         {
-            this.categoriesService = categoriesService;
-            this.userService = userService;
-            this.postsService = postsService;
+            this.homeService = homeService;
         }
 
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult> Index()
         {
-            var indexViewModel = new IndexViewModel() 
-            { 
-                CategoriesCount = await categoriesService.GetAllCategoriesCountAsync(), 
-                UsersCount = await userService.GetAllUsersCountAsync(), 
-                PostsCount = await postsService.GetAllPostsCountAsync()
-            };
-
+            var indexViewModel = await homeService.GenerateIndexViewModelAsync();
             return View(indexViewModel);
         }
 

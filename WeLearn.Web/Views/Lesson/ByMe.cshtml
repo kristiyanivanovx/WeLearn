@@ -1,14 +1,16 @@
-﻿@model IEnumerable<PostViewModel>
+﻿@model IEnumerable<LessonViewModel>
 @{
     ViewData["Title"] = "Uploaded by me";
 }
 
-<partial name="_MultipleLessonsPartial" />
-@if (Model.Count() == 0)
-{
-    <h1 class="display-4 text-center">You don't have any posts yet.</h1>
-    <hr />
-}
+<div class="container">
+    <partial name="_MultipleLessonsPartial" />
+    @if (Model.Count() == 0)
+    {
+        <h1 class="display-4 text-center">You don't have any lessons yet.</h1>
+        <hr />
+    }
+</div>
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

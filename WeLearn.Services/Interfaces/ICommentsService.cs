@@ -6,12 +6,14 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ICommentsService
     {
-        Task<T> GetCommentByIdAsync<T>(int id);
-        
         Task EditCommentAsync(CommentMultiModel commentEditModel);
         
         Task DeleteCommentByIdAsync(int id);
         
-        Task<IEnumerable<T>> UploadedByMeAsync<T>(string userId);
+        Task<IEnumerable<CommentMultiModel>> MadeByMeToCommentMultiModelAsync(string userId);
+
+        Task CreateCommentAsync(CommentViewModel commentViewModel);
+        
+        Task<T> GetCommentByIdAsync<T>(int id);
     }
 }

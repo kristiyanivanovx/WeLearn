@@ -1,0 +1,46 @@
+﻿@model CommentReportModel
+@{
+    ViewData["Title"] = "Reporting comment #" + Model.OriginId;
+}
+
+<div class="container">
+    <div align="center">
+        <div class="card card-style-40-rem">
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">Are you sure you want to report this comment?</h5>
+                    <hr />
+                    <p class="card-text">@Model.CommentContent</p>
+                    <p class="card-text">
+                        @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
+                        <small class="text-muted">Created by - @createdBy</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="text-center">
+            <h3 class="text-center">Reporting comment #@Model.OriginId</h3>
+            <hr />
+            <form asp-controller="Report" asp-action="Comment" method="post">
+                <input type="hidden" value="@Model.OriginId" asp-for="@Model.OriginId" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="Subject"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReportDescription"></label>
+                    <textarea asp-for="ReportDescription" class="form-control"></textarea>
+                    <span asp-validation-for="ReportDescription" class="text-danger"></span>
+                </div>
+
+                <input class="btn btn-sm btn-outline-info" type="submit" value="Report" />
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.OriginId" class="btn btn-sm btn-outline-dark">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+</div>

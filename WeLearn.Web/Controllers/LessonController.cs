@@ -22,7 +22,7 @@ namespace WeLearn.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<LessonController> logger;
         private readonly ICategoriesService categoriesService;
-        private readonly IPostsService postsService;
+        private readonly ILessonsService lessonsService;
         private readonly IFileDownloadService fileDownloadService;
         private readonly IWebHostEnvironment environment;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -33,7 +33,7 @@ namespace WeLearn.Controllers
             UserManager<ApplicationUser> userManager,
             ILogger<LessonController> logger,
             ICategoriesService categoriesService,
-            IPostsService postsService,
+            ILessonsService lessonService,
             IFileDownloadService fileDownloadService,
             IWebHostEnvironment environment,
             IHttpContextAccessor httpContextAccessor) 
@@ -42,7 +42,7 @@ namespace WeLearn.Controllers
             this.userManager = userManager;
             this.logger = logger;
             this.categoriesService = categoriesService;
-            this.postsService = postsService;
+            this.lessonsService = lessonService;
             this.fileDownloadService = fileDownloadService;
             this.environment = environment;
             this.httpContextAccessor = httpContextAccessor;
@@ -55,33 +55,33 @@ namespace WeLearn.Controllers
 
         public async Task<IActionResult> All()
         {
-            var postsViewModels = await postsService.GetAllPostsAsync<PostViewModel>();
-            return View(postsViewModels);
+            var lessonsViewModels = await lessonsService.GetAllLessonsToVMAsync();
+            return View(lessonsViewModels);
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Create()
         {
-            var categories = await categoriesService.GetAllCategoriesAsync<Category>();
-            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName");
+            var categories = await categoriesService.GetAllCategoriesAsync();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Name");
             return View();
         }
 
         [HttpPost]
         [Authorize]
         [RequestSizeLimit(SharedConstants.MaximumVideoSizeInBytes)]
-        public async Task<IActionResult> Create(PostInputModel postInputModel)
+        public async Task<IActionResult> Create(LessonInputModel lessonInputModel)
         {
             if (!ModelState.IsValid)
             {
-                var categories = await categoriesService.GetAllCategoriesAsync<Category>();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", postInputModel.CategoryId);
-                return View(postInputModel);
+                var categories = await categoriesService.GetAllCategoriesAsync();
+                ViewData["CategoryId"] = new SelectList(categories, "Id", "Name", lessonInputModel.Id);
+                return View(lessonInputModel);
             }
 
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            await postsService.CreatePostAsync(postInputModel, environment.WebRootPath, userId);
+            await lessonsService.CreateLessonAsync(lessonInputModel, environment.WebRootPath, userId);
             return View("ThankYou");
         }
 
@@ -90,56 +90,72 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var post = await postsService.GetPostByIdAsync<PostEditModel>(id);
+            var lesson = await lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
 
-            var categories = await categoriesService.GetAllCategoriesAsync<Category>();
-            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", post.CategoryId);
+            var categories = await categoriesService.GetAllCategoriesAsync();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Name", lesson.CategoryId);
 
-            if (user.Id != post.UserId)
+            if (user.Id != lesson.UserId)
             {
                 return View(nameof(Unauthorized));
             }
 
-            return View(post);
+            return View(lesson);
         }
 
         [HttpPost]
         [Authorize]
         [RequestSizeLimit(SharedConstants.MaximumVideoSizeInBytes)]
-        public async Task<IActionResult> Edit(PostEditModel postEditModel)
+        public async Task<IActionResult> Edit(LessonEditModel lessonEditModel)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            postEditModel.UserId = userId;
+            lessonEditModel.UserId = userId;
 
             if (!ModelState.IsValid)
             {
-                var categories = await categoriesService.GetAllCategoriesAsync<Category>();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", postEditModel.CategoryId);
-                return View(postEditModel);
+                var categories = await categoriesService.GetAllCategoriesAsync();
+                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", lessonEditModel.CategoryId);
+                return View(lessonEditModel);
             }
 
-            if (user.Id != postEditModel.UserId)
+            if (user.Id != lessonEditModel.UserId)
             {
                 return View(nameof(Unauthorized));
             }
 
-            await postsService.EditPostAsync(postEditModel, environment.WebRootPath, userId);
+            await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, userId);
             return View("ThankYou");
         }
 
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var post = await postsService.GetPostByIdAsync<Post>(id);
+            var lessonViewModel = await lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
 
-            if (user.UserName != post.ApplicationUser.UserName)
+            if (user.UserName != lessonViewModel.CreatedByUserName)
             {
                 return View("Unauthorized");
             }
 
-            await postsService.DeletePostAsync(id);
+            return View(lessonViewModel);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Delete(LessonViewModel lessonViewModel)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var lesson = await lessonsService.GetLessonByIdAsync<Lesson>(lessonViewModel.LessonId);
+
+            if (user.UserName != lesson.ApplicationUser.UserName)
+            {
+                return View("Unauthorized");
+            }
+
+            await lessonsService.DeleteLessonAsync(lesson);
             return View("Deleted");
         }
 
@@ -147,14 +163,14 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> ByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var myPosts = await postsService.UploadedByMeAsync<PostViewModel>(userId);
-            return View(myPosts);
+            var myLessons = await lessonsService.UploadedByMeToVMAsync(userId);
+            return View(myLessons);
         }
 
         public async Task<IActionResult> ByCategory(string categoryName)
         {
-            var posts = await postsService.GetAllPostsByCategoryNameAsync<PostViewModel>(categoryName);
-            return View(posts);
+            var lessons = await lessonsService.GetAllRelevantLessonsToVMAsync(categoryName);
+            return View(lessons);
         }
 
         public IActionResult Download([FromQuery] string link)
@@ -165,8 +181,8 @@ namespace WeLearn.Controllers
 
         public async Task<IActionResult> Watch(int id)
         {
-            var postViewModel = await postsService.GetPostByIdAsync<PostViewModel>(id);
-            return View(postViewModel);
+            var lessonViewModel = await lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
+            return View(lessonViewModel);
         }
     }
 }

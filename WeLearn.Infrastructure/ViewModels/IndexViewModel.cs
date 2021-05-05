@@ -6,6 +6,6 @@
 
         public int CategoriesCount { get; set; }
 
-        public int PostsCount { get; set; }
+        public int LessonsCount { get; set; }
     }
 }

@@ -360,9 +360,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-bin/
-obj/    
-
-bin
-obj   
+bin-obj-yeeter.bat
+WeLearn.Data/appsettings.Production.json
+WeLearn.Web/appsettings.Production.json

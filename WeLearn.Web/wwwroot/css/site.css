@@ -112,3 +112,7 @@ body {
 .card-style-40-rem {
 	max-width: 40rem;
 }
+
+.logo {
+	max-width: 13%;
+}

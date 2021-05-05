@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WeLearn.Data.Context;
+
 using WeLearn.Data.Models;
 using WeLearn.Infrastructure.ViewModels;
 using WeLearn.Services.Interfaces;
@@ -14,18 +13,15 @@ namespace WeLearn.Web.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ICommentsService commentsService;
 
         public CommentController(
-            ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             IHttpContextAccessor httpContextAccessor,
             ICommentsService commentsService)
         {
-            this.context = context;
             this.userManager = userManager;
             this.httpContextAccessor = httpContextAccessor;
             this.commentsService = commentsService;
@@ -47,32 +43,26 @@ namespace WeLearn.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("~/Views/Lesson/Watch.cshtml", new PostViewModel { PostId = commentViewModel.PostId });
+                return View("~/Views/Lesson/Watch.cshtml", new LessonViewModel { LessonId = commentViewModel.LessonId });
             }
 
-            // abstract this away
-            var post = context.Posts.FirstOrDefault(x => x.PostId == commentViewModel.PostId);
-            var comment = new Comment { PostId = post.PostId, Content = commentViewModel.CommentContent, ApplicationUserId = userId };
-            await context.Comments.AddAsync(comment);
-            await context.SaveChangesAsync();
-
+            await commentsService.CreateCommentAsync(commentViewModel);
             return View("ThankYou");
         }
 
-        //finish up here
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var post = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
+            var lesson = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
 
-            if (user.Id != post.ApplicationUserId)
+            if (user.Id != lesson.ApplicationUserId)
             {
                 return View(nameof(Unauthorized));
             }
 
-            return View(post);
+            return View(lesson);
         }
 
         [HttpPost]
@@ -124,7 +114,7 @@ namespace WeLearn.Web.Controllers
                 return View("Unauthorized");
             }
 
-            await commentsService.DeleteCommentByIdAsync(comment.CommentId);
+            await commentsService.DeleteCommentByIdAsync(comment.Id);
             return View("Deleted");
         }
 
@@ -132,7 +122,7 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> ByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var myComments = await commentsService.UploadedByMeAsync<CommentMultiModel>(userId);
+            var myComments = await commentsService.MadeByMeToCommentMultiModelAsync(userId);
             return View(myComments);
         }
     }

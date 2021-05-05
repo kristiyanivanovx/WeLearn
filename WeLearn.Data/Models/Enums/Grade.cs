@@ -17,6 +17,3 @@
         Twelfth = 12
     }
 }
-
-//docker build -t welearn .
-//docker run -d -p 8080:80 --name abc welearn

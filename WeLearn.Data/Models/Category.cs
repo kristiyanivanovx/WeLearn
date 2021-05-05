@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using WeLearn.Data.Models.Base;
-
+using WeLearn.Data.Models.Interfaces;
 namespace WeLearn.Data.Models
 {
-    public class Category : BaseModel
+    public class Category : SoftDeleteable, IMetadataHaveable
     {
         public Category()
         {
-            this.Posts = new HashSet<Post>();
+            this.Lessons = new HashSet<Lesson>();
         }
-
-        public int CategoryId { get; set; }
 
         [Required]
         [MaxLength(250)]
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public DateTime? DateDeleted { get; set; }
     }
 }

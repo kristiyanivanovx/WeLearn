@@ -13,8 +13,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeLearn.Data.Context;
+using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Interfaces;
+using WeLearn.Data.Repositories;
+using WeLearn.Data.Repositories.Interfaces;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 
@@ -22,12 +25,15 @@ namespace WeLearn
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            WebHostEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,7 +44,7 @@ namespace WeLearn
             //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                   options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -51,15 +57,18 @@ namespace WeLearn
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             })
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddTransient<ICategoriesService, CategoriesService>();
-            services.AddTransient<IPostsService, PostsService>();
-            services.AddTransient<IFileDownloadService, FileDownloadService>();
+            services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<ILessonsService, LesonsService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IReportsService, ReportsService>();
             services.AddTransient<ICommentsService, CommentsService>();
-            
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IFileDownloadService, FileDownloadService>();
+            services.AddTransient<IViewComponentsService, ViewComponentsService>();
+
             services.AddRouting(options => options.LowercaseUrls = true);
 
             services.AddAutoMapper(typeof(MappingProfile));
@@ -69,8 +78,14 @@ namespace WeLearn
             services.AddHttpContextAccessor();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env, 
+            UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager)
         {
+            ApplicationDbInitializer.SeedData(userManager, roleManager);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -93,8 +108,13 @@ namespace WeLearn
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                   name: "areas",
+                   pattern: "{area:exists}/{controller=Manage}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

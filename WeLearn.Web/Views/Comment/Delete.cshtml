@@ -3,51 +3,52 @@
     ViewData["Title"] = "Deleting comment #" + Model.CommentId;
 }
 
-<div class="card mb-3 card-style-80-rem">
-    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.PostVideoName" data-poster="@Model.PostVideoLink">
-        @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
-        <source src="@Model.PostVideoLink" type="@Model.PostVideoContentType" />
-        <!-- Fallback for browsers that don't support the <video> element -->
-        <a href="@Model.PostVideoLink" download>Download</a>
-    </video>
-    <div class="card-body">
-        <h5 class="card-title">@Model.PostName</h5>
-        <hr />
-        <p class="card-text">@Model.PostDescription</p>
-        <p class="card-text">
-            <small class="text-muted">Created by - @Model.PostCreatedByUsername | </small>
-            <small class="text-muted">Category - @Model.PostCategoryName | </small>
-            <small class="text-muted">Grade - @Model.PostGrade</small>
-        </p>
-        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.PostId" class="btn btn-sm btn-outline-dark">
-            <i class="fas fa-info"></i> Details
-        </a>
-        <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.PostZippedFileLink" class="btn btn-sm btn-outline-info">
-            <i class="fas fa-arrow-down"></i> Download Resources
-        </a>
-    </div>
-    <div class="card-body">
-        <h5>Are you sure that you want to delete the following comment?</h5>
+<div class="container">
+    <div class="text-center">
+        <h3>Are you sure that you want to delete the following comment?</h3>
         <hr />
         <form asp-controller="Comment" asp-action="Delete" method="post">
-            <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
-            <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
+            <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" />
+            <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" />
             <div class="form-group">
                 <p>@Model.Content</p>
             </div>
             <input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
-            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.PostId" class="btn btn-sm btn-outline-dark">
+            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
                 Cancel
             </a>
         </form>
+        <br />
+    </div>
+    <div class="card mb-3 card-style-80-rem">
+        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+            <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
+            <a href="@Model.LessonVideoLink" download>Download</a>
+        </video>
+        <div class="card-body">
+            <h5 class="card-title">@Model.LessonName</h5>
+            <hr />
+            <p class="card-text">@Model.LessonDescription</p>
+            <p class="card-text">
+                @{ var createdBy = Model.LessonCreatedByUsername == null ? "Deleted User" : Model.LessonCreatedByUsername; }
+                <small class="text-muted">Created by - @createdBy | </small>
+                <small class="text-muted">Category - @Model.LessonCategoryName | </small>
+                <small class="text-muted">Grade - @Model.LessonGrade</small>
+            </p>
+            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
+                <i class="fas fa-info"></i> Details
+            </a>
+            <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonZippedFileLink" class="btn btn-sm btn-outline-info">
+                <i class="fas fa-arrow-down"></i> Download Resources
+            </a>
+        </div>
     </div>
 </div>
-
+<br />
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
     <script src="https://unpkg.com/plyr@3"></script>
-
     <script>
         const player = new Plyr('#player');
         window.player = player;

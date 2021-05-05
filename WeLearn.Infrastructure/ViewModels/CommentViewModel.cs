@@ -7,7 +7,7 @@ namespace WeLearn.Infrastructure.ViewModels
     {
         public int CommentId { get; set; }
 
-        public int PostId { get; set; }
+        public int LessonId { get; set; }
 
         [Display(Name = "Content")]
         [Required(ErrorMessage = "Please, provide content between 0 and 1000 characters.")]

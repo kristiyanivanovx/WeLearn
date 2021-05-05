@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WeLearn.Data.Context;
+using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Infrastructure.Interfaces;
 using WeLearn.Infrastructure.ViewModels;
@@ -28,42 +28,40 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task EditPostReportAsync(PostReportModel postReportModel)
+        public async Task EditLessonReportAsync(LessonReportModel lessonReportModel)
         {
-            var entity = context.Reports.FirstOrDefault(x => x.ReportId == postReportModel.ReportId);
-
-            entity.Subject = postReportModel.Subject ?? entity.Subject;
-            entity.Description = postReportModel.ReportDescription ?? entity.Description;
-
+            var entity = context.Reports.FirstOrDefault(x => x.Id == lessonReportModel.ReportId);
+            entity.Subject = lessonReportModel.Subject ?? entity.Subject;
+            entity.Description = lessonReportModel.ReportDescription ?? entity.Description;
             await context.SaveChangesAsync();
         }
 
         public async Task<T> GetReportById<T>(int reportId) where T : IReportModel
         {
             var reportByMe = await context.Reports
-                .Where(x => x.ReportId == reportId)
-                .Include(x => x.Post)
-                .Include(x => x.Post.Video)
-                .Include(x => x.Post.Material)
-                .Include(x => x.Post.Category)
-                .Include(x => x.Post.ApplicationUser)
+                .Where(x => x.Id == reportId)
+                .Include(x => x.Lesson)
+                .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.Material)
+                .Include(x => x.Lesson.Category)
+                .Include(x => x.Lesson.ApplicationUser)
                 .Include(x => x.ApplicationUser)
+                .Include(x => x.Comment)
                 .FirstOrDefaultAsync();
 
             var reportByIdMapped = mapper.Map<T>(reportByMe);
             return reportByIdMapped;
         }
 
-        // refactor later
         public async Task<Report> GetReportByIdToReportAsync(int reportId)
         {
             var reportByMe = await context.Reports
-                .Where(x => x.ReportId == reportId)
-                .Include(x => x.Post)
-                .Include(x => x.Post.Video)
-                .Include(x => x.Post.Material)
-                .Include(x => x.Post.Category)
-                .Include(x => x.Post.ApplicationUser)
+                .Where(x => x.Id == reportId)
+                .Include(x => x.Lesson)
+                .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.Material)
+                .Include(x => x.Lesson.Category)
+                .Include(x => x.Lesson.ApplicationUser)
                 .Include(x => x.ApplicationUser)
                 .FirstOrDefaultAsync();
 
@@ -72,26 +70,45 @@ namespace WeLearn.Services
         }
 
         //ReportViewModel
-        public async Task<IEnumerable<T>> CreatedByMeAsync<T>(string userId) where T : IReportModel
+        public async Task<IEnumerable<LessonReportModel>> CreatedByMeToLessonReportVMAsync(string userId)
         {
-            var postsByMe = await context.Reports
-                .Where(x => x.ApplicationUserId == userId)
-                .Include(x => x.Post)
-                .Include(x => x.Post.Video)
-                .Include(x => x.Post.Material)
-                .Include(x => x.Post.Category)
-                .Include(x => x.Post.ApplicationUser)
+            var lessonsByMe = await context.Reports
+                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null)
+                .Include(x => x.Lesson)
+                .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.Material)
+                .Include(x => x.Lesson.Category)
+                .Include(x => x.Lesson.ApplicationUser)
                 .Include(x => x.ApplicationUser)
                 .ToListAsync();
 
-            var postsByMeMapped = mapper.Map<T[]>(postsByMe);
-            return postsByMeMapped;
+            var lessonsByMeMapped = mapper.Map<LessonReportModel[]>(lessonsByMe);
+            return lessonsByMeMapped;
         }
 
-        public async Task DeletePostReportAsync(Report report)
+        public async Task EditCommentReportAsync(CommentReportModel commentReportModel)
         {
-            var reportFromDb = await context.Reports.FirstOrDefaultAsync(x => x.ReportId == report.ReportId);
-            reportFromDb.IsDeleted = true;
+            var entity = context.Reports.FirstOrDefault(x => x.Id == commentReportModel.ReportId);
+            entity.Subject = commentReportModel.Subject ?? entity.Subject;
+            entity.Description = commentReportModel.ReportDescription ?? entity.Description;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<CommentReportModel>> CreatedByMeToCommentReportVMAsync(string userId)
+        {
+            var commentsByMe = await context.Reports
+                .Where(x => x.ApplicationUserId == userId && x.IsDeleted == false && x.CommentId != null)
+                .Include(x => x.Comment)
+                .Include(x => x.ApplicationUser)
+                .ToListAsync();
+
+            var commentsReportedByMeMapped = mapper.Map<CommentReportModel[]>(commentsByMe);
+            return commentsReportedByMeMapped;
+        }
+
+        public async Task DeleteReportAsync(Report report)
+        {
+            report.IsDeleted = true;
             await context.SaveChangesAsync();
         }
     }

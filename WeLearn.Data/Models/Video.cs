@@ -1,27 +1,24 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using WeLearn.Data.Models.Base;
+using WeLearn.Data.Models.Interfaces;
 
 namespace WeLearn.Data.Models
 {
-    public class Video : BaseModel
+    public class Video : SoftDeleteable, IMetadataHaveable
     {
-        public int VideoId { get; set; }
-
         [Required]
         [MaxLength(250)]
-        public string VideoName { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string VideoContentType { get; set; }
+        public string ContentType { get; set; }
 
         [Required]
         [MaxLength(250)]
         public string Link { get; set; }
 
-        //public int PostId { get; set; }
+        public DateTime DateCreated { get; set; }
 
-        //public Post Post { get; set; }
+        public DateTime? DateDeleted { get; set; }
     }
 }

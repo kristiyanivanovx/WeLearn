@@ -86,6 +86,8 @@ namespace WeLearn
             services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
+            Debug.WriteLine("#=> " + Configuration.GetConnectionString("DefaultConnectionPostgreSQL"));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddDefaultIdentity<IdentityUser>(options =>

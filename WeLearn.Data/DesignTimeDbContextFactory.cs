@@ -13,7 +13,7 @@ namespace WeLearn.Data
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
-                .AddJsonFile("appsettings.Production.json", false, true)
+                //.AddJsonFile("appsettings.Production.json", false, true)
                 .Build();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();

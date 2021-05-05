@@ -37,8 +37,15 @@ namespace WeLearn
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddRazorPages();
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllersWithViews(options =>
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            })
+            .AddRazorRuntimeCompilation();
 
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
 
@@ -95,12 +102,6 @@ namespace WeLearn
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
-
-            services.AddRouting(options => options.LowercaseUrls = true);
-
-            services.AddAutoMapper(typeof(MappingProfile));
-
-            services.AddRazorPages();
 
             services.AddHttpContextAccessor();
         }

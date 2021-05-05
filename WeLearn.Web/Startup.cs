@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WeLearn.Data;
@@ -77,6 +78,8 @@ namespace WeLearn
                 var pgPort = pgHostPort.Split(":")[1];
 
                 var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
+                Debug.WriteLine("#=> " + connectionString);
+                Console.WriteLine("#=> " + connectionString);
                 services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
             }
 

@@ -18,9 +18,9 @@ namespace WeLearn.Services.Interfaces
 
         Task DeleteLessonAsync(Lesson lesson);
 
-        Task CreateLessonAsync(LessonInputModel lessonInputModel, dynamic environmentWebRootPath, string userId);
+        Task CreateLessonAsync(LessonInputModel lessonInputModel, dynamic environmentWebRootPath, string environmentName, string userId);
 
-        Task EditLessonAsync(LessonEditModel lessonEditModel, dynamic environmentWebRootPath, string userId);
+        Task EditLessonAsync(LessonEditModel lessonEditModel, dynamic environmentWebRootPath, string environmentName, string userId);
 
         Task UploadMaterialsAsync<T>(T model, dynamic uploadsMaterials) where T : ILessonModel;
 

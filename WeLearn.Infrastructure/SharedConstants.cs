@@ -5,9 +5,9 @@
         public const int MinimumVideoSizeInBytes = 0;
 
         /// <summary>
-        /// Equal to 1000 mb
+        /// Equal to 100 mb
         /// </summary>
-        public const int MaximumVideoSizeInBytes = 1_000_000_000;
+        public const int MaximumVideoSizeInBytes = 100_000_000;
 
         public const int MinimumFileSizeInBytes = 0;
 

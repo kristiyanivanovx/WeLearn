@@ -102,23 +102,23 @@ namespace WeLearn.Data.Seed
 
             modelBuilder.Entity<Material>().HasData
             (
-                // /uploads/materials/c5da89b9-1b3d-40e1-8787-45d3bbaeb380.zip
-                new Material { Id = 1,  DateCreated = DateTime.UtcNow, Name = "Teaching",         Link = "..." },
-                new Material { Id = 2,  DateCreated = DateTime.UtcNow, Name = "Teaching",         Link = "..." },
-                new Material { Id = 3,  DateCreated = DateTime.UtcNow, Name = "Coding",           Link = "..." },
-                new Material { Id = 4,  DateCreated = DateTime.UtcNow, Name = "Office Suite",     Link = "..." },
-                new Material { Id = 5,  DateCreated = DateTime.UtcNow, Name = "Ukraine",          Link = "..." },
-                new Material { Id = 6,  DateCreated = DateTime.UtcNow, Name = "Football",         Link = "..." },
-                new Material { Id = 7,  DateCreated = DateTime.UtcNow, Name = "Literature",       Link = "..." },
-                new Material { Id = 8,  DateCreated = DateTime.UtcNow, Name = "Human Rights",     Link = "..." },
-                new Material { Id = 9,  DateCreated = DateTime.UtcNow, Name = "Modal Verbs",      Link = "..." },
-                new Material { Id = 10, DateCreated = DateTime.UtcNow, Name = "Russian Language", Link = "..." },
-                new Material { Id = 11, DateCreated = DateTime.UtcNow, Name = "History",          Link = "..." },
-                new Material { Id = 12, DateCreated = DateTime.UtcNow, Name = "Biology",          Link = "..." },
-                new Material { Id = 13, DateCreated = DateTime.UtcNow, Name = "Chemistry",        Link = "..." },
-                new Material { Id = 14, DateCreated = DateTime.UtcNow, Name = "Music",            Link = "..." },
-                new Material { Id = 15, DateCreated = DateTime.UtcNow, Name = "Painting",         Link = "..." },
-                new Material { Id = 16, DateCreated = DateTime.UtcNow, Name = "Entrepreneurship", Link = "..." }
+                // /uploads/materials/cat-seed-dfd1-4ed3-a862-684cd9a35995.zip
+                new Material { Id = 1,  DateCreated = DateTime.UtcNow, Name = "Teaching",         Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 2,  DateCreated = DateTime.UtcNow, Name = "Teaching",         Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 3,  DateCreated = DateTime.UtcNow, Name = "Coding",           Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 4,  DateCreated = DateTime.UtcNow, Name = "Office Suite",     Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 5,  DateCreated = DateTime.UtcNow, Name = "Ukraine",          Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 6,  DateCreated = DateTime.UtcNow, Name = "Football",         Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 7,  DateCreated = DateTime.UtcNow, Name = "Literature",       Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 8,  DateCreated = DateTime.UtcNow, Name = "Human Rights",     Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 9,  DateCreated = DateTime.UtcNow, Name = "Modal Verbs",      Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 10, DateCreated = DateTime.UtcNow, Name = "Russian Language", Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 11, DateCreated = DateTime.UtcNow, Name = "History",          Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 12, DateCreated = DateTime.UtcNow, Name = "Biology",          Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 13, DateCreated = DateTime.UtcNow, Name = "Chemistry",        Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 14, DateCreated = DateTime.UtcNow, Name = "Music",            Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 15, DateCreated = DateTime.UtcNow, Name = "Painting",         Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
+                new Material { Id = 16, DateCreated = DateTime.UtcNow, Name = "Entrepreneurship", Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" }
             );
         }
     }

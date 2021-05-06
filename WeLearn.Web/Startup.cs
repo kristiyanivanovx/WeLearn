@@ -17,8 +17,6 @@ using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.Interfaces;
-using WeLearn.Data.Repositories;
-using WeLearn.Data.Repositories.Interfaces;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 
@@ -38,56 +36,21 @@ namespace WeLearn
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                   options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+
             services.AddAutoMapper(typeof(MappingProfile));
 
-            services.AddRazorPages();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             })
             .AddRazorRuntimeCompilation();
-
-            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionSQLServer")));
-
-            //if (WebHostEnvironment.IsDevelopment())
-            //{
-            //    services.AddDbContext<ApplicationDbContext>(options =>
-            //        options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
-
-            //    services.AddDatabaseDeveloperPageExceptionFilter();
-            //}
-            //else
-            //{
-            //    // https://github.com/jincod/dotnetcore-buildpack/issues/33#issuecomment-409935057
-            //    // Heroku provides PostgreSQL connection URL via env variable
-            //    //parse database URL. Format is postgres://<username>:<password>@<host>:<port>/<dbname>
-            //    var connectionUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-
-            //    // Parse connection URL to connection string for Npgsql
-            //    connectionUrl = connectionUrl.Replace("postgres://", string.Empty);
-
-            //    var pgUserPass = connectionUrl.Split("@")[0];
-            //    var pgHostPortDb = connectionUrl.Split("@")[1];
-            //    var pgHostPort = pgHostPortDb.Split("/")[0];
-
-            //    var pgDb = pgHostPortDb.Split("/")[1];
-            //    var pgUser = pgUserPass.Split(":")[0];
-            //    var pgPass = pgUserPass.Split(":")[1];
-            //    var pgHost = pgHostPort.Split(":")[0];
-            //    var pgPort = pgHostPort.Split(":")[1];
-
-            //    var connectionString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}";
-            //    Debug.WriteLine("#=> " + connectionString);
-            //    Console.WriteLine("#=> " + connectionString);
-            //    services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
-            //}
-
-            services.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
-
-            Debug.WriteLine("#=> " + Configuration.GetConnectionString("DefaultConnectionPostgreSQL"));
-
+            services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //services.AddDefaultIdentity<IdentityUser>(options =>
@@ -102,13 +65,11 @@ namespace WeLearn
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddTransient<ILessonsRepository, LessonRepository>();
-            services.AddTransient<IRepository<SoftDeleteable>, Repository<SoftDeleteable>>();
-
             services.AddTransient<IHomeService, HomeService>();
-            services.AddTransient<ILessonsService, LesonsService>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ILessonsService, LessonsService>();
             services.AddTransient<IReportsService, ReportsService>();
+            services.AddTransient<IArchiveService, ArchiveService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
@@ -128,7 +89,6 @@ namespace WeLearn
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 ApplicationDbInitializer.SeedData(userManager, roleManager);
-                //new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
             if (env.IsDevelopment())

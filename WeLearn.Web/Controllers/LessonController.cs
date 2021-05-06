@@ -81,7 +81,7 @@ namespace WeLearn.Controllers
             }
 
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            await lessonsService.CreateLessonAsync(lessonInputModel, environment.WebRootPath, userId);
+            await lessonsService.CreateLessonAsync(lessonInputModel, environment.WebRootPath, environment.EnvironmentName, userId);
             return View("ThankYou");
         }
 
@@ -124,7 +124,7 @@ namespace WeLearn.Controllers
                 return View(nameof(Unauthorized));
             }
 
-            await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, userId);
+            await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, environment.EnvironmentName, userId);
             return View("ThankYou");
         }
 

@@ -38,6 +38,7 @@ namespace WeLearn.Services
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(dest => dest.Grade, opt => opt.MapFrom(src => src.Grade))
                 .ForMember(dest => dest.VideoName, opt => opt.MapFrom(src => src.Video.Name))
                 .ForMember(dest => dest.VideoLink, opt => opt.MapFrom(src => src.Video.Link))
                 .ForMember(dest => dest.VideoContentType, opt => opt.MapFrom(src => src.Video.ContentType))
@@ -99,7 +100,6 @@ namespace WeLearn.Services
                   .ForMember(dest => dest.ReportingUserId, opt => opt.MapFrom(src => src.ApplicationUserId))
                   .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName));
 
-            // fix the mapping of this one .ForMember(dest => dest.OriginApplicationUserUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
             CreateMap<Comment, CommentReportModel>()
                .ForMember(dest => dest.OriginId, opt => opt.MapFrom(src => src.Id))
                .ForMember(dest => dest.CommentContent, opt => opt.MapFrom(src => src.Content))

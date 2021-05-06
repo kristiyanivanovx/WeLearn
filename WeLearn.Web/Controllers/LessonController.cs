@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-
 using System.Security.Claims;
 using System.Threading.Tasks;
-
 using WeLearn.Data.Models;
 using WeLearn.Infrastructure.ViewModels;
 using WeLearn.Infrastructure;
@@ -16,7 +14,6 @@ using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Controllers
 {
-
     public class LessonController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -26,8 +23,6 @@ namespace WeLearn.Controllers
         private readonly IFileDownloadService fileDownloadService;
         private readonly IWebHostEnvironment environment;
         private readonly IHttpContextAccessor httpContextAccessor;
-        //private readonly IUserService userService;
-        //private readonly UserManager<ApplicationUser> userManager;
 
         public LessonController(
             UserManager<ApplicationUser> userManager,
@@ -38,7 +33,6 @@ namespace WeLearn.Controllers
             IWebHostEnvironment environment,
             IHttpContextAccessor httpContextAccessor) 
         {
-            //this.userService = userService;
             this.userManager = userManager;
             this.logger = logger;
             this.categoriesService = categoriesService;
@@ -109,8 +103,6 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> Edit(LessonEditModel lessonEditModel)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            lessonEditModel.UserId = userId;
 
             if (!ModelState.IsValid)
             {
@@ -124,7 +116,7 @@ namespace WeLearn.Controllers
                 return View(nameof(Unauthorized));
             }
 
-            await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, environment.EnvironmentName, userId);
+            await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, environment.EnvironmentName, user.Id);
             return View("ThankYou");
         }
 

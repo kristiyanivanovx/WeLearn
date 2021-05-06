@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
 using WeLearn.Data.Models;
 using WeLearn.Infrastructure.ViewModels;
 using WeLearn.Services.Interfaces;
@@ -30,7 +29,6 @@ namespace WeLearn.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            //return View("~/Views/Lesson/Index.cshtml");
             return RedirectToAction("Index", "Lesson");
         }
 

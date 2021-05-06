@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 using System.Security.Claims;
 using System.Threading.Tasks;
-
-using WeLearn.Data.Models;
 using WeLearn.Infrastructure.ViewModels;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
@@ -118,7 +114,6 @@ namespace WeLearn.Web.Controllers
             return View("Deleted");
         }
 
-
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
@@ -134,7 +129,6 @@ namespace WeLearn.Web.Controllers
             var lessonToReport = await commentsService.GetCommentByIdAsync<CommentReportModel>(id);
             return View(lessonToReport);
         }
-
 
         [HttpPost]
         [Authorize]
@@ -204,12 +198,6 @@ namespace WeLearn.Web.Controllers
 
             await reportsService.DeleteReportAsync(reportFromDb);
             return View("Deleted");
-
         }
-
-        //public IActionResult Profile(int lessonId)
-        //{
-        //    return View();
-        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -69,7 +70,6 @@ namespace WeLearn.Services
             return reportByIdMapped;
         }
 
-        //ReportViewModel
         public async Task<IEnumerable<LessonReportModel>> CreatedByMeToLessonReportVMAsync(string userId)
         {
             var lessonsByMe = await context.Reports
@@ -109,6 +109,7 @@ namespace WeLearn.Services
         public async Task DeleteReportAsync(Report report)
         {
             report.IsDeleted = true;
+            report.DateDeleted = DateTime.UtcNow;
             await context.SaveChangesAsync();
         }
     }

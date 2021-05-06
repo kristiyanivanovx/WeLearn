@@ -26,6 +26,7 @@
             <hr />
             <form asp-controller="Lesson" asp-action="Edit" method="post" enctype="multipart/form-data">
                 <input type="hidden" value="@Model.LessonId" asp-for="@Model.LessonId" class="form-control" />
+                <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
                 <div class="form-group">
                     <label asp-for="@Model.LessonName"></label>
                     <input asp-for="@Model.LessonName" class="form-control" />

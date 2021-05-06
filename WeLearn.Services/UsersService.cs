@@ -15,9 +15,6 @@ namespace WeLearn.Services
         }
 
         public async Task<int> GetAllUsersCountAsync()
-        {
-            var usersCount = context.Users.CountAsync();
-            return await usersCount;
-        }
+            => await context.Users.CountAsync();
     }
 }

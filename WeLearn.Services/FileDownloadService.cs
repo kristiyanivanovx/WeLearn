@@ -7,7 +7,7 @@ namespace WeLearn.Services
 {
     public class FileDownloadService : IFileDownloadService
     {
-        public FileParsed DownloadFile(string link)
+        public FileDownload DownloadFile(string link)
         {
             WebClient net = new WebClient();
             byte[] data = net.DownloadData(link);
@@ -15,9 +15,8 @@ namespace WeLearn.Services
 
             string contentType = "APPLICATION/octet-stream";
             string fileName = "download.zip";
-            var file = new FileParsed { Content = content, ContentType = contentType, FileName = fileName };
 
-            return file;
+            return new FileDownload { Content = content, ContentType = contentType, FileName = fileName };
         }
     }
 }

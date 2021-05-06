@@ -12,10 +12,7 @@ using WeLearn.Infrastructure.Interfaces;
 using WeLearn.Infrastructure.ViewModels;
 using WeLearn.Infrastructure;
 using WeLearn.Services.Interfaces;
-using WeLearn.Data.Models.Interfaces;
-using Microsoft.AspNetCore.Http;
 using CloudinaryDotNet;
-using Microsoft.Extensions.Configuration;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,7 +44,14 @@ namespace WeLearn.Services
         {
             return await context.Lessons.CountAsync();
         }
-        
+
+        public async Task DeleteLessonAsync(Lesson lesson)
+        {
+            lesson.IsDeleted = true;
+            lesson.DateDeleted = DateTime.UtcNow;
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<LessonViewModel>> GetAllRelevantLessonsToVMAsync(string categoryName)
         {
             var allLessonsByCategory = await context.Lessons
@@ -118,7 +122,6 @@ namespace WeLearn.Services
             Data.Models.Video videoEntity = null;
             Material materialEntity = null;
 
-            //TODO: switch that later 
             if (isDevelopment)
             {
                 dynamic uploadsMaterialsPath = Path.Combine(environmentWebRootPath, "uploads", "materials");
@@ -153,75 +156,6 @@ namespace WeLearn.Services
 
             await context.Lessons.AddAsync(lesson);
             await context.SaveChangesAsync();
-        }
-
-        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(LessonInputModel lessonInputModel)
-        {
-            var video = lessonInputModel.Video;
-            var isVideoContentTypeAllowed = AllowedVideoConentTypes.Contains(video.ContentType);
-            var isVideWithAcceptableSize = video.Length > SharedConstants.MinimumVideoSizeInBytes && video.Length < SharedConstants.MaximumVideoSizeInBytes;
-
-            var isAcceptable = video != null && isVideoContentTypeAllowed && isVideWithAcceptableSize;
-            if (!isAcceptable)
-            {
-                throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
-            }
-
-            //await video.CopyToAsync(new FileStream(filePath, FileMode.Create));
-            Cloudinary cloudinary = GenerateCloudinary();
-
-            using Stream videoStream = new MemoryStream();
-            await video.OpenReadStream().CopyToAsync(videoStream);
-            videoStream.Position = 0;
-
-            var uploadParams = new VideoUploadParams()
-            {
-                File = new FileDescription(@$"{video.FileName}", videoStream),
-                PublicId = video.FileName,
-                Folder = "welearn-asp-net-core-app/videos/",
-                Overwrite = true,
-                UniqueFilename = true,
-            };
-            var uploadResult = await cloudinary.UploadAsync(uploadParams);
-
-            var videoEntity = new Data.Models.Video
-            {
-                Name = video.FileName,
-                ContentType = video.ContentType,
-                DateCreated = DateTime.UtcNow,
-                Link = uploadResult.SecureUrl.AbsoluteUri
-            };
-
-            await context.Videos.AddAsync(videoEntity);
-            await context.SaveChangesAsync();
-            return videoEntity;
-        }
-
-        private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(LessonInputModel lessonInputModel)
-        {
-            var isFileSizeAcceptableForAll = lessonInputModel.Files.All(x => x.Length > SharedConstants.MinimumFileSizeInBytes && x.Length < SharedConstants.MaximumFileSizeInBytes);
-            //var isFileFormatAcceptable = false;
-
-            if (!isFileSizeAcceptableForAll)
-            {
-                throw new InvalidOperationException(InvalidFileSizeMessage);
-            }
-
-            Stream files = await archiveService.ArchiveFilesAsync(lessonInputModel.Files);
-            Cloudinary cloudinary = GenerateCloudinary();
-            var name = Guid.NewGuid().ToString();
-
-            var uploadParams = new RawUploadParams()
-            {
-                File = new FileDescription(@$"{name}.zip", files),
-                PublicId = name,
-                Folder = "welearn-asp-net-core-app/zip-files/",
-                Overwrite = true,
-                UniqueFilename = false,
-            };
-
-            RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
-            return uploadResult;
         }
 
 
@@ -265,15 +199,55 @@ namespace WeLearn.Services
                 await context.SaveChangesAsync();
             }
 
-            entity.DateCreated = DateTime.UtcNow;
             await context.SaveChangesAsync();
+        }
+
+        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(LessonInputModel lessonInputModel)
+        {
+            Cloudinary cloudinary = new Cloudinary();
+
+            var video = lessonInputModel.Video;
+            var isVideoContentTypeAllowed = AllowedVideoConentTypes.Contains(video.ContentType);
+            var isVideWithAcceptableSize = video.Length > SharedConstants.MinimumVideoSizeInBytes && video.Length < SharedConstants.MaximumVideoSizeInBytes;
+
+            var isAcceptable = video != null && isVideoContentTypeAllowed && isVideWithAcceptableSize;
+            if (!isAcceptable)
+            {
+                throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
+            }
+
+            using Stream videoStream = new MemoryStream();
+            await video.OpenReadStream().CopyToAsync(videoStream);
+            videoStream.Position = 0;
+
+            var uploadParams = new VideoUploadParams()
+            {
+                File = new FileDescription(@$"{video.FileName}", videoStream),
+                PublicId = video.FileName,
+                Folder = "welearn-asp-net-core-app/videos/",
+                Overwrite = true,
+                UniqueFilename = true,
+            };
+            var uploadResult = await cloudinary.UploadAsync(uploadParams);
+
+            var videoEntity = new Data.Models.Video
+            {
+                Name = video.FileName,
+                ContentType = video.ContentType,
+                DateCreated = DateTime.UtcNow,
+                Link = uploadResult.SecureUrl.AbsoluteUri
+            };
+
+            await context.Videos.AddAsync(videoEntity);
+            await context.SaveChangesAsync();
+            return videoEntity;
         }
 
         public async Task UploadMaterialsAsync<T>(T lessonInputModel, dynamic uploadsMaterials) where T : ILessonModel
         {
             foreach (var formFile in lessonInputModel.Files)
             {
-                //TODO: var isFileExtensionAcceptable = false;
+                //var isFileExtensionAcceptable = false;
                 var isFileSizeAcceptable = formFile.Length > SharedConstants.MinimumFileSizeInBytes && formFile.Length < SharedConstants.MaximumFileSizeInBytes;
 
                 if (!isFileSizeAcceptable)
@@ -282,8 +256,8 @@ namespace WeLearn.Services
                 }
 
                 var uniqueFileName = GetUniqueFileName(formFile.FileName);
-                string filePath2 = Path.Combine(uploadsMaterials, "temp", uniqueFileName);
-                using FileStream fileStream = new FileStream(filePath2, FileMode.Create);
+                string filePath = Path.Combine(uploadsMaterials, "temp", uniqueFileName);
+                using FileStream fileStream = new FileStream(filePath, FileMode.Create);
                 await formFile.CopyToAsync(fileStream);
             }
         }
@@ -317,11 +291,31 @@ namespace WeLearn.Services
             throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
         }
 
-        public async Task DeleteLessonAsync(Lesson lesson)
+        private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(LessonInputModel lessonInputModel)
         {
-            lesson.IsDeleted = true;
-            lesson.DateDeleted = DateTime.UtcNow;
-            await context.SaveChangesAsync();
+            Cloudinary cloudinary = new Cloudinary();
+            var isFileSizeAcceptableForAll = lessonInputModel.Files.All(x => x.Length > SharedConstants.MinimumFileSizeInBytes && x.Length < SharedConstants.MaximumFileSizeInBytes);
+            //var isFileFormatAcceptable = false;
+
+            if (!isFileSizeAcceptableForAll)
+            {
+                throw new InvalidOperationException(InvalidFileSizeMessage);
+            }
+
+            Stream files = await archiveService.ArchiveFilesAsync(lessonInputModel.Files);
+            var name = Guid.NewGuid().ToString();
+
+            var uploadParams = new RawUploadParams()
+            {
+                File = new FileDescription(@$"{name}.zip", files),
+                PublicId = name,
+                Folder = "welearn-asp-net-core-app/zip-files/",
+                Overwrite = true,
+                UniqueFilename = false,
+            };
+
+            RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
+            return uploadResult;
         }
 
         private static void DeleteUnusedFilesInTempFolder(dynamic tempDirectory)
@@ -375,7 +369,5 @@ namespace WeLearn.Services
 
             return uniqueFileName;
         }
-
-        private static Cloudinary GenerateCloudinary() => new Cloudinary();
     }
 }

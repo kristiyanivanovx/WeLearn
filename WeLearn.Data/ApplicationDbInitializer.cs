@@ -16,7 +16,7 @@ namespace WeLearn.Data
             if (!roleManager.RoleExistsAsync("Admin").Result)
             {
                 ApplicationRole role = new ApplicationRole("Admin");
-                IdentityResult roleResult = roleManager.CreateAsync(role).Result;
+                _ = roleManager.CreateAsync(role).Result;
             }
         }
 

@@ -26,13 +26,11 @@ namespace WeLearn.Services
         }
 
         public async Task<IndexViewModel> GenerateIndexViewModelAsync()
-        {
-            return new IndexViewModel()
-            {
-                CategoriesCount = await categoriesService.GetAllCategoriesCountAsync(),
-                UsersCount = await userService.GetAllUsersCountAsync(),
-                LessonsCount = await lessonsService.GetAllLessonsCountAsync()
-            };
-        }
+            => new IndexViewModel()
+                {
+                    CategoriesCount = await categoriesService.GetAllCategoriesCountAsync(),
+                    UsersCount = await userService.GetAllUsersCountAsync(),
+                    LessonsCount = await lessonsService.GetAllLessonsCountAsync()
+                };
     }
 }

@@ -33,17 +33,13 @@ namespace WeLearn.Services
         }
 
         public LessonsNavigationDropdownModel GenerateDropdownModel()
-        {
-            return new LessonsNavigationDropdownModel
-            {
-                Categories = context.Categories,
-                Lessons = context.Lessons
-            };
-        }
+            => new LessonsNavigationDropdownModel
+                {
+                    Categories = context.Categories,
+                    Lessons = context.Lessons
+                };
 
         public async Task<int> GetUsersCountAsync()
-        {
-            return await context.Users.CountAsync();
-        }
+            => await context.Users.CountAsync();
     }
 }

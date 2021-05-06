@@ -47,19 +47,14 @@
                     <span asp-validation-for="VideoId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MaterialId" class="control-label"></label>
+                    <label asp-for="MaterialId" class="control-label">Material</label>
                     <select asp-for="MaterialId" class="form-control" asp-items="ViewBag.MaterialId"></select>
                     <span asp-validation-for="MaterialId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control" />
+                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
                     <span asp-validation-for="DateCreated" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateDeleted" class="control-label"></label>
-                    <input asp-for="DateDeleted" class="form-control" />
-                    <span asp-validation-for="DateDeleted" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">
                     <label class="form-check-label">
@@ -77,5 +72,14 @@
 </div>
 
 @section Scripts {
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -56,36 +56,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return View(lesson);
         }
 
-        // GET: Administration/Lessons/Create
-        public IActionResult Create()
-        {
-            ViewData["ApplicationUserId"] = new SelectList(context.ApplicationUsers, "Id", "Id");
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name");
-            ViewData["MaterialId"] = new SelectList(context.Materials, "Id", "Link");
-            ViewData["VideoId"] = new SelectList(context.Videos, "Id", "ContentType");
-            return View();
-        }
-
-        // POST: Administration/Lessons/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,CategoryId,Grade,ApplicationUserId,VideoId,MaterialId,DateCreated,DateModified,DateDeleted,IsDeleted,Id")] Lesson lesson)
-        {
-            if (ModelState.IsValid)
-            {
-                context.Add(lesson);
-                await context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(context.ApplicationUsers, "Id", "Id", lesson.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", lesson.CategoryId);
-            ViewData["MaterialId"] = new SelectList(context.Materials, "Id", "Link", lesson.MaterialId);
-            ViewData["VideoId"] = new SelectList(context.Videos, "Id", "ContentType", lesson.VideoId);
-            return View(lesson);
-        }
-
         // GET: Administration/Lessons/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

@@ -4,6 +4,6 @@ namespace WeLearn.Services.Interfaces
 {
     public interface IFileDownloadService
     {
-        FileParsed DownloadFile(string link);
+        FileDownload DownloadFile(string link);
     }
 }

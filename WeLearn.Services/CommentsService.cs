@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,6 @@ namespace WeLearn.Services
 
         public CommentsService(
             ApplicationDbContext context,
-            UserManager<ApplicationUser> userManager,
             IMapper mapper)
         {
             this.context = context;

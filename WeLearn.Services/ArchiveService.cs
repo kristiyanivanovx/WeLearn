@@ -7,9 +7,9 @@ using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
 {
+    // https://stackoverflow.com/a/59860450/13146140
     public class ArchiveService : IArchiveService
     {
-        // https://stackoverflow.com/a/59860450/13146140
         public Stream ArchiveFiles(IEnumerable<IFormFile> files)
         {
             MemoryStream stream = new MemoryStream();

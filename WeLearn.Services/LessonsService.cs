@@ -118,26 +118,19 @@ namespace WeLearn.Services
             lessonInputModel.Id = 0;
 
             var lesson = mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
-
-            Data.Models.Video videoEntity = null;
-            Material materialEntity = null;
-
+            Data.Models.Video videoEntity;
+            Material materialEntity;
             if (isDevelopment)
             {
-                dynamic uploadsMaterialsPath = Path.Combine(environmentWebRootPath, "uploads", "materials");
-                await UploadMaterialsAsync(lessonInputModel, uploadsMaterialsPath);
-                dynamic tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
-
                 var stringGuid = Guid.NewGuid().ToString();
+                dynamic uploadsMaterialsPath = Path.Combine(environmentWebRootPath, "uploads", "materials");
+                dynamic tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
                 dynamic actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
-                using ZipArchive newFile = ZipFile.Open(actualDirectoryPlusZipName, ZipArchiveMode.Create);
-                foreach (string file in Directory.GetFiles(tempDirectory))
-                {
-                    newFile.CreateEntryFromFile(file, Path.GetFileName(file));
-                }
-
+                await UploadMaterialsAsync(lessonInputModel, uploadsMaterialsPath);
+                CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
                 DeleteUnusedFilesInTempFolder(tempDirectory);
+
                 materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
                 videoEntity = await UploadVideoAsync(lessonInputModel, environmentWebRootPath);
             }
@@ -158,51 +151,89 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
-
         public async Task EditLessonAsync(LessonEditModel lessonEditModel, dynamic environmentWebRootPath, string environmentName, string userId)
         {
-            var entity = context.Lessons
-                .Include(x => x.Material)
-                .Include(x => x.Video)
-                .FirstOrDefault(x => x.Id == lessonEditModel.LessonId);
+            var isDevelopment = environmentName == "Development";
 
-            entity.Name = lessonEditModel.LessonName ?? entity.Name;
-            entity.Description = lessonEditModel.Description ?? entity.Description;
-            entity.CategoryId = lessonEditModel.CategoryId;
-            entity.Grade = lessonEditModel.Grade;
+            Lesson lesson = FindLesson(lessonEditModel);
+            UpdateEntityProperties(lessonEditModel, lesson);
 
             dynamic uploadsMaterialsPath = Path.Combine(environmentWebRootPath, "uploads", "materials");
             dynamic tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
             dynamic actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, Guid.NewGuid().ToString() + ".zip");
 
+            if (isDevelopment)
+            {
+                await UpdateVideoInDevelopment(lessonEditModel, environmentWebRootPath, lesson);
+                await UpdateFilesInDevelopment(lessonEditModel, lesson, uploadsMaterialsPath, tempDirectory, actualDirectoryPlusZipName);
+            }
+            else
+            {
+                var materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonEditModel);
+                var materialEntity = await AddMaterialToDatabaseCloudinaryAsync(materialUploadResult.SecureUrl.AbsoluteUri, Guid.NewGuid().ToString());
+                var videoEntity = await UploadVideoCloudinaryAsync(lessonEditModel);
+
+                lesson.MaterialId = materialEntity.Id;
+                lesson.VideoId = videoEntity.Id;
+            }
+           
+            await context.SaveChangesAsync();
+        }
+
+        private async Task UpdateFilesInDevelopment(
+            LessonEditModel lessonEditModel, Lesson entity, dynamic uploadsMaterialsPath,
+            dynamic tempDirectory, dynamic actualDirectoryPlusZipName)
+        {
+            if (lessonEditModel.Files != null)
+            {
+                var stringGuid = Guid.NewGuid().ToString();
+                await UploadMaterialsAsync(lessonEditModel, uploadsMaterialsPath);
+                CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
+                DeleteUnusedFilesInTempFolder(tempDirectory);
+                Material materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
+                entity.MaterialId = materialEntity.Id;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private async Task UpdateVideoInDevelopment(LessonEditModel lessonEditModel, dynamic environmentWebRootPath, Lesson entity)
+        {
             if (lessonEditModel.Video != null)
             {
                 Data.Models.Video videoEntity = await UploadVideoAsync(lessonEditModel, environmentWebRootPath);
                 entity.VideoId = videoEntity.Id;
                 await context.SaveChangesAsync();
             }
-
-            if (lessonEditModel.Files != null)
-            {
-                var stringGuid = Guid.NewGuid().ToString();
-                await UploadMaterialsAsync(lessonEditModel, uploadsMaterialsPath);
-                using ZipArchive newFile = ZipFile.Open(actualDirectoryPlusZipName, ZipArchiveMode.Create);
-
-                foreach (string file in Directory.GetFiles(tempDirectory))
-                {
-                    newFile.CreateEntryFromFile(file, Path.GetFileName(file));
-                }
-
-                DeleteUnusedFilesInTempFolder(tempDirectory);
-                Material materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
-                entity.MaterialId = materialEntity.Id;
-                await context.SaveChangesAsync();
-            }
-
-            await context.SaveChangesAsync();
         }
 
-        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(LessonInputModel lessonInputModel)
+        private Lesson FindLesson(LessonEditModel lessonEditModel)
+        {
+            return context.Lessons
+                .Include(x => x.Material)
+                .Include(x => x.Video)
+                .FirstOrDefault(x => x.Id == lessonEditModel.LessonId);
+        }
+
+        private static void UpdateEntityProperties(LessonEditModel lessonEditModel, Lesson entity)
+        {
+            entity.Name = lessonEditModel.LessonName ?? entity.Name;
+            entity.Description = lessonEditModel.Description ?? entity.Description;
+            entity.CategoryId = lessonEditModel.CategoryId;
+            entity.Grade = lessonEditModel.Grade;
+        }
+
+        private static ZipArchive CreateZipArchiveWithTempFiles(dynamic tempDirectory, dynamic actualDirectoryPlusZipName)
+        {
+            ZipArchive archive = ZipFile.Open(actualDirectoryPlusZipName, ZipArchiveMode.Create);
+            foreach (string file in Directory.GetFiles(tempDirectory))
+            {
+                archive.CreateEntryFromFile(file, Path.GetFileName(file));
+            }
+
+            return archive;
+        }
+
+        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(ILessonModel lessonInputModel)
         {
             Cloudinary cloudinary = new Cloudinary();
 
@@ -291,7 +322,7 @@ namespace WeLearn.Services
             throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
         }
 
-        private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(LessonInputModel lessonInputModel)
+        private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(ILessonModel lessonInputModel)
         {
             Cloudinary cloudinary = new Cloudinary();
             var isFileSizeAcceptableForAll = lessonInputModel.Files.All(x => x.Length > SharedConstants.MinimumFileSizeInBytes && x.Length < SharedConstants.MaximumFileSizeInBytes);

@@ -73,6 +73,7 @@ namespace WeLearn.Services
                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
                 .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.OriginApplicationUserUserName, opt => opt.MapFrom(src => src.Lesson.ApplicationUser.UserName))
+                .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.Lesson.ApplicationUser.UserName))
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Lesson.Description))
                 .ForMember(dest => dest.Grade, opt => opt.MapFrom(src => src.Lesson.Grade))

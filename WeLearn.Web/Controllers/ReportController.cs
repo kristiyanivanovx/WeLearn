@@ -74,6 +74,11 @@ namespace WeLearn.Web.Controllers
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            if (!ModelState.IsValid)
+            {
+                return View(lessonReportModel);
+            }
+
             if (lessonReportModel.ReportingUserId != userId)
             {
                 return View("Unauthorized");
@@ -159,6 +164,11 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> CommentEdit(CommentReportModel commentReportModel)
         {
             var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (!ModelState.IsValid)
+            {
+                return View(commentReportModel);
+            }
 
             if (commentReportModel.ReportingUserId != userId)
             {

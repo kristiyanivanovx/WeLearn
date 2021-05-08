@@ -11,6 +11,5 @@
         public string ReportDescription { get; set; }
 
         public string OriginApplicationUserUserName { get; set; }
-
     }
 }

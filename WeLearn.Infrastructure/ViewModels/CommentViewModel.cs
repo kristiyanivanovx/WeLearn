@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using static WeLearn.Data.DataValidation.Comment;
 
 namespace WeLearn.Infrastructure.ViewModels
 {
@@ -11,7 +12,7 @@ namespace WeLearn.Infrastructure.ViewModels
 
         [Display(Name = "Content")]
         [Required(ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
-        [MaxLength(1000, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
+        [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         public string CommentContent { get; set; }
 
         public string UserName { get; set; }

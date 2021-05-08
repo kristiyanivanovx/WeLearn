@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Infrastructure.Interfaces;
+using static WeLearn.Data.DataValidation.Report;
 
 namespace WeLearn.Infrastructure.ViewModels
 {
@@ -20,7 +21,6 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string CategoryName { get; set; }
 
-
         public string CreatedByUserName { get; set; }
 
         public string VideoName { get; set; }
@@ -31,13 +31,13 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string ZippedFile { get; set; }
 
-        [MaxLength(250)]
         [Required(ErrorMessage = "Please provide subject to the report.")]
+        [MaxLength(MaxSubjectLength)]
         public string Subject { get; set; }
 
-        [MaxLength(2000)]
         [Display(Name = "Description")]
         [Required(ErrorMessage = "Please provide description to the report.")]
+        [MaxLength(MaxDescriptionLength)]
         public string ReportDescription { get; set; }
 
         public string ReportingUserId { get; set; }

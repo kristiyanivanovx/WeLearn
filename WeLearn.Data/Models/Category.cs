@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Interfaces;
+using static WeLearn.Data.DataValidation.Category;
+
 namespace WeLearn.Data.Models
 {
     public class Category : SoftDeleteable, IMetadataHaveable
@@ -12,13 +14,11 @@ namespace WeLearn.Data.Models
         }
 
         [Required]
-        [MaxLength(250)]
+        [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
         public ICollection<Lesson> Lessons { get; set; }
 
         public DateTime DateCreated { get; set; }
-
-        public DateTime? DateDeleted { get; set; }
     }
 }

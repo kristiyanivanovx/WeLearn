@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Log in</button>
+                        <button type="submit" class="btn btn-sm btn-outline-success">Log in</button>
                     </div>
                     <div class="form-group">
                         @* commented out links are not implemented *@
@@ -49,7 +49,7 @@
                                 <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                             </p>*@
                         <p>
-                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-info">Register as a new user</a>
                         </p>
 
                     </div>

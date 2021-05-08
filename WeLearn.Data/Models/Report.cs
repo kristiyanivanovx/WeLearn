@@ -1,17 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Interfaces;
+using static WeLearn.Data.DataValidation.Report;
 
 namespace WeLearn.Data.Models
 {
     public class Report : SoftDeleteable, IMetadataHaveable
     {
         [Required]
-        [MaxLength(250)]
+        [MaxLength(MaxSubjectLength)]
         public string Subject { get; set; }
 
         [Required]
-        [MaxLength(2000)]
+        [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
         public string ApplicationUserId { get; set; }
@@ -27,7 +28,5 @@ namespace WeLearn.Data.Models
         public Comment Comment { get; set; }
 
         public DateTime DateCreated { get; set; }
-
-        public DateTime? DateDeleted { get; set; }
     }
 }

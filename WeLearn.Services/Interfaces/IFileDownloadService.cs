@@ -1,4 +1,4 @@
-﻿using WeLearn.Infrastructure.HelperModels;
+﻿using WeLearn.Services.HelperModels;
 
 namespace WeLearn.Services.Interfaces
 {

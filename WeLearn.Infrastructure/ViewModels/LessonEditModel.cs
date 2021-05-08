@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 using WeLearn.Data.Models.Enums;
 using WeLearn.Infrastructure.Interfaces;
+using static WeLearn.Data.DataValidation.Lesson;
 
 namespace WeLearn.Infrastructure.ViewModels
 {
@@ -13,12 +13,12 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public int LessonId { get; set; }
 
-        [MaxLength(250)]
         [Display(Name = "Name")]
+        [MaxLength(MaxNameLength)]
         public string LessonName { get; set; }
 
-        [MaxLength(1500)]
         [Display(Name = "Description")]
+        [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
         [Display(Name = "Category")]

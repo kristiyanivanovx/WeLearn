@@ -47,32 +47,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return View(comment);
         }
 
-        // GET: Administration/Comments/Create
-        public IActionResult Create()
-        {
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description");
-            return View();
-        }
-
-        // POST: Administration/Comments/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Content,ApplicationUserId,LessonId,DateCreated,DateDeleted,IsDeleted,Id")] Comment comment)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", comment.ApplicationUserId);
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description", comment.LessonId);
-            return View(comment);
-        }
-
         // GET: Administration/Comments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using WeLearn.Data.Models;
 using WeLearn.Data.Seed;
 
@@ -12,10 +7,6 @@ namespace WeLearn.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
-        public ApplicationDbContext()
-        {
-        }
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -54,11 +45,6 @@ namespace WeLearn.Data
                .HasOne(x => x.Comment)
                .WithMany()
                .OnDelete(DeleteBehavior.Cascade);
-
-            // can be done better, currently admin cannot see soft deleted entries
-            //modelBuilder.Entity<Lesson>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Report>().HasQueryFilter(x => !x.IsDeleted);
-            //modelBuilder.Entity<Comment>().HasQueryFilter(x => !x.IsDeleted);
 
             base.OnModelCreating(modelBuilder);
         }

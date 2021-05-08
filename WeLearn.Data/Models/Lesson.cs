@@ -2,17 +2,18 @@
 using WeLearn.Data.Models.Interfaces;
 using WeLearn.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using static WeLearn.Data.DataValidation.Lesson;
 
 namespace WeLearn.Data.Models
 {
     public class Lesson :  SoftDeleteable, IMetadataHaveable
     {
         [Required]
-        [MaxLength(250)]
+        [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(1500)]
+        [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
         public int CategoryId { get; set; }
@@ -34,7 +35,5 @@ namespace WeLearn.Data.Models
         public Material Material { get; set; }
 
         public DateTime DateCreated { get; set; }
-
-        public DateTime? DateDeleted { get; set; }
     }
 }

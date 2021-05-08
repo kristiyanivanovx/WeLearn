@@ -35,8 +35,7 @@ namespace WeLearn.Data.Seed
             modelBuilder.Entity<Report>().HasData
             (
                 new Report { Id = 1, DateCreated = DateTime.UtcNow, Subject = "The language used in title", Description = "Bad language in lesson's title.", LessonId = 5},
-                new Report { Id = 2, DateCreated = DateTime.UtcNow, Subject = "Bad words in username", Description = "This username is unacceptable.", ApplicationUserId = UserId },
-                new Report { Id = 3, DateCreated = DateTime.UtcNow, Subject = "Swearing in comment", Description = "Bad language in comment.", CommentId = 1}
+                new Report { Id = 3, DateCreated = DateTime.UtcNow, Subject = "Unacceptable behaviour", Description = "Bad language in comment.", CommentId = 1}
             );
 
             modelBuilder.Entity<Category>().HasData

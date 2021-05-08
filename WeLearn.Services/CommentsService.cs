@@ -33,11 +33,9 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentByIdAsync(int id)
+        public async Task DeleteCommentAsync(Comment comment)
         {
-            var comment = await context.Comments.FirstOrDefaultAsync(x => x.Id == id);
             comment.IsDeleted = true;
-            comment.DateDeleted = DateTime.UtcNow;
             await context.SaveChangesAsync();
         }
 

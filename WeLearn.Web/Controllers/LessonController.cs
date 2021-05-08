@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WeLearn.Data.Models;
@@ -17,7 +16,6 @@ namespace WeLearn.Controllers
     public class LessonController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly ILogger<LessonController> logger;
         private readonly ICategoriesService categoriesService;
         private readonly ILessonsService lessonsService;
         private readonly IFileDownloadService fileDownloadService;
@@ -26,26 +24,21 @@ namespace WeLearn.Controllers
 
         public LessonController(
             UserManager<ApplicationUser> userManager,
-            ILogger<LessonController> logger,
             ICategoriesService categoriesService,
-            ILessonsService lessonService,
+            ILessonsService lessonsService,
             IFileDownloadService fileDownloadService,
             IWebHostEnvironment environment,
             IHttpContextAccessor httpContextAccessor) 
         {
             this.userManager = userManager;
-            this.logger = logger;
             this.categoriesService = categoriesService;
-            this.lessonsService = lessonService;
+            this.lessonsService = lessonsService;
             this.fileDownloadService = fileDownloadService;
             this.environment = environment;
             this.httpContextAccessor = httpContextAccessor;
         }
 
-        public IActionResult Index()
-        {
-            return RedirectToAction(nameof(All));
-        }
+        public IActionResult Index() => RedirectToAction(nameof(All));
 
         public async Task<IActionResult> All()
         {

@@ -1,25 +1,15 @@
-using CloudinaryDotNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
-using WeLearn.Data.Models.Interfaces;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
+using WeLearn.Web.Infrastructure;
 
 namespace WeLearn
 {
@@ -43,20 +33,7 @@ namespace WeLearn
             services.AddDbContext<ApplicationDbContext>(options =>
                    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
-            services.AddAutoMapper(typeof(MappingProfile));
-
-            services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            })
-            .AddRazorRuntimeCompilation();
-            services.AddRazorPages();
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddDefaultIdentity<IdentityUser>(options =>
-            //services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            services.AddDefaultIdentity<ApplicationUser>(options => 
+            services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequiredLength = 6;
@@ -65,6 +42,18 @@ namespace WeLearn
             })
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddRazorPages();
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            })
+            .AddRazorRuntimeCompilation();
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IUsersService, UsersService>();
@@ -79,19 +68,8 @@ namespace WeLearn
             services.AddHttpContextAccessor();
         }
 
-        public void Configure(
-            IApplicationBuilder app,
-            IWebHostEnvironment env, 
-            UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                ApplicationDbInitializer.SeedData(userManager, roleManager);
-            }
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -111,18 +89,7 @@ namespace WeLearn
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                   name: "areas",
-                   pattern: "{area:exists}/{controller=Manage}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapRazorPages();
-            });
+            app.UseEndpoints();
         }
     }
 }

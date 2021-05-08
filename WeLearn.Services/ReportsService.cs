@@ -109,7 +109,6 @@ namespace WeLearn.Services
         public async Task DeleteReportAsync(Report report)
         {
             report.IsDeleted = true;
-            report.DateDeleted = DateTime.UtcNow;
             await context.SaveChangesAsync();
         }
     }

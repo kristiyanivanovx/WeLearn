@@ -1,21 +1,20 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Interfaces;
+using static WeLearn.Data.DataValidation.Material;
 
 namespace WeLearn.Data.Models
 {
     public class Material : SoftDeleteable, IMetadataHaveable
     {
         [Required]
-        [MaxLength(250)]
+        [MaxLength(MaxNameLength)]
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(250)]
+        [MaxLength(MaxLinkLength)]
         public string Link { get; set; }
 
         public DateTime DateCreated { get; set; }
-
-        public DateTime? DateDeleted { get; set; }
     }
 }

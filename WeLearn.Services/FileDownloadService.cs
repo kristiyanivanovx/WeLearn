@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using WeLearn.Services.Interfaces;
-using WeLearn.Infrastructure.HelperModels;
+using WeLearn.Services.HelperModels;
 
 namespace WeLearn.Services
 {

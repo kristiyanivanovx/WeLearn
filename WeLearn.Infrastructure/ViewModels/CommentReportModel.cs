@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WeLearn.Infrastructure.Interfaces;
+using static WeLearn.Data.DataValidation.Report;
 
 namespace WeLearn.Infrastructure.ViewModels
 {
@@ -15,11 +16,11 @@ namespace WeLearn.Infrastructure.ViewModels
 
         public string CreatedByUserName { get; set; }
 
-        [MaxLength(250)]
+        [MaxLength(MaxSubjectLength)]
         [Required(ErrorMessage = "Please provide subject to the report.")]
         public string Subject { get; set; }
 
-        [MaxLength(2000)]
+        [MaxLength(MaxDescriptionLength)]
         [Display(Name = "Description")]
         [Required(ErrorMessage = "Please provide description to the report.")]
         public string ReportDescription { get; set; }

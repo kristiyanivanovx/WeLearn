@@ -27,10 +27,7 @@ namespace WeLearn.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
-        {
-            return RedirectToAction("Index", "Lesson");
-        }
+        public IActionResult Create() => RedirectToAction("Index", "Lesson");
 
         [HttpPost]
         [Authorize]
@@ -89,15 +86,14 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
-            var comment = await commentsService.GetCommentByIdAsync<Comment>(id);
+            var commentModel = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
 
-            if (user.Id != comment.ApplicationUserId)
+            if (user.Id != commentModel.ApplicationUserId)
             {
                 return View("Unauthorized");
             }
 
-            var commentEditModel = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
-            return View(commentEditModel);
+            return View(commentModel);
         }
 
         [HttpPost]
@@ -112,7 +108,7 @@ namespace WeLearn.Web.Controllers
                 return View("Unauthorized");
             }
 
-            await commentsService.DeleteCommentByIdAsync(comment.Id);
+            await commentsService.DeleteCommentAsync(comment);
             return View("Deleted");
         }
 

@@ -1,7 +1,7 @@
 ﻿@model WeLearn.Data.Models.Lesson
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Lesson details";
 }
 
 <div class="container">
@@ -34,33 +34,39 @@
             @Html.DisplayFor(model => model.Grade)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationUser)
+            Created by user
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUser.UserName) ---
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
+            ID: @Html.DisplayFor(model => model.ApplicationUser.Id)
+            <br />
+            Username: @Html.DisplayFor(model => model.ApplicationUser.UserName)
+            <br />
+            Email: @Html.DisplayFor(model => model.ApplicationUser.Email)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Video)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Video.Name)
-            <hr />
-            @Html.DisplayFor(model => model.Video.Link)
-            <hr />
-            @Html.DisplayFor(model => model.Video.ContentType)
+            <div class=" max-width-40-percent">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.Video.Name" data-poster="@Model.Video.Link">
+                    <source src="@Model.Video.Link" type="@Model.Video.ContentType" />
+                    <a href="@Model.Video.Link" download>Download</a>
+                </video>
+            </div>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Material)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Material.Link)
+            <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.Material.Link" class="btn btn-sm btn-outline-info">
+                <i class="fas fa-arrow-down"></i> Download Resources
+            </a>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateCreated)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
+            @Model.DateCreated.ToShortDateString()
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsDeleted)
@@ -70,29 +76,9 @@
         </dd>
     </dl>
     <div>
-        @{
-            var videoLink = Html.DisplayFor(model => model.Video.Link);
-            var videoName = Html.DisplayFor(model => model.Video.Name);
-            var videoContentType = Html.DisplayFor(model => model.Video.ContentType);
-        }
-        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@videoName" data-poster="@videoLink">
-            <source src="@videoLink" type="@videoContentType" />
-            <a href="@videoLink" download>Download</a>
-        </video>
-    </div>
-    <div>
-        <hr />
-        @{ var materialLink = Html.DisplayFor(model => model.Material.Link); }
-        <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@materialLink" class="btn btn-sm btn-outline-info">
-            <i class="fas fa-arrow-down"></i> Download Resources
-        </a>
-    </div>
-    <hr />
-    <div>
         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-success">Edit</a>
         <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
     </div>
-    <br />
 </div>
 
 @section Scripts {

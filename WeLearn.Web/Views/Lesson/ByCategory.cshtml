@@ -4,11 +4,19 @@
 }
 
 <div class="container">
+    <form asp-area="" asp-controller="Lesson" asp-action="ByCategory" method="get">
+        <input type="hidden" name="CategoryName" value="@ViewData["CategoryName"]" />    
+        <label>Find by name or description:</label>
+        <div class="input-group input-group-sm mb-3">
+            <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+        </div>
+    </form>
     <partial name="_MultipleLessonsPartial" />
     @if (Model.Count() == 0)
     {
-        <h1 class="display-4 text-center">This category doesn't have any lessons yet.</h1>
-        <hr />
+    <h1 class="display-4 text-center">No lessons found.</h1>
+    <hr />
     }
 </div>
 

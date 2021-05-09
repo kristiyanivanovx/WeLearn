@@ -1,4 +1,4 @@
-﻿namespace WeLearn.Infrastructure.Interfaces
+﻿namespace WeLearn.ViewModels.Interfaces
 {
     public interface IReportModel
     {

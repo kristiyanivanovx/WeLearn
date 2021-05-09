@@ -1,6 +1,6 @@
 ﻿@model WeLearn.Data.Models.Report
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit a report";
 }
 
 <div class="container">
@@ -9,62 +9,39 @@
     <h4>Report</h4>
     <hr />
     <div class="row">
-        <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Subject" class="control-label"></label>
-                        <input asp-for="Subject" class="form-control" />
-                        <span asp-validation-for="Subject" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description" class="control-label"></label>
-                        <input asp-for="Description" class="form-control" />
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="ApplicationUserId" class="control-label"></label>
-                        <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId"></select>
-                        <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="LessonId" class="control-label">Lesson description</label>
-                        <select asp-for="LessonId" class="form-control" asp-items="ViewBag.LessonId"></select>
-                        <span asp-validation-for="LessonId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="CommentId" class="control-label">Comment content</label>
-                        <select asp-for="CommentId" class="form-control" asp-items="ViewBag.CommentId"></select>
-                        <span asp-validation-for="CommentId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DateCreated" class="control-label"></label>
-                        <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
-                        <span asp-validation-for="DateCreated" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                        </label>
-                    </div>
-                    <input type="hidden" asp-for="Id" />
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
-                        <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
-                    </div>
-                </form>
-            </div>
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateCreated" class="control-label"></label>
+                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" />
+                    <span asp-validation-for="DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                    </label>
+                </div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
+                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 @section Scripts {
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-    $(function () {
-        $("#datepicker").datepicker();
-    });
-    </script>
-
+    <partial name="_DateTimePicker" />
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -24,6 +24,7 @@ namespace WeLearn.Data.Models
 
         public string ApplicationUserId { get; set; }
 
+        [Display(Name = "User")]
         public ApplicationUser ApplicationUser { get; set; }
 
         public int VideoId { get; set; }
@@ -34,6 +35,7 @@ namespace WeLearn.Data.Models
 
         public Material Material { get; set; }
 
+        [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
     }
 }

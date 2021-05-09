@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
-using WeLearn.Data.Models.Interfaces;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace WeLearn.Data.Models
 {

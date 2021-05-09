@@ -101,7 +101,6 @@ namespace WeLearn.Data.Seed
 
             modelBuilder.Entity<Material>().HasData
             (
-                // /uploads/materials/cat-seed-dfd1-4ed3-a862-684cd9a35995.zip
                 new Material { Id = 1,  DateCreated = DateTime.UtcNow, Name = "Teaching",         Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
                 new Material { Id = 2,  DateCreated = DateTime.UtcNow, Name = "Teaching",         Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
                 new Material { Id = 3,  DateCreated = DateTime.UtcNow, Name = "Coding",           Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },

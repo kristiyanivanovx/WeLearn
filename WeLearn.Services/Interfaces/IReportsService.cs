@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.Interfaces;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels.Interfaces;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Services
 {

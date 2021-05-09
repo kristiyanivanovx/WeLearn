@@ -1,15 +1,14 @@
 ﻿@model WeLearn.Data.Models.Report
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete a report";
 }
 
 <div class="container">
     <h1>Delete</h1>
-    <h3>Are you sure you want to delete this?</h3>
+    <h3>Are you sure you want to delete this report?</h3>
+    <hr />
     <div>
-        <h4>Report</h4>
-        <hr />
         <dl class="row">
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Subject)
@@ -24,15 +23,21 @@
                 @Html.DisplayFor(model => model.Description)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                Created by user
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ApplicationUser.Id)
+                ID: @Html.DisplayFor(model => model.ApplicationUser.Id)
+                <br />
+                Username: @Html.DisplayFor(model => model.ApplicationUser.UserName)
+                <br />
+                Email: @Html.DisplayFor(model => model.ApplicationUser.Email)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Lesson)
             </dt>
             <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Lesson.Name)
+                <br />
                 @Html.DisplayFor(model => model.Lesson.Description)
             </dd>
             <dt class="col-sm-2">
@@ -45,7 +50,7 @@
                 @Html.DisplayNameFor(model => model.DateCreated)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.DateCreated)
+                @Model.DateCreated.ToShortDateString()
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.IsDeleted)

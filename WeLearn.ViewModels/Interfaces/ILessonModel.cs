@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 
-namespace WeLearn.Infrastructure.Interfaces
+namespace WeLearn.ViewModels.Interfaces
 {
     public interface ILessonModel
     {

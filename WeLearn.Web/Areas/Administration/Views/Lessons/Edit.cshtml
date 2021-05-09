@@ -1,16 +1,15 @@
 ﻿@model WeLearn.Data.Models.Lesson
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit a lesson";
 }
 
 <div class="container">
     <h1>Edit</h1>
-
     <h4>Lesson</h4>
     <hr />
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <form asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -35,25 +34,25 @@
                     </select>
                     <span asp-validation-for="Grade" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="ApplicationUserId" class="control-label"></label>
                     <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId">
                     </select>
                     <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="VideoId" class="control-label">Video content type</label>
                     <select asp-for="VideoId" class="form-control" asp-items="ViewBag.VideoId"></select>
                     <span asp-validation-for="VideoId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="MaterialId" class="control-label">Material</label>
                     <select asp-for="MaterialId" class="form-control" asp-items="ViewBag.MaterialId"></select>
                     <span asp-validation-for="MaterialId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" />
                     <span asp-validation-for="DateCreated" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">
@@ -61,7 +60,19 @@
                         <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
+                <hr />
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.Video.Name" data-poster="@Model.Video.Link">
+                    <source src="@Model.Video.Link" type="@Model.Video.ContentType" />
+                    <a href="@Model.Video.Link" download>Download</a>
+                </video>
+                <hr />
                 <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.Material.Link" class="btn btn-sm btn-outline-info">
+                        <i class="fas fa-arrow-down"></i> Download Resources
+                    </a>
+                </div>
+                <hr />
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
@@ -72,14 +83,12 @@
 </div>
 
 @section Scripts {
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-    $(function () {
-        $("#datepicker").datepicker();
-    });
-    </script>
-
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_DateTimePicker" />
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
 }

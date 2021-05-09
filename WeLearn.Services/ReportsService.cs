@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.Interfaces;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels.Interfaces;
+using WeLearn.ViewModels;
+using System;
 
 namespace WeLearn.Services
 {
@@ -25,6 +25,8 @@ namespace WeLearn.Services
         public async Task CreateReportAsync<T>(T model) where T : IReportModel
         {
             var reportMapped = mapper.Map<Report>(model);
+            reportMapped.DateCreated = DateTime.UtcNow;
+
             await context.Reports.AddAsync(reportMapped);
             await context.SaveChangesAsync();
         }

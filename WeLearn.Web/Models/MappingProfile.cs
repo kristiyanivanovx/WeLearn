@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Services
 {

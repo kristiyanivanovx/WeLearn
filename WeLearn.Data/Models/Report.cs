@@ -27,6 +27,7 @@ namespace WeLearn.Data.Models
 
         public Comment Comment { get; set; }
 
+        [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
     }
 }

@@ -2,14 +2,11 @@
 @model IEnumerable<Lesson>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lessons administration";
 }
 
 <partial name="_AdminPartial" />
 <h1>Index</h1>
-@*<p>
-    <a asp-action="Create" class="btn btn-sm btn-outline-success">Create new</a>
-</p>*@
 <table class="table">
     <thead>
         <tr>
@@ -26,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Grade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                Created by user
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Video)
@@ -60,9 +57,11 @@
                     @Html.DisplayFor(modelItem => item.Grade)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
                     <hr />
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                    Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    <hr />
+                    Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
                 </td>
                 <td>
                     @{
@@ -76,13 +75,12 @@
                     </video>
                 </td>
                 <td>
-                    @{ var materialLink = Html.DisplayFor(modelItem => item.Material.Link); }
-                    <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@materialLink" class="btn btn-sm btn-outline-info">
-                        <i class="fas fa-arrow-down"></i> Download Resources
+                    <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.Material.Link" class="btn btn-sm btn-outline-info">
+                        &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
                     </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
+                    @item.DateCreated.ToShortDateString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsDeleted)

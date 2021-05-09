@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WeLearn.Data.Models.Report>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reports administration";
 }
 
 <partial name="_AdminPartial" />
@@ -10,9 +10,6 @@
 <p class="text-muted">
     Note: if the column "Lesson" is present/filled that means the type of report is a lesson report and vice versa,
     if the column "Comment" is present/filled that means the type of report is a comment report.
-</p>
-<p>
-    @*<a asp-action="Create" class="btn btn-sm btn-outline-success">Create New</a>*@
 </p>
 <table class="table">
     <thead>
@@ -52,6 +49,8 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    <hr />
                     @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
                 </td>
                 <td>

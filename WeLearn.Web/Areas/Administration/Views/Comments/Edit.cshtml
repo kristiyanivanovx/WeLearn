@@ -1,7 +1,7 @@
 ﻿@model WeLearn.Data.Models.Comment
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit a comment";
 }
 
 <div class="container">
@@ -17,24 +17,25 @@
                     <input asp-for="Content" class="form-control" />
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="ApplicationUserId" class="control-label"></label>
                     <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId"></select>
                     <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label asp-for="LessonId" class="control-label"></label>
                     <select asp-for="LessonId" class="form-control" asp-items="ViewBag.LessonId"></select>
                     <span asp-validation-for="LessonId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control"  id="datepicker" type="text" value="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" />
+                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" />
                     <span asp-validation-for="DateCreated" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                        <input class="form-check-input" asp-for="IsDeleted" />
+                        @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
                 <input type="hidden" asp-for="Id" />
@@ -49,14 +50,6 @@
 
 
 @section Scripts {
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-    $(function () {
-        $("#datepicker").datepicker();
-    });
-    </script>
-
+    <partial name="_DateTimePicker" />
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

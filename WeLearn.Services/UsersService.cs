@@ -10,9 +10,7 @@ namespace WeLearn.Services
         private readonly ApplicationDbContext context;
 
         public UsersService(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
+            => this.context = context;
 
         public async Task<int> GetAllUsersCountAsync()
             => await context.Users.CountAsync();

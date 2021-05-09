@@ -15,7 +15,7 @@ namespace WeLearn.Web.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int userCount = await viewComponentsService.GetUsersCountAsync();
+            var userCount = await viewComponentsService.GetUsersCountAsync();
             return View(userCount);
         }
     }

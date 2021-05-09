@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.Controllers
@@ -33,7 +33,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Create(CommentViewModel commentViewModel)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             commentViewModel.ApplicationUserId = userId;
 
             if (!ModelState.IsValid)
@@ -115,7 +115,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var myComments = await commentsService.MadeByMeToCommentMultiModelAsync(userId);
             return View(myComments);
         }

@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WeLearn.Infrastructure\WeLearn.Infrastructure.csproj" />
+    <ProjectReference Include="..\WeLearn.Data\WeLearn.Data.csproj" />
+    <ProjectReference Include="..\WeLearn.ViewModels\WeLearn.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

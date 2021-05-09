@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.Interfaces;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels.Interfaces;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -10,11 +10,11 @@ namespace WeLearn.Services.Interfaces
     {
         Task<int> GetAllLessonsCountAsync();
 
-        Task<IEnumerable<LessonViewModel>> GetAllLessonsToVMAsync();
+        Task<IEnumerable<LessonViewModel>> GetAllLessonsAsync(string categoryName);
 
-        Task<IEnumerable<LessonViewModel>> UploadedByMeToVMAsync(string userId);
+        Task<IEnumerable<LessonViewModel>> UploadedByMeAsync(string userId);
 
-        Task<IEnumerable<LessonViewModel>> GetAllRelevantLessonsToVMAsync(string categoryName);
+        Task<IEnumerable<LessonViewModel>> GetAllRelevantLessonsAsync(string categoryName, string searchString);
 
         Task DeleteLessonAsync(Lesson lesson);
 

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Services.Interfaces
 {

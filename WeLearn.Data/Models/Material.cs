@@ -15,6 +15,7 @@ namespace WeLearn.Data.Models
         [MaxLength(MaxLinkLength)]
         public string Link { get; set; }
 
+        [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using WeLearn.Data.Models.Enums;
 using static WeLearn.Data.DataValidation.Comment;
 
-namespace WeLearn.Infrastructure.ViewModels
+namespace WeLearn.ViewModels
 {
     public class CommentMultiModel
     {

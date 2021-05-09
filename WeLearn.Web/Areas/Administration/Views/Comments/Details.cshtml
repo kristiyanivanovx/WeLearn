@@ -1,7 +1,7 @@
 ﻿@model WeLearn.Data.Models.Comment
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Comment details";
 }
 
 <div class="container">
@@ -16,22 +16,32 @@
             @Html.DisplayFor(model => model.Content)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ApplicationUser)
+            Created by user
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ApplicationUser.Id)
+            ID: @Html.DisplayFor(model => model.ApplicationUser.Id)
+            <br />
+            Username: @Html.DisplayFor(model => model.ApplicationUser.UserName)
+            <br />
+            Email: @Html.DisplayFor(model => model.ApplicationUser.Email)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Lesson)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lesson.Description)
+            Name: @Html.DisplayFor(model => model.Lesson.Name)
+            <br />
+            Description: @Html.DisplayFor(model => model.Lesson.Description)
+            <br />
+            Grade: @Html.DisplayFor(model => model.Lesson.Grade)
+            <br />
+            Category: @Html.DisplayFor(model => model.Lesson.Category.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateCreated)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
+            @Model.DateCreated.ToShortDateString()
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.IsDeleted)
@@ -41,5 +51,5 @@
         </dd>
     </dl>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-success">Edit</a>
-    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
+    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
 </div>

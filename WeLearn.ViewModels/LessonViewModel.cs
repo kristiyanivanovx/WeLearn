@@ -1,6 +1,6 @@
 ﻿using WeLearn.Data.Models.Enums;
 
-namespace WeLearn.Infrastructure.ViewModels
+namespace WeLearn.ViewModels
 {
     public class LessonViewModel
     {

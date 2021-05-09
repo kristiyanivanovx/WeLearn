@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 
@@ -122,7 +122,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var myReports = await reportsService.CreatedByMeToCommentReportVMAsync(userId);
             return View(myReports);
         }

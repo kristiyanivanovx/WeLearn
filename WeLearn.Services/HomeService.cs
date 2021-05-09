@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
-using WeLearn.Infrastructure.ViewModels;
-using WeLearn.Data;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Services
 {

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
-using WeLearn.Infrastructure.Interfaces;
+using WeLearn.ViewModels.Interfaces;
 using static WeLearn.Data.DataValidation.Lesson;
 
-namespace WeLearn.Infrastructure.ViewModels
+namespace WeLearn.ViewModels
 {
     public class LessonEditModel : ILessonModel
     {

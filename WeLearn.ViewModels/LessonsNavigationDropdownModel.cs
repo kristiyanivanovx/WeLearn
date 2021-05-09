@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using WeLearn.Data.Models;
 
-namespace WeLearn.Infrastructure.ViewModels
+namespace WeLearn.ViewModels
 {
     public class LessonsNavigationDropdownModel
     {

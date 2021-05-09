@@ -7,18 +7,17 @@ using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
 {
-    // https://stackoverflow.com/a/59860450/13146140
     public class ArchiveService : IArchiveService
     {
         public Stream ArchiveFiles(IEnumerable<IFormFile> files)
         {
-            MemoryStream stream = new MemoryStream();
-            using (ZipArchive archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
+            var stream = new MemoryStream();
+            using (var archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
             {
-                foreach (IFormFile file in files)
+                foreach (var file in files)
                 {
                     var entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using (Stream target = entry.Open())
+                    using (var target = entry.Open())
                     {
                         file.CopyTo(target);
                     }
@@ -31,13 +30,13 @@ namespace WeLearn.Services
 
         public async Task<Stream> ArchiveFilesAsync(IEnumerable<IFormFile> files)
         {
-            MemoryStream stream = new MemoryStream();
-            using (ZipArchive archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
+            var stream = new MemoryStream();
+            using (var archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
             {
-                foreach (IFormFile file in files)
+                foreach (var file in files)
                 {
                     var entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using (Stream target = entry.Open())
+                    using (var target = entry.Open())
                     {
                         await file.OpenReadStream().CopyToAsync(target);
                     }

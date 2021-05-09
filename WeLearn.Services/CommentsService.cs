@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.ViewModels;
+using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services

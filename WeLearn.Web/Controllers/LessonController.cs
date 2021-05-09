@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WeLearn.Data.Models;
-using WeLearn.Infrastructure.ViewModels;
-using WeLearn.Infrastructure;
+using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
+using static WeLearn.Data.DataValidation.Video;
+using static WeLearn.Data.DataValidation.Material;
 
 namespace WeLearn.Controllers
 {
@@ -40,9 +41,10 @@ namespace WeLearn.Controllers
 
         public IActionResult Index() => RedirectToAction(nameof(All));
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string searchString)
         {
-            var lessonsViewModels = await lessonsService.GetAllLessonsToVMAsync();
+            ViewData["CurrentFilter"] = searchString;
+            var lessonsViewModels = await lessonsService.GetAllLessonsAsync(searchString);
             return View(lessonsViewModels);
         }
 
@@ -57,7 +59,7 @@ namespace WeLearn.Controllers
 
         [HttpPost]
         [Authorize]
-        [RequestSizeLimit(SharedConstants.MaximumVideoSizeInBytes)]
+        [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
         public async Task<IActionResult> Create(LessonInputModel lessonInputModel)
         {
             if (!ModelState.IsValid)
@@ -92,7 +94,7 @@ namespace WeLearn.Controllers
 
         [HttpPost]
         [Authorize]
-        [RequestSizeLimit(SharedConstants.MaximumVideoSizeInBytes)]
+        [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
         public async Task<IActionResult> Edit(LessonEditModel lessonEditModel)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
@@ -147,14 +149,16 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var myLessons = await lessonsService.UploadedByMeToVMAsync(userId);
+            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var myLessons = await lessonsService.UploadedByMeAsync(userId);
             return View(myLessons);
         }
 
-        public async Task<IActionResult> ByCategory(string categoryName)
+        public async Task<IActionResult> ByCategory(string categoryName, string searchString)
         {
-            var lessons = await lessonsService.GetAllRelevantLessonsToVMAsync(categoryName);
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CategoryName"] = categoryName;
+            var lessons = await lessonsService.GetAllRelevantLessonsAsync(categoryName, searchString);
             return View(lessons);
         }
 

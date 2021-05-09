@@ -116,3 +116,11 @@ body {
 .logo {
 	max-width: 13%;
 }
+
+.max-width-40-percent {
+	max-width: 40%;
+}
+
+.btn-padding-top {
+	margin-top: 10rem;	
+}

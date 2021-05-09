@@ -81,7 +81,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,CategoryId,Grade,ApplicationUserId,VideoId,MaterialId,DateCreated,DateModified,DateDeleted,IsDeleted,Id")] Lesson lesson)
+        public async Task<IActionResult> Edit(int id, 
+            [Bind("Name,Description,CategoryId,Grade,ApplicationUserId,VideoId,MaterialId,DateCreated,DateModified,DateDeleted,IsDeleted,Id")] Lesson lesson)
         {
             if (id != lesson.Id)
             {

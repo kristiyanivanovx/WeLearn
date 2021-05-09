@@ -21,8 +21,9 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         // GET: Administration/Comments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            
             var applicationDbContext = _context.Comments.Include(c => c.ApplicationUser).Include(c => c.Lesson).Include(c => c.Lesson.Category);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -38,6 +39,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             var comment = await _context.Comments
                 .Include(c => c.ApplicationUser)
                 .Include(c => c.Lesson)
+                .Include(c => c.Lesson.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (comment == null)
             {
@@ -113,7 +115,11 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             var comment = await _context.Comments
                 .Include(c => c.ApplicationUser)
                 .Include(c => c.Lesson)
+                .Include(c => c.Lesson.Category)
+                .Include(c => c.Lesson.Video)
+                .Include(c => c.Lesson.Material)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (comment == null)
             {
                 return NotFound();

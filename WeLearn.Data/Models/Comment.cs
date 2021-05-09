@@ -19,6 +19,7 @@ namespace WeLearn.Data.Models
 
         public Lesson Lesson { get; set; }
 
+        [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
     }
 }

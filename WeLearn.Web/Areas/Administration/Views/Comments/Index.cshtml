@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<WeLearn.Data.Models.Comment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Comments administration";
 }
 
 <partial name="_AdminPartial" />
 <h1>Index</h1>
-<p>
-    <a asp-action="Create" class="btn btn-sm btn-outline-success">Create New</a>
-</p>
+<h3>Comments</h3>
 <table class="table">
     <thead>
         <tr>
@@ -16,7 +14,7 @@
                 @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                Created by user
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Lesson)
@@ -27,7 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </th>
-            <th></th>
+            <th>
+                Navigate
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -38,24 +38,23 @@
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                    ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
                     <hr />
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    <hr />
+                    Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
                 </td>
                 <td>
-                    <span>Lesson Name:</span>
-                    @Html.DisplayFor(modelItem => item.Lesson.Name)
+                    Name: @Html.DisplayFor(modelItem => item.Lesson.Name)
                     <hr />
-                    <span>Description:</span>
-                    @Html.DisplayFor(modelItem => item.Lesson.Description)
-                    <span>Grade:</span>
-                    @Html.DisplayFor(modelItem => item.Lesson.Grade)
+                    Description: @Html.DisplayFor(modelItem => item.Lesson.Description)
                     <hr />
-                    <span>Category Name:</span>
-                    @Html.DisplayFor(modelItem => item.Lesson.Category.Name)
+                    Grade: @Html.DisplayFor(modelItem => item.Lesson.Grade)
+                    <hr />
+                    Category: @Html.DisplayFor(modelItem => item.Lesson.Category.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
+                    @item.DateCreated.ToShortDateString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsDeleted)

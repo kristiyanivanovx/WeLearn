@@ -1,72 +1,146 @@
-﻿@model IEnumerable<WeLearn.Data.Models.Comment>
-
+﻿@model PaginatedList<CommentAdministrationModel>
 @{
     ViewData["Title"] = "Comments administration";
 }
 
 <partial name="_AdminPartial" />
-<h1>Index</h1>
-<h3>Comments</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                Created by user
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lesson)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                Navigate
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<h3>Manage comments</h3>
+<form asp-area="Administration" asp-controller="Comments" asp-action="Index" method="get">
+    <label>Find by name or description:</label>
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@ViewData["CurrentFilter"]" />
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+    </div>
+</form>
+<div class="text-center">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
-                    <hr />
-                    Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                    <hr />
-                    Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-                </td>
-                <td>
-                    Name: @Html.DisplayFor(modelItem => item.Lesson.Name)
-                    <hr />
-                    Description: @Html.DisplayFor(modelItem => item.Lesson.Description)
-                    <hr />
-                    Grade: @Html.DisplayFor(modelItem => item.Lesson.Grade)
-                    <hr />
-                    Category: @Html.DisplayFor(modelItem => item.Lesson.Category.Name)
-                </td>
-                <td>
-                    @item.DateCreated.ToShortDateString()
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                </td>
-                <td>
-                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Lesson.Id" class="btn btn-sm btn-outline-secondary">Watch</a>
-
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success">Edit / Soft delete</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Hard Delete (Irreversible)</a>
-                </td>
+                <th>
+                    Content
+                </th>
+                <th>
+                    Created by user
+                </th>
+                <th>
+                    Lesson
+                </th>
+                <th>
+                    Video
+                </th>
+                <th>
+                    Material
+                </th>
+                <th>
+                    Date created
+                </th>
+                <th>
+                    Is deleted
+                </th>
+                <th>
+                    Navigate
+                </th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        ID: @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                        <hr />
+                        Username: @Html.DisplayFor(modelItem => item.ApplicationUserUserName)
+                        <hr />
+                        Email: @Html.DisplayFor(modelItem => item.ApplicationUserEmail)
+                    </td>
+                    <td>
+                        Name: @Html.DisplayFor(modelItem => item.LessonName)
+                        <hr />
+                        Description: @Html.DisplayFor(modelItem => item.LessonDescription)
+                        <hr />
+                        Grade: @Html.DisplayFor(modelItem => item.LessonGrade)
+                        <hr />
+                        Category: @Html.DisplayFor(modelItem => item.LessonCategoryName)
+                    </td>
+                    <td>
+                        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.LessonVideoName" data-poster="@item.LessonVideoLink">
+                            <source src="@item.LessonVideoLink" type="@item.LessonVideoContentType" />
+                            <a href="@item.LessonVideoLink" download>Download</a>
+                        </video>
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.LessonMaterialLink" class="btn btn-sm btn-outline-info">
+                            &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
+                        </a>
+                    </td>
+                    <td>
+                        @item.DateCreated.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                        <a asp-action="Edit" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <div class="mt-2 mb-2 text-center">
+        <a asp-area="Administration"
+            asp-controller="Comments"
+            asp-action="Index"
+            asp-route-sortOrder="@ViewData["CurrentSort"]"
+            asp-route-pageNumber="@(Model.PageIndex - 1)"
+            asp-route-currentFilter="@ViewData["CurrentFilter"]"
+            asp-route-categoryName="@ViewData["CategoryName"]"
+            class="btn btn-sm btn-outline-dark @prevDisabled">
+            <i class="fas fa-arrow-left"></i> Previous
+        </a>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-area="Administration"
+                asp-controller="Comments"
+                asp-action="Index"
+                asp-route-sortOrder="@ViewData["CurrentSort"]"
+                asp-route-pageNumber="@i"
+                asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                asp-route-categoryName="@ViewData["CategoryName"]"
+                class="btn btn-sm btn-outline-dark ">
+                @i
+            </a>
         }
-    </tbody>
-</table>
+        <a asp-area="Administration"
+            asp-controller="Comments"
+            asp-action="Index"
+            asp-route-sortOrder="@ViewData["CurrentSort"]"
+            asp-route-pageNumber="@(Model.PageIndex + 1)"
+            asp-route-currentFilter="@ViewData["CurrentFilter"]"
+            asp-route-categoryName="@ViewData["CategoryName"]"
+            class="btn btn-sm btn-outline-dark @nextDisabled">
+            Next <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    <br />
+</div>
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+
+    <script>
+        const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
+        window.player = player;
+    </script>
+}

@@ -22,7 +22,7 @@ namespace WeLearn.Services
             this.mapper = mapper;
         }
 
-        public async Task CreateReportAsync<T>(T model) where T : IReportModel
+        public async Task CreateReportAsync(IReportModel model)
         {
             Report reportMapped = mapper.Map<Report>(model);
             reportMapped.DateCreated = DateTime.UtcNow;
@@ -39,7 +39,7 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<T> GetReportById<T>(int reportId) where T : IReportModel
+        public async Task<IReportModel> GetReportById<IReportModel>(int reportId)
         {
             Report reportByMe = await context.Reports
                     .Where(x => x.Id == reportId)
@@ -52,7 +52,7 @@ namespace WeLearn.Services
                     .Include(x => x.Comment)
                     .FirstOrDefaultAsync();
 
-            T reportByIdMapped = mapper.Map<T>(reportByMe);
+            IReportModel reportByIdMapped = mapper.Map<IReportModel>(reportByMe);
             return reportByIdMapped;
         }
 
@@ -107,8 +107,9 @@ namespace WeLearn.Services
             return commentsReportedByMeMapped;
         }
 
-        public async Task DeleteReportAsync(Report report)
+        public async Task SoftDeleteReportByIdAsync(int? reportId)
         {
+            Report report = context.Reports.FirstOrDefault(x => x.Id == reportId);
             report.IsDeleted = true;
             await context.SaveChangesAsync();
         }

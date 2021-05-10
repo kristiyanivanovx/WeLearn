@@ -27,55 +27,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Administration/Reports/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var report = await _context.Reports
-                .Include(r => r.ApplicationUser)
-                .Include(r => r.Comment)
-                .Include(r => r.Lesson)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (report == null)
-            {
-                return NotFound();
-            }
-
-            return View(report);
-        }
-
-        // GET: Administration/Reports/Create
-        public IActionResult Create()
-        {
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            ViewData["CommentId"] = new SelectList(_context.Comments, "Id", "Content");
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description");
-            return View();
-        }
-
-        // POST: Administration/Reports/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Subject,Description,ApplicationUserId,LessonId,CommentId,DateCreated,DateDeleted,IsDeleted,Id")] Report report)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(report);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", report.ApplicationUserId);
-            ViewData["CommentId"] = new SelectList(_context.Comments, "Id", "Content", report.CommentId);
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description", report.LessonId);
-            return View(report);
-        }
-
         // GET: Administration/Reports/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -166,8 +117,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         private bool ReportExists(int id)
-        {
-            return _context.Reports.Any(e => e.Id == id);
-        }
+            => _context.Reports.Any(e => e.Id == id);
     }
 }

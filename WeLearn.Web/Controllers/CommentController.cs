@@ -50,14 +50,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             CommentMultiModel comment = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
-
-            if (userId != comment.ApplicationUserId)
-            {
-                return View(nameof(Unauthorized));
-            }
-
             return View(comment);
         }
 
@@ -65,7 +58,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(CommentMultiModel model)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (!ModelState.IsValid)
             {
@@ -85,14 +78,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             CommentMultiModel commentModel = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
-
-            if (userId != commentModel.ApplicationUserId)
-            {
-                return View("Unauthorized");
-            }
-
             return View(commentModel);
         }
 
@@ -101,14 +87,13 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> Delete(CommentMultiModel model)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            Comment comment = await commentsService.GetCommentByIdAsync<Comment>(model.CommentId);
 
-            if (userId != comment.ApplicationUserId)
+            if (userId != model.ApplicationUserId)
             {
                 return View("Unauthorized");
             }
 
-            await commentsService.DeleteCommentAsync(comment);
+            await commentsService.SoftDeleteCommentByIdAsync(model.CommentId);
             return View("Deleted");
         }
 
@@ -116,7 +101,7 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> ByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            IEnumerable<CommentMultiModel> myComments = await commentsService.CommentsMadeByMeAsync(userId);
+            IEnumerable<CommentMultiModel> myComments = await commentsService.GetCommentsMadeByMeAsync(userId);
             return View(myComments);
         }
     }

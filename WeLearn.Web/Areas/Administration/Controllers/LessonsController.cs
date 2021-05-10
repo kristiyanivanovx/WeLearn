@@ -31,29 +31,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 .Include(l => l.Material)
                 .Include(l => l.Video);
             var items = await applicationDbContext.ToListAsync();
-            return View(items);
-        }
-
-        // GET: Administration/Lessons/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lesson = await context.Lessons
-                .Include(l => l.ApplicationUser)
-                .Include(l => l.Category)
-                .Include(l => l.Material)
-                .Include(l => l.Video)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (lesson == null)
-            {
-                return NotFound();
-            }
-
-            return View(lesson);
+            return View(items.OrderBy(l => l.IsApproved));
         }
 
         // GET: Administration/Lessons/Edit/5
@@ -82,7 +60,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, 
-            [Bind("Name,Description,CategoryId,Grade,ApplicationUserId,VideoId,MaterialId,DateCreated,DateModified,DateDeleted,IsDeleted,Id")] Lesson lesson)
+            [Bind("Name,Description,CategoryId,Grade,ApplicationUserId,VideoId,MaterialId,DateCreated,DateModified,DateDeleted,IsDeleted,IsApproved,Id")] Lesson lesson)
         {
             if (id != lesson.Id)
             {
@@ -150,8 +128,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         private bool LessonExists(int id)
-        {
-            return context.Lessons.Any(e => e.Id == id);
-        }
+            => context.Lessons.Any(e => e.Id == id);
     }
 }

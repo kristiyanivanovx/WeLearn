@@ -121,6 +121,10 @@ body {
 	max-width: 40%;
 }
 
+.max-width-60-percent {
+	max-width: 60%;
+}
+
 .btn-padding-top {
-	margin-top: 10rem;	
+	margin-top: 10rem;
 }

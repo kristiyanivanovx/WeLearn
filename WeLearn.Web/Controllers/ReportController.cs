@@ -94,14 +94,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonDelete(int reportId)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             LessonReportModel lessonReportModel = await reportsService.GetReportById<LessonReportModel>(reportId);
-
-            if (lessonReportModel.ReportingUserId != userId)
-            {
-                return View("Unauthorized");
-            }
-
             return View(lessonReportModel);
         }
 
@@ -110,14 +103,13 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> LessonDelete(LessonReportModel lessonReportModel)
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            Report reportFromDb = await reportsService.GetReportByIdToReportAsync(lessonReportModel.ReportId.GetValueOrDefault());
 
-            if (reportFromDb.ApplicationUserId != userId)
+            if (lessonReportModel.ReportingUserId != userId)
             {
                 return View("Unauthorized");
             }
 
-            await reportsService.DeleteReportAsync(reportFromDb);
+            await reportsService.SoftDeleteReportByIdAsync(lessonReportModel.ReportId);
             return View("Deleted");
         }
 
@@ -185,14 +177,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(int reportId)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             CommentReportModel commentReportModel = await reportsService.GetReportById<CommentReportModel>(reportId);
-
-            if (commentReportModel.ReportingUserId != userId)
-            {
-                return View("Unauthorized");
-            }
-
             return View(commentReportModel);
         }
 
@@ -200,15 +185,14 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(CommentReportModel commentReportModel)
         {
-            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            Report report = await reportsService.GetReportByIdToReportAsync(commentReportModel.ReportId.GetValueOrDefault());
+            string userName = HttpContext.User.Identity.Name;
 
-            if (report.ApplicationUserId != userId)
+            if (commentReportModel.CreatedByUserName != userName)
             {
-                return View("Unauthorized");
+                return View(nameof(Unauthorized));
             }
 
-            await reportsService.DeleteReportAsync(report);
+            await reportsService.SoftDeleteReportByIdAsync(commentReportModel.ReportId);
             return View("Deleted");
         }
     }

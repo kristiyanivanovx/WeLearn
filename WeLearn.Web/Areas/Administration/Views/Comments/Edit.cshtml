@@ -1,31 +1,53 @@
-﻿@model WeLearn.Data.Models.Comment
+﻿@model CommentAdministrationModel
 
 @{
     ViewData["Title"] = "Edit a comment";
 }
 
-<div class="container">
+<div class="container text-center">
     <h1>Edit</h1>
-    <h4>Comment</h4>
     <hr />
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
+            <h2>Lesson</h2>
+            <hr />
+            <div class="card">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+                    <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
+                    <a href="@Model.LessonVideoLink" download>Download</a>
+                </video>
+                <div class="card-body">
+                    <div class="card-text">
+                        <h5 class="card-title">@Model.LessonName</h5>
+                        <hr />
+                        <p class="card-text">@Model.LessonDescription</p>
+                        <p class="card-text">
+                            @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
+                            <small class="text-muted">Created by - @createdBy | </small>
+                            <small class="text-muted">Category - @Model.LessonCategoryName | </small>
+                            <small class="text-muted">Grade - @Model.LessonGrade</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="btn btn-sm btn-outline-info">
+                &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
+            </a>
+            <hr />
+        </div>
+        <div class="col-md-6">
+            <h2>Comment</h2>
+            <hr />
             <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <input asp-for="LessonId" class="form-control" type="hidden" />
+                <input asp-for="ApplicationUserId" class="form-control" type="hidden" />
+                <input asp-for="CommentId" type="hidden" />
                 <div class="form-group">
                     <label asp-for="Content" class="control-label"></label>
                     <input asp-for="Content" class="form-control" />
                     <span asp-validation-for="Content" class="text-danger"></span>
-                </div>
-                <div class="form-group" hidden>
-                    <label asp-for="ApplicationUserId" class="control-label"></label>
-                    <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId"></select>
-                    <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
-                </div>
-                <div class="form-group" hidden>
-                    <label asp-for="LessonId" class="control-label"></label>
-                    <select asp-for="LessonId" class="form-control" asp-items="ViewBag.LessonId"></select>
-                    <span asp-validation-for="LessonId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateCreated" class="control-label"></label>
@@ -38,18 +60,23 @@
                         @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
-                <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
-                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
+                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
                 </div>
             </form>
         </div>
     </div>
-</div>
+    </div>
 
 
 @section Scripts {
     <partial name="_DateTimePicker" />
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

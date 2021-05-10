@@ -1,9 +1,9 @@
-﻿@model IEnumerable<LessonViewModel>
+﻿@model PaginatedList<LessonViewModel>
 @{
     ViewData["Title"] = "All lessons";
 }
 
-<div class="container">
+<div class="container ">
     <form asp-area="" asp-controller="Lesson" asp-action="All" method="get">
         <label>Find by name or description:</label>
         <div class="input-group input-group-sm mb-3">
@@ -11,11 +11,17 @@
             <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
         </div>
     </form>
-    <partial name="_MultipleLessonsPartial" />
     @if (Model.Count() == 0)
     {
         <h1 class="display-4 text-center">We don't have any lessons matching your query.</h1>
         <hr />
+    }
+    else
+    {
+        <div class="text-center">
+            <partial name="_MultipleLessonsPartial" />
+            <partial name="_PaginationPartial" />
+        </div>
     }
     <br />
 </div>

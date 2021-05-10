@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeLearn.ViewModels;
-using WeLearn.Data.Models;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -9,12 +8,18 @@ namespace WeLearn.Services.Interfaces
     {
         Task<T> GetCommentByIdAsync<T>(int id);
 
+        Task<IEnumerable<CommentAdministrationModel>> GetAllComments(string searchString);
+
+        Task<IEnumerable<CommentMultiModel>> GetCommentsMadeByMeAsync(string userId);
+
         Task CreateCommentAsync(CommentViewModel commentViewModel);
 
         Task EditCommentAsync(CommentMultiModel commentEditModel);
-        
-        Task DeleteCommentAsync(Comment comment);
-        
-        Task<IEnumerable<CommentMultiModel>> CommentsMadeByMeAsync(string userId);
+
+        Task EditCommentByAdminAsync(CommentAdministrationModel commentEditModel);
+
+        Task SoftDeleteCommentByIdAsync(int commentId);
+
+        Task HardDeleteCommentByIdAsync(int commentId);
     }
 }

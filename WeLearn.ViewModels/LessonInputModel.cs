@@ -21,7 +21,7 @@ namespace WeLearn.ViewModels
 
         [Display(Name = "Category")]
         [Required(ErrorMessage = "Please pick a category.")]
-        public int Id { get; set; }
+        public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "Please pick a grade.")]
         public Grade Grade { get; set; }

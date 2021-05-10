@@ -16,6 +16,12 @@
         <h5>@Model.UsersCount users</h5>
         <h5>@Model.CategoriesCount categories</h5>
         <h5>@Model.LessonsCount lessons</h5>
+        @{
+        var osNameAndVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+
+        }
+        os  
+        @osNameAndVersion;
     </div>
     <hr />
     <div class="text-center">

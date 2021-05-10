@@ -2,7 +2,7 @@
 using WeLearn.Data.Models;
 using WeLearn.ViewModels;
 
-namespace WeLearn.Services
+namespace WeLearn.Web.Infrastructure
 {
     public class MappingProfile : Profile
     {
@@ -141,8 +141,14 @@ namespace WeLearn.Services
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.LessonId))
                 .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.ApplicationUserId));
 
-            CreateMap<Category, CategoryViewModel>();
-            CreateMap<CategoryViewModel, Category>();
+            CreateMap<Comment, CommentAdministrationModel>()
+                .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<Category, CategoryViewModel>()
+                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<CategoryViewModel, Category>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CategoryId));
         }
     }
 }

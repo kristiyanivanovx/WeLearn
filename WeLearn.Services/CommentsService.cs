@@ -31,16 +31,33 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentAsync(Comment comment)
-        {
-            comment.IsDeleted = true;
-            await context.SaveChangesAsync();
-        }
-
         public async Task EditCommentAsync(CommentMultiModel commentEditModel)
         {
             Comment entity = context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
             entity.Content = commentEditModel.Content ?? entity.Content;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task EditCommentByAdminAsync(CommentAdministrationModel commentEditModel)
+        {
+            Comment entity = context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
+            entity.Content = commentEditModel.Content ?? entity.Content;
+            entity.IsDeleted = commentEditModel.IsDeleted;
+            entity.DateCreated = commentEditModel.DateCreated;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteCommentByIdAsync(int commentId)
+        {
+            Comment comment = context.Comments.FirstOrDefault(x => x.Id == commentId);
+            comment.IsDeleted = true;
+            await context.SaveChangesAsync();
+        }
+
+        public async Task HardDeleteCommentByIdAsync(int commentId)
+        {
+            Comment comment = context.Comments.FirstOrDefault(x => x.Id == commentId);
+            context.Comments.Remove(comment);
             await context.SaveChangesAsync();
         }
 
@@ -60,7 +77,7 @@ namespace WeLearn.Services
             return commentMapped;
         }
 
-        public async Task<IEnumerable<CommentMultiModel>> CommentsMadeByMeAsync(string userId)
+        public async Task<IEnumerable<CommentMultiModel>> GetCommentsMadeByMeAsync(string userId)
         {
             List<Comment> commentsByMe = await context.Comments
                             .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
@@ -73,6 +90,27 @@ namespace WeLearn.Services
 
             CommentMultiModel[] commentsByMeMapped = mapper.Map<CommentMultiModel[]>(commentsByMe);
             return commentsByMeMapped;
+        }
+
+        public async Task<IEnumerable<CommentAdministrationModel>> GetAllComments(string searchString)
+        {
+            IQueryable<Comment> allComments = context.Comments;
+                            
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                allComments = allComments.Where(x => x.Content.ToLower().Contains(searchString.ToLower()));
+            }
+
+            await allComments.Include(x => x.ApplicationUser)
+                             .Include(x => x.Lesson)
+                             .Include(x => x.Lesson.Category)
+                             .Include(x => x.Lesson.Material)
+                             .Include(x => x.Lesson.Video)
+                             .OrderByDescending(x => x.DateCreated)
+                             .ToListAsync();
+
+            CommentAdministrationModel[] allCommentsMapped = mapper.Map<CommentAdministrationModel[]>(allComments);
+            return allCommentsMapped;
         }
     }
 }

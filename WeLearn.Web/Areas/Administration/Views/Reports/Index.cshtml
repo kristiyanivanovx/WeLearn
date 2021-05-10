@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WeLearn.Data.Models.Report>
-
+﻿@model IEnumerable<Report>
 @{
     ViewData["Title"] = "Reports administration";
 }
@@ -21,10 +20,10 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ApplicationUser)
+                Created by user
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Lesson)
+                @Html.DisplayNameFor(model => model.Lesson) details
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Comment)
@@ -49,9 +48,11 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
                     <hr />
-                    @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                    Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                    <hr />
+                    Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Lesson.Name)
@@ -70,11 +71,10 @@
                 <td>
                     @if (item?.LessonId != null)
                     {
-                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary">Watch</a>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
                     }
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Details</a>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success">Edit / Soft delete</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Hard Delete (Irreversible)</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
                 </td>
             </tr>
         }

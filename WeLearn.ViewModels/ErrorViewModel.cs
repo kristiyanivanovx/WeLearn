@@ -1,6 +1,4 @@
-using System;
-
-namespace WeLearn.Models
+namespace WeLearn.ViewModels
 {
     public class ErrorViewModel
     {

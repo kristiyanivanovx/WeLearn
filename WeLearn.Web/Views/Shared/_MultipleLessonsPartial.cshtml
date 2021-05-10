@@ -21,24 +21,23 @@
                         <small class="text-muted">Category - @item.CategoryName | </small>
                         <small class="text-muted">Grade - @item.Grade</small>
                     </p>
-                    <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-dark">
+                    <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-dark mb-1">
                         <i class="fas fa-info"></i> Details
                     </a>
                     @if (User.Identity.Name == item.CreatedByUserName)
                     {
-                        <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-success">
+                        <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-success mb-1">
                             <i class="fas fa-edit"></i> Edit
                         </a>
-                        @* instead of modal code *@
-                        <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-danger">
+                        <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-danger mb-1">
                             <i class="fas fa-trash-alt"></i> Delete
                         </a>
                         @* *@
                     }
-                    <a asp-controller="Lesson" asp-action="Download" asp-route-link="@item.ZippedFile" class="btn btn-sm btn-outline-info">
+                    <a asp-controller="Lesson" asp-action="Download" asp-route-link="@item.ZippedFile" class="btn btn-sm btn-outline-info mb-1">
                         <i class="fas fa-arrow-down"></i> Download Resources
                     </a>
-                    <a asp-controller="Report" asp-action="Lesson" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-warning">
+                    <a asp-controller="Report" asp-action="Lesson" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-warning mb-1">
                         <i class="far fa-flag"></i> Report
                     </a>
                 </div>

@@ -16,6 +16,9 @@ namespace WeLearn.Data.Models
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
+        [Display(Name = "Is approved")]
+        public bool IsApproved { get; set; }
+
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }

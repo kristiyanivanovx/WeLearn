@@ -1,5 +1,4 @@
 ﻿@model WeLearn.Data.Models.Lesson
-
 @{
     ViewData["Title"] = "Edit a lesson";
 }
@@ -60,6 +59,11 @@
                         <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsApproved" /> @Html.DisplayNameFor(model => model.IsApproved)
+                    </label>
+                </div>
                 <hr />
                 <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.Video.Name" data-poster="@Model.Video.Link">
                     <source src="@Model.Video.Link" type="@Model.Video.ContentType" />
@@ -75,7 +79,7 @@
                 <hr />
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
-                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to List</a>
+                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
                 </div>
             </form>
         </div>

@@ -18,10 +18,10 @@ namespace WeLearn.Services
 
         Task EditCommentReportAsync(CommentReportModel commentReportModel);
 
-        Task DeleteReportAsync(Report model);
+        Task SoftDeleteReportByIdAsync(int? reportId);
 
-        Task CreateReportAsync<T>(T model) where T : IReportModel;
+        Task CreateReportAsync(IReportModel model);
 
-        Task<T> GetReportById<T>(int reportId) where T : IReportModel;
+        Task<IReportModel> GetReportById<IReportModel>(int reportId);
     }
 }

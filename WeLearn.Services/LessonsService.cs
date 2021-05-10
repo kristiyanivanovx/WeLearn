@@ -48,8 +48,9 @@ namespace WeLearn.Services
             return await context.Lessons.CountAsync();
         }
 
-        public async Task DeleteLessonAsync(Lesson lesson)
+        public async Task SoftDeleteLessonByIdAsync(int lessonId)
         {
+            Lesson lesson = context.Lessons.FirstOrDefault(x => x.Id == lessonId);
             lesson.IsDeleted = true;
             await context.SaveChangesAsync();
         }
@@ -68,9 +69,9 @@ namespace WeLearn.Services
             return lessonMapped;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> GetAllRelevantLessonsAsync(string categoryName, string searchString)
+        public async Task<IEnumerable<LessonViewModel>> GetAllLessonsByCategoryAsync(string categoryName, string searchString)
         {
-            IQueryable<Lesson> lessonsByCategory = context.Lessons.Where(x => x.Category.Name == categoryName && !x.IsDeleted);
+            IQueryable<Lesson> lessonsByCategory = context.Lessons.Where(x => x.Category.Name == categoryName && !x.IsDeleted && x.IsApproved);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -79,11 +80,11 @@ namespace WeLearn.Services
             }
 
             await lessonsByCategory
-                .Include(x => x.Video)
-                .Include(x => x.Material)
-                .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
-                .ToListAsync();
+                    .Include(x => x.Video)
+                    .Include(x => x.Material)
+                    .Include(x => x.Category)
+                    .Include(x => x.ApplicationUser)
+                    .ToListAsync();
 
             LessonViewModel[] lessonsMapped = mapper.Map<LessonViewModel[]>(lessonsByCategory);
             return lessonsMapped;
@@ -91,7 +92,7 @@ namespace WeLearn.Services
 
         public async Task<IEnumerable<LessonViewModel>> GetAllLessonsAsync(string searchString)
         {
-            IQueryable<Lesson> lessons = context.Lessons.Where(x => !x.IsDeleted);
+            IQueryable<Lesson> lessons = context.Lessons.Where(x => !x.IsDeleted && x.IsApproved);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -109,7 +110,27 @@ namespace WeLearn.Services
             return lessonsViewModel;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> UploadedByMeAsync(string userId)
+        public async Task<IEnumerable<LessonViewModel>> GetAllLessonsWithDeletedAsync(string searchString)
+        {
+            IQueryable<Lesson> lessons = context.Lessons;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                lessons = lessons.Where(x => x.Name.ToLower().Contains(searchString.ToLower()) ||
+                                             x.Description.ToLower().Contains(searchString.ToLower()));
+            }
+
+            await lessons.Include(x => x.Category)
+                    .Include(x => x.ApplicationUser)
+                    .Include(x => x.Video)
+                    .Include(x => x.Material)
+                    .ToListAsync();
+
+            LessonViewModel[] lessonsViewModel = mapper.Map<LessonViewModel[]>(lessons);
+            return lessonsViewModel;
+        }
+
+        public async Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId)
         {
             List<Lesson> lessonsByMe = await context.Lessons
                 .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
@@ -130,13 +151,8 @@ namespace WeLearn.Services
             string environmentName, 
             string userId)
         {
-            // by default, id gets mapped to be the id of the lesson, not the category
-            int categoryId = lessonInputModel.Id;
-            lessonInputModel.Id = 0;
-
             Lesson lesson = mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
-            await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, environmentName, userId, categoryId, lesson);
-
+            await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, environmentName, userId, lesson);
             await context.Lessons.AddAsync(lesson);
             await context.SaveChangesAsync();
         }
@@ -185,7 +201,6 @@ namespace WeLearn.Services
             dynamic environmentWebRootPath, 
             string environmentName,
             string userId,
-            int categoryId, 
             Lesson lesson)
         {
             Data.Models.Video videoEntity;
@@ -217,7 +232,6 @@ namespace WeLearn.Services
             lesson.VideoId = videoEntity.Id;
             lesson.MaterialId = materialEntity.Id;
             lesson.DateCreated = DateTime.UtcNow;
-            lesson.CategoryId = categoryId;
         }
 
         private async Task UpdateFilesInDevelopment(
@@ -321,7 +335,7 @@ namespace WeLearn.Services
 
         public async Task UploadMaterialsAsync(ILessonModel lessonInputModel, dynamic uploadsMaterials)
         {
-            // check if the sum of files' sizes is above 0 mb and below 10 mb amd all the extensions are permitted
+            // check if the sum of files' sizes is above 0 mb and below 10 mb and all the extensions are permitted
             bool isFileSizeAcceptableForAll = lessonInputModel.Files.Sum(x => x.Length) > MinimumZipFileSizeInBytes && lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
             bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file => AllowedFilesExtensions.Any(extension => file.FileName.EndsWith(extension)));
             bool areFilesValid = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;

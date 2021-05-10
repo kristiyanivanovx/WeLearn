@@ -1,64 +1,76 @@
-﻿@model WeLearn.Data.Models.Comment
+﻿@model CommentAdministrationModel
 
 @{
-    ViewData["Title"] = "Delete a comment";
+    ViewData["Title"] = "Deleting a comment";
 }
-<div class="container">
-    <h1>Delete</h1>
-    <h3>Are you sure you want to delete this comment?</h3>
-    <div>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Content)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Content)
-            </dd>
-            <dt class="col-sm-2">
-                User information
-            </dt>
-            <dd class="col-sm-10">
-                ID: @Html.DisplayFor(model => model.ApplicationUser.Id)
-                <br />
-                Username: @Html.DisplayFor(model => model.ApplicationUser.UserName)
-                <br />
-                Email: @Html.DisplayFor(model => model.ApplicationUser.Email)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Lesson)
-            </dt>
-            <dd class="col-sm-10">
-                Name:
-                @Html.DisplayFor(model => model.Lesson.Name)
-                <br />
-                Description:
-                @Html.DisplayFor(model => model.Lesson.Description)
-                <br />
-                Grade:
-                @Html.DisplayFor(model => model.Lesson.Grade)
-                <br />
-                Category:
-                @Html.DisplayFor(model => model.Lesson.Category.Name)
-            </dd>
 
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </dt>
-            <dd class="col-sm-10">
-                @Model.DateCreated.ToShortDateString()
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.IsDeleted)
-            </dd>
-        </dl>
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
-            <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
-        </form>
+<div class="container text-center">
+    <h1>Delete</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Lesson</h2>
+            <hr />
+            <div class="card">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+                    <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
+                    <a href="@Model.LessonVideoLink" download>Download</a>
+                </video>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.LessonName</h5>
+                    <hr />
+                    <p class="card-text">@Model.LessonDescription</p>
+                    <p class="card-text">
+                        @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
+                        <small class="text-muted">Created by - @createdBy | </small>
+                        <small class="text-muted">Category - @Model.LessonCategoryName | </small>
+                        <small class="text-muted">Grade - @Model.LessonGrade</small>
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="btn btn-sm btn-outline-info">
+                &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
+            </a>
+            <hr />
+        </div>
+        <div class="col-md-6">
+            <h2>Comment</h2>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <p>@Model.Content</p>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>
+                <p>@Model.DateCreated</p>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" disabled />
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <form asp-action="Delete">
+                <input asp-for="CommentId" type="hidden" />
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
+                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+
+@section Scripts {
+    <partial name="_DateTimePicker" />
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

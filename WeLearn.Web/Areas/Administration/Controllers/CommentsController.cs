@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
-using WeLearn.Data.Models;
+using WeLearn.Services.Interfaces;
+using System.Collections.Generic;
+using WeLearn.ViewModels;
+using WeLearn.ViewModels.HelperModels;
+using System.Linq;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -13,113 +13,49 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class CommentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICommentsService commentsService;
 
-        public CommentsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        public CommentsController(ICommentsService commentsService)
+            => this.commentsService = commentsService;
 
         // GET: Administration/Comments
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            
-            var applicationDbContext = _context.Comments.Include(c => c.ApplicationUser).Include(c => c.Lesson).Include(c => c.Lesson.Category);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Administration/Comments/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var comment = await _context.Comments
-                .Include(c => c.ApplicationUser)
-                .Include(c => c.Lesson)
-                .Include(c => c.Lesson.Category)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (comment == null)
-            {
-                return NotFound();
-            }
-
-            return View(comment);
+            ViewData["CurrentFilter"] = searchString;
+            var allComments = await commentsService.GetAllComments(searchString);
+            var paginated = PaginatedList<CommentAdministrationModel>.Create(allComments.OrderBy(x => x.LessonId), pageNumber ?? 1, 6);
+            return View(paginated);
         }
 
         // GET: Administration/Comments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var comment = await _context.Comments.FindAsync(id);
+            CommentAdministrationModel comment = await commentsService.GetCommentByIdAsync<CommentAdministrationModel>(id);
             if (comment == null)
             {
                 return NotFound();
             }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", comment.ApplicationUserId);
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description", comment.LessonId);
+
             return View(comment);
         }
 
         // POST: Administration/Comments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Content,ApplicationUserId,LessonId,DateCreated,DateDeleted,IsDeleted,Id")] Comment comment)
+        public async Task<IActionResult> Edit(int id, CommentAdministrationModel model)
         {
-            if (id != comment.Id)
+            if (id != model.CommentId)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(comment);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CommentExists(comment.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", comment.ApplicationUserId);
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description", comment.LessonId);
-            return View(comment);
+            await commentsService.EditCommentByAdminAsync(model);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Administration/Comments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var comment = await _context.Comments
-                .Include(c => c.ApplicationUser)
-                .Include(c => c.Lesson)
-                .Include(c => c.Lesson.Category)
-                .Include(c => c.Lesson.Video)
-                .Include(c => c.Lesson.Material)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
+            CommentAdministrationModel comment = await commentsService.GetCommentByIdAsync<CommentAdministrationModel>(id);
             if (comment == null)
             {
                 return NotFound();
@@ -133,15 +69,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var comment = await _context.Comments.FindAsync(id);
-            _context.Comments.Remove(comment);
-            await _context.SaveChangesAsync();
+            await commentsService.HardDeleteCommentByIdAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CommentExists(int id)
-        {
-            return _context.Comments.Any(e => e.Id == id);
         }
     }
 }

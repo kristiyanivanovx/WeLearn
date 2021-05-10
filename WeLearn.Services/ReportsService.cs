@@ -24,7 +24,7 @@ namespace WeLearn.Services
 
         public async Task CreateReportAsync<T>(T model) where T : IReportModel
         {
-            var reportMapped = mapper.Map<Report>(model);
+            Report reportMapped = mapper.Map<Report>(model);
             reportMapped.DateCreated = DateTime.UtcNow;
 
             await context.Reports.AddAsync(reportMapped);
@@ -33,7 +33,7 @@ namespace WeLearn.Services
 
         public async Task EditLessonReportAsync(LessonReportModel lessonReportModel)
         {
-            var entity = context.Reports.FirstOrDefault(x => x.Id == lessonReportModel.ReportId);
+            Report entity = context.Reports.FirstOrDefault(x => x.Id == lessonReportModel.ReportId);
             entity.Subject = lessonReportModel.Subject ?? entity.Subject;
             entity.Description = lessonReportModel.ReportDescription ?? entity.Description;
             await context.SaveChangesAsync();
@@ -41,70 +41,69 @@ namespace WeLearn.Services
 
         public async Task<T> GetReportById<T>(int reportId) where T : IReportModel
         {
-            var reportByMe = await context.Reports
-                .Where(x => x.Id == reportId)
-                .Include(x => x.Lesson)
-                .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
-                .Include(x => x.Comment)
-                .FirstOrDefaultAsync();
+            Report reportByMe = await context.Reports
+                    .Where(x => x.Id == reportId)
+                    .Include(x => x.Lesson)
+                    .Include(x => x.Lesson.Video)
+                    .Include(x => x.Lesson.Material)
+                    .Include(x => x.Lesson.Category)
+                    .Include(x => x.Lesson.ApplicationUser)
+                    .Include(x => x.ApplicationUser)
+                    .Include(x => x.Comment)
+                    .FirstOrDefaultAsync();
 
-            var reportByIdMapped = mapper.Map<T>(reportByMe);
+            T reportByIdMapped = mapper.Map<T>(reportByMe);
             return reportByIdMapped;
         }
 
         public async Task<Report> GetReportByIdToReportAsync(int reportId)
         {
-            var reportByMe = await context.Reports
-                .Where(x => x.Id == reportId)
-                .Include(x => x.Lesson)
-                .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
-                .FirstOrDefaultAsync();
+            Report report = await context.Reports
+                    .Where(x => x.Id == reportId)
+                    .Include(x => x.Lesson)
+                    .Include(x => x.Lesson.Video)
+                    .Include(x => x.Lesson.Material)
+                    .Include(x => x.Lesson.Category)
+                    .Include(x => x.Lesson.ApplicationUser)
+                    .Include(x => x.ApplicationUser)
+                    .FirstOrDefaultAsync();
 
-            var reportByIdMapped = mapper.Map<Report>(reportByMe);
-            return reportByIdMapped;
+            return report;
         }
 
-        public async Task<IEnumerable<LessonReportModel>> CreatedByMeToLessonReportVMAsync(string userId)
+        public async Task<IEnumerable<LessonReportModel>> LessonReportsCreatedByMeAsync(string userId)
         {
-            var lessonsByMe = await context.Reports
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null)
-                .Include(x => x.Lesson)
-                .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
-                .ToListAsync();
+            List<Report> lessonsReportedByMe = await context.Reports
+                            .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null)
+                            .Include(x => x.Lesson)
+                            .Include(x => x.Lesson.Video)
+                            .Include(x => x.Lesson.Material)
+                            .Include(x => x.Lesson.Category)
+                            .Include(x => x.Lesson.ApplicationUser)
+                            .Include(x => x.ApplicationUser)
+                            .ToListAsync();
 
-            var lessonsByMeMapped = mapper.Map<LessonReportModel[]>(lessonsByMe);
+            LessonReportModel[] lessonsByMeMapped = mapper.Map<LessonReportModel[]>(lessonsReportedByMe);
             return lessonsByMeMapped;
         }
 
         public async Task EditCommentReportAsync(CommentReportModel commentReportModel)
         {
-            var entity = context.Reports.FirstOrDefault(x => x.Id == commentReportModel.ReportId);
+            Report entity = context.Reports.FirstOrDefault(x => x.Id == commentReportModel.ReportId);
             entity.Subject = commentReportModel.Subject ?? entity.Subject;
             entity.Description = commentReportModel.ReportDescription ?? entity.Description;
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CommentReportModel>> CreatedByMeToCommentReportVMAsync(string userId)
+        public async Task<IEnumerable<CommentReportModel>> CommentReportsCreatedByMeAsync(string userId)
         {
-            var commentsByMe = await context.Reports
+            List<Report> commentsByMe = await context.Reports
                 .Where(x => x.ApplicationUserId == userId && x.IsDeleted == false && x.CommentId != null)
                 .Include(x => x.Comment)
                 .Include(x => x.ApplicationUser)
                 .ToListAsync();
 
-            var commentsReportedByMeMapped = mapper.Map<CommentReportModel[]>(commentsByMe);
+            CommentReportModel[] commentsReportedByMeMapped = mapper.Map<CommentReportModel[]>(commentsByMe);
             return commentsReportedByMeMapped;
         }
 

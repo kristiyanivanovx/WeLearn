@@ -27,3 +27,7 @@ Some of the (many) resources used for creating this project:
 - https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
 - https://www.youtube.com/watch?v=Bmm9X-YZtG4
 - https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
+
+Structure:
+- https://github.com/NikolayIT/ASP.NET-Core-Template
+- https://www.youtube.com/watch?v=hD6RI0J4mt0

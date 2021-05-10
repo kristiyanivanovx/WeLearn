@@ -22,9 +22,9 @@ namespace WeLearn.Services.Interfaces
 
         Task EditLessonAsync(LessonEditModel lessonEditModel, dynamic environmentWebRootPath, string environmentName, string userId);
 
-        Task UploadMaterialsAsync<T>(T model, dynamic uploadsMaterials) where T : ILessonModel;
+        Task UploadMaterialsAsync(ILessonModel model, dynamic uploadsMaterials);
 
-        Task<Video> UploadVideoAsync<T>(T model, dynamic environmentWebRootPath) where T : ILessonModel;
+        Task<Video> UploadVideoAsync(ILessonModel model, dynamic environmentWebRootPath);
 
         Task<T> GetLessonByIdAsync<T>(int id);
     }

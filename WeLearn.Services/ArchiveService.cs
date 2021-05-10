@@ -11,13 +11,13 @@ namespace WeLearn.Services
     {
         public Stream ArchiveFiles(IEnumerable<IFormFile> files)
         {
-            var stream = new MemoryStream();
-            using (var archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
+            MemoryStream stream = new MemoryStream();
+            using (ZipArchive archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
             {
-                foreach (var file in files)
+                foreach (IFormFile file in files)
                 {
-                    var entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using (var target = entry.Open())
+                    ZipArchiveEntry entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
+                    using (Stream target = entry.Open())
                     {
                         file.CopyTo(target);
                     }
@@ -30,13 +30,13 @@ namespace WeLearn.Services
 
         public async Task<Stream> ArchiveFilesAsync(IEnumerable<IFormFile> files)
         {
-            var stream = new MemoryStream();
-            using (var archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
+            MemoryStream stream = new MemoryStream();
+            using (ZipArchive archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
             {
-                foreach (var file in files)
+                foreach (IFormFile file in files)
                 {
-                    var entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using (var target = entry.Open())
+                    ZipArchiveEntry entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
+                    using (Stream target = entry.Open())
                     {
                         await file.OpenReadStream().CopyToAsync(target);
                     }

@@ -9,11 +9,11 @@ namespace WeLearn.Services
     {
         public FileDownload DownloadFile(string link)
         {
-            var webClient = new WebClient();
-            var data = webClient.DownloadData(link);
-            var content = new MemoryStream(data);
-            var contentType = "application/octet-stream";
-            var fileName = "download.zip";
+            WebClient webClient = new WebClient();
+            byte[] data = webClient.DownloadData(link);
+            MemoryStream content = new MemoryStream(data);
+            string contentType = "application/octet-stream";
+            string fileName = "download.zip";
 
             return new FileDownload { Content = content, ContentType = contentType, FileName = fileName };
         }

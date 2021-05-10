@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WeLearn.Data;
-using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
+using WeLearn.ViewModels;
+using WeLearn.Data.Models;
 
 namespace WeLearn.Services
 {
@@ -20,23 +21,23 @@ namespace WeLearn.Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<CommentViewModel>> GenerateCommentViewModelsAsync(int lessonId)
+        public async Task<IEnumerable<CommentViewModel>> GetCommentsAsync(int lessonId)
         {
-            var comments = await context.Comments
-                .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
-                .Include(x => x.ApplicationUser)
-                .OrderByDescending(x => x.DateCreated)
-                .ToArrayAsync();
+            Comment[] comments = await context.Comments
+                        .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
+                        .Include(x => x.ApplicationUser)
+                        .OrderByDescending(x => x.DateCreated)
+                        .ToArrayAsync();
 
-            var commentViewModels = mapper.Map<CommentViewModel[]>(comments);
+            CommentViewModel[] commentViewModels = mapper.Map<CommentViewModel[]>(comments);
             return commentViewModels;
         }
 
         public LessonsNavigationDropdownModel GenerateDropdownModel()
             => new LessonsNavigationDropdownModel
                 {
-                    Categories = context.Categories,
-                    Lessons = context.Lessons
+                    Categories = mapper.Map<CategoryViewModel[]>(context.Categories.ToArray()),
+                    Lessons = mapper.Map<LessonViewModel[]>(context.Lessons.ToArray()),
                 };
 
         public async Task<int> GetUsersCountAsync()

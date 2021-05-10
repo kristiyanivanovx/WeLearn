@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using WeLearn.ViewModels;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
+using System.Collections.Generic;
+using WeLearn.Data.Models;
 
 namespace WeLearn.Web.Controllers
 {
@@ -32,7 +34,7 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> LessonsByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var myReports = await reportsService.CreatedByMeToLessonReportVMAsync(userId);
+            IEnumerable<LessonReportModel> myReports = await reportsService.LessonReportsCreatedByMeAsync(userId);
             return View(myReports);
         }
 
@@ -40,7 +42,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(int id)
         {
-            var lessonToReport = await lessonsService.GetLessonByIdAsync<LessonReportModel>(id);
+            LessonReportModel lessonToReport = await lessonsService.GetLessonByIdAsync<LessonReportModel>(id);
             return View(lessonToReport);
         }
 
@@ -48,7 +50,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(LessonReportModel lessonReportModel)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             lessonReportModel.ReportingUserId = userId;
 
             if (!ModelState.IsValid)
@@ -64,7 +66,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonEdit(int reportId)
         {
-            var lessonToEdit = await reportsService.GetReportById<LessonReportModel>(reportId);
+            LessonReportModel lessonToEdit = await reportsService.GetReportById<LessonReportModel>(reportId);
             return View(lessonToEdit);
         }
 
@@ -72,7 +74,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonEdit(LessonReportModel lessonReportModel)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (!ModelState.IsValid)
             {
@@ -92,23 +94,23 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonDelete(int reportId)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var lessonReportAsViewModel = await reportsService.GetReportById<LessonReportModel>(reportId);
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            LessonReportModel lessonReportModel = await reportsService.GetReportById<LessonReportModel>(reportId);
 
-            if (lessonReportAsViewModel.ReportingUserId != userId)
+            if (lessonReportModel.ReportingUserId != userId)
             {
                 return View("Unauthorized");
             }
 
-            return View(lessonReportAsViewModel);
+            return View(lessonReportModel);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> LessonDelete(LessonReportModel lessonReportModel)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var reportFromDb = await reportsService.GetReportByIdToReportAsync(lessonReportModel.ReportId.GetValueOrDefault());
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Report reportFromDb = await reportsService.GetReportByIdToReportAsync(lessonReportModel.ReportId.GetValueOrDefault());
 
             if (reportFromDb.ApplicationUserId != userId)
             {
@@ -122,8 +124,8 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var myReports = await reportsService.CreatedByMeToCommentReportVMAsync(userId);
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            IEnumerable<CommentReportModel> myReports = await reportsService.CommentReportsCreatedByMeAsync(userId);
             return View(myReports);
         }
 
@@ -131,7 +133,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(int id)
         {
-            var lessonToReport = await commentsService.GetCommentByIdAsync<CommentReportModel>(id);
+            CommentReportModel lessonToReport = await commentsService.GetCommentByIdAsync<CommentReportModel>(id);
             return View(lessonToReport);
         }
 
@@ -139,7 +141,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(CommentReportModel commentReportModel)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             commentReportModel.ReportingUserId = userId;
 
             if (!ModelState.IsValid)
@@ -155,7 +157,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentEdit(int reportId)
         {
-            var editCommentReport = await reportsService.GetReportById<CommentReportModel>(reportId);
+            CommentReportModel editCommentReport = await reportsService.GetReportById<CommentReportModel>(reportId);
             return View(editCommentReport);
         }
 
@@ -163,7 +165,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentEdit(CommentReportModel commentReportModel)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             if (!ModelState.IsValid)
             {
@@ -183,30 +185,30 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(int reportId)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var lessonReportViewModel = await reportsService.GetReportById<CommentReportModel>(reportId);
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            CommentReportModel commentReportModel = await reportsService.GetReportById<CommentReportModel>(reportId);
 
-            if (lessonReportViewModel.ReportingUserId != userId)
+            if (commentReportModel.ReportingUserId != userId)
             {
                 return View("Unauthorized");
             }
 
-            return View(lessonReportViewModel);
+            return View(commentReportModel);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CommentDelete(CommentReportModel commentReportModel)
         {
-            var userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var reportFromDb = await reportsService.GetReportByIdToReportAsync(commentReportModel.ReportId.GetValueOrDefault());
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Report report = await reportsService.GetReportByIdToReportAsync(commentReportModel.ReportId.GetValueOrDefault());
 
-            if (reportFromDb.ApplicationUserId != userId)
+            if (report.ApplicationUserId != userId)
             {
                 return View("Unauthorized");
             }
 
-            await reportsService.DeleteReportAsync(reportFromDb);
+            await reportsService.DeleteReportAsync(report);
             return View("Deleted");
         }
     }

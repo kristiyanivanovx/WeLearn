@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using WeLearn.Data.Models;
 
 namespace WeLearn.ViewModels
 {
     public class LessonsNavigationDropdownModel
     {
-        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<CategoryViewModel> Categories { get; set; }
 
-        public IEnumerable<Lesson> Lessons { get; set; }
+        public IEnumerable<LessonViewModel> Lessons { get; set; }
     }
 }

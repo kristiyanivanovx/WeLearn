@@ -16,9 +16,7 @@ namespace WeLearn.Services
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
 
-        public CommentsService(
-            ApplicationDbContext context,
-            IMapper mapper)
+        public CommentsService(ApplicationDbContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
@@ -26,9 +24,9 @@ namespace WeLearn.Services
 
         public async Task CreateCommentAsync(CommentViewModel commentViewModel)
         {
-            var lesson = context.Lessons.FirstOrDefault(x => x.Id == commentViewModel.LessonId);
-            var comment = new Comment { LessonId = lesson.Id, Content = commentViewModel.CommentContent, 
-                                        DateCreated = DateTime.UtcNow, ApplicationUserId = commentViewModel.ApplicationUserId };
+            Lesson lesson = context.Lessons.FirstOrDefault(x => x.Id == commentViewModel.LessonId);
+            Comment comment = new Comment { LessonId = lesson.Id, Content = commentViewModel.CommentContent, 
+                                            DateCreated = DateTime.UtcNow, ApplicationUserId = commentViewModel.ApplicationUserId };
             await context.Comments.AddAsync(comment);
             await context.SaveChangesAsync();
         }
@@ -41,39 +39,39 @@ namespace WeLearn.Services
 
         public async Task EditCommentAsync(CommentMultiModel commentEditModel)
         {
-            var entity = context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
+            Comment entity = context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
             entity.Content = commentEditModel.Content ?? entity.Content;
             await context.SaveChangesAsync();
         }
 
         public async Task<T> GetCommentByIdAsync<T>(int id)
         {
-            var comment = await context.Comments
-                .Where(x => x.Id == id)
-                .Include(x => x.Lesson)
-                .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
-                .FirstOrDefaultAsync();
+            Comment comment = await context.Comments
+                    .Where(x => x.Id == id)
+                    .Include(x => x.Lesson)
+                    .Include(x => x.Lesson.Video)
+                    .Include(x => x.Lesson.Material)
+                    .Include(x => x.Lesson.Category)
+                    .Include(x => x.Lesson.ApplicationUser)
+                    .Include(x => x.ApplicationUser)
+                    .FirstOrDefaultAsync();
 
-            var commentMapped = mapper.Map<T>(comment);
+            T commentMapped = mapper.Map<T>(comment);
             return commentMapped;
         }
 
-        public async Task<IEnumerable<CommentMultiModel>> MadeByMeToCommentMultiModelAsync(string userId)
+        public async Task<IEnumerable<CommentMultiModel>> CommentsMadeByMeAsync(string userId)
         {
-            var commentsByMe = await context.Comments
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
-                .Include(x => x.Lesson)
-                .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.ApplicationUser)
-                .ToListAsync();
+            List<Comment> commentsByMe = await context.Comments
+                            .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
+                            .Include(x => x.Lesson)
+                            .Include(x => x.Lesson.Video)
+                            .Include(x => x.Lesson.Category)
+                            .Include(x => x.Lesson.Material)
+                            .Include(x => x.Lesson.ApplicationUser)
+                            .ToListAsync();
 
-            var commentsByMeMapped = mapper.Map<CommentMultiModel[]>(commentsByMe);
+            CommentMultiModel[] commentsByMeMapped = mapper.Map<CommentMultiModel[]>(commentsByMe);
             return commentsByMeMapped;
         }
     }

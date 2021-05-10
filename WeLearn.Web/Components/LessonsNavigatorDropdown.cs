@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Web.Components
 {
@@ -8,13 +9,11 @@ namespace WeLearn.Web.Components
         private readonly IViewComponentsService viewComponentsService;
 
         public LessonsNavigatorDropdown(IViewComponentsService viewComponentsService)
-        {
-            this.viewComponentsService = viewComponentsService;
-        }
+            => this.viewComponentsService = viewComponentsService;
 
         public IViewComponentResult Invoke()
         {
-            var lessonsNavigationDropdownModel = viewComponentsService.GenerateDropdownModel();
+            LessonsNavigationDropdownModel lessonsNavigationDropdownModel = viewComponentsService.GenerateDropdownModel();
             return View(lessonsNavigationDropdownModel);
         }
     }

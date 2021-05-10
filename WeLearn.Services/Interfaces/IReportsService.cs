@@ -10,9 +10,9 @@ namespace WeLearn.Services
     {
         Task EditLessonReportAsync(LessonReportModel model);
 
-        Task<IEnumerable<LessonReportModel>> CreatedByMeToLessonReportVMAsync(string userId);
+        Task<IEnumerable<LessonReportModel>> LessonReportsCreatedByMeAsync(string userId);
 
-        Task<IEnumerable<CommentReportModel>> CreatedByMeToCommentReportVMAsync(string userId);
+        Task<IEnumerable<CommentReportModel>> CommentReportsCreatedByMeAsync(string userId);
 
         Task<Report> GetReportByIdToReportAsync(int reportId);
 

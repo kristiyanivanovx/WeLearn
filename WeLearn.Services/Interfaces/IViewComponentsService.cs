@@ -10,6 +10,6 @@ namespace WeLearn.Services.Interfaces
 
         LessonsNavigationDropdownModel GenerateDropdownModel();
 
-        Task<IEnumerable<CommentViewModel>> GenerateCommentViewModelsAsync(int lessonId);
+        Task<IEnumerable<CommentViewModel>> GetCommentsAsync(int lessonId);
     }
 }

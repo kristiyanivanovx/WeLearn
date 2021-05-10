@@ -9,13 +9,11 @@ namespace WeLearn.Web.Components
         private readonly IViewComponentsService viewComponentsService;
 
         public UsersCountSummary(IViewComponentsService viewComponentsService)
-        {
-            this.viewComponentsService = viewComponentsService;
-        }
+            => this.viewComponentsService = viewComponentsService;
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var userCount = await viewComponentsService.GetUsersCountAsync();
+            int userCount = await viewComponentsService.GetUsersCountAsync();
             return View(userCount);
         }
     }

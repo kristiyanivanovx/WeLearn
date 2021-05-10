@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeLearn.Data.Models;
+using WeLearn.ViewModels;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -8,6 +8,6 @@ namespace WeLearn.Services.Interfaces
     {
         Task<int> GetAllCategoriesCountAsync();
 
-        Task<IEnumerable<Category>> GetAllCategoriesAsync();
+        IEnumerable<CategoryViewModel> GetAllCategories();
     }
 }

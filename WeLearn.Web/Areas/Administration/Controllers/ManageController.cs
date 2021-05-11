@@ -7,6 +7,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class ManageController : Controller
     {
+        [HttpGet]
         public IActionResult Index() => View();
     }
 }

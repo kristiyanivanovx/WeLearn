@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Services;
+using WeLearn.ViewModels;
+using System.Collections.Generic;
+using WeLearn.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -13,110 +17,53 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class ReportsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IReportsService reportsService;
 
-        public ReportsController(ApplicationDbContext context)
+        public ReportsController(IReportsService reportsService)
+            => this.reportsService = reportsService;
+
+        [HttpGet]
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            _context = context;
+            ViewData["SearchString"] = searchString;
+            IEnumerable<AdministrationReportModel> reports = await reportsService.GetAllReportsAsync(searchString);
+            var paginated = PaginatedList<AdministrationReportModel>.Create(reports.OrderBy(x => x.Id), pageNumber ?? 1, 6);
+            return View(paginated);
         }
 
-        // GET: Administration/Reports
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            var applicationDbContext = _context.Reports.Include(r => r.ApplicationUser).Include(r => r.Comment).Include(r => r.Lesson);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Administration/Reports/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var report = await _context.Reports.FindAsync(id);
-            if (report == null)
-            {
-                return NotFound();
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", report.ApplicationUserId);
-            ViewData["CommentId"] = new SelectList(_context.Comments, "Id", "Content", report.CommentId);
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description", report.LessonId);
+            IEnumerable<AdministrationReportModel> reports = await reportsService.GetAllReportsAsync();
+            AdministrationReportModel report = reports.FirstOrDefault(x => x.Id == id);
             return View(report);
         }
 
-        // POST: Administration/Reports/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Subject,Description,ApplicationUserId,LessonId,CommentId,DateCreated,DateDeleted,IsDeleted,Id")] Report report)
+        public async Task<IActionResult> Edit(AdministrationReportModel model)
         {
-            if (id != report.Id)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return View(model);
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(report);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ReportExists(report.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", report.ApplicationUserId);
-            ViewData["CommentId"] = new SelectList(_context.Comments, "Id", "Content", report.CommentId);
-            ViewData["LessonId"] = new SelectList(_context.Lessons, "Id", "Description", report.LessonId);
-            return View(report);
-        }
-
-        // GET: Administration/Reports/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var report = await _context.Reports
-                .Include(r => r.ApplicationUser)
-                .Include(r => r.Comment)
-                .Include(r => r.Lesson)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (report == null)
-            {
-                return NotFound();
-            }
-
-            return View(report);
-        }
-
-        // POST: Administration/Reports/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var report = await _context.Reports.FindAsync(id);
-            _context.Reports.Remove(report);
-            await _context.SaveChangesAsync();
+            await reportsService.EditReportAdministrationAsync(model);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReportExists(int id)
-            => _context.Reports.Any(e => e.Id == id);
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            IEnumerable<AdministrationReportModel> reports = await reportsService.GetAllReportsAsync();
+            AdministrationReportModel report = reports.FirstOrDefault(x => x.Id == id);
+            return View(report);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await reportsService.HardDeleteReportByIdAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

@@ -141,7 +141,7 @@ namespace WeLearn.Web.Infrastructure
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.LessonId))
                 .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.ApplicationUserId));
 
-            CreateMap<Comment, CommentAdministrationModel>()
+            CreateMap<Comment, AdministrationCommentModel>()
                 .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<Category, CategoryViewModel>()
@@ -149,6 +149,11 @@ namespace WeLearn.Web.Infrastructure
 
             CreateMap<CategoryViewModel, Category>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.CategoryId));
+
+            CreateMap<Report, AdministrationReportModel>();
+
+            CreateMap<AdministrationReportModel, Report>();
+
         }
     }
 }

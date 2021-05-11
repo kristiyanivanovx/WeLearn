@@ -1,4 +1,4 @@
-﻿@model PaginatedList<CommentAdministrationModel>
+﻿@model PaginatedList<AdministrationCommentModel>
 @{
     ViewData["Title"] = "Comments administration";
 }
@@ -104,6 +104,7 @@
             asp-route-sortOrder="@ViewData["CurrentSort"]"
             asp-route-pageNumber="@(Model.PageIndex - 1)"
             asp-route-currentFilter="@ViewData["CurrentFilter"]"
+            asp-route-searchString="@ViewData["SearchString"]"
             asp-route-categoryName="@ViewData["CategoryName"]"
             class="btn btn-sm btn-outline-dark @prevDisabled">
             <i class="fas fa-arrow-left"></i> Previous
@@ -116,6 +117,7 @@
                 asp-route-sortOrder="@ViewData["CurrentSort"]"
                 asp-route-pageNumber="@i"
                 asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                asp-route-searchString="@ViewData["SearchString"]"
                 asp-route-categoryName="@ViewData["CategoryName"]"
                 class="btn btn-sm btn-outline-dark ">
                 @i
@@ -127,6 +129,7 @@
             asp-route-sortOrder="@ViewData["CurrentSort"]"
             asp-route-pageNumber="@(Model.PageIndex + 1)"
             asp-route-currentFilter="@ViewData["CurrentFilter"]"
+            asp-route-searchString="@ViewData["SearchString"]"
             asp-route-categoryName="@ViewData["CategoryName"]"
             class="btn btn-sm btn-outline-dark @nextDisabled">
             Next <i class="fas fa-arrow-right"></i>

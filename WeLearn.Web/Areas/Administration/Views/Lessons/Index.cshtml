@@ -4,97 +4,99 @@
 }
 
 <partial name="_AdminPartial" />
-<h1>Index</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grade)
-            </th>
-            <th>
-                Created by user
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Video)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Material)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsApproved)
-            </th>
-            <th>
-                Navigate
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grade)
-            </td>
-            <td>
-                ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
-                <hr />
-                Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                <hr />
-                Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-            </td>
-            <td>
-                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.Video.Name" data-poster="@item.Video.Link">
-                    <source src="@item.Video.Link" type="@item.Video.ContentType" />
-                    <a href="@item.Video.Link" download>Download</a>
-                </video>
-            </td>
-            <td>
-                <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.Material.Link" class="btn btn-sm btn-outline-info">
-                    &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
-                </a>
-            </td>
-            <td>
-                @item.DateCreated.ToShortDateString()
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsApproved)
-            </td>
-            <td>
-                <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+<div class="text-center">
+    <h3>Manage lessons</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade)
+                </th>
+                <th>
+                    Created by user
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Video)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Material)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsDeleted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsApproved)
+                </th>
+                <th>
+                    Navigate
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Grade)
+                    </td>
+                    <td>
+                        ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                        <hr />
+                        Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                        <hr />
+                        Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+                    </td>
+                    <td>
+                        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.Video.Name" data-poster="@item.Video.Link">
+                            <source src="@item.Video.Link" type="@item.Video.ContentType" />
+                            <a href="@item.Video.Link" download>Download</a>
+                        </video>
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.Material.Link" class="btn btn-sm btn-outline-info">
+                            &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
+                        </a>
+                    </td>
+                    <td>
+                        @item.DateCreated.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsApproved)
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

@@ -23,14 +23,19 @@ namespace WeLearn.Web.Infrastructure
                     endpoints.MapRazorPages();
                 });
 
-        public static IApplicationBuilder SeedData(this IApplicationBuilder app, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.CreateScope())
+            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
+                ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                context.Database.Migrate();
             }
 
+            return app;
+        }
+
+        public static IApplicationBuilder SeedData(this IApplicationBuilder app, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        {
             ApplicationDbInitializer.SeedData(userManager, roleManager);
             return app;
         }

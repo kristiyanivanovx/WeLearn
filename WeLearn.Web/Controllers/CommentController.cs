@@ -28,7 +28,7 @@ namespace WeLearn.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() => RedirectToAction("Index", "Lesson");
+        public IActionResult Create() => RedirectToAction("All", "Lesson");
 
         [HttpPost]
         [Authorize]
@@ -97,6 +97,7 @@ namespace WeLearn.Web.Controllers
             return View("Deleted");
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> ByMe()
         {

@@ -30,11 +30,12 @@ namespace WeLearn.Web.Controllers
             this.reportsService = reportsService;
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            IEnumerable<LessonReportModel> myReports = await reportsService.LessonReportsCreatedByMeAsync(userId);
+            IEnumerable<LessonReportModel> myReports = await reportsService.GetLessonReportsCreatedByMeAsync(userId);
             return View(myReports);
         }
 
@@ -117,7 +118,7 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> CommentsByMe()
         {
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            IEnumerable<CommentReportModel> myReports = await reportsService.CommentReportsCreatedByMeAsync(userId);
+            IEnumerable<CommentReportModel> myReports = await reportsService.GetCommentReportsCreatedByMeAsync(userId);
             return View(myReports);
         }
 

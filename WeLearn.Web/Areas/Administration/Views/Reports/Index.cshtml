@@ -1,82 +1,136 @@
-﻿@model IEnumerable<Report>
+﻿@model PaginatedList<AdministrationReportModel>
 @{
     ViewData["Title"] = "Reports administration";
 }
 
 <partial name="_AdminPartial" />
-
-<h1>Index</h1>
+<h3>Manage reports</h3>
 <p class="text-muted">
     Note: if the column "Lesson" is present/filled that means the type of report is a lesson report and vice versa,
     if the column "Comment" is present/filled that means the type of report is a comment report.
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Subject)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                Created by user
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Lesson) details
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Comment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<form asp-area="Administration" asp-controller="Reports" asp-action="Index" method="get">
+    <label>Find by name or description:</label>
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@ViewData["SearchString"]" />
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+    </div>
+</form>
+<div class="text-center ">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
-                    <hr />
-                    Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                    <hr />
-                    Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lesson.Name)
-                    <hr />
-                    @Html.DisplayFor(modelItem => item.Lesson.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comment.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                </td>
-                <td>
-                    @if (item?.LessonId != null)
-                    {
-                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                    }
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
-                </td>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Created by user
+                </th>
+                <th>
+                    Lesson details
+                </th>
+                <th>
+                    Comment content
+                </th>
+                <th>
+                    Date created
+                </th>
+                <th>
+                    Is deleted
+                </th>
+                <th>
+                    Navigate
+                </th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        ID: @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                        <hr />
+                        Username: @Html.DisplayFor(modelItem => item.ApplicationUserUserName)
+                        <hr />
+                        Email: @Html.DisplayFor(modelItem => item.ApplicationUserEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LessonName)
+                        <hr />
+                        @Html.DisplayFor(modelItem => item.LessonDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommentContent)
+                    </td>
+                    <td>
+                        @item.DateCreated.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                    <td>
+                        @if (item?.LessonId != null)
+                        {
+                            <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                        }
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+
+    <div class="mt-2 mb-2 text-center">
+        <a asp-area="Administration"
+           asp-controller="Reports"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-categoryName="@ViewData["CategoryName"]"
+           class="btn btn-sm btn-outline-dark @prevDisabled">
+            <i class="fas fa-arrow-left"></i> Previous
+        </a>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-area="Administration"
+               asp-controller="Reports"
+               asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@i"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchString="@ViewData["SearchString"]"
+               asp-route-categoryName="@ViewData["CategoryName"]"
+               class="btn btn-sm btn-outline-dark ">
+                @i
+            </a>
         }
-    </tbody>
-</table>
+        <a asp-area="Administration"
+           asp-controller="Reports"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-categoryName="@ViewData["CategoryName"]"
+           class="btn btn-sm btn-outline-dark @nextDisabled">
+            Next <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    <br />
+</div>

@@ -363,3 +363,7 @@ FodyWeavers.xsd
 bin-obj-yeeter.bat
 WeLearn.Data/appsettings.Production.json
 WeLearn.Web/appsettings.Production.json
+WeLearn.Web/wwwroot/uploads/videos/small_0217e.ogv
+WeLearn.Web/wwwroot/uploads/videos/Animal_5_96567.mp4
+WeLearn.Web/wwwroot/uploads/materials/8d330184-81af-4eb7-9f96-0b7651dce1b1.zip
+WeLearn.Web/wwwroot/uploads/materials/e8388822-7561-463f-9fdd-85fdfc191e2c.zip

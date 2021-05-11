@@ -1,17 +1,44 @@
-﻿@model WeLearn.Data.Models.Report
+﻿@model AdministrationReportModel
 @{
     ViewData["Title"] = "Edit a report";
 }
 
 <div class="container">
-
-    <h1>Edit</h1>
-    <h4>Report</h4>
-    <hr />
     <div class="row">
-        <div class="col-md-6">
+        <div class="offset-md-3 col-md-6 text-center">
+            <h1>Edit</h1>
+            <h3>Report</h3>
+            <hr />
+            <div>
+                <h4>Information about the user</h4>
+                <hr />
+                <span>User ID: @Model.ApplicationUserId</span>
+                <br />
+                <span>Username: @Model.ApplicationUserUserName</span>
+                <br />
+                <span>Email: @Model.ApplicationUserEmail</span>
+            </div>
+            <hr />
+            <div>
+                @if (Model.LessonId != null)
+                {
+                    <h4>Additional information about the lesson</h4>
+                    <hr />
+                    <span>Name: @Model.LessonName</span>
+                    <br />
+                    <span>Description: @Model.LessonDescription</span>
+                    <br />
+                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-secondary mt-2 mb-1">Watch</a>
+                }
+                @if (Model.CommentId != null)
+                {
+                    <h4>Additional information about the comment</h4>
+                    <hr />
+                    <span>Content: @Model.CommentContent</span>
+                }
+            </div>
+            <hr />
             <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Subject" class="control-label"></label>
                     <input asp-for="Subject" class="form-control" />
@@ -32,7 +59,7 @@
                         <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
-                <input type="hidden" asp-for="Id" />
+                <input asp-for="Id" type="hidden"/>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>

@@ -46,8 +46,10 @@ namespace WeLearn.Controllers
             this.httpContextAccessor = httpContextAccessor;
         }
 
+        [HttpGet]
         public IActionResult Index() => RedirectToAction(nameof(All));
 
+        [HttpGet]
         public async Task<IActionResult> All(string searchString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -56,6 +58,7 @@ namespace WeLearn.Controllers
             return View(paginated);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Watch(int id)
         {
             LessonViewModel lessonViewModel = await lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
@@ -144,6 +147,7 @@ namespace WeLearn.Controllers
             return View("Deleted");
         }
 
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
@@ -152,6 +156,7 @@ namespace WeLearn.Controllers
             return View(myLessons);
         }
 
+        [HttpGet]
         public async Task<IActionResult> ByCategory(string categoryName, string searchString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchString;
@@ -161,6 +166,7 @@ namespace WeLearn.Controllers
             return View(paginated);
         }
 
+        [HttpGet]
         public IActionResult Download([FromQuery] string link)
         {
             FileDownload fileParsed = fileDownloadService.DownloadFile(link);

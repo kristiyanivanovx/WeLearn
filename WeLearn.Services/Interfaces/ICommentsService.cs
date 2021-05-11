@@ -8,7 +8,7 @@ namespace WeLearn.Services.Interfaces
     {
         Task<T> GetCommentByIdAsync<T>(int id);
 
-        Task<IEnumerable<CommentAdministrationModel>> GetAllComments(string searchString);
+        Task<IEnumerable<AdministrationCommentModel>> GetAllComments(string searchString);
 
         Task<IEnumerable<CommentMultiModel>> GetCommentsMadeByMeAsync(string userId);
 
@@ -16,7 +16,7 @@ namespace WeLearn.Services.Interfaces
 
         Task EditCommentAsync(CommentMultiModel commentEditModel);
 
-        Task EditCommentByAdminAsync(CommentAdministrationModel commentEditModel);
+        Task EditCommentByAdminAsync(AdministrationCommentModel commentEditModel);
 
         Task SoftDeleteCommentByIdAsync(int commentId);
 

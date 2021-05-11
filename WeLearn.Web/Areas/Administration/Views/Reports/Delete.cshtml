@@ -1,68 +1,68 @@
-﻿@model WeLearn.Data.Models.Report
-
+﻿@model AdministrationReportModel
 @{
-    ViewData["Title"] = "Delete a report";
+    ViewData["Title"] = "Edit a report";
 }
 
 <div class="container">
-    <h1>Delete</h1>
-    <h3>Are you sure you want to delete this report?</h3>
-    <hr />
-    <div>
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Subject)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Subject)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-            <dt class="col-sm-2">
-                Created by user
-            </dt>
-            <dd class="col-sm-10">
-                ID: @Html.DisplayFor(model => model.ApplicationUser.Id)
+    <div class="row">
+        <div class="offset-md-3 col-md-6 text-center">
+            <h1>Delete</h1>
+            <h3>Report</h3>
+            <hr />
+            <div>
+                <h4>Information about the user</h4>
+                <hr />
+                <span>User ID: @Model.ApplicationUserId</span>
                 <br />
-                Username: @Html.DisplayFor(model => model.ApplicationUser.UserName)
+                <span>Username: @Model.ApplicationUserUserName</span>
                 <br />
-                Email: @Html.DisplayFor(model => model.ApplicationUser.Email)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Lesson)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Lesson.Name)
-                <br />
-                @Html.DisplayFor(model => model.Lesson.Description)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Comment)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Comment.Content)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </dt>
-            <dd class="col-sm-10">
-                @Model.DateCreated.ToShortDateString()
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.IsDeleted)
-            </dd>
-        </dl>
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="Id" />
-            <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
-            <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
-        </form>
+                <span>Email: @Model.ApplicationUserEmail</span>
+            </div>
+            <hr />
+            <div>
+                @if (Model.LessonId != null)
+                {
+                    <h4>Additional information about the lesson</h4>
+                    <hr />
+                    <span>Name: @Model.LessonName</span>
+                    <br />
+                    <span>Description: @Model.LessonDescription</span>
+                    <br />
+                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-secondary mt-2 mb-1">Watch</a>
+                }
+                @if (Model.CommentId != null)
+                {
+                    <h4>Additional information about the comment</h4>
+                    <hr />
+                    <span>Content: @Model.CommentContent</span>
+                }
+            </div>
+            <hr />
+            <h4>Report details</h4>
+            <hr />
+            <span>Subject: @Model.Subject</span>
+            <br />
+            <span>Description: @Model.Description</span>
+            <br />
+            <span>Date created: @Model.DateCreated.ToShortDateString()</span>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" disabled /> @Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+
+            <form asp-action="Delete">
+                <input asp-for="Id" type="hidden" />
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
+                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_DateTimePicker" />
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

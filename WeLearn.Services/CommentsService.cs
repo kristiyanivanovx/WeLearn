@@ -38,7 +38,7 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task EditCommentByAdminAsync(CommentAdministrationModel commentEditModel)
+        public async Task EditCommentByAdminAsync(AdministrationCommentModel commentEditModel)
         {
             Comment entity = context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
             entity.Content = commentEditModel.Content ?? entity.Content;
@@ -92,7 +92,7 @@ namespace WeLearn.Services
             return commentsByMeMapped;
         }
 
-        public async Task<IEnumerable<CommentAdministrationModel>> GetAllComments(string searchString)
+        public async Task<IEnumerable<AdministrationCommentModel>> GetAllComments(string searchString)
         {
             IQueryable<Comment> allComments = context.Comments;
                             
@@ -109,7 +109,7 @@ namespace WeLearn.Services
                              .OrderByDescending(x => x.DateCreated)
                              .ToListAsync();
 
-            CommentAdministrationModel[] allCommentsMapped = mapper.Map<CommentAdministrationModel[]>(allComments);
+            AdministrationCommentModel[] allCommentsMapped = mapper.Map<AdministrationCommentModel[]>(allComments);
             return allCommentsMapped;
         }
     }

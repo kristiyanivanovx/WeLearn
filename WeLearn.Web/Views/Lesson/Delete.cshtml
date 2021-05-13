@@ -36,7 +36,6 @@
             </a>
         </div>
     </div>
-    <partial name="_CommentPartial" model="new CommentViewModel { LessonId = Model.LessonId };">
     @await Component.InvokeAsync("AllComments", new { lessonId = Model.LessonId })
     <br />
 </div>

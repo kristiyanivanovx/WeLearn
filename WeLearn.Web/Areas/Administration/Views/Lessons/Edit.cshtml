@@ -1,20 +1,20 @@
-﻿@model WeLearn.Data.Models.Lesson
+﻿@model AdministrationLessonModel
 @{
     ViewData["Title"] = "Edit a lesson";
 }
 
 <div class="container">
-    <h1>Edit</h1>
-    <h3>Lesson</h3>
-    <hr />
     <div class="row">
-        <div class="col-md-6">
+        <div class="offset-md-3 col-md-6 text-center">
+            <h1>Edit</h1>
+            <h3>Lesson</h3>
+            <hr />
             <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <label asp-for="LessonName" class="control-label"></label>
+                    <input asp-for="LessonName" class="form-control" />
+                    <span asp-validation-for="LessonName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
@@ -22,9 +22,9 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CategoryId" class="control-label">Category name</label>
-                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    <label asp-for="@Model.CategoryId" class="control-label"></label>
+                    <select asp-for="@Model.CategoryId" asp-items="@ViewBag.CategoryId" class="form-control"></select>
+                    <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Grade" class="control-label"></label>
@@ -33,22 +33,7 @@
                     </select>
                     <span asp-validation-for="Grade" class="text-danger"></span>
                 </div>
-                <div class="form-group" hidden>
-                    <label asp-for="ApplicationUserId" class="control-label"></label>
-                    <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId">
-                    </select>
-                    <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
-                </div>
-                <div class="form-group" hidden>
-                    <label asp-for="VideoId" class="control-label">Video content type</label>
-                    <select asp-for="VideoId" class="form-control" asp-items="ViewBag.VideoId"></select>
-                    <span asp-validation-for="VideoId" class="text-danger"></span>
-                </div>
-                <div class="form-group" hidden>
-                    <label asp-for="MaterialId" class="control-label">Material</label>
-                    <select asp-for="MaterialId" class="form-control" asp-items="ViewBag.MaterialId"></select>
-                    <span asp-validation-for="MaterialId" class="text-danger"></span>
-                </div>
+
                 <div class="form-group">
                     <label asp-for="DateCreated" class="control-label"></label>
                     <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" />
@@ -65,14 +50,14 @@
                     </label>
                 </div>
                 <hr />
-                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.Video.Name" data-poster="@Model.Video.Link">
-                    <source src="@Model.Video.Link" type="@Model.Video.ContentType" />
-                    <a href="@Model.Video.Link" download>Download</a>
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+                    <source src="@Model.VideoLink" type="@Model.VideoContentType" />
+                    <a href="@Model.VideoLink" download>Download</a>
                 </video>
                 <hr />
-                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="LessonId" />
                 <div class="form-group">
-                    <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.Material.Link" class="btn btn-sm btn-outline-info">
+                    <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.ZippedFile" class="btn btn-sm btn-outline-info">
                         <i class="fas fa-arrow-down"></i> Download Resources
                     </a>
                 </div>

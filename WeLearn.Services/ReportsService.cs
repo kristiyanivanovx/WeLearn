@@ -25,15 +25,15 @@ namespace WeLearn.Services
         public async Task<IReportModel> GetReportById<IReportModel>(int reportId)
         {
             Report reportByMe = await context.Reports
-                    .Where(x => x.Id == reportId)
-                    .Include(x => x.Lesson)
-                    .Include(x => x.Lesson.Video)
-                    .Include(x => x.Lesson.Material)
-                    .Include(x => x.Lesson.Category)
-                    .Include(x => x.Lesson.ApplicationUser)
-                    .Include(x => x.ApplicationUser)
-                    .Include(x => x.Comment)
-                    .FirstOrDefaultAsync();
+                .Where(x => x.Id == reportId)
+                .Include(x => x.Lesson)
+                .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.Material)
+                .Include(x => x.Lesson.Category)
+                .Include(x => x.Lesson.ApplicationUser)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Comment)
+                .FirstOrDefaultAsync();
 
             IReportModel reportByIdMapped = mapper.Map<IReportModel>(reportByMe);
             return reportByIdMapped;
@@ -42,14 +42,14 @@ namespace WeLearn.Services
         public async Task<Report> GetReportByIdToReportAsync(int reportId)
         {
             Report report = await context.Reports
-                    .Where(x => x.Id == reportId)
-                    .Include(x => x.Lesson)
-                    .Include(x => x.Lesson.Video)
-                    .Include(x => x.Lesson.Material)
-                    .Include(x => x.Lesson.Category)
-                    .Include(x => x.Lesson.ApplicationUser)
-                    .Include(x => x.ApplicationUser)
-                    .FirstOrDefaultAsync();
+                .Where(x => x.Id == reportId)
+                .Include(x => x.Lesson)
+                .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.Material)
+                .Include(x => x.Lesson.Category)
+                .Include(x => x.Lesson.ApplicationUser)
+                .Include(x => x.ApplicationUser)
+                .FirstOrDefaultAsync();
 
             return report;
         }
@@ -57,13 +57,13 @@ namespace WeLearn.Services
         public async Task<IEnumerable<LessonReportModel>> GetLessonReportsCreatedByMeAsync(string userId)
         {
             List<Report> lessonsReportedByMe = await context.Reports
-                            .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null)
-                            .Include(x => x.Lesson)
-                            .Include(x => x.Lesson.Video)
-                            .Include(x => x.Lesson.Material)
-                            .Include(x => x.Lesson.Category)
-                            .Include(x => x.Lesson.ApplicationUser)
-                            .ToListAsync();
+                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null)
+                .Include(x => x.Lesson)
+                .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.Material)
+                .Include(x => x.Lesson.Category)
+                .Include(x => x.Lesson.ApplicationUser)
+                .ToListAsync();
 
             LessonReportModel[] lessonsByMeMapped = mapper.Map<LessonReportModel[]>(lessonsReportedByMe);
             return lessonsByMeMapped;
@@ -72,9 +72,9 @@ namespace WeLearn.Services
         public async Task<IEnumerable<CommentReportModel>> GetCommentReportsCreatedByMeAsync(string userId)
         {
             List<Report> commentsByMe = await context.Reports
-                .Where(x => x.ApplicationUserId == userId && x.IsDeleted == false && x.CommentId != null)
                 .Include(x => x.Comment)
                 .Include(x => x.Comment.ApplicationUser)
+                .Where(x => x.ApplicationUserId == userId && x.IsDeleted == false && x.CommentId != null && !x.Comment.IsDeleted)
                 .ToListAsync();
 
             CommentReportModel[] commentsReportedByMeMapped = mapper.Map<CommentReportModel[]>(commentsByMe);
@@ -91,10 +91,11 @@ namespace WeLearn.Services
                                                      x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            await reports.Include(x => x.ApplicationUser)
-                         .Include(x => x.Lesson)
-                         .Include(x => x.Comment)
-                         .ToListAsync();
+            await reports
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Lesson)
+                .Include(x => x.Comment)
+                .ToListAsync();
 
             AdministrationReportModel[] reportsMapped = mapper.Map<AdministrationReportModel[]>(reports);
             return reportsMapped;

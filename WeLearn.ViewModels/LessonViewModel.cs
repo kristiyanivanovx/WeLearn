@@ -1,4 +1,5 @@
-﻿using WeLearn.Data.Models.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.ViewModels
 {
@@ -6,6 +7,7 @@ namespace WeLearn.ViewModels
     {
         public int LessonId { get; set; }
 
+        [Display(Name = "Name")]
         public string LessonName { get; set; }
 
         public string Description { get; set; }

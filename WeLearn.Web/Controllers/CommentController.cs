@@ -43,7 +43,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await commentsService.CreateCommentAsync(commentViewModel);
-            return View("ThankYou");
+            return RedirectToAction(nameof(ByMe));
         }
 
         [HttpGet]
@@ -71,7 +71,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await commentsService.EditCommentAsync(model);
-            return View("ThankYou");
+            return RedirectToAction(nameof(ByMe));
         }
 
         [HttpGet]
@@ -94,7 +94,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await commentsService.SoftDeleteCommentByIdAsync(model.CommentId);
-            return View("Deleted");
+            return RedirectToAction(nameof(ByMe));
         }
 
         [HttpGet]

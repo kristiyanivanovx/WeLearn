@@ -23,7 +23,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             ViewData["SearchString"] = searchString;
             var allComments = await commentsService.GetAllComments(searchString);
-            var paginated = PaginatedList<AdministrationCommentModel>.Create(allComments.OrderBy(x => x.LessonId), pageNumber ?? 1, 6);
+            var paginated = PaginatedList<AdministrationCommentModel>.Create(allComments.OrderBy(x => x.IsDeleted), pageNumber ?? 1, 6);
             return View(paginated);
         }
 

@@ -60,7 +60,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await reportsService.CreateReportAsync(lessonReportModel);
-            return View("ThankYou");
+            return RedirectToAction(nameof(LessonsByMe));
         }
 
         [HttpGet]
@@ -88,7 +88,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await reportsService.EditLessonReportAsync(lessonReportModel);
-            return View("ThankYou");
+            return RedirectToAction(nameof(LessonsByMe));
         }
 
         [HttpGet]
@@ -111,7 +111,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await reportsService.SoftDeleteReportByIdAsync(lessonReportModel.ReportId);
-            return View("Deleted");
+            return RedirectToAction(nameof(LessonsByMe));
         }
 
         [Authorize]
@@ -143,7 +143,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await reportsService.CreateReportAsync(commentReportModel);
-            return View("ThankYou");
+            return RedirectToAction(nameof(CommentsByMe));
         }
 
         [HttpGet]
@@ -171,7 +171,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await reportsService.EditCommentReportAsync(commentReportModel);
-            return View("ThankYou");
+            return RedirectToAction(nameof(CommentsByMe));
         }
 
         [HttpGet]
@@ -194,7 +194,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await reportsService.SoftDeleteReportByIdAsync(commentReportModel.ReportId);
-            return View("Deleted");
+            return RedirectToAction(nameof(CommentsByMe));
         }
     }
 }

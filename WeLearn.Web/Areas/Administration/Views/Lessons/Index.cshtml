@@ -1,43 +1,50 @@
-﻿@model IEnumerable<Lesson>
+﻿@model PaginatedList<AdministrationLessonModel>
 @{
     ViewData["Title"] = "Lessons administration";
 }
 
 <partial name="_AdminPartial" />
+<h3>Manage lessons</h3>
+<form asp-area="Administration" asp-controller="Lessons" asp-action="Index" method="get">
+    <label>Find by name or description:</label>
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@ViewData["SearchString"]" />
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+    </div>
+</form>
 <div class="text-center">
-    <h3>Manage lessons</h3>
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    Description
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Category)
+                    Category
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Grade)
+                    Grade
                 </th>
                 <th>
                     Created by user
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Video)
+                    Video
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Material)
+                    Material
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
+                    Date created
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsDeleted)
+                    Is deleted
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsApproved)
+                    Is approved
                 </th>
                 <th>
                     Navigate
@@ -49,32 +56,38 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => item.LessonName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Category.Name)
+                        @Html.DisplayFor(modelItem => item.CategoryName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Grade)
                     </td>
                     <td>
-                        ID: @Html.DisplayFor(modelItem => item.ApplicationUser.Id)
+                        @{
+                            var userId = item.CreatedById ?? "Deleted User Id";
+                            var userName = item.CreatedByUserName ?? "Deleted Username";
+                            var userEmail = item.CreatedByEmail ?? "Deleted Email";
+                        }
+
+                        ID: @userId
                         <hr />
-                        Username: @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                        Username: @userName
                         <hr />
-                        Email: @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+                        Email: @userEmail
                     </td>
                     <td>
-                        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.Video.Name" data-poster="@item.Video.Link">
-                            <source src="@item.Video.Link" type="@item.Video.ContentType" />
-                            <a href="@item.Video.Link" download>Download</a>
+                        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
+                            <source src="@item.VideoLink" type="@item.VideoContentType" />
+                            <a href="@item.VideoLink" download>Download</a>
                         </video>
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.Material.Link" class="btn btn-sm btn-outline-info">
+                        <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.ZippedFile" class="btn btn-sm btn-outline-info">
                             &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
                         </a>
                     </td>
@@ -88,9 +101,9 @@
                         @Html.DisplayFor(modelItem => item.IsApproved)
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                        <a asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
+                        <a asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
                     </td>
                 </tr>
             }
@@ -98,6 +111,53 @@
     </table>
 </div>
 
+@* pagination section *@
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="mt-2 mb-2 text-center">
+    <a asp-area="Administration"
+       asp-controller="Lessons"
+       asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       asp-route-searchString="@ViewData["SearchString"]"
+       asp-route-categoryName="@ViewData["CategoryName"]"
+       class="btn btn-sm btn-outline-dark @prevDisabled">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <a asp-area="Administration"
+           asp-controller="Lessons"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@i"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-categoryName="@ViewData["CategoryName"]"
+           class="btn btn-sm btn-outline-dark ">
+            @i
+        </a>
+    }
+    <a asp-area="Administration"
+       asp-controller="Lessons"
+       asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       asp-route-searchString="@ViewData["SearchString"]"
+       asp-route-categoryName="@ViewData["CategoryName"]"
+       class="btn btn-sm btn-outline-dark @nextDisabled">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+@* pagination section end *@
+
+<br />
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
     <script src="https://unpkg.com/plyr@3"></script>

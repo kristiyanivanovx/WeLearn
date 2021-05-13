@@ -53,7 +53,7 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> All(string searchString, int? pageNumber)
         {
             ViewData["CurrentFilter"] = searchString;
-            var lessonsViewModels = await lessonsService.GetAllLessonsAsync(searchString);
+            var lessonsViewModels = await lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
             var paginated = PaginatedList<LessonViewModel>.Create(lessonsViewModels.OrderBy(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             return View(paginated);
         }
@@ -88,7 +88,7 @@ namespace WeLearn.Controllers
 
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             await lessonsService.CreateLessonAsync(lessonInputModel, environment.WebRootPath, environment.EnvironmentName, userId);
-            return View("ThankYou");
+            return RedirectToAction(nameof(ByMe));
         }
 
         [HttpGet]
@@ -121,7 +121,7 @@ namespace WeLearn.Controllers
             }
 
             await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, environment.EnvironmentName, userId);
-            return View("ThankYou");
+            return RedirectToAction(nameof(ByMe));
         }
 
         [HttpGet]
@@ -144,7 +144,7 @@ namespace WeLearn.Controllers
             }
 
             await lessonsService.SoftDeleteLessonByIdAsync(lessonViewModel.LessonId);
-            return View("Deleted");
+            return RedirectToAction(nameof(ByMe));
         }
 
         [HttpGet]

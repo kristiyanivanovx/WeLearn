@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Services.Interfaces;
+using WeLearn.ViewModels;
+using WeLearn.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -13,121 +18,61 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = "Admin")]
     public class LessonsController : Controller
     {
-        private readonly ApplicationDbContext context;
+        private readonly ILessonsService lessonsService;
+        private readonly ICategoriesService categoriesService;
 
-        public LessonsController(ApplicationDbContext context)
+        public LessonsController(ILessonsService lessonsService, ICategoriesService categoriesService)
         {
-            this.context = context;
+            this.lessonsService = lessonsService;
+            this.categoriesService = categoriesService;
         }
 
         // GET: Administration/Lessons
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            //var lessonsViewModels = await lessonsService.GetAllLessonsToVMAsync();
-            //return View(lessonsViewModels);
-            var applicationDbContext = context.Lessons
-                .Include(l => l.ApplicationUser)
-                .Include(l => l.Category)
-                .Include(l => l.Material)
-                .Include(l => l.Video);
-            var items = await applicationDbContext.ToListAsync();
-            return View(items.OrderBy(l => l.IsApproved));
+            ViewData["SearchString"] = searchString;
+            var lessonsViewModels = await lessonsService.GetAllLessonsAdministrationAsync<AdministrationLessonModel>(searchString);
+            var paginated = PaginatedList<AdministrationLessonModel>.Create(lessonsViewModels.OrderBy(x => x.IsApproved), pageNumber ?? 1, 6);
+            return View(paginated);
         }
 
         // GET: Administration/Lessons/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lesson = await context.Lessons.FindAsync(id);
-            if (lesson == null)
-            {
-                return NotFound();
-            }
-            ViewData["ApplicationUserId"] = new SelectList(context.ApplicationUsers, "Id", "Id", lesson.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", lesson.CategoryId);
-            ViewData["MaterialId"] = new SelectList(context.Materials, "Id", "Link", lesson.MaterialId);
-            ViewData["VideoId"] = new SelectList(context.Videos, "Id", "ContentType", lesson.VideoId);
+            var lesson = await lessonsService.GetLessonByIdAdministrationAsync<AdministrationLessonModel>(id);
+            IEnumerable<CategoryViewModel> categories = categoriesService.GetAllCategories();
+            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
             return View(lesson);
         }
 
         // POST: Administration/Lessons/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, 
-            [Bind("Name,Description,CategoryId,Grade,ApplicationUserId,VideoId,MaterialId,DateCreated,DateModified,DateDeleted,IsDeleted,IsApproved,Id")] Lesson lesson)
+        public async Task<IActionResult> Edit(AdministrationLessonModel lessonModel)
         {
-            if (id != lesson.Id)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                IEnumerable<CategoryViewModel> categories = categoriesService.GetAllCategories();
+                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lessonModel.CategoryId);
+                return View(lessonModel);
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    context.Update(lesson);
-                    await context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LessonExists(lesson.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ApplicationUserId"] = new SelectList(context.ApplicationUsers, "Id", "Id", lesson.ApplicationUserId);
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", lesson.CategoryId);
-            ViewData["MaterialId"] = new SelectList(context.Materials, "Id", "Link", lesson.MaterialId);
-            ViewData["VideoId"] = new SelectList(context.Videos, "Id", "ContentType", lesson.VideoId);
-            return View(lesson);
+            await lessonsService.EditLessonAdministrationAsync(lessonModel);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Administration/Lessons/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var lesson = await context.Lessons
-                .Include(l => l.ApplicationUser)
-                .Include(l => l.Category)
-                .Include(l => l.Material)
-                .Include(l => l.Video)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (lesson == null)
-            {
-                return NotFound();
-            }
-
+            var lesson = await lessonsService.GetLessonByIdAdministrationAsync<AdministrationLessonModel>(id);
             return View(lesson);
         }
 
         // POST: Administration/Lessons/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lesson = await context.Lessons.FindAsync(id);
-            context.Lessons.Remove(lesson);
-            await context.SaveChangesAsync();
+            await lessonsService.HardDeleteLessonByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
-
-        private bool LessonExists(int id)
-            => context.Lessons.Any(e => e.Id == id);
     }
 }

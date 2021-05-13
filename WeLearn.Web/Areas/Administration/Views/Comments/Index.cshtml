@@ -92,6 +92,7 @@
         </tbody>
     </table>
 
+    @* pagination section *@
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
@@ -99,42 +100,43 @@
 
     <div class="mt-2 mb-2 text-center">
         <a asp-area="Administration"
-            asp-controller="Comments"
-            asp-action="Index"
-            asp-route-sortOrder="@ViewData["CurrentSort"]"
-            asp-route-pageNumber="@(Model.PageIndex - 1)"
-            asp-route-currentFilter="@ViewData["CurrentFilter"]"
-            asp-route-searchString="@ViewData["SearchString"]"
-            asp-route-categoryName="@ViewData["CategoryName"]"
-            class="btn btn-sm btn-outline-dark @prevDisabled">
+           asp-controller="Comments"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-categoryName="@ViewData["CategoryName"]"
+           class="btn btn-sm btn-outline-dark @prevDisabled">
             <i class="fas fa-arrow-left"></i> Previous
         </a>
         @for (int i = 1; i <= Model.TotalPages; i++)
         {
             <a asp-area="Administration"
-                asp-controller="Comments"
-                asp-action="Index"
-                asp-route-sortOrder="@ViewData["CurrentSort"]"
-                asp-route-pageNumber="@i"
-                asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                asp-route-searchString="@ViewData["SearchString"]"
-                asp-route-categoryName="@ViewData["CategoryName"]"
-                class="btn btn-sm btn-outline-dark ">
+               asp-controller="Comments"
+               asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@i"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchString="@ViewData["SearchString"]"
+               asp-route-categoryName="@ViewData["CategoryName"]"
+               class="btn btn-sm btn-outline-dark ">
                 @i
             </a>
         }
         <a asp-area="Administration"
-            asp-controller="Comments"
-            asp-action="Index"
-            asp-route-sortOrder="@ViewData["CurrentSort"]"
-            asp-route-pageNumber="@(Model.PageIndex + 1)"
-            asp-route-currentFilter="@ViewData["CurrentFilter"]"
-            asp-route-searchString="@ViewData["SearchString"]"
-            asp-route-categoryName="@ViewData["CategoryName"]"
-            class="btn btn-sm btn-outline-dark @nextDisabled">
+           asp-controller="Comments"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@ViewData["SearchString"]"
+           asp-route-categoryName="@ViewData["CategoryName"]"
+           class="btn btn-sm btn-outline-dark @nextDisabled">
             Next <i class="fas fa-arrow-right"></i>
         </a>
     </div>
+    @* pagination section end *@
     <br />
 </div>
 

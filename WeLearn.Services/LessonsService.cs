@@ -51,12 +51,26 @@ namespace WeLearn.Services
         public async Task<T> GetLessonByIdAsync<T>(int id)
         {
             Lesson lesson = await context.Lessons
-                    .Where(x => x.Id == id && !x.IsDeleted)
-                    .Include(x => x.Category)
-                    .Include(x => x.ApplicationUser)
-                    .Include(x => x.Video)
-                    .Include(x => x.Material)
-                    .FirstOrDefaultAsync();
+                .Where(x => x.Id == id && !x.IsDeleted)
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .FirstOrDefaultAsync();
+
+            T lessonMapped = mapper.Map<T>(lesson);
+            return lessonMapped;
+        }
+
+        public async Task<T> GetLessonByIdAdministrationAsync<T>(int id)
+        {
+            Lesson lesson = await context.Lessons
+                .Where(x => x.Id == id)
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .FirstOrDefaultAsync();
 
             T lessonMapped = mapper.Map<T>(lesson);
             return lessonMapped;
@@ -73,17 +87,17 @@ namespace WeLearn.Services
             }
 
             await lessonsByCategory
-                    .Include(x => x.Video)
-                    .Include(x => x.Material)
-                    .Include(x => x.Category)
-                    .Include(x => x.ApplicationUser)
-                    .ToListAsync();
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .ToListAsync();
 
             LessonViewModel[] lessonsMapped = mapper.Map<LessonViewModel[]>(lessonsByCategory);
             return lessonsMapped;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> GetAllLessonsAsync(string searchString)
+        public async Task<IEnumerable<T>> GetAllLessonsAsync<T>(string searchString)
         {
             IQueryable<Lesson> lessons = context.Lessons.Where(x => !x.IsDeleted && x.IsApproved);
 
@@ -93,17 +107,18 @@ namespace WeLearn.Services
                                              x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            await lessons.Include(x => x.Category)
-                    .Include(x => x.ApplicationUser)
-                    .Include(x => x.Video)
-                    .Include(x => x.Material)
-                    .ToListAsync();
+            await lessons
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .ToListAsync();
 
-            LessonViewModel[] lessonsViewModel = mapper.Map<LessonViewModel[]>(lessons);
+            T[] lessonsViewModel = mapper.Map<T[]>(lessons);
             return lessonsViewModel;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> GetAllLessonsWithDeletedAsync(string searchString)
+        public async Task<IEnumerable<T>> GetAllLessonsAdministrationAsync<T>(string searchString)
         {
             IQueryable<Lesson> lessons = context.Lessons;
 
@@ -113,13 +128,14 @@ namespace WeLearn.Services
                                              x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            await lessons.Include(x => x.Category)
-                    .Include(x => x.ApplicationUser)
-                    .Include(x => x.Video)
-                    .Include(x => x.Material)
-                    .ToListAsync();
+            await lessons
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .ToListAsync();
 
-            LessonViewModel[] lessonsViewModel = mapper.Map<LessonViewModel[]>(lessons);
+            T[] lessonsViewModel = mapper.Map<T[]>(lessons);
             return lessonsViewModel;
         }
 
@@ -144,6 +160,13 @@ namespace WeLearn.Services
             await context.SaveChangesAsync();
         }
 
+        public async Task HardDeleteLessonByIdAsync(int lessonId)
+        {
+            Lesson lesson = context.Lessons.FirstOrDefault(x => x.Id == lessonId);
+            context.Lessons.Remove(lesson);
+            await context.SaveChangesAsync();
+        }
+
         [RequestSizeLimit(MaximumVideoSizeInBytes)]
         public async Task CreateLessonAsync(
             LessonInputModel lessonInputModel, dynamic environmentWebRootPath, 
@@ -162,6 +185,21 @@ namespace WeLearn.Services
             Lesson lesson = await FindLessonAsync(lessonEditModel);
             UpdateEntityProperties(lessonEditModel, lesson);
             await UpdateVideoAndFilesBasedOnEnvironmentAsync(lessonEditModel, environmentWebRootPath, environmentName, lesson);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task EditLessonAdministrationAsync(AdministrationLessonModel model)
+        {
+            Lesson entity = context.Lessons.FirstOrDefault(x => x.Id == model.LessonId);
+
+            entity.Name = model.LessonName ?? entity.Name;
+            entity.Description = model.Description ?? entity.Description;
+            entity.CategoryId = model.CategoryId;
+            entity.Grade = model.Grade;
+            entity.DateCreated = model.DateCreated;
+            entity.IsDeleted = model.IsDeleted;
+            entity.IsApproved = model.IsApproved;
+
             await context.SaveChangesAsync();
         }
 

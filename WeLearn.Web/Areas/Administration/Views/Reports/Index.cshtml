@@ -57,11 +57,17 @@
                         @Html.DisplayFor(modelItem => item.Description)
                     </td>
                     <td>
-                        ID: @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                        @{
+                            var userId = item.ApplicationUserId ?? "Deleted User Id";
+                            var userName = item.ApplicationUserUserName ?? "Deleted User Username";
+                            var userEmail = item.ApplicationUserEmail ?? "Deleted User Email";
+                        }
+
+                        ID: @userId
                         <hr />
-                        Username: @Html.DisplayFor(modelItem => item.ApplicationUserUserName)
+                        Username: @userName
                         <hr />
-                        Email: @Html.DisplayFor(modelItem => item.ApplicationUserEmail)
+                        Email: @userEmail
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LessonName)
@@ -89,6 +95,8 @@
             }
         </tbody>
     </table>
+
+    @* pagination section *@
     @{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
@@ -132,5 +140,6 @@
             Next <i class="fas fa-arrow-right"></i>
         </a>
     </div>
+    @* pagination section end *@
     <br />
 </div>

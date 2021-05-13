@@ -24,10 +24,10 @@ namespace WeLearn.Services
         public async Task<IEnumerable<CommentViewModel>> GetCommentsAsync(int lessonId)
         {
             Comment[] comments = await context.Comments
-                        .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
-                        .Include(x => x.ApplicationUser)
-                        .OrderByDescending(x => x.DateCreated)
-                        .ToArrayAsync();
+                .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
+                .Include(x => x.ApplicationUser)
+                .OrderByDescending(x => x.DateCreated)
+                .ToArrayAsync();
 
             CommentViewModel[] commentViewModels = mapper.Map<CommentViewModel[]>(comments);
             return commentViewModels;

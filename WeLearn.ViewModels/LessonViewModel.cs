@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.ViewModels
@@ -14,6 +15,9 @@ namespace WeLearn.ViewModels
 
         public Grade Grade { get; set; }
 
+        [Display(Name = "Date created")]
+        public DateTime DateCreated { get; set; }
+            
         public string CategoryName { get; set; }
 
         public string CreatedByUserName { get; set; }

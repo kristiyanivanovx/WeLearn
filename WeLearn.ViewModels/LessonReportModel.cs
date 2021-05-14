@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 using WeLearn.ViewModels.Interfaces;
 using static WeLearn.Data.DataValidation.Report;
@@ -22,6 +23,8 @@ namespace WeLearn.ViewModels
         public string CategoryName { get; set; }
 
         public string CreatedByUserName { get; set; }
+
+        public DateTime LessonDateCreated { get; set; }
 
         public string VideoName { get; set; }
 

@@ -32,10 +32,7 @@ namespace WeLearn.Web.Infrastructure
             CreateMap<Lesson, LessonViewModel>()
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Grade, opt => opt.MapFrom(src => src.Grade))
-                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name))
                 .ForMember(dest => dest.ZippedFile, opt => opt.MapFrom(src => src.Material.Link));
 
             CreateMap<LessonViewModel, Lesson>()
@@ -46,6 +43,7 @@ namespace WeLearn.Web.Infrastructure
                 .ForMember(dest => dest.OriginId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.ZippedFile, opt => opt.MapFrom(src => src.Material.Link))
+                .ForMember(dest => dest.LessonDateCreated, opt => opt.MapFrom(src => src.DateCreated))
                 .ForMember(dest => dest.OriginApplicationUserUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
                 .ForMember(dest => dest.Subject, opt => opt.Ignore())
                 .ForMember(dest => dest.ReportDescription, opt => opt.Ignore());
@@ -53,16 +51,15 @@ namespace WeLearn.Web.Infrastructure
             CreateMap<LessonReportModel, Report>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId))
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.OriginId))
-                .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.ReportDescription))
                 .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.ReportingUserId));
 
             CreateMap<Report, LessonReportModel>()
+                .ForMember(dest => dest.LessonDateCreated, opt => opt.MapFrom(src => src.Lesson.DateCreated))
                 .ForMember(dest => dest.OriginId, opt => opt.MapFrom(src => src.LessonId))
                 .ForMember(dest => dest.ReportId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.OriginApplicationUserUserName, opt => opt.MapFrom(src => src.Lesson.ApplicationUser.UserName))
-                .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.Lesson.ApplicationUser.UserName))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Lesson.Description))
                 .ForMember(dest => dest.Grade, opt => opt.MapFrom(src => src.Lesson.Grade))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Lesson.Category.Name))
@@ -75,7 +72,6 @@ namespace WeLearn.Web.Infrastructure
             CreateMap<CommentReportModel, Report>()
                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId))
                  .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.OriginId))
-                 .ForMember(dest => dest.Subject, opt => opt.MapFrom(src => src.Subject))
                  .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.ReportDescription))
                  .ForMember(dest => dest.ApplicationUserId, opt => opt.MapFrom(src => src.ReportingUserId));
 
@@ -90,6 +86,7 @@ namespace WeLearn.Web.Infrastructure
             CreateMap<Comment, CommentReportModel>()
                .ForMember(dest => dest.OriginId, opt => opt.MapFrom(src => src.Id))
                .ForMember(dest => dest.CommentContent, opt => opt.MapFrom(src => src.Content))
+               .ForMember(dest => dest.CommentDateCreated, opt => opt.MapFrom(src => src.DateCreated))
                .ForMember(dest => dest.OriginApplicationUserUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
                .ForMember(dest => dest.Subject, opt => opt.Ignore())
                .ForMember(dest => dest.ReportDescription, opt => opt.Ignore());
@@ -100,11 +97,11 @@ namespace WeLearn.Web.Infrastructure
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName));
 
             CreateMap<CommentViewModel, Comment>()
-                .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.LessonId))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.CommentContent));
 
             CreateMap<Comment, CommentMultiModel>()
                 .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.LessonDateCreated, opt => opt.MapFrom(src => src.Lesson.DateCreated))
                 .ForMember(dest => dest.LessonZippedFileLink, opt => opt.MapFrom(src => src.Lesson.Material.Link))
                 .ForMember(dest => dest.LessonCreatedByUsername, opt => opt.MapFrom(src => src.Lesson.ApplicationUser.UserName));
 
@@ -130,8 +127,7 @@ namespace WeLearn.Web.Infrastructure
                 .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.ApplicationUserId))
                 .ForMember(dest => dest.CreatedByEmail, opt => opt.MapFrom(src => src.ApplicationUser.Email))
                 .ForMember(dest => dest.CreatedByUserName, opt => opt.MapFrom(src => src.ApplicationUser.UserName))
-                .ForMember(dest => dest.ZippedFile, opt => opt.MapFrom(src => src.Material.Link))
-                .ForMember(dest => dest.Grade, opt => opt.MapFrom(src => src.Grade));
+                .ForMember(dest => dest.ZippedFile, opt => opt.MapFrom(src => src.Material.Link));
 
             CreateMap<AdministrationLessonModel, Lesson>();
         }

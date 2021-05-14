@@ -67,7 +67,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonEdit(int reportId)
         {
-            LessonReportModel lessonToEdit = await reportsService.GetReportById<LessonReportModel>(reportId);
+            LessonReportModel lessonToEdit = await reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
             return View(lessonToEdit);
         }
 
@@ -95,7 +95,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonDelete(int reportId)
         {
-            LessonReportModel lessonReportModel = await reportsService.GetReportById<LessonReportModel>(reportId);
+            LessonReportModel lessonReportModel = await reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
             return View(lessonReportModel);
         }
 
@@ -150,7 +150,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentEdit(int reportId)
         {
-            CommentReportModel editCommentReport = await reportsService.GetReportById<CommentReportModel>(reportId);
+            CommentReportModel editCommentReport = await reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
             return View(editCommentReport);
         }
 
@@ -178,7 +178,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(int reportId)
         {
-            CommentReportModel commentReportModel = await reportsService.GetReportById<CommentReportModel>(reportId);
+            CommentReportModel commentReportModel = await reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
             return View(commentReportModel);
         }
 
@@ -186,9 +186,9 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(CommentReportModel commentReportModel)
         {
-            string userName = HttpContext.User.Identity.Name;
+            string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            if (commentReportModel.CreatedByUserName != userName)
+            if (commentReportModel.ReportingUserId != userId)
             {
                 return View(nameof(Unauthorized));
             }

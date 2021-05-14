@@ -13,9 +13,6 @@ namespace WeLearn.ViewModels
 
         public string CreatedById { get; set; }
 
-        [Display(Name = "Date created")]
-        public DateTime DateCreated { get; set; }
-
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 

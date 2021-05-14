@@ -98,7 +98,7 @@ namespace WeLearn.Services
             return commentsByMeMapped;
         }
 
-        public async Task<IEnumerable<AdministrationCommentModel>> GetAllComments(string searchString)
+        public async Task<IEnumerable<AdministrationCommentModel>> GetAllCommentsAsync(string searchString = null)
         {
             IQueryable<Comment> allComments = context.Comments;
                             

@@ -13,7 +13,12 @@
                     <p class="card-text">@Model.CommentContent</p>
                     <p class="card-text">
                         @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
-                        <small class="text-muted">Created by - @createdBy</small>
+                        @*<div>
+                            <small class="text-muted">Created by - @createdBy</small>
+                        </div>*@
+                        <div>
+                            <small class="text-muted">Date created - @Model.CommentDateCreated.ToShortDateString()</small>
+                        </div>
                     </p>
                 </div>
             </div>

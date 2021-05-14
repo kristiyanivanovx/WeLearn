@@ -14,9 +14,7 @@ namespace WeLearn.Services
 
         Task<IEnumerable<CommentReportModel>> GetCommentReportsCreatedByMeAsync(string userId);
 
-        Task<Report> GetReportByIdToReportAsync(int reportId);
-
-        Task<IReportModel> GetReportById<IReportModel>(int reportId);
+        Task<IReportModel> GetReportByIdAsync<IReportModel>(int reportId);
 
         Task CreateReportAsync(IReportModel model);
 

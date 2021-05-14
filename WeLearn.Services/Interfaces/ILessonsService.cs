@@ -22,9 +22,9 @@ namespace WeLearn.Services.Interfaces
 
         Task<IEnumerable<LessonViewModel>> GetAllLessonsByCategoryAsync(string categoryName, string searchString);
 
-        Task CreateLessonAsync(LessonInputModel lessonInputModel, dynamic environmentWebRootPath, string environmentName, string userId);
+        Task CreateLessonAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, string environmentName, string userId);
 
-        Task EditLessonAsync(LessonEditModel lessonEditModel, dynamic environmentWebRootPath, string environmentName, string userId);
+        Task EditLessonAsync(LessonEditModel lessonEditModel, string environmentWebRootPath, string environmentName, string userId);
 
         Task EditLessonAdministrationAsync(AdministrationLessonModel model);
 
@@ -32,8 +32,8 @@ namespace WeLearn.Services.Interfaces
 
         Task HardDeleteLessonByIdAsync(int lessonId);
         
-        Task UploadMaterialsAsync(ILessonModel model, dynamic uploadsMaterials);
+        Task UploadMaterialsAsync(ILessonModel model, string uploadsMaterials);
 
-        Task<Video> UploadVideoAsync(ILessonModel model, dynamic environmentWebRootPath);
+        Task<Video> UploadVideoAsync(ILessonModel model, string environmentWebRootPath);
     }
 }

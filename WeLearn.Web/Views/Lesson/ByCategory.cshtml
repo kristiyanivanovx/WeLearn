@@ -19,7 +19,9 @@
                 <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
             </div>
         </form>
-        <partial name="_MultipleLessonsPartial" />
+        <div class="text-center">
+            <partial name="_MultipleLessonsPartial" />
+        </div>
 
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";

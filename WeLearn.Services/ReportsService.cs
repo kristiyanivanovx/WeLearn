@@ -22,7 +22,7 @@ namespace WeLearn.Services
             this.mapper = mapper;
         }
 
-        public async Task<IReportModel> GetReportById<IReportModel>(int reportId)
+        public async Task<IReportModel> GetReportByIdAsync<IReportModel>(int reportId)
         {
             Report reportByMe = await context.Reports
                 .Where(x => x.Id == reportId)
@@ -39,30 +39,15 @@ namespace WeLearn.Services
             return reportByIdMapped;
         }
 
-        public async Task<Report> GetReportByIdToReportAsync(int reportId)
-        {
-            Report report = await context.Reports
-                .Where(x => x.Id == reportId)
-                .Include(x => x.Lesson)
-                .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
-                .FirstOrDefaultAsync();
-
-            return report;
-        }
-
         public async Task<IEnumerable<LessonReportModel>> GetLessonReportsCreatedByMeAsync(string userId)
         {
             List<Report> lessonsReportedByMe = await context.Reports
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.ApplicationUser)
+                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null && !x.Lesson.IsDeleted)
                 .ToListAsync();
 
             LessonReportModel[] lessonsByMeMapped = mapper.Map<LessonReportModel[]>(lessonsReportedByMe);
@@ -74,7 +59,7 @@ namespace WeLearn.Services
             List<Report> commentsByMe = await context.Reports
                 .Include(x => x.Comment)
                 .Include(x => x.Comment.ApplicationUser)
-                .Where(x => x.ApplicationUserId == userId && x.IsDeleted == false && x.CommentId != null && !x.Comment.IsDeleted)
+                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.CommentId != null && !x.Comment.IsDeleted)
                 .ToListAsync();
 
             CommentReportModel[] commentsReportedByMeMapped = mapper.Map<CommentReportModel[]>(commentsByMe);
@@ -105,7 +90,6 @@ namespace WeLearn.Services
         {
             Report reportMapped = mapper.Map<Report>(model);
             reportMapped.DateCreated = DateTime.UtcNow;
-
             await context.Reports.AddAsync(reportMapped);
             await context.SaveChangesAsync();
         }

@@ -54,7 +54,7 @@ namespace WeLearn.Controllers
         {
             ViewData["CurrentFilter"] = searchString;
             var lessonsViewModels = await lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
-            var paginated = PaginatedList<LessonViewModel>.Create(lessonsViewModels.OrderBy(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
+            var paginated = PaginatedList<LessonViewModel>.Create(lessonsViewModels.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             return View(paginated);
         }
 
@@ -149,11 +149,13 @@ namespace WeLearn.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> ByMe()
+        public async Task<IActionResult> ByMe(string searchString, int? pageNumber)
         {
+            ViewData["CurrentFilter"] = searchString;
             string userId = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             IEnumerable<LessonViewModel> myLessons = await lessonsService.GetCreatedByMeAsync(userId);
-            return View(myLessons);
+            var paginated = PaginatedList<LessonViewModel>.Create(myLessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
+            return View(paginated);
         }
 
         [HttpGet]
@@ -162,7 +164,7 @@ namespace WeLearn.Controllers
             ViewData["CurrentFilter"] = searchString;
             ViewData["CategoryName"] = categoryName;
             var lessons = await lessonsService.GetAllLessonsByCategoryAsync(categoryName, searchString);
-            var paginated = PaginatedList<LessonViewModel>.Create(lessons.OrderBy(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
+            var paginated = PaginatedList<LessonViewModel>.Create(lessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             return View(paginated);
         }
 

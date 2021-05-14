@@ -9,9 +9,6 @@ namespace WeLearn.ViewModels
 
         public string ApplicationUserEmail { get; set; }
 
-        [Display(Name = "Date created")]
-        public DateTime DateCreated { get; set; }
-
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
 

@@ -16,10 +16,19 @@
                     <hr />
                     <p class="card-text">@Model.Description</p>
                     <p class="card-text">
-                        @{ var createdBy = Model.CreatedByUserName == null ? "Deleted User" : Model.CreatedByUserName; }
-                        @*<small class="text-muted">Created by - @createdBy | </small>*@
-                        <small class="text-muted">Category - @Model.CategoryName | </small>
-                        <small class="text-muted">Grade - @Model.Grade</small>
+                        @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
+                        <div>
+                            <small class="text-muted">Created by - @createdBy</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Category - @Model.CategoryName</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Grade - @Model.Grade</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
+                        </div>
                     </p>
                     <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.ZippedFile" class="btn btn-sm btn-outline-dark">
                         <i class="fas fa-arrow-down"></i> Download Resources

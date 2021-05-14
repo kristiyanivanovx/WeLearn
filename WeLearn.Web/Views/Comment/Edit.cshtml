@@ -17,7 +17,8 @@
                 @{ var createdBy = Model.LessonCreatedByUsername == null ? "Deleted User" : Model.LessonCreatedByUsername; }
                 <small class="text-muted">Created by - @createdBy | </small>
                 <small class="text-muted">Category - @Model.LessonCategoryName | </small>
-                <small class="text-muted">Grade - @Model.LessonGrade</small>
+                <small class="text-muted">Grade - @Model.LessonGrade | </small>
+                <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
             </p>
             <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
                 <i class="fas fa-info"></i> Details

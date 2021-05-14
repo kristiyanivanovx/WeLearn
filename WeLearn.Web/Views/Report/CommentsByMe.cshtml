@@ -15,7 +15,12 @@
                         <p class="card-text">
                             <h5>@report.CommentContent</h5>
                             @{ var createdBy = report.OriginApplicationUserUserName == null ? "Deleted User" : report.OriginApplicationUserUserName; }
-                            <small class="text-muted">Created by - @createdBy</small>
+                            <div>
+                                <small class="text-muted">Created by - @createdBy</small>
+                            </div>
+                            <div>
+                                <small class="text-muted">Date created - @report.CommentDateCreated.ToShortDateString()</small>
+                            </div>
                         </p>
                     </div>
                     <div class="card-body">

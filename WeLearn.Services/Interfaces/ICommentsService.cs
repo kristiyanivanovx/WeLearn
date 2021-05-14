@@ -8,7 +8,7 @@ namespace WeLearn.Services.Interfaces
     {
         Task<T> GetCommentByIdAsync<T>(int id);
 
-        Task<IEnumerable<AdministrationCommentModel>> GetAllComments(string searchString);
+        Task<IEnumerable<AdministrationCommentModel>> GetAllCommentsAsync(string searchString);
 
         Task<IEnumerable<CommentMultiModel>> GetCommentsMadeByMeAsync(string userId);
 

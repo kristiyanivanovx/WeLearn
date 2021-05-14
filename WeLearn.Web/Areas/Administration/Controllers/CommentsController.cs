@@ -22,7 +22,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             ViewData["SearchString"] = searchString;
-            var allComments = await commentsService.GetAllComments(searchString);
+            var allComments = await commentsService.GetAllCommentsAsync(searchString);
             var paginated = PaginatedList<AdministrationCommentModel>.Create(allComments.OrderBy(x => x.IsDeleted), pageNumber ?? 1, 6);
             return View(paginated);
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using WeLearn.ViewModels.Interfaces;
 using static WeLearn.Data.DataValidation.Report;
 
@@ -13,6 +14,8 @@ namespace WeLearn.ViewModels
         public string OriginApplicationUserUserName { get; set; }
 
         public string CommentContent { get; set; }
+
+        public DateTime CommentDateCreated { get; set; }
 
         public string CreatedByUserName { get; set; }
 

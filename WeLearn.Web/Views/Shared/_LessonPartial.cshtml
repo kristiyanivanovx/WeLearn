@@ -5,15 +5,16 @@
         <source src="@Model.VideoLink" type="@Model.VideoContentType" />
         <a href="@Model.VideoLink" download>Download</a>
     </video>
-    <div class="card-body">
-        <h5 class="card-title">@Model.LessonName</h5>
+    <div class="card-body ">
+        <h5 class="card-title ">@Model.LessonName</h5>
         <hr />
         <p class="card-text">@Model.Description</p>
         <p class="card-text">
             @{ var createdBy = Model.CreatedByUserName == null ? "Deleted User" : Model.CreatedByUserName; }
             <small class="text-muted">Created by - @createdBy | </small>
             <small class="text-muted">Category - @Model.CategoryName | </small>
-            <small class="text-muted">Grade - @Model.Grade</small>
+            <small class="text-muted">Grade - @Model.Grade | </small>
+            <small class="text-muted">Date created - @Model.DateCreated.ToShortDateString()</small>
         </p>
         @if (User.Identity.Name == Model.CreatedByUserName)
         {

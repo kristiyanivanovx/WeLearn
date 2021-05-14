@@ -19,9 +19,18 @@
                         <p class="card-text">@report.Description</p>
                         <p class="card-text">
                             @{ var createdBy = report.OriginApplicationUserUserName == null ? "Deleted User" : report.OriginApplicationUserUserName; }
-                            <small class="text-muted">Created by - @createdBy | </small>
-                            <small class="text-muted">Category - @report.CategoryName | </small>
-                            <small class="text-muted">Grade - @report.Grade</small>
+                            <div>
+                                <small class="text-muted">Created by - @createdBy</small>
+                            </div>
+                            <div>
+                                <small class="text-muted">Category - @report.CategoryName</small>
+                            </div>
+                            <div>
+                                <small class="text-muted">Grade - @report.Grade</small>
+                            </div>
+                            <div>
+                                <small class="text-muted">Date created - @report.LessonDateCreated.ToShortDateString()</small>
+                            </div>
                         </p>
                         <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@report.OriginId" class="btn btn-sm btn-outline-dark">
                             <i class="fas fa-info"></i> Details

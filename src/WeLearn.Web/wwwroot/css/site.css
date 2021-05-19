@@ -1,0 +1,137 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+	font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+/* plyr */
+.plyr-container {
+	margin: 50px auto;
+	max-width: 500px;
+}
+
+.margin-button {
+	margin-top: 0.1rem;
+}
+
+/* override p tag*/
+p {
+	margin-top: 0;
+	margin-bottom: 0rem;
+}
+
+/* dropdown - https://qawithexperts.com/questions/292/how-to-create-bootstrap-dropdown-with-hover-animation */
+.dropdown .dropdown-menu {
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+	/*max-height: 0;*/
+  /*display: block;
+	overflow: hidden;
+	opacity: 0;*/
+}
+
+.dropdown:hover .dropdown-menu {
+	/*max-height: 200px;*/
+	opacity: 1;
+}
+
+.image-width {
+	width: 65%;
+}
+
+.card-style-80-rem {
+	max-width: 80rem;
+}
+
+.card-style-20-rem {
+	max-width: 20rem;
+}
+
+.card-style-40-rem {
+	max-width: 40rem;
+}
+
+.logo {
+	max-width: 12%;
+}
+
+.max-width-40-percent {
+	max-width: 40%;
+}
+
+.max-width-60-percent {
+	max-width: 60%;
+}
+
+.btn-padding-top {
+	margin-top: 10rem;
+}

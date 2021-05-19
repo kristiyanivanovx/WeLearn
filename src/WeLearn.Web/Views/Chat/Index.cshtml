@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Chat";
+}
+
+<div class="container text-center">
+    <h2>All chats</h2>
+    <hr />
+    @await Component.InvokeAsync("Room")
+    <hr />
+
+    <!-- Button trigger modal -->
+    <button type="button" id="create-room" class="btn btn-sm btn-outline-success mt-1" data-toggle="modal" data-target="#chatModal">
+        <i class="fas fa-plus"></i> Create new
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="chatModalLabel">Create new room</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-area="" asp-controller="Chat" asp-action="CreateRoom" method="post">
+                    <div class="modal-body">
+                        <div>Provide name for the chat</div>
+                        <small class="text-muted">Must not be empty, a space or tab character</small>
+                    </div>
+                    <div class="container">
+                        <input type="text" name="name" value="" class="mb-3 form-control" />
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-sm btn-outline-success" value="Create">
+                        <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+</div>

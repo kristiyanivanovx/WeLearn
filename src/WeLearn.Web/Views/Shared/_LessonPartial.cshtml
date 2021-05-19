@@ -1,0 +1,37 @@
+﻿@model LessonViewModel
+
+<div class="card mb-3 card-style-80-rem">
+    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+        <source src="@Model.VideoLink" type="@Model.VideoContentType" />
+        <a href="@Model.VideoLink" download>Download</a>
+    </video>
+    <div class="card-body ">
+        <h5 class="card-title">@Model.LessonName</h5>
+        <hr />
+        <p class="card-text mb-1">@Model.Description</p>
+        <p class="card-text mb-3">
+            @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
+            <small class="text-muted">Created by - @createdBy | </small>
+            <small class="text-muted">Category - @Model.CategoryName | </small>
+            <small class="text-muted">Grade - @Model.Grade | </small>
+            <small class="text-muted">Date created - @Model.DateCreated.ToShortDateString()</small>
+        </p>
+        @if (User.Identity.Name == Model.ApplicationUserUserName)
+        {
+            <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-danger">
+                <i class="fas fa-trash-alt"></i> Delete
+            </a>
+        }
+        <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info">
+            <i class="fas fa-arrow-down"></i> Download Resources
+        </a>
+        <a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning">
+            <i class="far fa-flag"></i> Report
+        </a>
+    </div>
+</div>
+<partial name="_CommentPartial" model="new CommentViewModel { LessonId = Model.LessonId };">
+@await Component.InvokeAsync("AllComments", new { lessonId = Model.LessonId })

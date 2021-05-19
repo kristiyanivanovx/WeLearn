@@ -1,0 +1,59 @@
+﻿@model CommentMultiModel
+@{
+    ViewData["Title"] = "Deleting comment #" + Model.CommentId;
+}
+
+<div class="container">
+    <div class="text-center">
+        <h3>Are you sure that you want to delete the following comment?</h3>
+        <hr />
+        <form asp-controller="Comment" asp-action="Delete" method="post" class="mb-4">
+            <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" />
+            <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" />
+            <div class="form-group">
+                <p>@Model.Content</p>
+            </div>
+            <input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
+            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
+                Cancel
+            </a>
+        </form>
+    </div>
+    <div class="card mb-3 card-style-80-rem">
+        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+            <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
+            <a href="@Model.LessonVideoLink" download>Download</a>
+        </video>
+        <div class="card-body">
+            <h5 class="card-title">@Model.LessonName</h5>
+            <hr />
+            <p class="card-text mb-2">@Model.LessonDescription</p>
+            <p class="card-text">
+                @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                <small class="text-muted">Created by - @createdBy | </small>
+                <small class="text-muted">Category - @Model.LessonCategoryName | </small>
+                <small class="text-muted">Grade - @Model.LessonGrade</small>
+            </p>
+            <div class="mt-3">
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
+                    <i class="fas fa-info"></i> Details
+                </a>
+                <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="btn btn-sm btn-outline-info">
+                    <i class="fas fa-arrow-down"></i> Download Resources
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* todo: find a way to add padding/margin *@
+<br />
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

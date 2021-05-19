@@ -1,0 +1,50 @@
+﻿@model CommentReportModel
+@{
+    ViewData["Title"] = "Deleting comment report #" + Model.ReportId;
+}
+
+<div class="container">
+    <div align="center">
+        <div class="card card-style-40-rem">
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">Comment</h5>
+                    <hr />
+                    <p class="card-text">@Model.CommentContent</p>
+                    <p class="card-text">
+                        @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
+                        @*<div>
+                            <small class="text-muted">Created by - @createdBy</small>
+                        </div>*@
+                        <div>
+                            <small class="text-muted">Date created - @Model.CommentDateCreated.ToShortDateString()</small>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <h3 class="text-center">Deleting report #@Model.ReportId | Comment #@Model.OriginId</h3>
+            <hr />
+            <form asp-controller="Report" asp-action="CommentDelete" method="post">
+                <input type="hidden" value="@Model.OriginId" asp-for="@Model.OriginId" class="form-control" />
+                <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
+                <input type="hidden" value="@Model.ReportingUserId" asp-for="@Model.ReportingUserId" class="form-control" />
+                <div class="mb-3">
+                    <p>Subject:</p>
+                    <p>@Model.Subject</p>
+                </div>
+                <div class="mb-3">
+                    <p>Description:</p>
+                    <p>@Model.ReportDescription</p>
+                </div>
+
+                <input class="btn btn-sm btn-outline-danger" type="submit" value="Delete" />
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.OriginId" class="btn btn-sm btn-outline-dark">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+</div>

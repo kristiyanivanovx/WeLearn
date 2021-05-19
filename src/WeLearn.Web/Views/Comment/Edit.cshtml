@@ -1,0 +1,62 @@
+﻿@model CommentMultiModel
+@{
+    ViewData["Title"] = "Editing comment #" + Model.CommentId;
+}
+
+<div class="container">
+    <div class="card mb-3 card-style-80-rem">
+        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+            <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
+            <a href="@Model.LessonVideoLink" download>Download</a>
+        </video>
+        <div class="card-body">
+            <h5 class="card-title">@Model.LessonName</h5>
+            <hr />
+            <p class="card-text mb-2">@Model.LessonDescription</p>
+            <p class="card-text">
+                @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                <small class="text-muted">Created by - @createdBy | </small>
+                <small class="text-muted">Category - @Model.LessonCategoryName | </small>
+                <small class="text-muted">Grade - @Model.LessonGrade | </small>
+                <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
+            </p>
+            <div class="mt-3">
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
+                    <i class="fas fa-info"></i> Details
+                </a>
+                <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="btn btn-sm btn-outline-info">
+                    <i class="fas fa-arrow-down"></i> Download Resources
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <h5>Comment Details</h5>
+            <hr />
+            <form asp-controller="Comment" asp-action="Edit" method="post">
+                <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
+                <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="@Model.Content"></label>
+                    <textarea asp-for="@Model.Content" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                </div>
+                <input type="submit" name="submit" value="Save" class="btn btn-sm btn-outline-success" />
+                <a asp-controller="Lesson" asp-action="Index" class="btn btn-sm btn-outline-dark">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* todo: find a way to add padding/margin *@
+<br />
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

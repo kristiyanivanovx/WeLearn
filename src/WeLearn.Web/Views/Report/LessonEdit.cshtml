@@ -1,0 +1,76 @@
+﻿@model LessonReportModel
+@{
+    ViewData["Title"] = "Editing report #" + Model.ReportId;
+}
+
+<div class="container">
+    <div class="card-deck">
+        <div class="row">
+            <div class="card mb-3 card-style-20-rem">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+                    <source src="@Model.LessonVideoLink" type="@Model.VideoContentType" />
+                    <a href="@Model.LessonVideoLink" download>Download</a>
+                </video>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.LessonName</h5>
+                    <hr />
+                    <p class="card-text mb-2">@Model.LessonDescription</p>
+                    <p class="card-text">
+                        @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
+                        <div>
+                            <small class="text-muted">Created by - @createdBy</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Category - @Model.LessonCategoryName</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Grade - @Model.LessonGrade</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
+                        </div>
+                    </p>
+                    <div class="mt-3">
+                        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.OriginId" class="btn btn-sm btn-outline-dark">
+                            <i class="fas fa-info"></i> Details
+                        </a>
+                        <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="btn btn-sm btn-outline-info">
+                            <i class="fas fa-arrow-down"></i> Download Resources
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5>Report Details</h5>
+                    <hr />
+                    <form asp-controller="Report" asp-action="LessonEdit" method="post">
+                        <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
+                        <input type="hidden" value="@Model.ReportingUserId" asp-for="@Model.ReportingUserId" class="form-control" />
+                        <div class="form-group">
+                            <label asp-for="@Model.Subject"></label>
+                            <input asp-for="@Model.Subject" class="form-control" />
+                            <span asp-validation-for="@Model.Subject" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.ReportDescription"></label>
+                            <input asp-for="@Model.ReportDescription" class="form-control" />
+                            <span asp-validation-for="@Model.ReportDescription" class="text-danger"></span>
+                        </div>
+                        <input type="submit" name="submit" value="Save" class="btn btn-sm btn-outline-success" />
+                        <a asp-controller="Report" asp-action="ByMe" class="btn btn-sm btn-outline-dark">
+                            Cancel
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

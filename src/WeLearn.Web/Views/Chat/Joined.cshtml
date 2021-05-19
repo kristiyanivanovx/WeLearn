@@ -1,0 +1,89 @@
+﻿@model Chat
+@{
+    ViewData["Title"] = "Chat #" + Model.Id;
+}
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="mt-4">Chat name: @Model.Name</h3>
+            <hr />
+            <div class="chat-body">
+                @foreach (var message in Model.Messages)
+                {
+                    <div class="message mb-1">
+                        <span><b>@message.Name</b>:</span>
+                        <span>@message.Text</span>
+                        <span> | @message.DateCreated.ToString("dd/MM/yyyy @ hh:mm:ss")</span>
+                    </div>
+                }
+            </div>
+            <div class="offset-md-2 col-md-8 mt-3">
+                <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage" method="post">
+                    <input type="hidden" name="roomId" value="@Model.Id" />
+                    <input type="text" name="message" id="message-input" class="form-control form-control-sm" />
+                    <input type="submit" value="Send" class="btn btn-sm btn-outline-success mt-3 mb-3" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="mt-4">Join another room</h3>
+            <hr />
+            @await Component.InvokeAsync("Room")
+            <a asp-controller="Chat" asp-action="Index" class="btn btn-sm btn-outline-dark mt-2">
+                <i class="fas fa-arrow-left"></i> Back to home
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/messageBuilder.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chatHub")
+            .build();
+
+        var _connectionId = '';
+
+        connection.on("ReceiveMessage", function (data) {
+            var message = messageBuilder()
+                .createMessage()
+                .withHeader(data.name)
+                .withParagraph(data.text)
+                .withFooter(data.dateCreated)
+                .build();
+
+            document.querySelector('.chat-body').append(message);
+        })
+
+        connection.start()
+            .then(function () {
+                connection.invoke('joinRoom', '@Model.Id');
+            })
+            .catch(function (err) {
+                console.log(err)
+            });
+
+        window.addEventListener('onunload', function () {
+            connection.invoke('leaveRoom', '@Model.Id');
+        });
+
+        var sendMessage = function (event) {
+            event.preventDefault();
+
+            var data = new FormData(event.target);
+            document.getElementById('message-input').value = '';
+
+            axios.post('/Chat/SendMessage', data)
+                .then(res => {
+                    console.log("Message sent!");
+                })
+                .catch(err => {
+                    console.log("Failed to send a message!", err);
+                })
+        }
+    </script>
+}

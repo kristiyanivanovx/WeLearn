@@ -1,0 +1,71 @@
+﻿@model AdministrationLessonModel
+@{
+    ViewData["Title"] = "Delete a lesson";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 text-center">
+            <h1>Delete</h1>
+            <h3>Lesson</h3>
+            <hr />
+
+            <div class="card">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+                    <source src="@Model.VideoLink" type="@Model.VideoContentType" />
+                    <a href="@Model.VideoLink" download>Download</a>
+                </video>
+                <div class="card-body">
+                    <h5 class="card-title">@Model.LessonName</h5>
+                    <hr />
+                    <p class="card-text">@Model.Description</p>
+                    <p class="card-text">
+                        @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
+                        <small class="text-muted">Created by - @createdBy | </small>
+                        <small class="text-muted">Category - @Model.CategoryName | </small>
+                        <small class="text-muted">Grade - @Model.Grade</small>
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info">
+                &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
+            </a>
+            <hr />
+
+            <div class="form-group">
+                <label asp-for="DateCreated" class="control-label"></label>:
+                <p>@Model.DateCreated.ToShortDateString()</p>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDeleted" disabled />@Html.DisplayNameFor(model => model.IsDeleted)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsApproved" disabled/> @Html.DisplayNameFor(model => model.IsApproved)
+                </label>
+            </div>
+            <hr />
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="LessonId" />
+                <div class="form-group">
+                    <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
+                    <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_DateTimePicker" />
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

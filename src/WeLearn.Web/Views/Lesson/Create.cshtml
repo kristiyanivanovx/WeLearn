@@ -1,0 +1,46 @@
+﻿@model LessonInputModel
+@{
+    ViewData["Title"] = "Create a lesson";
+}
+
+<div class="container text-center">
+    <h3>Hello! From there you can create new lessons.</h3>
+    <hr />
+    <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">
+        <form asp-controller="Lesson" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="LessonName"></label>
+                <input asp-for="LessonName" class="form-control" />
+                <span asp-validation-for="LessonName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" asp-items="@ViewBag.CategoryId" class="form-control"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Grade" class="control-label"></label>
+                <select asp-for="Grade" asp-items="Html.GetEnumSelectList<Grade>()" class="form-control">
+                    <option selected="selected" disabled value="">- Please Select Grade -</option>
+                </select>
+                <span asp-validation-for="Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Video"></label>
+                <input asp-for="Video" class="form-control" />
+                <span asp-validation-for="Video" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Files"></label>
+                <input asp-for="Files" class="form-control" />
+                <span asp-validation-for="Files" class="text-danger"></span>
+            </div>
+            <input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Submit" />
+        </form>
+    </div>
+</div>

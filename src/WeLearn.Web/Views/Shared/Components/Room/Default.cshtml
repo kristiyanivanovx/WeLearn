@@ -1,0 +1,19 @@
+﻿@using WeLearn.Data.Models.ChatApp
+@model IEnumerable<Chat>
+
+<div class="container">
+    @foreach (Chat chat in Model)
+    {
+        <div>
+            <a class="room-button" asp-controller="Chat" asp-action="Joined" asp-route-id="@chat.Id">
+                @chat.Name
+            </a>
+        </div>
+    }
+    @if (Model.Count() == 0)
+    {
+        <div>
+            <h5>We don't have any chats yet.</h5>
+        </div>
+    }
+</div>

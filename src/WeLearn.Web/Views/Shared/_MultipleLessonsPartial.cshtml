@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LessonViewModel>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4">
+            <div class="card">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
+                    @*<source src="~/uploads/videos/sample.mp4" type="video/webm" />*@
+                    <source src="@item.VideoLink" type="video/mp4" />
+                    <!-- Fallback for browsers that don't support the <video> element -->
+                    <a href="@item.VideoLink" download>Download</a>
+                </video>
+                <div class="card-body">
+                    <h5 class="card-title">@item.LessonName</h5>
+                    <hr />
+                    <p class="card-text mb-2">@item.Description</p>
+                    <p class="card-text">
+                        @{ var createdBy = item.ApplicationUserUserName == null ? "Deleted User" : item.ApplicationUserUserName; }
+                        <div>
+                            <small class="text-muted">Created by - @createdBy</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Category - @item.CategoryName</small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Grade - @item.Grade</small>
+                        </div>
+                        <div class="mb-3">
+                            <small class="text-muted">Date created - @item.DateCreated.ToShortDateString()</small>
+                        </div>
+                    </p>
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-dark mb-1">
+                    <i class="fas fa-info"></i> Details
+                </a>
+                @if (User.Identity.Name == item.ApplicationUserUserName)
+                {
+                    <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-success mb-1">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-danger mb-1">
+                        <i class="fas fa-trash-alt"></i> Delete
+                    </a>
+                    @* *@
+                }
+                <a asp-controller="Lesson" asp-action="Download" asp-route-link="@item.MaterialLink" class="btn btn-sm btn-outline-info mb-1">
+                    <i class="fas fa-arrow-down"></i> Download Resources
+                </a>
+                <a asp-controller="Report" asp-action="Lesson" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-warning mb-1">
+                    <i class="far fa-flag"></i> Report
+                </a>
+            </div>
+            </div>
+        </div>
+    }
+</div>

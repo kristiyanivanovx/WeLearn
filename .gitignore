@@ -360,6 +360,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# custom ignores
 bin-obj-yeeter.bat
 WeLearn.Data/appsettings.Production.json
 WeLearn.Web/appsettings.Production.json

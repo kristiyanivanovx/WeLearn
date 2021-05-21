@@ -96,7 +96,7 @@ dotnet restore
 dotnet build
 dotnet publish -c Release
 cd WeLearn.Web/bin/Release/net5.0/publish
-export ASPNETCORE_ENVIRONMENT=Development
+export ASPNETCORE_ENVIRONMENT=Production
 export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```

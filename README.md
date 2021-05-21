@@ -71,6 +71,10 @@ Structure influenced by:
 - Username: postgres
 - Password: root
 
+## Cloudinary 
+1. You need to sign up for Cloudinary (free plan will do just fine) - https://cloudinary.com/users/register/free
+2. Copy your ```API Environment variable``` and store it for later
+
 ## Windows / Mac
 1. Install/Update Visual Studio 2019 Community, latest edition - https://visualstudio.microsoft.com/downloads/
 2. Add the module "ASP.NET and web development"
@@ -86,15 +90,18 @@ sudo apt-get upgrade
 ```
 4. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
-5. Run the following commands inside /src/
+8. Run the following commands inside /src/
 ```
 dotnet restore
 dotnet build
 dotnet publish -c Release
 cd WeLearn.Web/bin/Release/net5.0/publish
 export ASPNETCORE_ENVIRONMENT=Development
+export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
+<small>Note: CLOUDINARY_URL is the value we saved earlier.</small>
+
 The app should be running on the address shown in the terminal's output.
 
 For Ubuntu, you may need additional codecs, that could be installed with the following command 

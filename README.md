@@ -92,6 +92,7 @@ dotnet restore
 dotnet build
 dotnet publish -c Release
 cd WeLearn.Web/bin/Release/net5.0/publish
+export ASPNETCORE_ENVIRONMENT=Development
 dotnet WeLearn.Web.dll
 ```
 The app should be running on the address shown in the terminal's output.

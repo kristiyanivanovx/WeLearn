@@ -75,7 +75,7 @@ Structure influenced by:
 2. Add the module "ASP.NET and web development"
 3. Additional modules than may be required ".NET desktop development", ".NET Core cross-platform development"
 
-# Linux (Tested on Manjaro)
+## Linux (Tested on Manjaro)
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/
 2. Make sure to install the following modules ...
 

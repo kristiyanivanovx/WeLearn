@@ -80,22 +80,23 @@ Structure influenced by:
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/
 2. Download the source code
 3. Run the following commands
-
+```
 sudo apt-get update
 sudo apt-get upgrade
-
+```
 4. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
 5. Run the following commands inside /src/
-
+```
 dotnet restore
 dotnet build
 dotnet publish -c Release
 cd bin/Release/net5.0/publish
 dotnet YourProject.dll
-
+```
 The app should be running on the address shown in the terminal's output.
 
 For Ubuntu, you may need additional codecs, that could be installed with the following command 
-
+```
 sudo apt install ubuntu-restricted-extras
+```

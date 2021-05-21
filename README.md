@@ -4,14 +4,14 @@ Repository for the WeLearn project.
 The idea is for it to be a platform where everyone can share their self-made lectures/lessons and learn from the other ones available.
 Primary focus is on students in primary/secondary school and respectively, their teachers. 
 
-The application has the following functionalities and characteristics:
+## The application has the following functionalities and characteristics:
 - Administrator user role, only select few are in it and can moderate a large part the contents, regardless if particular one is their creation or not.
 - Posts -> creating, reading, updating, deleting
 -- Every post has files (as zip), video material, category and appropriate grade attached to it that can be changed
 - Comments -> creating, reading, updating, deleting
 - Reports (comment reports and post reports) -> creating, reading, updating, deleting
 
-Technologies used:
+## Technologies used
 - ASP.NET Core 5
 - C#
 - Entity Framework Core
@@ -27,6 +27,7 @@ Technologies used:
 - Heroku
 - Docker
 
+## Acknowledgements
 Some of the (many) resources used for creating this project:
 - https://stackoverflow.com/a/59860450/13146140
 - https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
@@ -60,7 +61,7 @@ Structure influenced by:
 - Password: User_qwerty_1234%
 - Email: default@gmail.com
 
-# Installation Instructions - finish up
+# Installation Instructions
 
 ## PostgreSQL
 1. Follow the link and pick the version that suits your OS: https://www.postgresql.org/download/
@@ -75,11 +76,27 @@ Structure influenced by:
 2. Add the module "ASP.NET and web development"
 3. Additional modules than may be required ".NET desktop development", ".NET Core cross-platform development"
 
-# Linux (Tested on Manjaro)
+## Linux - Tested on Ubuntu 16.04
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/
-2. Make sure to install the following modules ...
+2. Download the source code
+3. Run the following commands
+```
+sudo apt-get update
+sudo apt-get upgrade
+```
+4. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
-## Run thsese commands inside /src/
+5. Run the following commands inside /src/
+```
 dotnet restore
 dotnet build
-dotnet run
+dotnet publish -c Release
+cd WeLearn.Web/bin/Release/net5.0/publish
+dotnet WeLearn.Web.dll
+```
+The app should be running on the address shown in the terminal's output.
+
+For Ubuntu, you may need additional codecs, that could be installed with the following command 
+```
+sudo apt install ubuntu-restricted-extras
+```

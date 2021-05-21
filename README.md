@@ -60,7 +60,7 @@ Structure influenced by:
 - Password: User_qwerty_1234%
 - Email: default@gmail.com
 
-# Installation Instructions - finish up
+# Installation Instructions
 
 ## PostgreSQL
 1. Follow the link and pick the version that suits your OS: https://www.postgresql.org/download/

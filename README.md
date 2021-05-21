@@ -92,7 +92,7 @@ dotnet restore
 dotnet build
 dotnet publish -c Release
 cd bin/Release/net5.0/publish
-dotnet YourProject.dll
+dotnet WeLearn.Web.dll
 ```
 The app should be running on the address shown in the terminal's output.
 

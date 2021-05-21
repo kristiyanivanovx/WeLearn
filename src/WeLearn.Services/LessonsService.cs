@@ -24,7 +24,7 @@ namespace WeLearn.Services
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
-        private readonly IArchiveService archiveService;
+        private readonly IInputOutputService inputOutputService;
 
         private const string InvalidFileSizeMessage = 
             "There was an error with the upload of one of the files. " +
@@ -33,11 +33,15 @@ namespace WeLearn.Services
         private const string InvalidVideoExtensionOrSizeMessage =
             "There was an error with the video upload. Contact us or check whether your video format is supported and the size is acceptable.";
 
-        public LessonsService(ApplicationDbContext context, IMapper mapper, IArchiveService archiveService)
+        private const string CloudinaryZipFilesFolder = "welearn-asp-net-core-app/zip-files/";
+
+        private const string CloudinaryVideosFolder = "welearn-asp-net-core-app/videos/";
+
+        public LessonsService(ApplicationDbContext context, IMapper mapper, IInputOutputService inputOutputService)
         {
             this.context = context;
             this.mapper = mapper;
-            this.archiveService = archiveService;
+            this.inputOutputService = inputOutputService;
         }
 
         public int GetAllLessonsCount() => this.context.Lessons.Count();
@@ -162,8 +166,7 @@ namespace WeLearn.Services
         }
 
         [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
-        public async Task CreateLessonAsync(
-            LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId)
+        public async Task CreateLessonAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId)
         {
             Lesson lesson = this.mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
             await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, isDevelopment, userId, lesson);
@@ -171,8 +174,7 @@ namespace WeLearn.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditLessonAsync(
-            LessonEditModel lessonEditModel, string environmentWebRootPath, bool isDevelopment, string userId)
+        public async Task EditLessonAsync(LessonEditModel lessonEditModel, string environmentWebRootPath, bool isDevelopment, string userId)
         {
             Lesson lesson = await FindLessonAsync(lessonEditModel);
             UpdateEntityProperties(lessonEditModel, lesson);
@@ -195,12 +197,12 @@ namespace WeLearn.Services
             await this.context.SaveChangesAsync();
         }
 
-        private async Task UpdateVideoAndFilesBasedOnEnvironmentAsync(
-            LessonEditModel lessonEditModel, string environmentWebRootPath, bool isDevelopment, Lesson lesson)
+        private async Task UpdateVideoAndFilesBasedOnEnvironmentAsync(LessonEditModel lessonEditModel, string environmentWebRootPath, bool isDevelopment, Lesson lesson)
         {
-            string uploadsMaterialsPath = Path.Combine(environmentWebRootPath, "uploads", "materials");
+            string stringGuid = Guid.NewGuid().ToString();
+            string uploadsMaterialsPath = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");
             string tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
-            string actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, Guid.NewGuid().ToString() + ".zip");
+            string actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
             if (isDevelopment)
             {
@@ -218,8 +220,7 @@ namespace WeLearn.Services
             }
         }
 
-        private async Task CreateLessonBasedOnEnvironmentAsync(
-            LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId, Lesson lesson)
+        private async Task CreateLessonBasedOnEnvironmentAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId, Lesson lesson)
         {
             Data.Models.Video videoEntity;
             Material materialEntity;
@@ -227,13 +228,13 @@ namespace WeLearn.Services
             if (isDevelopment)
             {
                 string stringGuid = Guid.NewGuid().ToString();
-                string uploadsMaterialsPath = Path.Combine(environmentWebRootPath, "uploads", "materials");
+                string uploadsMaterialsPath = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");
                 string tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
                 string actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
                 await UploadMaterialsAsync(lessonInputModel, uploadsMaterialsPath);
-                CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
-                DeleteUnusedFilesInTempFolder(tempDirectory);
+                this.inputOutputService.CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
+                this.inputOutputService.DeleteFilesInFolder(tempDirectory);
 
                 materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
                 videoEntity = await UploadVideoAsync(lessonInputModel, environmentWebRootPath);
@@ -258,8 +259,8 @@ namespace WeLearn.Services
             {
                 string stringGuid = Guid.NewGuid().ToString();
                 await UploadMaterialsAsync(lessonEditModel, uploadsMaterialsPath);
-                CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
-                DeleteUnusedFilesInTempFolder(tempDirectory);
+                this.inputOutputService.CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
+                this.inputOutputService.DeleteFilesInFolder(tempDirectory);
                 Material materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
                 entity.MaterialId = materialEntity.Id;
                 await this.context.SaveChangesAsync();
@@ -290,17 +291,6 @@ namespace WeLearn.Services
             entity.Grade = lessonEditModel.Grade;
         }
 
-        private static ZipArchive CreateZipArchiveWithTempFiles(string tempDirectory, string actualDirectoryPlusZipName)
-        {
-            ZipArchive archive = ZipFile.Open(actualDirectoryPlusZipName, ZipArchiveMode.Create);
-            foreach (string file in Directory.GetFiles(tempDirectory))
-            {
-                archive.CreateEntryFromFile(file, Path.GetFileName(file));
-            }
-
-            return archive;
-        }
-
         private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(ILessonModel lessonInputModel)
         {
             Cloudinary cloudinary = new Cloudinary();
@@ -318,16 +308,11 @@ namespace WeLearn.Services
             await video.OpenReadStream().CopyToAsync(videoStream);
             videoStream.Position = 0;
 
-            VideoUploadParams uploadParams = GenerateVideoUploadParams(video, videoStream);
+            VideoUploadParams uploadParams = GenerateVideoUploadParams(videoStream, video);
             VideoUploadResult uploadResult = await cloudinary.UploadAsync(uploadParams);
 
-            Data.Models.Video videoEntity = new Data.Models.Video
-            {
-                Name = video.FileName,
-                ContentType = video.ContentType,
-                DateCreated = DateTime.UtcNow,
-                Link = uploadResult.SecureUrl.AbsoluteUri
-            };
+            string path = uploadResult.SecureUrl.AbsoluteUri;
+            Data.Models.Video videoEntity = CreateVideoEntity(video, path);
 
             await this.context.Videos.AddAsync(videoEntity);
             await this.context.SaveChangesAsync();
@@ -348,8 +333,9 @@ namespace WeLearn.Services
 
             foreach (IFormFile formFile in lessonInputModel.Files)
             {
-                string uniqueFileName = GetUniqueFileName(formFile.FileName);
-                string filePath = Path.Combine(uploadsMaterials, "temp", uniqueFileName);
+                string uniqueFileName = this.inputOutputService.GetUniqueFileName(formFile.FileName);
+                string filePath = this.inputOutputService.GenerateItemPath(uploadsMaterials, "temp", uniqueFileName);
+
                 using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await formFile.CopyToAsync(fileStream);
@@ -369,27 +355,20 @@ namespace WeLearn.Services
                 throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
             }
 
-            string uniqueFileNameVideo = GetUniqueFileName(video.FileName);
-            string uploadsVideos = Path.Combine(environmentWebRootPath, "uploads", "videos");
-            string filePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
-            await video.CopyToAsync(new FileStream(filePath, FileMode.Create));
+            string uniqueFileNameVideo = this.inputOutputService.GetUniqueFileName(video.FileName);
+            string uploadsVideos = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "videos");
+            string videoPath = this.inputOutputService.GenerateItemPath("\\uploads", "videos", uniqueFileNameVideo);
 
-            Data.Models.Video videoEntity = CreateVideoEntity(video, uniqueFileNameVideo);
+            string fullFilePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
+            await video.CopyToAsync(new FileStream(fullFilePath, FileMode.Create));
+
+            Data.Models.Video videoEntity = CreateVideoEntity(video, videoPath);
 
             await this.context.Videos.AddAsync(videoEntity);
             await this.context.SaveChangesAsync();
+
             return videoEntity;
         }
-
-        private static Data.Models.Video CreateVideoEntity(IFormFile video, string uniqueFileNameVideo)
-            => new Data.Models.Video
-                {
-                    Name = video.FileName,
-                    ContentType = video.ContentType,
-                    DateCreated = DateTime.UtcNow,
-                    Link = Path.Combine("\\uploads", "videos", uniqueFileNameVideo)
-                };
-      
 
         private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(ILessonModel lessonInputModel)
         {
@@ -407,19 +386,27 @@ namespace WeLearn.Services
 
             string name = Guid.NewGuid().ToString();
 
-            Stream files = await archiveService.ArchiveFilesAsync(lessonInputModel.Files);
+            Stream files = await inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
             RawUploadParams uploadParams = GenerateRawUploadParam(files, name);
             RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
             return uploadResult;
         }
-        
-        private static VideoUploadParams GenerateVideoUploadParams(IFormFile video, MemoryStream videoStream)
+        private static Data.Models.Video CreateVideoEntity(IFormFile video, string path)
+            => new Data.Models.Video
+                {
+                    Name = video.FileName,
+                    ContentType = video.ContentType,
+                    DateCreated = DateTime.UtcNow,
+                    Link = path
+                };
+
+        private static VideoUploadParams GenerateVideoUploadParams(MemoryStream videoStream, IFormFile video)
             => new VideoUploadParams()
                 {
                     File = new FileDescription(@$"{video.FileName}", videoStream),
                     PublicId = video.FileName,
-                    Folder = "welearn-asp-net-core-app/videos/",
+                    Folder = CloudinaryVideosFolder,
                     Overwrite = true,
                     UniqueFilename = true,
                 };
@@ -429,47 +416,25 @@ namespace WeLearn.Services
                 {
                     File = new FileDescription(@$"{name}.zip", files),
                     PublicId = name,
-                    Folder = "welearn-asp-net-core-app/zip-files/",
+                    Folder = CloudinaryZipFilesFolder,
                     Overwrite = true,
                     UniqueFilename = false,
                 };
 
-        private static void DeleteUnusedFilesInTempFolder(string tempDirectory)
-        {
-            DirectoryInfo directoryInfo = new DirectoryInfo(tempDirectory);
-            foreach (FileInfo file in directoryInfo.GetFiles())
-            {
-                file.Delete();
-            }
-            foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
-            {
-                dir.Delete(true);
-            }
-        }
+        private static Material CreateMaterial(string path, string stringGuid)
+            => new Material
+                {
+                    Name = stringGuid,
+                    DateCreated = DateTime.UtcNow,
+                    Link = path
+                };
 
         private async Task<Material> AddMaterialToDatabaseAsync(string path, string stringGuid)
         {
-            Material materialEntity = new Material
-            {
-                Name = stringGuid,
-                DateCreated = DateTime.UtcNow,
-                Link = path
-            };
-
+            Material materialEntity = CreateMaterial(path, stringGuid);
             await this.context.Materials.AddAsync(materialEntity);
             await this.context.SaveChangesAsync();
             return materialEntity;
-        }
-
-        private static string GetUniqueFileName(string fileName)
-        {
-            fileName = Path.GetFileName(fileName);
-            string uniqueFileName = Path.GetFileNameWithoutExtension(fileName)
-                      + "_"
-                      + Guid.NewGuid().ToString().Substring(0, 5)
-                      + Path.GetExtension(fileName);
-
-            return uniqueFileName;
         }
     }
 }

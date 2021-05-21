@@ -39,6 +39,7 @@ namespace WeLearn.Web.Infrastructure
             CreateMap<Lesson, LessonReportModel>()
                 .ForMember(dest => dest.OriginId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.LessonGrade, opt => opt.MapFrom(src => src.Grade))
                 .ForMember(dest => dest.LessonCategoryName, opt => opt.MapFrom(src => src.Category.Name))
                 .ForMember(dest => dest.LessonDateCreated, opt => opt.MapFrom(src => src.DateCreated))
                 .ForMember(dest => dest.LessonVideoLink, opt => opt.MapFrom(src => src.Video.Link))

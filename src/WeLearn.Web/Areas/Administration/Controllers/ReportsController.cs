@@ -25,16 +25,16 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            ViewData["SearchString"] = searchString;
-            IEnumerable<AdministrationReportModel> reports = await reportsService.GetAllReportsAsync(searchString);
+            IEnumerable<AdministrationReportModel> reports = await this.reportsService.GetAllReportsAsync(searchString);
             var paginated = PaginatedList<AdministrationReportModel>.Create(reports.OrderByDescending(x => x.Id), pageNumber ?? 1, 6);
+            paginated.SearchString = searchString;
             return View(paginated);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            IEnumerable<AdministrationReportModel> reports = await reportsService.GetAllReportsAsync();
+            IEnumerable<AdministrationReportModel> reports = await this.reportsService.GetAllReportsAsync();
             AdministrationReportModel report = reports.FirstOrDefault(x => x.Id == id);
             return View(report);
         }
@@ -47,14 +47,14 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return View(model);
             }
 
-            await reportsService.EditReportAdministrationAsync(model);
+            await this.reportsService.EditReportAdministrationAsync(model);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            IEnumerable<AdministrationReportModel> reports = await reportsService.GetAllReportsAsync();
+            IEnumerable<AdministrationReportModel> reports = await this.reportsService.GetAllReportsAsync();
             AdministrationReportModel report = reports.FirstOrDefault(x => x.Id == id);
             return View(report);
         }
@@ -62,7 +62,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await reportsService.HardDeleteReportByIdAsync(id);
+            await this.reportsService.HardDeleteReportByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

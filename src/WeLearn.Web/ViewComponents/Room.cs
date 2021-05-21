@@ -6,25 +6,21 @@ using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Web.Infrastructure;
+using WeLearn.Services;
+using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.ViewComponents
 {
     public class Room : ViewComponent
     {
-        private readonly ApplicationDbContext context;
+        private readonly IChatService chatService;
 
-        //service
-        public Room(ApplicationDbContext context)
-        {
-            this.context = context;
-        }
+        public Room(IChatService chatService)
+            => this.chatService = chatService;
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Chat> chats = await this.context.Chats
-                .Where(x => x.Type == ChatType.Room)
-                .ToListAsync();
-
+            List<Chat> chats = await this.chatService.GetChatsByType(ChatType.Room);
             return View(chats);
         }
     }

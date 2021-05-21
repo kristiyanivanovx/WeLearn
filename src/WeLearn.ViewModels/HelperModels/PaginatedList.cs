@@ -6,6 +6,10 @@ namespace WeLearn.ViewModels.HelperModels
 {
     public class PaginatedList<T> : List<T>
     {
+        public string SearchString { get;  set; }
+        
+        public string CategoryName { get; set; }
+
         public int PageIndex { get; private set; }
 
         public int TotalPages { get; private set; }

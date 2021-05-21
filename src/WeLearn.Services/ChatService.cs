@@ -17,6 +17,7 @@ namespace WeLearn.Services
         public ChatService(ApplicationDbContext context)
             => this.context = context;
 
+
         public async Task<Message> CreateMessageAsync(int chatId, string message, string userName)
         {
             Message messageModel = new Message
@@ -57,6 +58,11 @@ namespace WeLearn.Services
             => this.context.Chats
                 .Include(x => x.Messages)
                 .FirstOrDefault(x => x.Id == id);
+
+        public async Task<List<Chat>> GetChatsByType(ChatType type)
+            => await this.context.Chats
+                .Where(x => x.Type == type)
+                .ToListAsync();
 
         public IEnumerable<Chat> GetChats(string userId)
             => this.context.Chats

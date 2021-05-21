@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:WeLearn.Services.ArchiveService.ArchiveFilesAsync(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Http.IFormFile})~System.Threading.Tasks.Task{System.IO.Stream}")]
+[assembly: SuppressMessage("Style", "IDE0063:Use simple 'using' statement", Justification = "<Pending>", Scope = "member", Target = "~M:WeLearn.Services.InputOutputService.ArchiveFilesAsync(System.Collections.Generic.IEnumerable{Microsoft.AspNetCore.Http.IFormFile})~System.Threading.Tasks.Task{System.IO.Stream}")]

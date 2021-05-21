@@ -21,16 +21,16 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            ViewData["SearchString"] = searchString;
-            var allComments = await commentsService.GetAllCommentsAsync(searchString);
+            var allComments = await this.commentsService.GetAllCommentsAsync(searchString);
             var paginated = PaginatedList<AdministrationCommentModel>.Create(allComments.OrderBy(x => x.IsDeleted), pageNumber ?? 1, 6);
+            paginated.SearchString = searchString;
             return View(paginated);
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            AdministrationCommentModel comment = await commentsService.GetCommentByIdAsync<AdministrationCommentModel>(id);
+            AdministrationCommentModel comment = await this.commentsService.GetCommentByIdAsync<AdministrationCommentModel>(id);
             return View(comment);
         }
 
@@ -42,21 +42,21 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return View(model);
             }
 
-            await commentsService.EditCommentByAdminAsync(model);
+            await this.commentsService.EditCommentByAdminAsync(model);
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            AdministrationCommentModel comment = await commentsService.GetCommentByIdAsync<AdministrationCommentModel>(id);
+            AdministrationCommentModel comment = await this.commentsService.GetCommentByIdAsync<AdministrationCommentModel>(id);
             return View(comment);
         }
 
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await commentsService.HardDeleteCommentByIdAsync(id);
+            await this.commentsService.HardDeleteCommentByIdAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

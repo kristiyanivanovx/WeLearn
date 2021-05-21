@@ -10,9 +10,9 @@
     if the column "Comment" is present/filled that means the type of report is a comment report.
 </p>
 <form asp-area="Administration" asp-controller="Reports" asp-action="Index" method="get">
-    <label>Find by name or description:</label>
+    <label>Find by subject or description:</label>
     <div class="input-group input-group-sm mb-3">
-        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@ViewData["SearchString"]" />
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
         <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
     </div>
 </form>
@@ -106,11 +106,8 @@
         <a asp-area="Administration"
            asp-controller="Reports"
            asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
            asp-route-pageNumber="@(Model.PageIndex - 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           asp-route-searchString="@ViewData["SearchString"]"
-           asp-route-categoryName="@ViewData["CategoryName"]"
+           asp-route-searchString="@Model.SearchString"
            class="btn btn-sm btn-outline-dark @prevDisabled">
             <i class="fas fa-arrow-left"></i> Previous
         </a>
@@ -119,11 +116,8 @@
             <a asp-area="Administration"
                asp-controller="Reports"
                asp-action="Index"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
                asp-route-pageNumber="@i"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               asp-route-searchString="@ViewData["SearchString"]"
-               asp-route-categoryName="@ViewData["CategoryName"]"
+               asp-route-searchString="@Model.SearchString"
                class="btn btn-sm btn-outline-dark ">
                 @i
             </a>
@@ -131,11 +125,8 @@
         <a asp-area="Administration"
            asp-controller="Reports"
            asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
            asp-route-pageNumber="@(Model.PageIndex + 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           asp-route-searchString="@ViewData["SearchString"]"
-           asp-route-categoryName="@ViewData["CategoryName"]"
+           asp-route-searchString="@Model.SearchString"
            class="btn btn-sm btn-outline-dark @nextDisabled">
             Next <i class="fas fa-arrow-right"></i>
         </a>

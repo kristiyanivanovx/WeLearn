@@ -13,6 +13,8 @@ namespace WeLearn.Services.Interfaces
 
         IEnumerable<Chat> GetChats(string userId);
 
+        Task<List<Chat>> GetChatsByType(ChatType type);
+
         Task CreateRoomAsync(string name, string userId);
 
         Task JoinRoomAsync(int chatId, string userId);

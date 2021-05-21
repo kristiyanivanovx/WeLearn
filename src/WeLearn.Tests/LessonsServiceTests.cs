@@ -71,8 +71,8 @@ namespace WeLearn.Tests
             });
             await db.SaveChangesAsync();
 
-            var archiveService = new ArchiveService();
-            var lessonsService = new LessonsService(db, mapper, archiveService);
+            var inputOutputService = new InputOutputService();
+            var lessonsService = new LessonsService(db, mapper, inputOutputService);
 
             // act
             await lessonsService.SoftDeleteLessonByIdAsync(6);
@@ -132,8 +132,8 @@ namespace WeLearn.Tests
             });
             await db.SaveChangesAsync();
 
-            var archiveService = new ArchiveService();
-            var lessonsService = new LessonsService(db, mapper, archiveService);
+            var inputOutputService = new InputOutputService();
+            var lessonsService = new LessonsService(db, mapper, inputOutputService);
 
             // act
             var comments = await lessonsService.GetAllLessonsByCategoryAsync("c-name", null);
@@ -189,7 +189,7 @@ namespace WeLearn.Tests
             });
             await db.SaveChangesAsync();
 
-            var archiveService = new ArchiveService();
+            var archiveService = new InputOutputService();
             var lessonsService = new LessonsService(db, mapper, archiveService);
 
             // act

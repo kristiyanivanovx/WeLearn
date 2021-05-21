@@ -63,7 +63,7 @@ namespace WeLearn
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ILessonsService, LessonsService>();
             services.AddTransient<IReportsService, ReportsService>();
-            services.AddTransient<IArchiveService, ArchiveService>();
+            services.AddTransient<IInputOutputService, InputOutputService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
@@ -86,6 +86,8 @@ namespace WeLearn
         {
             app.MigrateDatabase();
             app.SeedData(userManager, roleManager);
+           
+           app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
 
             if (env.IsDevelopment())
             {
@@ -94,8 +96,6 @@ namespace WeLearn
             }
             else
             {
-                app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
-
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }

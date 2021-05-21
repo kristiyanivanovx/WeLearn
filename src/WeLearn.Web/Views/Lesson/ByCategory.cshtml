@@ -12,10 +12,10 @@
     else
     {
         <form asp-area="" asp-controller="Lesson" asp-action="ByCategory" method="get">
-            <input type="hidden" name="CategoryName" value="@ViewData["CategoryName"]" />
+            <input type="hidden" name="CategoryName" value="@Model.CategoryName" />
             <label>Find by name or description:</label>
             <div class="input-group input-group-sm mb-3">
-                <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@ViewData["CurrentFilter"]" />
+                <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
                 <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
             </div>
         </form>
@@ -29,10 +29,9 @@
         <div class="mt-2 mb-2 text-center">
             <a asp-controller="Lesson"
                asp-action="ByCategory"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
                asp-route-pageNumber="@(Model.PageIndex - 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               asp-route-categoryName="@ViewData["CategoryName"]"
+               asp-route-searchString="@Model.SearchString"
+               asp-route-categoryName="@Model.CategoryName"
                class="btn btn-sm btn-outline-dark @prevDisabled">
                 <i class="fas fa-arrow-left"></i> Previous
             </a>
@@ -40,20 +39,18 @@
             {
                 <a asp-controller="Lesson"
                    asp-action="ByCategory"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
                    asp-route-pageNumber="@i"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   asp-route-categoryName="@ViewData["CategoryName"]"
+                   asp-route-searchString="@Model.SearchString"
+                   asp-route-categoryName="@Model.CategoryName"
                    class="btn btn-sm btn-outline-dark ">
                     @i
                 </a>
             }
             <a asp-controller="Lesson"
                asp-action="ByCategory"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
                asp-route-pageNumber="@(Model.PageIndex + 1)"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               asp-route-categoryName="@ViewData["CategoryName"]"
+               asp-route-searchString="@Model.SearchString"
+               asp-route-categoryName="@Model.CategoryName"
                class="btn btn-sm btn-outline-dark @nextDisabled">
                 Next <i class="fas fa-arrow-right"></i>
             </a>

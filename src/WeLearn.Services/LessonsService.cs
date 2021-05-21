@@ -169,7 +169,8 @@ namespace WeLearn.Services
         public async Task CreateLessonAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId)
         {
             Lesson lesson = this.mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
-            await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, isDevelopment, userId, lesson);
+            lesson.ApplicationUserId = userId;
+            await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, isDevelopment, lesson);
             await this.context.Lessons.AddAsync(lesson);
             await this.context.SaveChangesAsync();
         }
@@ -201,26 +202,40 @@ namespace WeLearn.Services
         {
             string stringGuid = Guid.NewGuid().ToString();
             string uploadsMaterialsPath = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");
-            string tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
-            string actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
+            string filesPath = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
             if (isDevelopment)
             {
                 await UpdateVideoInDevelopment(lessonEditModel, environmentWebRootPath, lesson);
-                await UpdateFilesInDevelopment(lessonEditModel, lesson, uploadsMaterialsPath, tempDirectory, actualDirectoryPlusZipName);
+                await UpdateFilesInDevelopment(lessonEditModel, lesson, filesPath);
             }
             else
             {
-                RawUploadResult materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonEditModel);
-                Material materialEntity = await AddMaterialToDatabaseAsync(materialUploadResult.SecureUrl.AbsoluteUri, Guid.NewGuid().ToString());
-                Data.Models.Video videoEntity = await UploadVideoCloudinaryAsync(lessonEditModel);
+                await UpdateVideoInProduction(lessonEditModel, lesson);
+                await UpdateFilesInProduction(lessonEditModel, lesson);
+            }
+        }
 
-                lesson.MaterialId = materialEntity.Id;
+        private async Task UpdateVideoInProduction(LessonEditModel lessonEditModel, Lesson lesson)
+        {
+            if (lessonEditModel.Video != null)
+            {
+                Data.Models.Video videoEntity = await UploadVideoCloudinaryAsync(lessonEditModel);
                 lesson.VideoId = videoEntity.Id;
             }
         }
 
-        private async Task CreateLessonBasedOnEnvironmentAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId, Lesson lesson)
+        private async Task UpdateFilesInProduction(LessonEditModel lessonEditModel, Lesson lesson)
+        {
+            if (lessonEditModel.Files != null)
+            {
+                RawUploadResult materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonEditModel);
+                Material materialEntity = await AddMaterialToDatabaseAsync(materialUploadResult.SecureUrl.AbsoluteUri, Guid.NewGuid().ToString());
+                lesson.MaterialId = materialEntity.Id;
+            }
+        }
+
+        private async Task CreateLessonBasedOnEnvironmentAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, Lesson lesson)
         {
             Data.Models.Video videoEntity;
             Material materialEntity;
@@ -229,39 +244,32 @@ namespace WeLearn.Services
             {
                 string stringGuid = Guid.NewGuid().ToString();
                 string uploadsMaterialsPath = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");
-                string tempDirectory = Path.Combine(uploadsMaterialsPath, "temp");
-                string actualDirectoryPlusZipName = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
+                string filesPath = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
-                await UploadMaterialsAsync(lessonInputModel, uploadsMaterialsPath);
-                this.inputOutputService.CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
-                this.inputOutputService.DeleteFilesInFolder(tempDirectory);
+                await UploadMaterialsAsync(lessonInputModel, filesPath);
 
-                materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
+                materialEntity = await AddMaterialToDatabaseAsync(filesPath, stringGuid);
                 videoEntity = await UploadVideoAsync(lessonInputModel, environmentWebRootPath);
             }
             else
             {
-                var materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonInputModel);
+                RawUploadResult materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonInputModel);
                 materialEntity = await AddMaterialToDatabaseAsync(materialUploadResult.SecureUrl.AbsoluteUri, Guid.NewGuid().ToString());
                 videoEntity = await UploadVideoCloudinaryAsync(lessonInputModel);
             }
 
-            lesson.ApplicationUserId = userId;
             lesson.VideoId = videoEntity.Id;
             lesson.MaterialId = materialEntity.Id;
             lesson.DateCreated = DateTime.UtcNow;
         }
 
-        private async Task UpdateFilesInDevelopment(
-            LessonEditModel lessonEditModel, Lesson entity, string uploadsMaterialsPath, string tempDirectory, string actualDirectoryPlusZipName)
+        private async Task UpdateFilesInDevelopment(LessonEditModel lessonEditModel, Lesson entity, string path)
         {
             if (lessonEditModel.Files != null)
             {
                 string stringGuid = Guid.NewGuid().ToString();
-                await UploadMaterialsAsync(lessonEditModel, uploadsMaterialsPath);
-                this.inputOutputService.CreateZipArchiveWithTempFiles(tempDirectory, actualDirectoryPlusZipName);
-                this.inputOutputService.DeleteFilesInFolder(tempDirectory);
-                Material materialEntity = await AddMaterialToDatabaseAsync(actualDirectoryPlusZipName, stringGuid);
+                await UploadMaterialsAsync(lessonEditModel, path);
+                Material materialEntity = await AddMaterialToDatabaseAsync(path, stringGuid);
                 entity.MaterialId = materialEntity.Id;
                 await this.context.SaveChangesAsync();
             }
@@ -319,7 +327,7 @@ namespace WeLearn.Services
             return videoEntity;
         }
 
-        public async Task UploadMaterialsAsync(ILessonModel lessonInputModel, string uploadsMaterials)
+        public async Task UploadMaterialsAsync(ILessonModel lessonInputModel, string path)
         {
             // check if the sum of files' sizes is above 0 mb and below 10 mb and all the extensions are permitted
             bool isFileSizeAcceptableForAll = lessonInputModel.Files.Sum(x => x.Length) > MinimumZipFileSizeInBytes && lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
@@ -331,15 +339,11 @@ namespace WeLearn.Services
                 throw new InvalidOperationException(InvalidFileSizeMessage);
             }
 
-            foreach (IFormFile formFile in lessonInputModel.Files)
+            using (FileStream fileStream = File.Create(path))
             {
-                string uniqueFileName = this.inputOutputService.GetUniqueFileName(formFile.FileName);
-                string filePath = this.inputOutputService.GenerateItemPath(uploadsMaterials, "temp", uniqueFileName);
-
-                using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await formFile.CopyToAsync(fileStream);
-                }
+                using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
+                files.Seek(0, SeekOrigin.Begin);
+                files.CopyTo(fileStream);
             }
         }
 
@@ -360,7 +364,10 @@ namespace WeLearn.Services
             string videoPath = this.inputOutputService.GenerateItemPath("\\uploads", "videos", uniqueFileNameVideo);
 
             string fullFilePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
-            await video.CopyToAsync(new FileStream(fullFilePath, FileMode.Create));
+            using (FileStream stream = new FileStream(fullFilePath, FileMode.Create))
+            {
+                await video.CopyToAsync(stream);
+            }
 
             Data.Models.Video videoEntity = CreateVideoEntity(video, videoPath);
 
@@ -386,7 +393,7 @@ namespace WeLearn.Services
 
             string name = Guid.NewGuid().ToString();
 
-            Stream files = await inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
+            using Stream files = await inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
             RawUploadParams uploadParams = GenerateRawUploadParam(files, name);
             RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
 

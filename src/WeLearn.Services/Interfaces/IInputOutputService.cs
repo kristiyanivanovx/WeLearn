@@ -12,10 +12,6 @@ namespace WeLearn.Services.Interfaces
 
         public Task<Stream> ArchiveFilesAsync(IEnumerable<IFormFile> files);
 
-        public ZipArchive CreateZipArchiveWithTempFiles(string tempDirectory, string actualDirectoryPlusZipName);
-
-        public void DeleteFilesInFolder(string directory);
-
         public string GetUniqueFileName(string fileName);
 
         public string GenerateItemPath(string root, string subItem, string subSubItem = null);

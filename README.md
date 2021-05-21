@@ -80,7 +80,7 @@ Structure influenced by:
 2. Add the module "ASP.NET and web development"
 3. Additional modules than may be required ".NET desktop development", ".NET Core cross-platform development"
 
-## Linux - Tested on Ubuntu 16.04
+## Linux - Tested on Ubuntu 20.04
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/
 2. Download the source code
 3. Run the following commands

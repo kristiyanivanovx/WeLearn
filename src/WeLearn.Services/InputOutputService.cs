@@ -48,30 +48,6 @@ namespace WeLearn.Services
             return stream;
         }
 
-        public ZipArchive CreateZipArchiveWithTempFiles(string tempDirectory, string actualDirectoryPlusZipName)
-        {
-            ZipArchive archive = ZipFile.Open(actualDirectoryPlusZipName, ZipArchiveMode.Create);
-            foreach (string file in Directory.GetFiles(tempDirectory))
-            {
-                archive.CreateEntryFromFile(file, Path.GetFileName(file));
-            }
-
-            return archive;
-        }
-
-        public void DeleteFilesInFolder(string tempDirectory)
-        {
-            DirectoryInfo directoryInfo = new DirectoryInfo(tempDirectory);
-            foreach (FileInfo file in directoryInfo.GetFiles())
-            {
-                file.Delete();
-            }
-            foreach (DirectoryInfo dir in directoryInfo.GetDirectories())
-            {
-                dir.Delete(true);
-            }
-        }
-
         public string GetUniqueFileName(string fileName)
         {
             fileName = Path.GetFileName(fileName);

@@ -76,10 +76,23 @@ Structure influenced by:
 1. You need to sign up for Cloudinary (free plan will do just fine) - https://cloudinary.com/users/register/free
 2. Copy your ```API Environment variable``` and store it for later
 
-## Windows / Mac
-1. Install/Update Visual Studio 2019 Community, latest edition - https://visualstudio.microsoft.com/downloads/
+Windows / Mac
+1. Install/Update Visual Studio 2019 Community / Visual Studio for Mac, latest edition - https://visualstudio.microsoft.com/downloads/
 2. Add the module "ASP.NET and web development"
 3. Additional modules than may be required ".NET desktop development", ".NET Core cross-platform development"
+4. Configuring PostgreSQL - download the installer which has a version of 13.3.
+- Follow the wizard, when asked about components select the 4 of them (PostgreSQL Server, pgAdmin 4, Stack Builder, Command Line Tools)
+- When asked about a password, provide ```root```
+- When asked about a port, leave it on ```5432```
+- You don't need to proceed with the Stack Builder
+- Start pgAdmin 4, create new server - from General set the name to postgres, from Connection set Host name to localhost, set password to root and Save
+- Click on that server and then Create, after that Database...
+- Name the database WeLearn and Save
+
+5. Set ```WeLearn.Web``` as a startup project
+6. Build the application with Ctrl + Shift + B
+7. Run the app with Ctrl + B
+8. Trust the certificate
 
 ## Linux - Tested on Ubuntu 20.04
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/
@@ -99,7 +112,6 @@ sudo -u postgres psql Welearn
 root
 root
 ```
-
 5. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
 6. Run the following commands inside /src/
@@ -112,13 +124,12 @@ export ASPNETCORE_ENVIRONMENT=Development
 export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
-#### Note: You can run with ASPNETCORE_ENVIRONMENT=Production, too, but you will need to configure Cloudinary for this one.
-#### Note: CLOUDINARY_URL is the value we saved earlier.
-#### Note: For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
+
+## Notes
+- You can run with ```ASPNETCORE_ENVIRONMENT=Production``` too, but you will need to configure Cloudinary for this one.
+- CLOUDINARY_URL is the value we saved earlier.
+- For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
 
 The app should be running on the address shown in the terminal's output.
 
-For Ubuntu, you may need additional codecs, that could be installed with the following command 
-```
-sudo apt install ubuntu-restricted-extras
-```
+For Ubuntu, you may need additional codecs for playing the video files.

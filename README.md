@@ -97,6 +97,7 @@ sudo -u postgres createdb WeLearn
 sudo -u postgres psql Welearn
 \password
 root
+root
 ```
 
 5. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)

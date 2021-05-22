@@ -89,6 +89,8 @@ Structure influenced by:
 sudo apt-get update
 sudo apt-get upgrade
 ```
+#### Note: For linux you will need to change the password of the ```postgres``` user to ```root``` by running ```sudo passwd postgres``` and typing ```root```
+
 4. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
 8. Run the following commands inside /src/
@@ -101,9 +103,9 @@ export ASPNETCORE_ENVIRONMENT=Development
 export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
-<small>Note: You can run with ASPNETCORE_ENVIRONMENT=Production, too, but you will need to configure Cloudinary for this one.</small>
-<small>Note: CLOUDINARY_URL is the value we saved earlier.</small>
-<small>Note: For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.</small>
+#### Note: You can run with ASPNETCORE_ENVIRONMENT=Production, too, but you will need to configure Cloudinary for this one.
+#### Note: CLOUDINARY_URL is the value we saved earlier.
+#### Note: For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
 
 The app should be running on the address shown in the terminal's output.
 

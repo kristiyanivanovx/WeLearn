@@ -76,7 +76,7 @@ Structure influenced by:
 1. You need to sign up for Cloudinary (free plan will do just fine) - https://cloudinary.com/users/register/free
 2. Copy your ```API Environment variable``` and store it for later
 
-Windows / Mac
+## Windows / Mac
 1. Install/Update Visual Studio 2019 Community / Visual Studio for Mac, latest edition - https://visualstudio.microsoft.com/downloads/
 2. Add the module "ASP.NET and web development"
 3. Additional modules than may be required ".NET desktop development", ".NET Core cross-platform development"

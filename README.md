@@ -54,7 +54,7 @@ Structure influenced by:
 ## User Credentials: Administrator
 - Username: welearnbg@gmail.com
 - Password: admin_Pass123%
-– Email: welearnbg@gmail.com
+- Email: welearnbg@gmail.com
 
 ## User Credentials: Regular user
 - Username: Username

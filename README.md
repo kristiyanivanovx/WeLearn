@@ -89,11 +89,20 @@ Structure influenced by:
 sudo apt-get update
 sudo apt-get upgrade
 ```
+4. Configuring PostgreSQL - run the following commands
+```
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+sudo -u postgres createdb WeLearn
+sudo -u postgres psql Welearn
+\password
+root
+```
 #### Note: For linux you will need to change the password of the ```postgres``` user to ```root``` by running ```sudo passwd postgres``` and typing ```root```
 
 4. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
-8. Run the following commands inside /src/
+5. Run the following commands inside /src/
 ```
 dotnet restore
 dotnet build

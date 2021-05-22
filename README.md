@@ -63,7 +63,7 @@ Structure influenced by:
 
 # Installation Instructions
 
-## PostgreSQL
+## PostgreSQL (detailed explanation below)
 1. Follow the link and pick the version that suits your OS: https://www.postgresql.org/download/
 2. You need to create an user and a database with the following credentials:
 - Port: 5432

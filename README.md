@@ -94,7 +94,8 @@ Structure influenced by:
 7. Run the app with Ctrl + B
 8. Trust the certificate
 
-Note: If you are not using Visual Studio, you may need to set an environment variable, use this code ```set ASPNETCORE_ENVIRONMENT=Development```
+Note: If you are not using Visual Studio, you may need to set an environment variable, use this
+```set ASPNETCORE_ENVIRONMENT=Development```
 
 ## Linux - Tested on Ubuntu 20.04
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/

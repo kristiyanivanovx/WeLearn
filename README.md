@@ -85,14 +85,16 @@ Structure influenced by:
 - When asked about a password, provide ```root```
 - When asked about a port, leave it on ```5432```
 - You don't need to proceed with the Stack Builder
-- Start pgAdmin 4, create new server - from General set the name to postgres, from Connection set Host name to localhost, set password to root and Save
+- Start pgAdmin 4, create new server - from General set the name to ```postgres```, from Connection set Host name to ```localhost```, set password to ```root``` and click Save
 - Click on that server and then Create, after that Database...
-- Name the database WeLearn and Save
+- Name the database ```WeLearn``` and click Save
 
 5. Set ```WeLearn.Web``` as a startup project
 6. Build the application with Ctrl + Shift + B
 7. Run the app with Ctrl + B
 8. Trust the certificate
+
+Note: If you are not using Visual Studio, you may need to set an environment variable, use this code ```set ASPNETCORE_ENVIRONMENT=Development```
 
 ## Linux - Tested on Ubuntu 20.04
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/

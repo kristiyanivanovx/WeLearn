@@ -97,12 +97,13 @@ dotnet restore
 dotnet build
 dotnet publish -c Release
 cd WeLearn.Web/bin/Release/net5.0/publish
-export ASPNETCORE_ENVIRONMENT=Production
+export ASPNETCORE_ENVIRONMENT=Development
 export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
-<small>Note: CLOUDINARY_URL is the value we saved earlier.</small>
-<small>Note: For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.</small>
+Note: You can run with ASPNETCORE_ENVIRONMENT=Production, too, but you will need to configure Cloudinary for this one.
+Note: CLOUDINARY_URL is the value we saved earlier.
+Note: For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
 
 The app should be running on the address shown in the terminal's output.
 

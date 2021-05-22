@@ -98,7 +98,6 @@ sudo -u postgres psql Welearn
 \password
 root
 ```
-#### Note: For linux you will need to change the password of the ```postgres``` user to ```root``` by running ```sudo passwd postgres``` and typing ```root```
 
 5. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 

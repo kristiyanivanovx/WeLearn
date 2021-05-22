@@ -71,7 +71,8 @@ Structure influenced by:
 - Username: postgres
 - Password: root
 
-## Cloudinary 
+## Cloudinary (optional)
+### Only needed for when running the app with the Production environment switch on. Skip if you are going to run it in Developmemt only.
 1. You need to sign up for Cloudinary (free plan will do just fine) - https://cloudinary.com/users/register/free
 2. Copy your ```API Environment variable``` and store it for later
 

@@ -12,6 +12,7 @@ using WeLearn.Data.Models.Enums;
 using WeLearn.Services;
 using WeLearn.Web.Infrastructure;
 using Xunit;
+using WeLearn.ViewModels.Admin;
 
 namespace WeLearn.Tests
 {

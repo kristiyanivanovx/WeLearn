@@ -8,6 +8,9 @@ using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
+using WeLearn.ViewModels.Comment;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Comment;
 
 namespace WeLearn.Services
 {
@@ -22,31 +25,24 @@ namespace WeLearn.Services
             this.mapper = mapper;
         }
 
-        public async Task CreateCommentAsync(CommentViewModel commentViewModel)
+        public async Task CreateCommentAsync(CommentInputModel commentInputModel)
         {
-            Lesson lesson = context.Lessons.FirstOrDefault(x => x.Id == commentViewModel.LessonId);
-            Comment comment = new Comment 
-            { 
-                LessonId = lesson.Id, 
-                Content = commentViewModel.CommentContent, 
-                DateCreated = DateTime.UtcNow, 
-                ApplicationUserId = commentViewModel.ApplicationUserId 
-            };
-
+            Comment comment = this.mapper.Map<Comment>(commentInputModel);
+            comment.DateCreated = DateTime.UtcNow;
             await this.context.Comments.AddAsync(comment);
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditCommentAsync(CommentMultiModel commentEditModel)
+        public async Task EditCommentAsync(CommentEditModel commentEditModel)
         {
-            Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
+            Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.Id);
             entity.Content = commentEditModel.Content ?? entity.Content;
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditCommentByAdminAsync(AdministrationCommentModel commentEditModel)
+        public async Task EditCommentByAdminAsync(AdminCommentEditModel commentEditModel)
         {
-            Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.CommentId);
+            Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.Id);
             entity.Content = commentEditModel.Content ?? entity.Content;
             entity.IsDeleted = commentEditModel.IsDeleted;
             entity.DateCreated = commentEditModel.DateCreated;
@@ -83,7 +79,7 @@ namespace WeLearn.Services
             return commentMapped;
         }
 
-        public async Task<IEnumerable<CommentMultiModel>> GetCommentsMadeByMeAsync(string userId)
+        public async Task<IEnumerable<CommentByMeModel>> GetCommentsMadeByMeAsync(string userId)
         {
             List<Comment> commentsByMe = await this.context.Comments
                 .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
@@ -94,11 +90,11 @@ namespace WeLearn.Services
                 .Include(x => x.Lesson.ApplicationUser)
                 .ToListAsync();
 
-            CommentMultiModel[] commentsByMeMapped = this.mapper.Map<CommentMultiModel[]>(commentsByMe);
+            CommentByMeModel[] commentsByMeMapped = this.mapper.Map<CommentByMeModel[]>(commentsByMe);
             return commentsByMeMapped;
         }
 
-        public async Task<IEnumerable<AdministrationCommentModel>> GetAllCommentsAsync(string searchString = null)
+        public async Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString = null)
         {
             IQueryable<Comment> allComments = this.context.Comments;
                             
@@ -113,10 +109,11 @@ namespace WeLearn.Services
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Video)
+                .Include(x => x.Lesson.ApplicationUser)
                 .OrderByDescending(x => x.DateCreated)
                 .ToListAsync();
 
-            AdministrationCommentModel[] allCommentsMapped = this.mapper.Map<AdministrationCommentModel[]>(allComments);
+            AdminCommentViewModel[] allCommentsMapped = this.mapper.Map<AdminCommentViewModel[]>(allComments);
             return allCommentsMapped;
         }
     }

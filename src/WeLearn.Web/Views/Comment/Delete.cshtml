@@ -1,6 +1,6 @@
-﻿@model CommentMultiModel
+﻿@model CommentDeleteModel
 @{
-    ViewData["Title"] = "Deleting comment #" + Model.CommentId;
+    ViewData["Title"] = "Deleting comment #" + Model.Id;
 }
 
 <div class="container">
@@ -8,10 +8,11 @@
         <h3>Are you sure that you want to delete the following comment?</h3>
         <hr />
         <form asp-controller="Comment" asp-action="Delete" method="post" class="mb-4">
-            <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" />
+            <input type="hidden" value="@Model.Id" asp-for="@Model.Id" />
             <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" />
             <div class="form-group">
                 <p>@Model.Content</p>
+                <small>@Model.DateCreated.ToShortDateString()</small>
             </div>
             <input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
             <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">

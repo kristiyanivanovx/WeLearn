@@ -10,6 +10,9 @@ using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Lesson;
+using WeLearn.ViewModels.Category;
 using WeLearn.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
@@ -29,22 +32,22 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            var lessonsViewModels = await this.lessonsService.GetAllLessonsAdministrationAsync<AdministrationLessonModel>(searchString);
-            var paginated = PaginatedList<AdministrationLessonModel>.Create(lessonsViewModels.OrderBy(x => x.IsApproved), pageNumber ?? 1, 6);
+            var lessonsViewModels = await this.lessonsService.GetAllLessonsAdministrationAsync<AdminLessonViewModel>(searchString);
+            var paginated = PaginatedList<AdminLessonViewModel>.Create(lessonsViewModels.OrderBy(x => x.IsApproved), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
             return View(paginated);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdministrationLessonModel>(id);
+            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdminLessonEditModel>(id);
             IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
             ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
             return View(lesson);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdministrationLessonModel lessonModel)
+        public async Task<IActionResult> Edit(AdminLessonEditModel lessonModel)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +62,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdministrationLessonModel>(id);
+            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdminLessonDeleteModel>(id);
             return View(lesson);
         }
 

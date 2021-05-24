@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeLearn.ViewModels;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Comment;
+using WeLearn.ViewModels.Comment;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -8,15 +11,15 @@ namespace WeLearn.Services.Interfaces
     {
         Task<T> GetCommentByIdAsync<T>(int id);
 
-        Task<IEnumerable<AdministrationCommentModel>> GetAllCommentsAsync(string searchString);
+        Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString);
 
-        Task<IEnumerable<CommentMultiModel>> GetCommentsMadeByMeAsync(string userId);
+        Task<IEnumerable<CommentByMeModel>> GetCommentsMadeByMeAsync(string userId);
 
-        Task CreateCommentAsync(CommentViewModel commentViewModel);
+        Task CreateCommentAsync(CommentInputModel commentViewModel);
 
-        Task EditCommentAsync(CommentMultiModel commentEditModel);
+        Task EditCommentAsync(CommentEditModel commentEditModel);
 
-        Task EditCommentByAdminAsync(AdministrationCommentModel commentEditModel);
+        Task EditCommentByAdminAsync(AdminCommentEditModel commentEditModel);
 
         Task SoftDeleteCommentByIdAsync(int commentId);
 

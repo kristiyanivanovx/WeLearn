@@ -18,6 +18,8 @@ using System.Linq;
 using Microsoft.Extensions.Hosting;
 using WeLearn.Web.Controllers;
 using WeLearn.Web.Infrastructure;
+using WeLearn.ViewModels.Lesson;
+using WeLearn.ViewModels.Category;
 
 namespace WeLearn.Controllers
 {
@@ -55,7 +57,7 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> All(string searchString, int? pageNumber)
         {
-            var lessonsViewModels = await lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
+            var lessonsViewModels = await this.lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
             var paginated = PaginatedList<LessonViewModel>.Create(lessonsViewModels.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             paginated.SearchString = searchString;
             return View(paginated);
@@ -64,7 +66,7 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> Watch(int id)
         {
-            LessonViewModel lessonViewModel = await lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
+            LessonViewModel lessonViewModel = await this.lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
             return View(lessonViewModel);
         }
 
@@ -72,7 +74,7 @@ namespace WeLearn.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            IEnumerable<CategoryViewModel> categories = categoriesService.GetAllCategories();
+            IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
             ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name");
             return View();
         }
@@ -84,12 +86,12 @@ namespace WeLearn.Controllers
         {
             if (!ModelState.IsValid)
             {
-                IEnumerable<CategoryViewModel> categories = categoriesService.GetAllCategories();
+                IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
                 ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lessonInputModel.CategoryId);
                 return View(lessonInputModel);
             }
 
-            await lessonsService.CreateLessonAsync(lessonInputModel, environment.WebRootPath, environment.IsDevelopment(), GetUserId());
+            await this.lessonsService.CreateLessonAsync(lessonInputModel, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -97,8 +99,8 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            LessonEditModel lesson = await lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
-            IEnumerable<CategoryViewModel> categories = categoriesService.GetAllCategories();
+            LessonEditModel lesson = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
+            IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
             ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
             return View(lesson);
         }
@@ -110,7 +112,7 @@ namespace WeLearn.Controllers
         {
             if (!ModelState.IsValid)
             {
-                IEnumerable<CategoryViewModel> categories = categoriesService.GetAllCategories();
+                IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
                 ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", lessonEditModel.CategoryId);
                 return View(lessonEditModel);
             }
@@ -120,7 +122,7 @@ namespace WeLearn.Controllers
                 return View(nameof(Unauthorized));
             }
 
-            await lessonsService.EditLessonAsync(lessonEditModel, environment.WebRootPath, environment.IsDevelopment(), GetUserId());
+            await this.lessonsService.EditLessonAsync(lessonEditModel, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -128,13 +130,13 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            LessonViewModel lessonViewModel = await lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
+            LessonDeleteModel lessonViewModel = await this.lessonsService.GetLessonByIdAsync<LessonDeleteModel>(id);
             return View(lessonViewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Delete(LessonViewModel lessonViewModel)
+        public async Task<IActionResult> Delete(LessonDeleteModel lessonViewModel)
         {
             string userName = HttpContext.User.Identity.Name;
 
@@ -143,7 +145,7 @@ namespace WeLearn.Controllers
                 return View("Unauthorized");
             }
 
-            await lessonsService.SoftDeleteLessonByIdAsync(lessonViewModel.LessonId);
+            await this.lessonsService.SoftDeleteLessonByIdAsync(lessonViewModel.LessonId);
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -151,7 +153,7 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe(string searchString, int? pageNumber)
         {
-            IEnumerable<LessonViewModel> myLessons = await lessonsService.GetCreatedByMeAsync(GetUserId());
+            IEnumerable<LessonViewModel> myLessons = await this.lessonsService.GetCreatedByMeAsync(GetUserId(), searchString);
             var paginated = PaginatedList<LessonViewModel>.Create(myLessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             paginated.SearchString = searchString;
             return View(paginated);
@@ -160,7 +162,7 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> ByCategory(string categoryName, string searchString, int? pageNumber)
         {
-            var lessons = await lessonsService.GetAllLessonsByCategoryAsync(categoryName, searchString);
+            var lessons = await this.lessonsService.GetAllLessonsByCategoryAsync(categoryName, searchString);
             var paginated = PaginatedList<LessonViewModel>.Create(lessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             paginated.CategoryName = categoryName;
             paginated.SearchString = searchString;
@@ -170,7 +172,7 @@ namespace WeLearn.Controllers
         [HttpGet]
         public IActionResult Download([FromQuery] string link)
         {
-            FileDownload fileParsed = fileDownloadService.DownloadFile(link);
+            FileDownload fileParsed = this.fileDownloadService.DownloadFile(link);
             return File(fileParsed.Content, fileParsed.ContentType, fileParsed.FileName);
         }
     }

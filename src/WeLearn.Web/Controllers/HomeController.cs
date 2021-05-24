@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
+using WeLearn.ViewModels.Index;
 
 namespace WeLearn.Controllers
 {
@@ -15,7 +16,7 @@ namespace WeLearn.Controllers
 
         public IActionResult Index()
         {
-            IndexViewModel indexViewModel = homeService.GenerateIndexViewModel();
+            IndexViewModel indexViewModel = this.homeService.GenerateIndexViewModel();
             return View(indexViewModel);
         }
 

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static WeLearn.Data.DataValidation.Report;
 
-namespace WeLearn.ViewModels
+namespace WeLearn.ViewModels.Admin
 {
     public class AdministrationReportModel
     {

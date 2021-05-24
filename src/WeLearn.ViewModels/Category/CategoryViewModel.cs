@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static WeLearn.Data.DataValidation.Category;
 
-namespace WeLearn.ViewModels
+namespace WeLearn.ViewModels.Category
 {
     public class CategoryViewModel
     {

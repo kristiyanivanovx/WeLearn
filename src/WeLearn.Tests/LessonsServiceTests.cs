@@ -12,6 +12,8 @@ using WeLearn.ViewModels;
 using WeLearn.Web.Infrastructure;
 using WeLearn.Data.Models.Enums;
 using Xunit;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Lesson;
 
 namespace WeLearn.Tests
 {
@@ -76,10 +78,10 @@ namespace WeLearn.Tests
 
             // act
             await lessonsService.SoftDeleteLessonByIdAsync(6);
-            var comment = await lessonsService.GetLessonByIdAdministrationAsync<AdministrationLessonModel>(6);
+            var comment = await lessonsService.GetLessonByIdAdministrationAsync<AdminLessonViewModel>(6);
 
             // assert
-            Assert.Equal(6, comment.LessonId);
+            Assert.Equal(6, comment.Id);
             Assert.False(comment.IsApproved);
             Assert.True(comment.IsDeleted);
         }
@@ -194,7 +196,7 @@ namespace WeLearn.Tests
 
             // act
             await lessonsService.HardDeleteLessonByIdAsync(6);
-            var comment = await lessonsService.GetLessonByIdAdministrationAsync<AdministrationLessonModel>(6);
+            var comment = await lessonsService.GetLessonByIdAdministrationAsync<AdminLessonViewModel>(6);
 
             // assert
             Assert.Null(comment);

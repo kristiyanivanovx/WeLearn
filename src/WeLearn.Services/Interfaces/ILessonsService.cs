@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using WeLearn.Data.Models;
 using WeLearn.ViewModels.Interfaces;
 using WeLearn.ViewModels;
+using WeLearn.ViewModels.Lesson;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Lesson;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -18,7 +21,7 @@ namespace WeLearn.Services.Interfaces
 
         Task<IEnumerable<T>> GetAllLessonsAdministrationAsync<T>(string categoryName = null);
 
-        Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId);
+        Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString);
 
         Task<IEnumerable<LessonViewModel>> GetAllLessonsByCategoryAsync(string categoryName, string searchString);
 
@@ -26,7 +29,7 @@ namespace WeLearn.Services.Interfaces
 
         Task EditLessonAsync(LessonEditModel lessonEditModel, string environmentWebRootPath, bool isDevelopment, string userId);
 
-        Task EditLessonAdministrationAsync(AdministrationLessonModel model);
+        Task EditLessonAdministrationAsync(AdminLessonEditModel model);
 
         Task SoftDeleteLessonByIdAsync(int lessonId);
 
@@ -34,6 +37,6 @@ namespace WeLearn.Services.Interfaces
         
         Task UploadMaterialsAsync(ILessonModel model, string uploadsMaterials);
 
-        Task<Video> UploadVideoAsync(ILessonModel model, string environmentWebRootPath);
+        Task<Video> UploadVideoAsync(Lesson lesson, ILessonModel model, string environmentWebRootPath);
     }
 }

@@ -1,4 +1,4 @@
-﻿@model PaginatedList<AdministrationLessonModel>
+﻿@model PaginatedList<AdminLessonViewModel>
 @{
     ViewData["Title"] = "Lessons administration";
 }
@@ -56,7 +56,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LessonName)
+                        @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Description)
@@ -69,11 +69,10 @@
                     </td>
                     <td>
                         @{
-                            var userId = item.CreatedById ?? "Deleted User Id";
+                            var userId = item.ApplicationUserId ?? "Deleted User Id";
                             var userName = item.ApplicationUserUserName ?? "Deleted Username";
-                            var userEmail = item.CreatedByEmail ?? "Deleted Email";
+                            var userEmail = item.ApplicationUserEmail ?? "Deleted Email";
                         }
-
                         ID: @userId
                         <hr />
                         Username: @userName
@@ -101,9 +100,9 @@
                         @Html.DisplayFor(modelItem => item.IsApproved)
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                        <a asp-action="Edit" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
-                        <a asp-action="Delete" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
                     </td>
                 </tr>
             }

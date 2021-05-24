@@ -65,7 +65,7 @@ namespace WeLearn.Web.Controllers
 
 		public async Task<IActionResult> Find()
 		{
-			IEnumerable<ApplicationUser> users = await usersService.GetUsersAsync(GetUserId());
+			IEnumerable<ApplicationUser> users = await this.usersService.GetUsersAsync(GetUserId());
 			return View(users);
 		}
 	

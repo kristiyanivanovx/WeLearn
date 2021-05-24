@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WeLearn.ViewModels;
 using AutoMapper;
 using System.Linq;
+using WeLearn.ViewModels.Category;
 
 namespace WeLearn.Services
 {

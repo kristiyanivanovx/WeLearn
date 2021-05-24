@@ -1,4 +1,4 @@
-﻿@model AdministrationCommentModel
+﻿@model AdminCommentEditModel
 @{
     ViewData["Title"] = "Edit a comment";
 }
@@ -20,12 +20,11 @@
                         <h5 class="card-title">@Model.LessonName</h5>
                         <hr />
                         <p class="card-text">@Model.LessonDescription</p>
-                        <p class="card-text">
-                            @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
-                            <small class="text-muted">Created by - @createdBy | </small>
-                            <small class="text-muted">Category - @Model.LessonCategoryName | </small>
-                            <small class="text-muted">Grade - @Model.LessonGrade</small>
-                        </p>
+                        @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                        <p class="small text-muted mt-3">Grade - @Model.LessonGrade</p>
+                        <p class="small text-muted">Category - @Model.LessonCategoryName</p>
+                        <p class="small text-muted">Created by - @createdBy</p>
+                        <p class="small text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</p>
                     </div>
                 </div>
             </div>
@@ -38,10 +37,13 @@
         <div class="col-md-6">
             <h2>Comment</h2>
             <hr />
+            <p>Created by: @Model.ApplicationUserUserName</p>
+            <p>Date created: @Model.DateCreated.ToShortDateString()</p>
+            <hr />
             <form asp-action="Edit">
                 <input asp-for="LessonId" type="hidden" />
                 <input asp-for="ApplicationUserId" type="hidden" />
-                <input asp-for="CommentId" type="hidden" />
+                <input asp-for="Id" type="hidden" />
                 <div class="form-group">
                     <label asp-for="Content" class="control-label"></label>
                     <input asp-for="Content" class="form-control" />
@@ -58,6 +60,7 @@
                         @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
+                <hr />
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>

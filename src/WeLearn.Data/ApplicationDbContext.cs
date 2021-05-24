@@ -51,6 +51,31 @@ namespace WeLearn.Data
                .HasOne(x => x.Comment)
                .WithMany()
                .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Lesson>()
+            //    .HasOne(x => x.Material)
+            //    .WithOne(x => x.Lesson)
+            //    .HasForeignKey<Lesson>(x => x.MaterialId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<Lesson>()
+            //    .HasOne(x => x.Video)
+            //    .WithOne(x => x.Lesson)
+            //    .HasForeignKey<Lesson>(x => x.VideoId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Material>()
+                .HasOne(x => x.Lesson)
+                .WithOne(x => x.Material)
+                .HasForeignKey<Material>(x => x.LessonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Video>()
+                .HasOne(x => x.Lesson)
+                .WithOne(x => x.Video)
+                .HasForeignKey<Video>(x => x.LessonId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Chat> Chats { get; set; }

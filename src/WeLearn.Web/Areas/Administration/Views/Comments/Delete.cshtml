@@ -1,5 +1,4 @@
-﻿@model AdministrationCommentModel
-
+﻿@model AdminCommentDeleteModel
 @{
     ViewData["Title"] = "Deleting a comment";
 }
@@ -20,12 +19,13 @@
                     <h5 class="card-title">@Model.LessonName</h5>
                     <hr />
                     <p class="card-text">@Model.LessonDescription</p>
-                    <p class="card-text">
-                        @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
-                        <small class="text-muted">Created by - @createdBy | </small>
-                        <small class="text-muted">Category - @Model.LessonCategoryName | </small>
-                        <small class="text-muted">Grade - @Model.LessonGrade</small>
-                    </p>
+                    @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                    <div class="card-text">
+                        <p class="small text-muted mt-2">Grade - @Model.LessonGrade</p>
+                        <p class="small text-muted">Category - @Model.LessonCategoryName</p>
+                        <p class="small text-muted">Created by - @createdBy</p>
+                        <p class="small text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</p>
+                    </div>
                 </div>
             </div>
             <hr />
@@ -39,21 +39,17 @@
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>:
-                <p>@Model.Content</p>
+                <p>Created by: @Model.ApplicationUserUserName</p>
+                <p>Date created: @Model.DateCreated.ToShortDateString()</p>
+                <p>Content: @Model.Content</p>
+                <input class="form-check-input" asp-for="IsDeleted" disabled />
+                @Html.DisplayNameFor(model => model.IsDeleted)
             </div>
-            <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>:
-                <p>@Model.DateCreated.ToShortDateString()</p>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" disabled />
-                    @Html.DisplayNameFor(model => model.IsDeleted)
-                </label>
-            </div>
+
+           
+            <hr />
             <form asp-action="Delete">
-                <input asp-for="CommentId" type="hidden" />
+                <input asp-for="Id" type="hidden" />
                 <div class="form-group">
                     <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>

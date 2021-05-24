@@ -1,4 +1,4 @@
-﻿@model PaginatedList<AdministrationCommentModel>
+﻿@model PaginatedList<AdminCommentViewModel>
 @{
     ViewData["Title"] = "Comments administration";
 }
@@ -64,6 +64,10 @@
                         Grade: @Html.DisplayFor(modelItem => item.LessonGrade)
                         <hr />
                         Category: @Html.DisplayFor(modelItem => item.LessonCategoryName)
+                        <hr />
+                        Created by: @Html.DisplayFor(modelItem => item.LessonApplicationUserUserName)
+                        <hr />
+                        Date created: @item.LessonDateCreated.ToShortDateString()
                     </td>
                     <td>
                         <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.LessonVideoName" data-poster="@item.LessonVideoLink">

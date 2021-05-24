@@ -1,4 +1,4 @@
-﻿@model AdministrationLessonModel
+﻿@model AdminLessonEditModel
 @{
     ViewData["Title"] = "Edit a lesson";
 }
@@ -12,9 +12,9 @@
             <form asp-action="Edit">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="LessonName" class="control-label"></label>
-                    <input asp-for="LessonName" class="form-control" />
-                    <span asp-validation-for="LessonName" class="text-danger"></span>
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
@@ -55,7 +55,7 @@
                     <a href="@Model.VideoLink" download>Download</a>
                 </video>
                 <hr />
-                <input type="hidden" asp-for="LessonId" />
+                <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info">
                         <i class="fas fa-arrow-down"></i> Download Resources

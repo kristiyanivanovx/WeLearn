@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 
-namespace WeLearn.ViewModels
+namespace WeLearn.ViewModels.Lesson
 {
-    public class LessonViewModel
+    public class LessonDeleteModel
     {
         public int LessonId { get; set; }
 
@@ -17,7 +17,7 @@ namespace WeLearn.ViewModels
 
         [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
-            
+
         public string CategoryName { get; set; }
 
         public string ApplicationUserUserName { get; set; }

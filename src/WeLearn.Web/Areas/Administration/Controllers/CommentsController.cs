@@ -6,6 +6,8 @@ using WeLearn.ViewModels;
 using WeLearn.ViewModels.HelperModels;
 using System.Linq;
 using System.Collections.Generic;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Comment;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -22,7 +24,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
             var allComments = await this.commentsService.GetAllCommentsAsync(searchString);
-            var paginated = PaginatedList<AdministrationCommentModel>.Create(allComments.OrderBy(x => x.IsDeleted), pageNumber ?? 1, 6);
+            var paginated = PaginatedList<AdminCommentViewModel>.Create(allComments.OrderBy(x => x.IsDeleted), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
             return View(paginated);
         }
@@ -30,12 +32,12 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            AdministrationCommentModel comment = await this.commentsService.GetCommentByIdAsync<AdministrationCommentModel>(id);
+            AdminCommentEditModel comment = await this.commentsService.GetCommentByIdAsync<AdminCommentEditModel>(id);
             return View(comment);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, AdministrationCommentModel model)
+        public async Task<IActionResult> Edit(int id, AdminCommentEditModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -49,7 +51,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            AdministrationCommentModel comment = await this.commentsService.GetCommentByIdAsync<AdministrationCommentModel>(id);
+            AdminCommentDeleteModel comment = await this.commentsService.GetCommentByIdAsync<AdminCommentDeleteModel>(id);
             return View(comment);
         }
 

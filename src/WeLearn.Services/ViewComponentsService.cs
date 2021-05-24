@@ -7,6 +7,9 @@ using WeLearn.Data;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
 using WeLearn.Data.Models;
+using WeLearn.ViewModels.Comment;
+using WeLearn.ViewModels.Lesson;
+using WeLearn.ViewModels.Category;
 
 namespace WeLearn.Services
 {
@@ -29,7 +32,7 @@ namespace WeLearn.Services
                 .OrderByDescending(x => x.DateCreated)
                 .ToArrayAsync();
 
-            CommentViewModel[] commentViewModels = mapper.Map<CommentViewModel[]>(comments);
+            CommentViewModel[] commentViewModels = this.mapper.Map<CommentViewModel[]>(comments);
             return commentViewModels;
         }
 

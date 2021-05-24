@@ -9,6 +9,8 @@ using WeLearn.Web.Infrastructure;
 using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
 using System.Collections.Generic;
+using WeLearn.ViewModels.Comment;
+using WeLearn.ViewModels.Lesson;
 
 namespace WeLearn.Web.Controllers
 {
@@ -33,7 +35,7 @@ namespace WeLearn.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CommentViewModel commentViewModel)
+        public async Task<IActionResult> Create(CommentInputModel commentViewModel)
         {
             commentViewModel.ApplicationUserId = GetUserId();
 
@@ -42,7 +44,7 @@ namespace WeLearn.Web.Controllers
                 return View("~/Views/Lesson/Watch.cshtml", new LessonViewModel { LessonId = commentViewModel.LessonId });
             }
 
-            await commentsService.CreateCommentAsync(commentViewModel);
+            await this.commentsService.CreateCommentAsync(commentViewModel);
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -50,13 +52,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            CommentMultiModel comment = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
+            CommentEditModel comment = await this.commentsService.GetCommentByIdAsync<CommentEditModel>(id);
             return View(comment);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(CommentMultiModel model)
+        public async Task<IActionResult> Edit(CommentEditModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +70,7 @@ namespace WeLearn.Web.Controllers
                 return View(nameof(Unauthorized));
             }
 
-            await commentsService.EditCommentAsync(model);
+            await this.commentsService.EditCommentAsync(model);
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -76,20 +78,20 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            CommentMultiModel commentModel = await commentsService.GetCommentByIdAsync<CommentMultiModel>(id);
+            var commentModel = await this.commentsService.GetCommentByIdAsync<CommentDeleteModel>(id);
             return View(commentModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Delete(CommentMultiModel model)
+        public async Task<IActionResult> Delete(CommentDeleteModel model)
         {
             if (GetUserId() != model.ApplicationUserId)
             {
                 return View("Unauthorized");
             }
 
-            await commentsService.SoftDeleteCommentByIdAsync(model.CommentId);
+            await this.commentsService.SoftDeleteCommentByIdAsync(model.Id);
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -97,7 +99,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
-            IEnumerable<CommentMultiModel> myComments = await commentsService.GetCommentsMadeByMeAsync(GetUserId());
+            IEnumerable<CommentByMeModel> myComments = await this.commentsService.GetCommentsMadeByMeAsync(GetUserId());
             return View(myComments);
         }
     }

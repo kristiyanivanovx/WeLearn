@@ -1,6 +1,6 @@
-﻿@model CommentMultiModel
+﻿@model CommentEditModel
 @{
-    ViewData["Title"] = "Editing comment #" + Model.CommentId;
+    ViewData["Title"] = "Editing comment #" + Model.Id;
 }
 
 <div class="container">
@@ -33,7 +33,7 @@
             <h5>Comment Details</h5>
             <hr />
             <form asp-controller="Comment" asp-action="Edit" method="post">
-                <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
+                <input type="hidden" value="@Model.Id" asp-for="@Model.Id" class="form-control" />
                 <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
                 <div class="form-group">
                     <label asp-for="@Model.Content"></label>

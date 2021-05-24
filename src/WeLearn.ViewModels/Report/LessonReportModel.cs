@@ -4,7 +4,7 @@ using WeLearn.Data.Models.Enums;
 using WeLearn.ViewModels.Interfaces;
 using static WeLearn.Data.DataValidation.Report;
 
-namespace WeLearn.ViewModels
+namespace WeLearn.ViewModels.Report
 {
     public class LessonReportModel : IReportModel
     {

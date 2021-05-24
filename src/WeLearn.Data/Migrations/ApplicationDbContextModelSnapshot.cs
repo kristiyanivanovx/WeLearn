@@ -217,15 +217,15 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6c447a0d-c65b-419d-9245-33238116704d",
+                            ConcurrencyStamp = "206afdd1-c40a-48fc-80ab-244ec0453c23",
                             Email = "default@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "DEFAULT@GMAIL.COM",
                             NormalizedUserName = "USERNAME",
-                            PasswordHash = "AQAAAAEAACcQAAAAECjb/Lf2bYJ4kt8ui4Qo7Te+czoMlKjtyVv+giVZZbDETbqxAu1Z3jCYLzK8gFJOow==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAqSH6bqN29koBmFOc0puAPii4EIQqqBw1Gug6wI2j9KY5MumQq6fuUuoOvQRqg0eQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a0b34105-6274-4f62-8059-e952e4e25db5",
+                            SecurityStamp = "d38de91e-7d0b-47dd-880f-54b86942f2b8",
                             TwoFactorEnabled = false,
                             UserName = "Username"
                         });
@@ -257,119 +257,119 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(7689),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(1251),
                             IsDeleted = false,
                             Name = "Bulgarian Language"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8818),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2179),
                             IsDeleted = false,
                             Name = "Mathematics"
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8824),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2183),
                             IsDeleted = false,
                             Name = "Informatics"
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8825),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2184),
                             IsDeleted = false,
                             Name = "IT"
                         },
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8827),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2186),
                             IsDeleted = false,
                             Name = "Geography"
                         },
                         new
                         {
                             Id = 6,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8828),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2187),
                             IsDeleted = false,
                             Name = "Physical Education and Sport"
                         },
                         new
                         {
                             Id = 7,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8830),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2189),
                             IsDeleted = false,
                             Name = "Literature"
                         },
                         new
                         {
                             Id = 8,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8831),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2191),
                             IsDeleted = false,
                             Name = "Civic Education"
                         },
                         new
                         {
                             Id = 9,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8832),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2192),
                             IsDeleted = false,
                             Name = "English Language"
                         },
                         new
                         {
                             Id = 10,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8833),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2194),
                             IsDeleted = false,
                             Name = "Russian Language"
                         },
                         new
                         {
                             Id = 11,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8835),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2195),
                             IsDeleted = false,
                             Name = "History"
                         },
                         new
                         {
                             Id = 12,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8837),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2196),
                             IsDeleted = false,
                             Name = "Biology"
                         },
                         new
                         {
                             Id = 13,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8838),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2198),
                             IsDeleted = false,
                             Name = "Chemistry"
                         },
                         new
                         {
                             Id = 14,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8840),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2199),
                             IsDeleted = false,
                             Name = "Music"
                         },
                         new
                         {
                             Id = 15,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8841),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2200),
                             IsDeleted = false,
                             Name = "Art"
                         },
                         new
                         {
                             Id = 16,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8842),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2202),
                             IsDeleted = false,
                             Name = "Technologies and Entrepreneurship"
                         },
                         new
                         {
                             Id = 17,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(8844),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(2203),
                             IsDeleted = false,
                             Name = "Others"
                         });
@@ -482,7 +482,7 @@ namespace WeLearn.Data.Migrations
                             Id = 1,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             Content = "I like it!",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(149),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 743, DateTimeKind.Utc).AddTicks(4463),
                             IsDeleted = false,
                             LessonId = 1
                         },
@@ -491,7 +491,7 @@ namespace WeLearn.Data.Migrations
                             Id = 2,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             Content = "The teacher is awesome.",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(2212),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 743, DateTimeKind.Utc).AddTicks(6336),
                             IsDeleted = false,
                             LessonId = 2
                         },
@@ -500,7 +500,7 @@ namespace WeLearn.Data.Migrations
                             Id = 3,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             Content = "This is just great.",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(2218),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 743, DateTimeKind.Utc).AddTicks(6340),
                             IsDeleted = false,
                             LessonId = 3
                         });
@@ -553,10 +553,6 @@ namespace WeLearn.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("MaterialId");
-
-                    b.HasIndex("VideoId");
-
                     b.ToTable("Lessons");
 
                     b.HasData(
@@ -565,7 +561,7 @@ namespace WeLearn.Data.Migrations
                             Id = 1,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 1,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(5356),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(8323),
                             Description = "A lecture about pronouns and when to use them.",
                             Grade = 1,
                             IsApproved = true,
@@ -579,7 +575,7 @@ namespace WeLearn.Data.Migrations
                             Id = 2,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 2,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6766),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9626),
                             Description = "A natural number greater than 1 that is not a product of two smaller natural numbers.",
                             Grade = 2,
                             IsApproved = true,
@@ -593,7 +589,7 @@ namespace WeLearn.Data.Migrations
                             Id = 3,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 3,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6772),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9629),
                             Description = "About the C# language and the .NET development Platform. First steps.",
                             Grade = 3,
                             IsApproved = true,
@@ -607,7 +603,7 @@ namespace WeLearn.Data.Migrations
                             Id = 4,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 4,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6774),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9632),
                             Description = "Data analysis.",
                             Grade = 4,
                             IsApproved = true,
@@ -621,7 +617,7 @@ namespace WeLearn.Data.Migrations
                             Id = 5,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 5,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6776),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9634),
                             Description = "Eastern European Countries. Their iconomic growth and political stances. Ukraine.",
                             Grade = 5,
                             IsApproved = true,
@@ -635,7 +631,7 @@ namespace WeLearn.Data.Migrations
                             Id = 6,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 6,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6777),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9635),
                             Description = "Kicking a ball on the field.",
                             Grade = 6,
                             IsApproved = true,
@@ -649,7 +645,7 @@ namespace WeLearn.Data.Migrations
                             Id = 7,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 7,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6781),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9637),
                             Description = "A peek into Shakespere's art.",
                             Grade = 7,
                             IsApproved = true,
@@ -663,7 +659,7 @@ namespace WeLearn.Data.Migrations
                             Id = 8,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 8,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6783),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9639),
                             Description = "A lecture about rights of the people.",
                             Grade = 8,
                             IsApproved = true,
@@ -677,7 +673,7 @@ namespace WeLearn.Data.Migrations
                             Id = 9,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 9,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6784),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9642),
                             Description = "We use modals to show if we believe something is certain, possible or impossible.",
                             Grade = 9,
                             IsApproved = true,
@@ -691,7 +687,7 @@ namespace WeLearn.Data.Migrations
                             Id = 10,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 10,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6786),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9643),
                             Description = "A lecture about the verbs of motion and when to use them.",
                             Grade = 10,
                             IsApproved = true,
@@ -705,7 +701,7 @@ namespace WeLearn.Data.Migrations
                             Id = 11,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 11,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6787),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9645),
                             Description = "A brief peek into our ancestors' life.",
                             Grade = 11,
                             IsApproved = true,
@@ -719,7 +715,7 @@ namespace WeLearn.Data.Migrations
                             Id = 12,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 12,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6789),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9648),
                             Description = "A lesson about the different types of cells and their differences.",
                             Grade = 12,
                             IsApproved = true,
@@ -733,7 +729,7 @@ namespace WeLearn.Data.Migrations
                             Id = 13,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 13,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6790),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9652),
                             Description = "A lesson about acids, they effects on the environtment and usage cases.",
                             Grade = 0,
                             IsApproved = true,
@@ -747,7 +743,7 @@ namespace WeLearn.Data.Migrations
                             Id = 14,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 14,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6792),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9654),
                             Description = "Genres, instruments and notation.",
                             Grade = 5,
                             IsApproved = true,
@@ -761,7 +757,7 @@ namespace WeLearn.Data.Migrations
                             Id = 15,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 15,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6794),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9657),
                             Description = "Pigments, brushes, bases, matrices.",
                             Grade = 1,
                             IsApproved = true,
@@ -775,7 +771,7 @@ namespace WeLearn.Data.Migrations
                             Id = 16,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CategoryId = 16,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(6796),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(9660),
                             Description = "Creating a new business, bearing most of the risks and enjoying most of the rewards.",
                             Grade = 2,
                             IsApproved = true,
@@ -799,6 +795,9 @@ namespace WeLearn.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("LessonId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -809,7 +808,13 @@ namespace WeLearn.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
+                    b.Property<string>("PublicId")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LessonId")
+                        .IsUnique();
 
                     b.ToTable("Materials");
 
@@ -817,128 +822,144 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(7558),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(728),
                             IsDeleted = false,
+                            LessonId = 1,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Teaching"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9012),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2054),
                             IsDeleted = false,
+                            LessonId = 2,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Teaching"
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9017),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2056),
                             IsDeleted = false,
+                            LessonId = 3,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Coding"
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9018),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2058),
                             IsDeleted = false,
+                            LessonId = 4,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Office Suite"
                         },
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9019),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2060),
                             IsDeleted = false,
+                            LessonId = 5,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Ukraine"
                         },
                         new
                         {
                             Id = 6,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9021),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2061),
                             IsDeleted = false,
+                            LessonId = 6,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Football"
                         },
                         new
                         {
                             Id = 7,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9023),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2063),
                             IsDeleted = false,
+                            LessonId = 7,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Literature"
                         },
                         new
                         {
                             Id = 8,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9024),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2064),
                             IsDeleted = false,
+                            LessonId = 8,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Human Rights"
                         },
                         new
                         {
                             Id = 9,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9025),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2065),
                             IsDeleted = false,
+                            LessonId = 9,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Modal Verbs"
                         },
                         new
                         {
                             Id = 10,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9026),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2067),
                             IsDeleted = false,
+                            LessonId = 10,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Russian Language"
                         },
                         new
                         {
                             Id = 11,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9028),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2068),
                             IsDeleted = false,
+                            LessonId = 11,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "History"
                         },
                         new
                         {
                             Id = 12,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9029),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2069),
                             IsDeleted = false,
+                            LessonId = 12,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Biology"
                         },
                         new
                         {
                             Id = 13,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9030),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2070),
                             IsDeleted = false,
+                            LessonId = 13,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Chemistry"
                         },
                         new
                         {
                             Id = 14,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9032),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2072),
                             IsDeleted = false,
+                            LessonId = 14,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Music"
                         },
                         new
                         {
                             Id = 15,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9033),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2073),
                             IsDeleted = false,
+                            LessonId = 15,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Painting"
                         },
                         new
                         {
                             Id = 16,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(9034),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 745, DateTimeKind.Utc).AddTicks(2074),
                             IsDeleted = false,
+                            LessonId = 16,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
                             Name = "Entrepreneurship"
                         });
@@ -991,7 +1012,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 1,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(3579),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 743, DateTimeKind.Utc).AddTicks(7468),
                             Description = "Bad language in lesson's title.",
                             IsDeleted = false,
                             LessonId = 5,
@@ -1002,7 +1023,7 @@ namespace WeLearn.Data.Migrations
                             Id = 3,
                             ApplicationUserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6",
                             CommentId = 1,
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(5629),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 743, DateTimeKind.Utc).AddTicks(9409),
                             Description = "Bad language in comment.",
                             IsDeleted = false,
                             Subject = "Unacceptable behaviour"
@@ -1026,6 +1047,9 @@ namespace WeLearn.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("LessonId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Link")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1036,7 +1060,13 @@ namespace WeLearn.Data.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
+                    b.Property<string>("PublicId")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LessonId")
+                        .IsUnique();
 
                     b.ToTable("Videos");
 
@@ -1045,8 +1075,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 1,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 500, DateTimeKind.Utc).AddTicks(9730),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(3293),
                             IsDeleted = false,
+                            LessonId = 1,
                             Link = "/uploads/videos/modal-verbs.mp4",
                             Name = "Teaching"
                         },
@@ -1054,8 +1085,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 2,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1601),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5022),
                             IsDeleted = false,
+                            LessonId = 2,
                             Link = "/uploads/videos/man-teaching.mp4",
                             Name = "Teaching"
                         },
@@ -1063,8 +1095,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 3,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1606),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5026),
                             IsDeleted = false,
+                            LessonId = 3,
                             Link = "/uploads/videos/coding.mp4",
                             Name = "Coding"
                         },
@@ -1072,8 +1105,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 4,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1608),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5028),
                             IsDeleted = false,
+                            LessonId = 4,
                             Link = "/uploads/videos/office-suite.mp4",
                             Name = "Office Suite"
                         },
@@ -1081,8 +1115,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 5,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1667),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5032),
                             IsDeleted = false,
+                            LessonId = 5,
                             Link = "/uploads/videos/eastern-europe.mp4",
                             Name = "Ukraine"
                         },
@@ -1090,8 +1125,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 6,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1669),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5033),
                             IsDeleted = false,
+                            LessonId = 6,
                             Link = "/uploads/videos/football.mp4",
                             Name = "Football"
                         },
@@ -1099,8 +1135,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 7,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1670),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5034),
                             IsDeleted = false,
+                            LessonId = 7,
                             Link = "/uploads/videos/literature.mp4",
                             Name = "Literature"
                         },
@@ -1108,8 +1145,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 8,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1672),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5036),
                             IsDeleted = false,
+                            LessonId = 8,
                             Link = "/uploads/videos/human-rights.mp4",
                             Name = "Human Rights"
                         },
@@ -1117,8 +1155,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 9,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1673),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5038),
                             IsDeleted = false,
+                            LessonId = 9,
                             Link = "/uploads/videos/modal-verbs.mp4",
                             Name = "Modal Verbs"
                         },
@@ -1126,8 +1165,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 10,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1674),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5041),
                             IsDeleted = false,
+                            LessonId = 10,
                             Link = "/uploads/videos/russian-language.mp4",
                             Name = "Russian Language"
                         },
@@ -1135,8 +1175,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 11,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1675),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5104),
                             IsDeleted = false,
+                            LessonId = 11,
                             Link = "/uploads/videos/history.mp4",
                             Name = "History"
                         },
@@ -1144,8 +1185,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 12,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1677),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5110),
                             IsDeleted = false,
+                            LessonId = 12,
                             Link = "/uploads/videos/biology.mp4",
                             Name = "Biology"
                         },
@@ -1153,8 +1195,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 13,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1678),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5111),
                             IsDeleted = false,
+                            LessonId = 13,
                             Link = "/uploads/videos/chemistry.mp4",
                             Name = "Chemistry"
                         },
@@ -1162,8 +1205,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 14,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1679),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5113),
                             IsDeleted = false,
+                            LessonId = 14,
                             Link = "/uploads/videos/music.mp4",
                             Name = "Music"
                         },
@@ -1171,8 +1215,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 15,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1681),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5115),
                             IsDeleted = false,
+                            LessonId = 15,
                             Link = "/uploads/videos/painting.mp4",
                             Name = "Painting"
                         },
@@ -1180,8 +1225,9 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 16,
                             ContentType = "video/mp4",
-                            DateCreated = new DateTime(2021, 5, 19, 10, 48, 44, 501, DateTimeKind.Utc).AddTicks(1682),
+                            DateCreated = new DateTime(2021, 5, 23, 8, 58, 27, 744, DateTimeKind.Utc).AddTicks(5118),
                             IsDeleted = false,
+                            LessonId = 16,
                             Link = "/uploads/videos/entrepreneurship.mp4",
                             Name = "Entrepreneurship"
                         });
@@ -1299,25 +1345,20 @@ namespace WeLearn.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WeLearn.Data.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WeLearn.Data.Models.Video", "Video")
-                        .WithMany()
-                        .HasForeignKey("VideoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Category");
+                });
 
-                    b.Navigation("Material");
+            modelBuilder.Entity("WeLearn.Data.Models.Material", b =>
+                {
+                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                        .WithOne("Material")
+                        .HasForeignKey("WeLearn.Data.Models.Material", "LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Video");
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.Report", b =>
@@ -1344,6 +1385,17 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Lesson");
                 });
 
+            modelBuilder.Entity("WeLearn.Data.Models.Video", b =>
+                {
+                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                        .WithOne("Video")
+                        .HasForeignKey("WeLearn.Data.Models.Video", "LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+                });
+
             modelBuilder.Entity("WeLearn.Data.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Chats");
@@ -1365,6 +1417,13 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("ChatApplicationUsers");
 
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Lesson", b =>
+                {
+                    b.Navigation("Material");
+
+                    b.Navigation("Video");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,4 @@
-﻿@model AdministrationLessonModel
+﻿@model AdminLessonDeleteModel
 @{
     ViewData["Title"] = "Delete a lesson";
 }
@@ -16,15 +16,16 @@
                     <a href="@Model.VideoLink" download>Download</a>
                 </video>
                 <div class="card-body">
-                    <h5 class="card-title">@Model.LessonName</h5>
+                    <h5 class="card-title">@Model.Name</h5>
                     <hr />
                     <p class="card-text">@Model.Description</p>
-                    <p class="card-text">
-                        @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
-                        <small class="text-muted">Created by - @createdBy | </small>
-                        <small class="text-muted">Category - @Model.CategoryName | </small>
-                        <small class="text-muted">Grade - @Model.Grade</small>
-                    </p>
+                    @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
+                    <div class="card-text">
+                        <p class="small text-muted mt-2">Grade - @Model.Grade</p>
+                        <p class="small text-muted">Category - @Model.CategoryName</p>
+                        <p class="small text-muted">Created by - @createdBy</p>
+                        <p class="small text-muted">Date created - @Model.DateCreated.ToShortDateString()</p>
+                    </div>
                 </div>
             </div>
             <hr />
@@ -34,22 +35,24 @@
             <hr />
 
             <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>:
-                <p>@Model.DateCreated.ToShortDateString()</p>
+                <div class="form-group">
+                    <p>Date created: @Model.DateCreated.ToShortDateString()</p>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsDeleted" disabled />@Html.DisplayNameFor(model => model.IsDeleted)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsApproved" disabled/> @Html.DisplayNameFor(model => model.IsApproved)
+                    </label>
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDeleted" disabled />@Html.DisplayNameFor(model => model.IsDeleted)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsApproved" disabled/> @Html.DisplayNameFor(model => model.IsApproved)
-                </label>
-            </div>
+
             <hr />
             <form asp-action="Delete">
-                <input type="hidden" asp-for="LessonId" />
+                <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>

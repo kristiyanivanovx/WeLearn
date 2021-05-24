@@ -86,8 +86,6 @@ namespace WeLearn
         {
             app.MigrateDatabase();
             app.SeedData(userManager, roleManager);
-           
-           app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
 
             if (env.IsDevelopment())
             {
@@ -96,6 +94,7 @@ namespace WeLearn
             }
             else
             {
+                app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }

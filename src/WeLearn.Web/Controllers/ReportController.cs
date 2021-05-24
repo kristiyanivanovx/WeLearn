@@ -9,6 +9,8 @@ using WeLearn.Services.Interfaces;
 using System.Collections.Generic;
 using WeLearn.Data.Models;
 using WeLearn.Web.Infrastructure;
+using WeLearn.ViewModels.Report;
+using WeLearn.ViewModels.Comment;
 
 namespace WeLearn.Web.Controllers
 {
@@ -35,7 +37,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
-            IEnumerable<LessonReportModel> myReports = await reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
+            IEnumerable<LessonReportModel> myReports = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
             return View(myReports);
         }
 
@@ -43,7 +45,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(int id)
         {
-            LessonReportModel lessonToReport = await lessonsService.GetLessonByIdAsync<LessonReportModel>(id);
+            LessonReportModel lessonToReport = await this.lessonsService.GetLessonByIdAsync<LessonReportModel>(id);
             return View(lessonToReport);
         }
 
@@ -58,7 +60,7 @@ namespace WeLearn.Web.Controllers
                 return View();
             }
 
-            await reportsService.CreateReportAsync(lessonReportModel);
+            await this.reportsService.CreateReportAsync(lessonReportModel);
             return RedirectToAction(nameof(LessonsByMe));
         }
 
@@ -66,7 +68,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonEdit(int reportId)
         {
-            LessonReportModel lessonToEdit = await reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
+            LessonReportModel lessonToEdit = await this.reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
             return View(lessonToEdit);
         }
 
@@ -84,7 +86,7 @@ namespace WeLearn.Web.Controllers
                 return View("Unauthorized");
             }
 
-            await reportsService.EditLessonReportAsync(lessonReportModel);
+            await this.reportsService.EditLessonReportAsync(lessonReportModel);
             return RedirectToAction(nameof(LessonsByMe));
         }
 
@@ -92,7 +94,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonDelete(int reportId)
         {
-            LessonReportModel lessonReportModel = await reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
+            LessonReportModel lessonReportModel = await this.reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
             return View(lessonReportModel);
         }
 
@@ -105,14 +107,14 @@ namespace WeLearn.Web.Controllers
                 return View("Unauthorized");
             }
 
-            await reportsService.SoftDeleteReportByIdAsync(lessonReportModel.ReportId);
+            await this.reportsService.SoftDeleteReportByIdAsync(lessonReportModel.ReportId);
             return RedirectToAction(nameof(LessonsByMe));
         }
 
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            IEnumerable<CommentReportModel> myReports = await reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
+            IEnumerable<CommentReportModel> myReports = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
             return View(myReports);
         }
 
@@ -120,7 +122,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(int id)
         {
-            CommentReportModel lessonToReport = await commentsService.GetCommentByIdAsync<CommentReportModel>(id);
+            CommentReportModel lessonToReport = await this.commentsService.GetCommentByIdAsync<CommentReportModel>(id);
             return View(lessonToReport);
         }
 
@@ -135,7 +137,7 @@ namespace WeLearn.Web.Controllers
                 return View();
             }
 
-            await reportsService.CreateReportAsync(commentReportModel);
+            await this.reportsService.CreateReportAsync(commentReportModel);
             return RedirectToAction(nameof(CommentsByMe));
         }
 
@@ -143,7 +145,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentEdit(int reportId)
         {
-            CommentReportModel editCommentReport = await reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
+            CommentReportModel editCommentReport = await this.reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
             return View(editCommentReport);
         }
 
@@ -161,7 +163,7 @@ namespace WeLearn.Web.Controllers
                 return View("Unauthorized");
             }
 
-            await reportsService.EditCommentReportAsync(commentReportModel);
+            await this.reportsService.EditCommentReportAsync(commentReportModel);
             return RedirectToAction(nameof(CommentsByMe));
         }
 
@@ -169,7 +171,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(int reportId)
         {
-            CommentReportModel commentReportModel = await reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
+            CommentReportModel commentReportModel = await this.reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
             return View(commentReportModel);
         }
 
@@ -182,7 +184,7 @@ namespace WeLearn.Web.Controllers
                 return View(nameof(Unauthorized));
             }
 
-            await reportsService.SoftDeleteReportByIdAsync(commentReportModel.ReportId);
+            await this.reportsService.SoftDeleteReportByIdAsync(commentReportModel.ReportId);
             return RedirectToAction(nameof(CommentsByMe));
         }
     }

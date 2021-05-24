@@ -3,10 +3,17 @@ using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 using static WeLearn.Data.DataValidation.Comment;
 
-namespace WeLearn.ViewModels
+namespace WeLearn.ViewModels.Admin.Comment
 {
-    public class CommentMultiModel
+    public class AdminCommentViewModel
     {
+        public string ApplicationUserUserName { get; set; }
+
+        public string ApplicationUserEmail { get; set; }
+
+        [Display(Name = "Is deleted")]
+        public bool IsDeleted { get; set; }
+
         public int CommentId { get; set; }
 
         public int LessonId { get; set; }

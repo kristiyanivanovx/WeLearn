@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using static WeLearn.Data.DataValidation.Video;
 using static WeLearn.Data.DataValidation.Material;
+using WeLearn.ViewModels.Lesson;
+using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Lesson;
 
 namespace WeLearn.Services
 {
@@ -137,9 +140,17 @@ namespace WeLearn.Services
             return lessonsViewModel;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId)
+        public async Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString)
         {
-            List<Lesson> lessonsByMe = await this.context.Lessons
+            IQueryable<Lesson> lessons = this.context.Lessons;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                lessons = lessons.Where(x => x.Name.ToLower().Contains(searchString.ToLower()) ||
+                                             x.Description.ToLower().Contains(searchString.ToLower()));
+            }
+
+            List<Lesson> lessonsByMe = await lessons
                 .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
                 .Include(x => x.Category)
                 .Include(x => x.ApplicationUser)
@@ -160,7 +171,23 @@ namespace WeLearn.Services
 
         public async Task HardDeleteLessonByIdAsync(int lessonId)
         {
-            Lesson lesson = this.context.Lessons.FirstOrDefault(x => x.Id == lessonId);
+            Lesson lesson = this.context.Lessons
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .FirstOrDefault(x => x.Id == lessonId);
+
+            Cloudinary cloudinary = new Cloudinary();
+
+            if (lesson.Video.PublicId != null && lesson.Material.PublicId != null)
+            {
+                DelResResult deleteMaterialResult = await cloudinary.DeleteResourcesAsync(lesson.Video.PublicId);
+                DelResResult deleteVideoResult = await cloudinary.DeleteResourcesAsync(lesson.Material.PublicId);
+            }
+
+            this.context.Videos.Remove(lesson.Video);
+            this.context.Materials.Remove(lesson.Material);
+            await this.context.SaveChangesAsync();
+
             this.context.Lessons.Remove(lesson);
             await this.context.SaveChangesAsync();
         }
@@ -170,8 +197,10 @@ namespace WeLearn.Services
         {
             Lesson lesson = this.mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
             lesson.ApplicationUserId = userId;
-            await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, isDevelopment, lesson);
             await this.context.Lessons.AddAsync(lesson);
+            await this.context.SaveChangesAsync();
+
+            await CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, isDevelopment, lesson);
             await this.context.SaveChangesAsync();
         }
 
@@ -183,11 +212,11 @@ namespace WeLearn.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditLessonAdministrationAsync(AdministrationLessonModel model)
+        public async Task EditLessonAdministrationAsync(AdminLessonEditModel model)
         {
-            Lesson entity = this.context.Lessons.FirstOrDefault(x => x.Id == model.LessonId);
+            Lesson entity = this.context.Lessons.FirstOrDefault(x => x.Id == model.Id);
 
-            entity.Name = model.LessonName ?? entity.Name;
+            entity.Name = model.Name ?? entity.Name;
             entity.Description = model.Description ?? entity.Description;
             entity.CategoryId = model.CategoryId;
             entity.Grade = model.Grade;
@@ -220,8 +249,17 @@ namespace WeLearn.Services
         {
             if (lessonEditModel.Video != null)
             {
-                Data.Models.Video videoEntity = await UploadVideoCloudinaryAsync(lessonEditModel);
-                lesson.VideoId = videoEntity.Id;
+                Cloudinary cloudinary = new Cloudinary();
+                Data.Models.Video previousVideoEntity = lesson.Video;
+                
+                DelResResult result = await cloudinary.DeleteResourcesAsync(previousVideoEntity.PublicId);
+                this.context.Remove(previousVideoEntity);
+                await this.context.SaveChangesAsync();
+
+                Data.Models.Video newVideoEntity = await UploadVideoCloudinaryAsync(lesson, lessonEditModel);
+
+                await this.context.SaveChangesAsync();
+                lesson.VideoId = newVideoEntity.Id;
             }
         }
 
@@ -229,8 +267,22 @@ namespace WeLearn.Services
         {
             if (lessonEditModel.Files != null)
             {
+                Cloudinary cloudinary = new Cloudinary();
+                Material previousMaterialEntity = lesson.Material;
+
                 RawUploadResult materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonEditModel);
-                Material materialEntity = await AddMaterialToDatabaseAsync(materialUploadResult.SecureUrl.AbsoluteUri, Guid.NewGuid().ToString());
+
+                string path = materialUploadResult.SecureUrl.AbsoluteUri;
+                string name = Guid.NewGuid().ToString();
+                string publicId = materialUploadResult.PublicId;
+
+                DelResResult result = await cloudinary.DeleteResourcesAsync(previousMaterialEntity.PublicId);
+                this.context.Remove(previousMaterialEntity);
+                await context.SaveChangesAsync();
+
+                Material materialEntity = await AddMaterialToDatabaseAsync(lesson, path, name, publicId);
+                await this.context.SaveChangesAsync();
+
                 lesson.MaterialId = materialEntity.Id;
             }
         }
@@ -242,20 +294,29 @@ namespace WeLearn.Services
 
             if (isDevelopment)
             {
+                int lessonId = lesson.Id;
                 string stringGuid = Guid.NewGuid().ToString();
                 string uploadsMaterialsPath = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");
                 string filesPath = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
                 await UploadMaterialsAsync(lessonInputModel, filesPath);
 
-                materialEntity = await AddMaterialToDatabaseAsync(filesPath, stringGuid);
-                videoEntity = await UploadVideoAsync(lessonInputModel, environmentWebRootPath);
+                materialEntity = await AddMaterialToDatabaseAsync(lesson, filesPath, stringGuid, null);
+                videoEntity = await UploadVideoAsync(lesson, lessonInputModel, environmentWebRootPath);
             }
             else
             {
+                Cloudinary cloudinary = new Cloudinary();
                 RawUploadResult materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonInputModel);
-                materialEntity = await AddMaterialToDatabaseAsync(materialUploadResult.SecureUrl.AbsoluteUri, Guid.NewGuid().ToString());
-                videoEntity = await UploadVideoCloudinaryAsync(lessonInputModel);
+
+                string path = materialUploadResult.SecureUrl.AbsoluteUri;
+                string name = Guid.NewGuid().ToString();
+                string publicId = materialUploadResult.PublicId;
+
+                materialEntity = await AddMaterialToDatabaseAsync(lesson, path, name, publicId);
+                videoEntity = await UploadVideoCloudinaryAsync(lesson, lessonInputModel);
+
+                await this.context.SaveChangesAsync();
             }
 
             lesson.VideoId = videoEntity.Id;
@@ -263,24 +324,24 @@ namespace WeLearn.Services
             lesson.DateCreated = DateTime.UtcNow;
         }
 
-        private async Task UpdateFilesInDevelopment(LessonEditModel lessonEditModel, Lesson entity, string path)
+        private async Task UpdateFilesInDevelopment(LessonEditModel lessonEditModel, Lesson lesson, string path)
         {
             if (lessonEditModel.Files != null)
             {
                 string stringGuid = Guid.NewGuid().ToString();
                 await UploadMaterialsAsync(lessonEditModel, path);
-                Material materialEntity = await AddMaterialToDatabaseAsync(path, stringGuid);
-                entity.MaterialId = materialEntity.Id;
+                Material materialEntity = await AddMaterialToDatabaseAsync(lesson, path, stringGuid, null);
+                lesson.MaterialId = materialEntity.Id;
                 await this.context.SaveChangesAsync();
             }
         }
 
-        private async Task UpdateVideoInDevelopment(LessonEditModel lessonEditModel, string environmentWebRootPath, Lesson entity)
+        private async Task UpdateVideoInDevelopment(LessonEditModel lessonEditModel, string environmentWebRootPath, Lesson lesson)
         {
             if (lessonEditModel.Video != null)
             {
-                Data.Models.Video videoEntity = await UploadVideoAsync(lessonEditModel, environmentWebRootPath);
-                entity.VideoId = videoEntity.Id;
+                Data.Models.Video videoEntity = await UploadVideoAsync(lesson, lessonEditModel, environmentWebRootPath);
+                lesson.VideoId = videoEntity.Id;
                 await this.context.SaveChangesAsync();
             }
         }
@@ -299,7 +360,7 @@ namespace WeLearn.Services
             entity.Grade = lessonEditModel.Grade;
         }
 
-        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(ILessonModel lessonInputModel)
+        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(Lesson lesson, ILessonModel lessonInputModel)
         {
             Cloudinary cloudinary = new Cloudinary();
             IFormFile video = lessonInputModel.Video;
@@ -320,10 +381,11 @@ namespace WeLearn.Services
             VideoUploadResult uploadResult = await cloudinary.UploadAsync(uploadParams);
 
             string path = uploadResult.SecureUrl.AbsoluteUri;
-            Data.Models.Video videoEntity = CreateVideoEntity(video, path);
+            string publicId = uploadParams.PublicId;
+            Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, path, publicId);
 
             await this.context.Videos.AddAsync(videoEntity);
-            await this.context.SaveChangesAsync();
+            //await this.context.SaveChangesAsync();
             return videoEntity;
         }
 
@@ -347,7 +409,7 @@ namespace WeLearn.Services
             }
         }
 
-        public async Task<Data.Models.Video> UploadVideoAsync(ILessonModel lessonInputModel, string environmentWebRootPath)
+        public async Task<Data.Models.Video> UploadVideoAsync(Lesson lesson, ILessonModel lessonInputModel, string environmentWebRootPath)
         {
             IFormFile video = lessonInputModel.Video;
             bool isVideoExtensionAllowed = AllowedVideoExtensions.Any(x => video.FileName.EndsWith(x));
@@ -369,7 +431,7 @@ namespace WeLearn.Services
                 await video.CopyToAsync(stream);
             }
 
-            Data.Models.Video videoEntity = CreateVideoEntity(video, videoPath);
+            Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
 
             await this.context.Videos.AddAsync(videoEntity);
             await this.context.SaveChangesAsync();
@@ -399,14 +461,6 @@ namespace WeLearn.Services
 
             return uploadResult;
         }
-        private static Data.Models.Video CreateVideoEntity(IFormFile video, string path)
-            => new Data.Models.Video
-                {
-                    Name = video.FileName,
-                    ContentType = video.ContentType,
-                    DateCreated = DateTime.UtcNow,
-                    Link = path
-                };
 
         private static VideoUploadParams GenerateVideoUploadParams(MemoryStream videoStream, IFormFile video)
             => new VideoUploadParams()
@@ -428,19 +482,33 @@ namespace WeLearn.Services
                     UniqueFilename = false,
                 };
 
-        private static Material CreateMaterial(string path, string stringGuid)
+        private static Material CreateMaterial(Lesson lesson, string path, string stringGuid, string publicId = null)
             => new Material
                 {
                     Name = stringGuid,
                     DateCreated = DateTime.UtcNow,
-                    Link = path
+                    Link = path,
+                    PublicId = publicId,
+                    Lesson = lesson
                 };
 
-        private async Task<Material> AddMaterialToDatabaseAsync(string path, string stringGuid)
+
+        private static Data.Models.Video CreateVideoEntity(Lesson lesson, IFormFile video, string path, string publicId = null)
+            => new Data.Models.Video
+            {
+                Name = video.FileName,
+                ContentType = video.ContentType,
+                DateCreated = DateTime.UtcNow,
+                Link = path,
+                PublicId = publicId,
+                Lesson = lesson
+            };
+
+        private async Task<Material> AddMaterialToDatabaseAsync(Lesson lesson, string path, string stringGuid, string publicId = null)
         {
-            Material materialEntity = CreateMaterial(path, stringGuid);
+            Material materialEntity = CreateMaterial(lesson, path, stringGuid, publicId);
             await this.context.Materials.AddAsync(materialEntity);
-            await this.context.SaveChangesAsync();
+            //await this.context.SaveChangesAsync();
             return materialEntity;
         }
     }

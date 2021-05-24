@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
 using System.Collections.Generic;
+using WeLearn.ViewModels.Comment;
 
 namespace WeLearn.Web.ViewComponents
 {
@@ -15,7 +16,7 @@ namespace WeLearn.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int lessonId)
         {
-            IEnumerable<CommentViewModel> commentViewModels = await viewComponentsService.GetCommentsAsync(lessonId);
+            IEnumerable<CommentViewModel> commentViewModels = await this.viewComponentsService.GetCommentsAsync(lessonId);
             return View(commentViewModels);
         }
     }

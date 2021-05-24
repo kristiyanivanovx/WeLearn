@@ -8,6 +8,9 @@ using WeLearn.Data.Models;
 using WeLearn.ViewModels.Interfaces;
 using WeLearn.ViewModels;
 using System;
+using WeLearn.ViewModels.Comment;
+using WeLearn.ViewModels.Report;
+using WeLearn.ViewModels.Admin;
 
 namespace WeLearn.Services
 {

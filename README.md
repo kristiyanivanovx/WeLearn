@@ -32,7 +32,8 @@ Some of the (many) resources used for creating this project:
 - https://stackoverflow.com/a/59860450/13146140
 - https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
 - https://www.youtube.com/watch?v=Bmm9X-YZtG4
-- https://www.youtube.com/watch?v=5iN1jhr6yQI&t=8311s
+- https://www.youtube.com/watch?v=5iN1jhr6yQI
+- https://www.youtube.com/watch?v=gQMT4al2Grg
 - https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
 
 Structure influenced by:

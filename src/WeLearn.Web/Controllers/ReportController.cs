@@ -11,6 +11,8 @@ using WeLearn.Data.Models;
 using WeLearn.Web.Infrastructure;
 using WeLearn.ViewModels.Report;
 using WeLearn.ViewModels.Comment;
+using WeLearn.ViewModels.Report.Comment;
+using WeLearn.ViewModels.Report.Lesson;
 
 namespace WeLearn.Web.Controllers
 {
@@ -37,7 +39,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
-            IEnumerable<LessonReportModel> myReports = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
+            IEnumerable<LessonReportViewModel> myReports = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
             return View(myReports);
         }
 
@@ -45,13 +47,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(int id)
         {
-            LessonReportModel lessonToReport = await this.lessonsService.GetLessonByIdAsync<LessonReportModel>(id);
+            LessonReportInputModel lessonToReport = await this.lessonsService.GetLessonByIdAsync<LessonReportInputModel>(id);
             return View(lessonToReport);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Lesson(LessonReportModel lessonReportModel)
+        public async Task<IActionResult> Lesson(LessonReportInputModel lessonReportModel)
         {
             lessonReportModel.ReportingUserId = GetUserId();
 
@@ -68,13 +70,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonEdit(int reportId)
         {
-            LessonReportModel lessonToEdit = await this.reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
+            LessonReportEditModel lessonToEdit = await this.reportsService.GetReportByIdAsync<LessonReportEditModel>(reportId);
             return View(lessonToEdit);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> LessonEdit(LessonReportModel lessonReportModel)
+        public async Task<IActionResult> LessonEdit(LessonReportEditModel lessonReportModel)
         {
             if (!ModelState.IsValid)
             {
@@ -94,13 +96,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonDelete(int reportId)
         {
-            LessonReportModel lessonReportModel = await this.reportsService.GetReportByIdAsync<LessonReportModel>(reportId);
+            LessonReportDeleteModel lessonReportModel = await this.reportsService.GetReportByIdAsync<LessonReportDeleteModel>(reportId);
             return View(lessonReportModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> LessonDelete(LessonReportModel lessonReportModel)
+        public async Task<IActionResult> LessonDelete(LessonReportDeleteModel lessonReportModel)
         {
             if (lessonReportModel.ReportingUserId != GetUserId())
             {
@@ -114,7 +116,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            IEnumerable<CommentReportModel> myReports = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
+            IEnumerable<CommentReportViewModel> myReports = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
             return View(myReports);
         }
 
@@ -122,13 +124,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(int id)
         {
-            CommentReportModel lessonToReport = await this.commentsService.GetCommentByIdAsync<CommentReportModel>(id);
+            CommentReportInputModel lessonToReport = await this.commentsService.GetCommentByIdAsync<CommentReportInputModel>(id);
             return View(lessonToReport);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Comment(CommentReportModel commentReportModel)
+        public async Task<IActionResult> Comment(CommentReportInputModel commentReportModel)
         {
             commentReportModel.ReportingUserId = GetUserId();
 
@@ -145,13 +147,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentEdit(int reportId)
         {
-            CommentReportModel editCommentReport = await this.reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
+            CommentReportEditModel editCommentReport = await this.reportsService.GetReportByIdAsync<CommentReportEditModel>(reportId);
             return View(editCommentReport);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CommentEdit(CommentReportModel commentReportModel)
+        public async Task<IActionResult> CommentEdit(CommentReportEditModel commentReportModel)
         {
             if (!ModelState.IsValid)
             {
@@ -171,13 +173,13 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(int reportId)
         {
-            CommentReportModel commentReportModel = await this.reportsService.GetReportByIdAsync<CommentReportModel>(reportId);
+            CommentReportDeleteModel commentReportModel = await this.reportsService.GetReportByIdAsync<CommentReportDeleteModel>(reportId);
             return View(commentReportModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CommentDelete(CommentReportModel commentReportModel)
+        public async Task<IActionResult> CommentDelete(CommentReportDeleteModel commentReportModel)
         {
             if (commentReportModel.ReportingUserId != GetUserId())
             {

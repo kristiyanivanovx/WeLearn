@@ -23,13 +23,6 @@ namespace WeLearn.ViewModels.Admin.Lesson
 
         public string CategoryName { get; set; }
 
-        public string CreatedByEmail { get; set; }
-
-        public string CreatedById { get; set; }
-
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
         

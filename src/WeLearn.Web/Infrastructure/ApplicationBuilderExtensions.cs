@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WeLearn.Data;
+using WeLearn.Data.Infrastructure;
 using WeLearn.Data.Models;
 using WeLearn.Services.CronJobs;
 using WeLearn.Web.ChatApp;

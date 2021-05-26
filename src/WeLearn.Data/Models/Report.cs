@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Base;
-using static WeLearn.Data.DataValidation.Report;
+using static WeLearn.Data.Infrastructure.DataValidation.Report;
 
 namespace WeLearn.Data.Models
 {

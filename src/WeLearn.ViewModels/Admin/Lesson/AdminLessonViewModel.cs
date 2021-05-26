@@ -19,9 +19,6 @@ namespace WeLearn.ViewModels.Admin.Lesson
 
         public Grade Grade { get; set; }
 
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-
         [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
 

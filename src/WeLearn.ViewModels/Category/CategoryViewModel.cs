@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using static WeLearn.Data.DataValidation.Category;
+using static WeLearn.Data.Infrastructure.DataValidation.Category;
 
 namespace WeLearn.ViewModels.Category
 {

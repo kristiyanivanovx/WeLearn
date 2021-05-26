@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 using WeLearn.ViewModels.Interfaces;
-using static WeLearn.Data.DataValidation.Lesson;
+using static WeLearn.Data.Infrastructure.DataValidation.Lesson;
 
 namespace WeLearn.ViewModels.Lesson
 {

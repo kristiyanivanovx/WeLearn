@@ -13,4 +13,8 @@
     <ProjectReference Include="..\WeLearn.Data\WeLearn.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Admin\NewFolder\" />
+  </ItemGroup>
+
 </Project>

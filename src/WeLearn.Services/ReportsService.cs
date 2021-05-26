@@ -11,6 +11,9 @@ using System;
 using WeLearn.ViewModels.Comment;
 using WeLearn.ViewModels.Report;
 using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Report;
+using WeLearn.ViewModels.Report.Comment;
+using WeLearn.ViewModels.Report.Lesson;
 
 namespace WeLearn.Services
 {
@@ -42,7 +45,7 @@ namespace WeLearn.Services
             return reportByIdMapped;
         }
 
-        public async Task<IEnumerable<LessonReportModel>> GetLessonReportsCreatedByMeAsync(string userId)
+        public async Task<IEnumerable<LessonReportViewModel>> GetLessonReportsCreatedByMeAsync(string userId)
         {
             List<Report> lessonsReportedByMe = await this.context.Reports
                 .Include(x => x.Lesson)
@@ -53,11 +56,11 @@ namespace WeLearn.Services
                 .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null && !x.Lesson.IsDeleted)
                 .ToListAsync();
 
-            LessonReportModel[] lessonsByMeMapped = this.mapper.Map<LessonReportModel[]>(lessonsReportedByMe);
+            LessonReportViewModel[] lessonsByMeMapped = this.mapper.Map<LessonReportViewModel[]>(lessonsReportedByMe);
             return lessonsByMeMapped;
         }
 
-        public async Task<IEnumerable<CommentReportModel>> GetCommentReportsCreatedByMeAsync(string userId)
+        public async Task<IEnumerable<CommentReportViewModel>> GetCommentReportsCreatedByMeAsync(string userId)
         {
             List<Report> commentsByMe = await this.context.Reports
                 .Include(x => x.Comment)
@@ -65,11 +68,11 @@ namespace WeLearn.Services
                 .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.CommentId != null && !x.Comment.IsDeleted)
                 .ToListAsync();
 
-            CommentReportModel[] commentsReportedByMeMapped = this.mapper.Map<CommentReportModel[]>(commentsByMe);
+            CommentReportViewModel[] commentsReportedByMeMapped = this.mapper.Map<CommentReportViewModel[]>(commentsByMe);
             return commentsReportedByMeMapped;
         }
 
-        public async Task<IEnumerable<AdministrationReportModel>> GetAllReportsAsync(string searchString)
+        public async Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString)
         {
             IQueryable<Report> reports = this.context.Reports;
 
@@ -85,7 +88,7 @@ namespace WeLearn.Services
                 .Include(x => x.Comment)
                 .ToListAsync();
 
-            AdministrationReportModel[] reportsMapped = this.mapper.Map<AdministrationReportModel[]>(reports);
+            T[] reportsMapped = this.mapper.Map<T[]>(reports);
             return reportsMapped;
         }
 
@@ -97,7 +100,7 @@ namespace WeLearn.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditLessonReportAsync(LessonReportModel model)
+        public async Task EditLessonReportAsync(LessonReportEditModel model)
         {
             Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.ReportId);
             entity.Subject = model.Subject ?? entity.Subject;
@@ -105,7 +108,7 @@ namespace WeLearn.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditCommentReportAsync(CommentReportModel model)
+        public async Task EditCommentReportAsync(CommentReportEditModel model)
         {
             Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.ReportId);
             entity.Subject = model.Subject ?? entity.Subject;
@@ -113,7 +116,7 @@ namespace WeLearn.Services
             await this.context.SaveChangesAsync();
         }
 
-        public async Task EditReportAdministrationAsync(AdministrationReportModel model)
+        public async Task EditReportAdministrationAsync(AdminReportEditModel model)
         {
             Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.Id);
             entity.Subject = model.Subject ?? entity.Subject;

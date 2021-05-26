@@ -13,6 +13,8 @@ using WeLearn.Services;
 using WeLearn.Web.Infrastructure;
 using Xunit;
 using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Report.Lesson;
+using WeLearn.ViewModels.Admin.Report;
 
 namespace WeLearn.Tests
 {
@@ -85,7 +87,7 @@ namespace WeLearn.Tests
             var service = new ReportsService(db, mapper);
 
             // act
-            var result = await service.GetReportByIdAsync<AdministrationReportModel>(6);
+            var result = await service.GetReportByIdAsync<AdminReportEditModel>(6);
 
             // assert
             Assert.NotNull(result);
@@ -169,7 +171,7 @@ namespace WeLearn.Tests
             var service = new ReportsService(db, mapper);
 
             // act
-            var result = await service.GetAllReportsAsync(null);
+            var result = await service.GetAllReportsAsync<LessonReportViewModel>(null);
 
             // assert
             Assert.Equal(3, result.Count());
@@ -237,7 +239,7 @@ namespace WeLearn.Tests
             // act
             await service.HardDeleteReportByIdAsync(6);
 
-            var reports = await service.GetAllReportsAsync(null);
+            var reports = await service.GetAllReportsAsync<LessonReportViewModel>(null);
 
             // assert
             Assert.Empty(reports);

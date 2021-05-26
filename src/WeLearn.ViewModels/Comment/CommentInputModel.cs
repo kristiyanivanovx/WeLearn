@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using static WeLearn.Data.DataValidation.Comment;
+using static WeLearn.Data.Infrastructure.DataValidation.Comment;
 
 namespace WeLearn.ViewModels.Comment
 {

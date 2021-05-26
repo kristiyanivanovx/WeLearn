@@ -11,6 +11,7 @@ using WeLearn.ViewModels;
 using System.Collections.Generic;
 using WeLearn.ViewModels.HelperModels;
 using WeLearn.ViewModels.Admin;
+using WeLearn.ViewModels.Admin.Report;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -26,8 +27,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            IEnumerable<AdministrationReportModel> reports = await this.reportsService.GetAllReportsAsync(searchString);
-            var paginated = PaginatedList<AdministrationReportModel>.Create(reports.OrderByDescending(x => x.Id), pageNumber ?? 1, 6);
+            IEnumerable<AdminReportViewModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportViewModel>(searchString);
+            var paginated = PaginatedList<AdminReportViewModel>.Create(reports.OrderByDescending(x => x.Id), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
             return View(paginated);
         }
@@ -35,13 +36,13 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            IEnumerable<AdministrationReportModel> reports = await this.reportsService.GetAllReportsAsync();
-            AdministrationReportModel report = reports.FirstOrDefault(x => x.Id == id);
+            IEnumerable<AdminReportEditModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportEditModel>();
+            AdminReportEditModel report = reports.FirstOrDefault(x => x.Id == id);
             return View(report);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdministrationReportModel model)
+        public async Task<IActionResult> Edit(AdminReportEditModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -55,8 +56,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            IEnumerable<AdministrationReportModel> reports = await this.reportsService.GetAllReportsAsync();
-            AdministrationReportModel report = reports.FirstOrDefault(x => x.Id == id);
+            IEnumerable<AdminReportDeleteModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportDeleteModel>();
+            AdminReportDeleteModel report = reports.FirstOrDefault(x => x.Id == id);
             return View(report);
         }
 

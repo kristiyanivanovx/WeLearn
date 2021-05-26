@@ -6,26 +6,29 @@ using WeLearn.ViewModels;
 using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Report;
 using WeLearn.ViewModels.Comment;
+using WeLearn.ViewModels.Admin.Report;
+using WeLearn.ViewModels.Report.Comment;
+using WeLearn.ViewModels.Report.Lesson;
 
 namespace WeLearn.Services
 {
     public interface IReportsService
     {
-        Task<IEnumerable<AdministrationReportModel>> GetAllReportsAsync(string searchString = null);
-
-        Task<IEnumerable<LessonReportModel>> GetLessonReportsCreatedByMeAsync(string userId);
-
-        Task<IEnumerable<CommentReportModel>> GetCommentReportsCreatedByMeAsync(string userId);
-
         Task<IReportModel> GetReportByIdAsync<IReportModel>(int reportId);
+
+        Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString = null);
+
+        Task<IEnumerable<LessonReportViewModel>> GetLessonReportsCreatedByMeAsync(string userId);
+
+        Task<IEnumerable<CommentReportViewModel>> GetCommentReportsCreatedByMeAsync(string userId);
 
         Task CreateReportAsync(IReportModel model);
 
-        Task EditCommentReportAsync(CommentReportModel commentReportModel);
+        Task EditCommentReportAsync(CommentReportEditModel commentReportModel);
 
-        Task EditLessonReportAsync(LessonReportModel model);
+        Task EditLessonReportAsync(LessonReportEditModel model);
 
-        Task EditReportAdministrationAsync(AdministrationReportModel model);
+        Task EditReportAdministrationAsync(AdminReportEditModel model);
 
         Task SoftDeleteReportByIdAsync(int? reportId);
 

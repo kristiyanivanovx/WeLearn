@@ -17,10 +17,6 @@ namespace WeLearn.ViewModels.Admin.Lesson
 
         public string Description { get; set; }
 
-        public string CreatedByEmail { get; set; }
-
-        public string CreatedById { get; set; }
-
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
@@ -34,10 +30,6 @@ namespace WeLearn.ViewModels.Admin.Lesson
 
         [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
-
-        public string CategoryName { get; set; }
-
-        public string ApplicationUserUserName { get; set; }
 
         public string VideoName { get; set; }
 

@@ -31,6 +31,8 @@ namespace WeLearn
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddSignalR();
 
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -45,8 +47,6 @@ namespace WeLearn
             })
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
-
-            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddRazorPages();
             services.AddRouting(options => options.LowercaseUrls = true);

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LessonReportModel>
+﻿@model IEnumerable<LessonReportViewModel>
 @{
     ViewData["Title"] = "Lessons reported by me";
 }
@@ -51,6 +51,10 @@
                         <div class="form-group">
                             <label asp-for="@report.ReportDescription"></label>
                             <h6 class="card-text">@report.ReportDescription</h6>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@report.DateCreated">Date created</label>
+                            <h6 class="card-text">@report.DateCreated.ToShortDateString()</h6>
                         </div>
 
                         <a asp-controller="Report" asp-action="LessonEdit" asp-route-reportid="@report.ReportId" class="btn btn-sm btn-outline-success mb-2">

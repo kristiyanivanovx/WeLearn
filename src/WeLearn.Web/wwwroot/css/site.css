@@ -139,4 +139,12 @@ p {
 	.logo {
 		display: none;
 	}
+	.navbar-brand-text {
+		font-size: 90%;
+	}
+}
+
+.no-padding {
+	padding: 0 !important;
+	margin: 0 !important;
 }

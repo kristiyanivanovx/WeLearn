@@ -20,6 +20,8 @@ using WeLearn.Web.Controllers;
 using WeLearn.Web.Infrastructure;
 using WeLearn.ViewModels.Lesson;
 using WeLearn.ViewModels.Category;
+using WeLearn.Data.Models.Enums;
+using System;
 
 namespace WeLearn.Controllers
 {
@@ -160,10 +162,11 @@ namespace WeLearn.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ByCategory(string categoryName, string searchString, int? pageNumber)
+        public async Task<IActionResult> ByCategory(string categoryName, string searchString, int grade, int? pageNumber)
         {
-            var lessons = await this.lessonsService.GetAllLessonsByCategoryAsync(categoryName, searchString);
+            var lessons = await this.lessonsService.GetLessonsByCategoryAndCategoryAsync(categoryName, searchString, grade);
             var paginated = PaginatedList<LessonViewModel>.Create(lessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
+            paginated.Grade = Enum.Parse<Grade>(grade.ToString());
             paginated.CategoryName = categoryName;
             paginated.SearchString = searchString;
             return View(paginated);

@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using System;
 
 namespace WeLearn.Data.Migrations
 {
@@ -15,7 +15,7 @@ namespace WeLearn.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,7 @@ namespace WeLearn.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -60,7 +60,7 @@ namespace WeLearn.Data.Migrations
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateDeleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -78,7 +78,7 @@ namespace WeLearn.Data.Migrations
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateDeleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -97,7 +97,7 @@ namespace WeLearn.Data.Migrations
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateDeleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -112,7 +112,7 @@ namespace WeLearn.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<string>(type: "text", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    ClaimValue = table.Column<string>(type: "text", nullable: true),
                 },
                 constraints: table =>
                 {

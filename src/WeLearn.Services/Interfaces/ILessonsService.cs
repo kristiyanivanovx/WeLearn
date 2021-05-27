@@ -6,6 +6,7 @@ using WeLearn.ViewModels;
 using WeLearn.ViewModels.Lesson;
 using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Lesson;
+using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -23,7 +24,7 @@ namespace WeLearn.Services.Interfaces
 
         Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString);
 
-        Task<IEnumerable<LessonViewModel>> GetAllLessonsByCategoryAsync(string categoryName, string searchString);
+        Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndCategoryAsync(string categoryName, string searchString, int grade);
 
         Task CreateLessonAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId);
 

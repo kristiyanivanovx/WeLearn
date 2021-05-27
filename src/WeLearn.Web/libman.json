@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "defaultProvider": "unpkg",
+	"version": "1.0",
+	"defaultProvider": "unpkg",
   "libraries": [
     {
       "library": "@microsoft/signalr@latest",
@@ -31,6 +31,19 @@
         "css/bootstrap.css.map",
         "css/bootstrap.min.css",
         "css/bootstrap.min.css.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.js",
+        "jquery.min.js",
+        "jquery.min.map",
+        "jquery.slim.js",
+        "jquery.slim.min.js",
+        "jquery.slim.min.map"
       ]
     }
   ]

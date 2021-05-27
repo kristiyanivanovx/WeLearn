@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.ChatApp;
 
 namespace WeLearn.Data.Models
@@ -21,6 +22,5 @@ namespace WeLearn.Data.Models
         public ICollection<Report> Reports { get; set; }
 
         public ICollection<ChatApplicationUser> Chats { get; set; }
-
     }
 }

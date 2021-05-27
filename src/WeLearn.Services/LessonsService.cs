@@ -20,6 +20,7 @@ using static WeLearn.Data.Infrastructure.DataValidation.Material;
 using WeLearn.ViewModels.Lesson;
 using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Lesson;
+using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.Services
 {
@@ -77,7 +78,7 @@ namespace WeLearn.Services
             return lessonMapped;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> GetAllLessonsByCategoryAsync(string categoryName, string searchString)
+        public async Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndCategoryAsync(string categoryName, string searchString, int grade)
         {
             IQueryable<Lesson> lessonsByCategory = this.context.Lessons.Where(x => x.Category.Name == categoryName && !x.IsDeleted && x.IsApproved);
 
@@ -85,6 +86,11 @@ namespace WeLearn.Services
             {
                 lessonsByCategory = lessonsByCategory.Where(x => x.Name.ToLower().Contains(searchString.ToLower()) ||
                                                                  x.Description.ToLower().Contains(searchString.ToLower()));
+            }
+
+            if (grade != -1)
+            {
+                lessonsByCategory = lessonsByCategory.Where(x => x.Grade == (Grade) grade);
             }
 
             await lessonsByCategory

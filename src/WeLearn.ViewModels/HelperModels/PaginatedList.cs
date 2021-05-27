@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.ViewModels.HelperModels
 {
     public class PaginatedList<T> : List<T>
     {
-        public string SearchString { get;  set; }
+		public Grade Grade { get; set; }
+
+		public string SearchString { get;  set; }
         
         public string CategoryName { get; set; }
 

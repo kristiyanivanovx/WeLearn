@@ -1,69 +1,78 @@
 ﻿@model PaginatedList<LessonViewModel>
 @{
-    ViewData["Title"] = "By category";
+	ViewData["Title"] = "By category";
 }
 
 <div class="container">
-    @if (Model.Count() == 0)
-    {
-        <h1 class="display-4 text-center">No lessons found.</h1>
-        <hr />
-    }
-    else
-    {
-        <form asp-area="" asp-controller="Lesson" asp-action="ByCategory" method="get">
-            <input type="hidden" name="CategoryName" value="@Model.CategoryName" />
-            <label>Find by name or description:</label>
-            <div class="input-group input-group-sm mb-3">
-                <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
-                <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
-            </div>
-        </form>
-        <div class="text-center">
-            <partial name="_MultipleLessonsPartial" />
-        </div>
+	@if (Model.Count() == 0)
+	{
+		<h1 class="display-4 text-center">No lessons found.</h1>
+		<hr />
+	}
+	
+	<form asp-area="" asp-controller="Lesson" asp-action="ByCategory" method="get">
+		<input type="hidden" name="CategoryName" value="@Model.CategoryName" />
 
-        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+		<div class="input-group input-group-sm mb-3">
+			<div class="col-md-4 no-padding">
+				<label>Find by grade:</label>
+				<select asp-for="@Model.Grade" asp-items="Html.GetEnumSelectList<Grade>()" class="form-control">
+					<option selected="selected" value="-1">- Select grade (this option is for none) -</option>
+				</select>
 
-        <div class="mt-2 mb-2 text-center">
-            <a asp-controller="Lesson"
-               asp-action="ByCategory"
-               asp-route-pageNumber="@(Model.PageIndex - 1)"
-               asp-route-searchString="@Model.SearchString"
-               asp-route-categoryName="@Model.CategoryName"
-               class="btn btn-sm btn-outline-dark @prevDisabled">
-                <i class="fas fa-arrow-left"></i> Previous
-            </a>
-            @for (int i = 1; i <= Model.TotalPages; i++)
-            {
-                <a asp-controller="Lesson"
-                   asp-action="ByCategory"
-                   asp-route-pageNumber="@i"
-                   asp-route-searchString="@Model.SearchString"
-                   asp-route-categoryName="@Model.CategoryName"
-                   class="btn btn-sm btn-outline-dark ">
-                    @i
-                </a>
-            }
-            <a asp-controller="Lesson"
-               asp-action="ByCategory"
-               asp-route-pageNumber="@(Model.PageIndex + 1)"
-               asp-route-searchString="@Model.SearchString"
-               asp-route-categoryName="@Model.CategoryName"
-               class="btn btn-sm btn-outline-dark @nextDisabled">
-                Next <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    }
+				<span asp-validation-for="Grade" class="text-danger"></span>
+				<label>Find by name or description:</label>
+				<input type="text" name="SearchString" class="form-control input-sm " value="@Model.SearchString" />
+				<input type="submit" value="Search" class="btn btn-sm btn-outline-success mt-3" />
+			</div>
+		</div>
+	</form>
+	<div class="text-center">
+		<partial name="_MultipleLessonsPartial" />
+	</div>
+
+	@{ 
+		var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+		var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+	}
+
+	<div class="mt-2 mb-2 text-center">
+		<a asp-controller="Lesson"
+			asp-action="ByCategory"
+			asp-route-pageNumber="@(Model.PageIndex - 1)"
+			asp-route-searchString="@Model.SearchString"
+			asp-route-categoryName="@Model.CategoryName"
+			class="btn btn-sm btn-outline-dark @prevDisabled">
+			<i class="fas fa-arrow-left"></i> Previous
+		</a>
+		@for (int i = 1; i <= Model.TotalPages; i++)
+		{
+			<a asp-controller="Lesson"
+				asp-action="ByCategory"
+				asp-route-pageNumber="@i"
+				asp-route-searchString="@Model.SearchString"
+				asp-route-categoryName="@Model.CategoryName"
+				class="btn btn-sm btn-outline-dark ">
+				@i
+			</a>
+		}
+		<a asp-controller="Lesson"
+			asp-action="ByCategory"
+			asp-route-pageNumber="@(Model.PageIndex + 1)"
+			asp-route-searchString="@Model.SearchString"
+			asp-route-categoryName="@Model.CategoryName"
+			class="btn btn-sm btn-outline-dark @nextDisabled">
+			Next <i class="fas fa-arrow-right"></i>
+		</a>
+	</div>
 </div>
 
 @section Scripts {
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
-    <script src="https://unpkg.com/plyr@3"></script>
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+	<script src="https://unpkg.com/plyr@3"></script>
 
-    <script>
-        const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
-        window.player = player;
-    </script>
+	<script>
+		const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
+		window.player = player;
+	</script>
 }

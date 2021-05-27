@@ -30,6 +30,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 ## Acknowledgements
 Some of the (many) resources used for creating this project:
 - https://stackoverflow.com/a/59860450/13146140
+- https://stackoverflow.com/a/2776689/13146140
 - https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
 - https://www.youtube.com/watch?v=Bmm9X-YZtG4
 - https://www.youtube.com/watch?v=5iN1jhr6yQI

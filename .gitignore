@@ -372,5 +372,6 @@ src/WeLearn.Web/wwwroot/uploads/materials/
 src/WeLearn.Web/wwwroot/uploads/videos/
 
 **/wwwroot/lib/
+**/wwwroot/js/
 *.min.css
 *.min.js

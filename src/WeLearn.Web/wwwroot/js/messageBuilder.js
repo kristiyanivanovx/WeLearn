@@ -1,5 +1,4 @@
-﻿
-var messageBuilder = function () {
+﻿var messageBuilder = function () {
     var message = null;
     var span1 = null;
     var span2 = null;

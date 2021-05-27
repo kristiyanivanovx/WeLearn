@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\uploads\materials\temp\**" />
-    <Content Remove="wwwroot\uploads\materials\temp\**" />
-    <EmbeddedResource Remove="wwwroot\uploads\materials\temp\**" />
-    <None Remove="wwwroot\uploads\materials\temp\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Hangfire" Version="1.7.22" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.22" />
     <PackageReference Include="Hangfire.PostgreSql" Version="1.8.4" />
@@ -35,11 +28,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.5.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\uploads\materials\" />
-    <Folder Include="wwwroot\uploads\videos\" />
   </ItemGroup>
 
   <ItemGroup>

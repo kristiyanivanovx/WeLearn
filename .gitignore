@@ -368,6 +368,8 @@ WeLearn.Data/appsettings.Production.json
 WeLearn.Web/appsettings.Production.json
 src/WeLearn.Data/appsettings.Production.json
 src/WeLearn.Web/appsettings.Production.json
+src/WeLearn.Web/wwwroot/uploads/materials/
+src/WeLearn.Web/wwwroot/uploads/videos/
 
 **/wwwroot/lib/
 *.min.css

@@ -72,7 +72,6 @@ namespace WeLearn
 
             services.AddHttpContextAccessor();
 
-            // google authentication
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
@@ -91,8 +90,7 @@ namespace WeLearn
             IRecurringJobManager recurringJobManager,
             ApplicationDbContext applicationDbContext,
             UserManager<ApplicationUser> userManager, 
-            RoleManager<ApplicationRole> roleManager
-            )
+            RoleManager<ApplicationRole> roleManager)
         {
             app.MigrateDatabase();
             app.SeedData(userManager, roleManager);

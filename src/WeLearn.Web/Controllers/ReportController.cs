@@ -21,15 +21,12 @@ namespace WeLearn.Web.Controllers
         private readonly ILessonsService lessonsService;
         private readonly ICommentsService commentsService;
         private readonly IReportsService reportsService;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
         public ReportController(
             ILessonsService lessonsService,
             ICommentsService commentsService,
-            IReportsService reportsService,
-            IHttpContextAccessor httpContextAccessor)
+            IReportsService reportsService)
         {
-            this.httpContextAccessor = httpContextAccessor;
             this.lessonsService = lessonsService;
             this.commentsService = commentsService;
             this.reportsService = reportsService;
@@ -55,14 +52,14 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(LessonReportInputModel lessonReportModel)
         {
-            lessonReportModel.ReportingUserId = GetUserId();
+            lessonReportModel.ApplicationUserId = GetUserId();
 
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            await this.reportsService.CreateReportAsync(lessonReportModel);
+            await this.reportsService.CreateReportAsync<LessonReportInputModel>(lessonReportModel);
             return RedirectToAction(nameof(LessonsByMe));
         }
 
@@ -83,7 +80,7 @@ namespace WeLearn.Web.Controllers
                 return View(lessonReportModel);
             }
 
-            if (lessonReportModel.ReportingUserId != GetUserId())
+            if (lessonReportModel.ApplicationUserId != GetUserId())
             {
                 return View("Unauthorized");
             }
@@ -104,7 +101,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonDelete(LessonReportDeleteModel lessonReportModel)
         {
-            if (lessonReportModel.ReportingUserId != GetUserId())
+            if (lessonReportModel.ApplicationUserId != GetUserId())
             {
                 return View("Unauthorized");
             }
@@ -132,14 +129,14 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(CommentReportInputModel commentReportModel)
         {
-            commentReportModel.ReportingUserId = GetUserId();
+            commentReportModel.ApplicationUserId = GetUserId();
 
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            await this.reportsService.CreateReportAsync(commentReportModel);
+            await this.reportsService.CreateReportAsync<CommentReportInputModel>(commentReportModel);
             return RedirectToAction(nameof(CommentsByMe));
         }
 
@@ -160,7 +157,7 @@ namespace WeLearn.Web.Controllers
                 return View(commentReportModel);
             }
 
-            if (commentReportModel.ReportingUserId != GetUserId())
+            if (commentReportModel.ApplicationUserId != GetUserId())
             {
                 return View("Unauthorized");
             }
@@ -181,7 +178,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(CommentReportDeleteModel commentReportModel)
         {
-            if (commentReportModel.ReportingUserId != GetUserId())
+            if (commentReportModel.ApplicationUserId != GetUserId())
             {
                 return View(nameof(Unauthorized));
             }

@@ -12,7 +12,7 @@
                     <hr />
                     <p class="card-text">@Model.CommentContent</p>
                     <p class="card-text">
-                        @{ var createdBy = Model.CreatedByUserName == null ? "Deleted User" : Model.CreatedByUserName; }
+                        @{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
                         @*<div>
                             <small class="text-muted">Created by - @createdBy</small>
                         </div>*@
@@ -24,12 +24,12 @@
             </div>
         </div>
         <div class="text-center">
-            <h3 class="text-center">Editing report #@Model.ReportId | Comment #@Model.OriginId</h3>
+            <h3 class="text-center">Editing report #@Model.ReportId | Comment #@Model.CommentId</h3>
             <hr />
             <form asp-controller="Report" asp-action="CommentEdit" method="post">
-                <input type="hidden" value="@Model.OriginId" asp-for="@Model.OriginId" class="form-control" />
+                <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
                 <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
-                <input type="hidden" value="@Model.ReportingUserId" asp-for="@Model.ReportingUserId" class="form-control" />
+                <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
                 <div class="form-group">
                     <label asp-for="Subject"></label>
                     <input asp-for="Subject" class="form-control" />
@@ -42,7 +42,7 @@
                 </div>
 
                 <input class="btn btn-sm btn-outline-success" type="submit" value="Save" />
-                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.OriginId" class="btn btn-sm btn-outline-dark">
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.CommentId" class="btn btn-sm btn-outline-dark">
                     Cancel
                 </a>
             </form>

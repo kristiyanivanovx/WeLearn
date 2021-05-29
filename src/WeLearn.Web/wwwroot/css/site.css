@@ -17,7 +17,7 @@ a {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #28a745;
   border-color: #1861ac;
 }
 
@@ -105,6 +105,7 @@ p {
 	width: 65%;
 }
 
+/* card styles */
 .card-style-80-rem {
 	max-width: 80rem;
 }
@@ -131,6 +132,21 @@ p {
 
 .btn-padding-top {
 	margin-top: 10rem;
+}
+
+/* links */
+.gray-link {
+	color: #555555;
+}
+
+.gray-link:hover {
+	color: #404040;
+}
+
+.img-center {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 /* custom rule for a special case, regarding the logo */

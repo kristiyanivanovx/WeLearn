@@ -16,12 +16,13 @@
 		<div class="input-group input-group-sm mb-3">
 			<div class="col-md-4 no-padding">
 				<label>Find by grade:</label>
+				<span asp-validation-for="Grade" class="text-danger"></span>
+
 				<select asp-for="@Model.Grade" asp-items="Html.GetEnumSelectList<Grade>()" class="form-control">
 					<option selected="selected" value="-1">- Select grade (this option is for none) -</option>
 				</select>
 
-				<span asp-validation-for="Grade" class="text-danger"></span>
-				<label>Find by name or description:</label>
+				<label class="mt-1">Find by name or description:</label>
 				<input type="text" name="SearchString" class="form-control input-sm " value="@Model.SearchString" />
 				<input type="submit" value="Search" class="btn btn-sm btn-outline-success mt-3" />
 			</div>

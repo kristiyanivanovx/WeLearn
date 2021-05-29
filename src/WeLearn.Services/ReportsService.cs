@@ -28,7 +28,7 @@ namespace WeLearn.Services
             this.mapper = mapper;
         }
 
-        public async Task<IReportModel> GetReportByIdAsync<IReportModel>(int reportId)
+        public async Task<T> GetReportByIdAsync<T>(int reportId)
         {
             Report reportByMe = await this.context.Reports
                 .Where(x => x.Id == reportId)
@@ -41,7 +41,7 @@ namespace WeLearn.Services
                 .Include(x => x.Comment)
                 .FirstOrDefaultAsync();
 
-            IReportModel reportByIdMapped = this.mapper.Map<IReportModel>(reportByMe);
+            T reportByIdMapped = this.mapper.Map<T>(reportByMe);
             return reportByIdMapped;
         }
 
@@ -92,7 +92,7 @@ namespace WeLearn.Services
             return reportsMapped;
         }
 
-        public async Task CreateReportAsync(IReportModel model)
+        public async Task CreateReportAsync<T>(T model)
         {
             Report reportMapped = this.mapper.Map<Report>(model);
             reportMapped.DateCreated = DateTime.UtcNow;

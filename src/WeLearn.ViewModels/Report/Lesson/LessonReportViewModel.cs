@@ -8,15 +8,13 @@ namespace WeLearn.ViewModels.Report.Lesson
 {
     public class LessonReportViewModel
     {
-        public int OriginId { get; set; }
+        public int LessonId { get; set; }
 
-        public int? ReportId { get; set; }
+        public int ReportId { get; set; }
 
         public string LessonName { get; set; }
 
-        public DateTime DateCreated { get; set; }
-
-        public string OriginApplicationUserUserName { get; set; }
+        public string LessonApplicationUserUserName { get; set; }
 
         public string LessonDescription { get; set; }
 
@@ -46,5 +44,7 @@ namespace WeLearn.ViewModels.Report.Lesson
         public string ReportDescription { get; set; }
 
         public string ReportingUserId { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

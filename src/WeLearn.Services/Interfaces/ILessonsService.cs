@@ -24,7 +24,7 @@ namespace WeLearn.Services.Interfaces
 
         Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString);
 
-        Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndCategoryAsync(string categoryName, string searchString, int grade);
+        Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndGradeAsync(string categoryName, string searchString, int grade);
 
         Task CreateLessonAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId);
 

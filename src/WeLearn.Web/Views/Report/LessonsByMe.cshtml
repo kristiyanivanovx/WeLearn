@@ -18,7 +18,7 @@
                         <hr />
                         <p class="card-text">@report.LessonDescription</p>
                         <p class="card-text mb-2">
-                            @{ var createdBy = report.OriginApplicationUserUserName == null ? "Deleted User" : report.OriginApplicationUserUserName; }
+                            @{ var createdBy = report.LessonApplicationUserUserName == null ? "Deleted User" : report.LessonApplicationUserUserName; }
                             <div>
                                 <small class="text-muted">Created by - @createdBy</small>
                             </div>
@@ -33,7 +33,7 @@
                             </div>
                         </p>
                         <div class="mt-3">
-                            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@report.OriginId" class="btn btn-sm btn-outline-dark">
+                            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@report.LessonId" class="btn btn-sm btn-outline-dark">
                                 <i class="fas fa-info"></i> Details
                             </a>
                             <a asp-controller="Lesson" asp-action="Download" asp-route-link="@report.LessonMaterialLink" class="btn btn-sm btn-outline-info">

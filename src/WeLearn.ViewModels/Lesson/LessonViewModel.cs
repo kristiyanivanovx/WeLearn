@@ -8,8 +8,7 @@ namespace WeLearn.ViewModels.Lesson
     {
         public int LessonId { get; set; }
 
-        [Display(Name = "Name")]
-        public string LessonName { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 

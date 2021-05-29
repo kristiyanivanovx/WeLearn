@@ -14,7 +14,7 @@ namespace WeLearn.Services
 {
     public interface IReportsService
     {
-        Task<IReportModel> GetReportByIdAsync<IReportModel>(int reportId);
+        Task<T> GetReportByIdAsync<T>(int reportId);
 
         Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString = null);
 
@@ -22,7 +22,7 @@ namespace WeLearn.Services
 
         Task<IEnumerable<CommentReportViewModel>> GetCommentReportsCreatedByMeAsync(string userId);
 
-        Task CreateReportAsync(IReportModel model);
+        Task CreateReportAsync<T>(T model);
 
         Task EditCommentReportAsync(CommentReportEditModel commentReportModel);
 

@@ -374,3 +374,4 @@ src/WeLearn.Web/wwwroot/uploads/videos/
 **/wwwroot/lib/
 *.min.css
 *.min.js
+src/WeLearn.Web/ScaffoldingReadMe.txt

@@ -19,18 +19,15 @@ namespace WeLearn.Web.Controllers
 	[Authorize]
 	public class ChatController : BaseController
 	{
-		private readonly ApplicationDbContext context;
 		private readonly IHubContext<ChatHub> chatHub;
 		private readonly IUsersService usersService;
         private readonly IChatService chatService;
 
         public ChatController(
-			ApplicationDbContext context,
 			IHubContext<ChatHub> chatHub,
 			IUsersService usersService,
 			IChatService chatService)
 		{
-			this.context = context;
 			this.chatHub = chatHub;
 			this.usersService = usersService;
             this.chatService = chatService;
@@ -50,7 +47,7 @@ namespace WeLearn.Web.Controllers
 
 		public async Task<IActionResult> SendMessage(int roomId, string message)
 		{
-			Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, User.Identity.Name);
+			Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, GetUserName());
 
 			await chatHub.Clients.Group(roomId.ToString())
 				.SendAsync("ReceiveMessage", new

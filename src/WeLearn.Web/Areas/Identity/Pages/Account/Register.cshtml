@@ -38,7 +38,7 @@
 				<button type="submit" class="btn btn-sm btn-outline-success">Register</button>
 			</form>
 		</div>
-		@*<div class="col-md-6 col-md-offset-2">
+		<div class="col-md-6 col-md-offset-2">
 				<section>
 					<h4>Use another service to register.</h4>
 					<hr />
@@ -57,9 +57,24 @@
 							<form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
 								<div>
 									<p>
-										@foreach (var provider in Model.ExternalLogins)
+										@*@foreach (var provider in Model.ExternalLogins)
 										{
 											<button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+										}*@
+
+										@foreach (var provider in Model.ExternalLogins)
+										{
+											if (provider.Name == "Google")
+											{
+												<button type="submit" class="btn btn-sm btn-outline-dark img-center" name="provider" value="@provider.Name">
+													<img width="20" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+													&nbsp;Google
+												</button>
+											}
+											else
+											{
+												<button type="submit" class="btn btn-sm btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+											}
 										}
 									</p>
 								</div>
@@ -67,7 +82,7 @@
 						}
 					}
 				</section>
-			</div>*@
+			</div>
 	</div>
 </div>
 @section Scripts {

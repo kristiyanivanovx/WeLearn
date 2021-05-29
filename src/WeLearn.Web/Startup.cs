@@ -14,6 +14,7 @@ using WeLearn.Web.Infrastructure;
 using Microsoft.AspNetCore.SignalR;
 using Hangfire;
 using Hangfire.PostgreSql;
+using System.Diagnostics;
 
 namespace WeLearn
 {
@@ -71,7 +72,16 @@ namespace WeLearn
 
             services.AddHttpContextAccessor();
 
-            services.AddHangfire(config =>
+            // google authentication
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthenticationSection = Configuration.GetSection("Authentication:Google");
+                    options.ClientId = googleAuthenticationSection["ClientId"];
+                    options.ClientSecret = googleAuthenticationSection["ClientSecret"];
+                });
+
+            services.AddHangfire(config => 
                 config.UsePostgreSqlStorage(Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
         }
 

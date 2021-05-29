@@ -14,6 +14,7 @@
             }
 
             message.classList.add('message')
+            message.classList.add('mb-1')
             return this;
         },
         withHeader: function (text) {

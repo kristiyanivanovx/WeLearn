@@ -138,7 +138,7 @@ namespace WeLearn.Tests
             var lessonsService = new LessonsService(db, mapper, inputOutputService);
 
             // act
-            var comments = await lessonsService.GetLessonsByCategoryAndCategoryAsync("c-name", null, 1);
+            var comments = await lessonsService.GetLessonsByCategoryAndGradeAsync("c-name", null, 1);
 
             // assert
             Assert.Single(comments);

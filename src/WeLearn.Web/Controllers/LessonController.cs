@@ -30,27 +30,21 @@ namespace WeLearn.Controllers
         private readonly int DefaultPageNumber = 1;
         private readonly int DefaultPageSize = 6;
 
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly ICategoriesService categoriesService;
         private readonly ILessonsService lessonsService;
         private readonly IFileDownloadService fileDownloadService;
         private readonly IWebHostEnvironment environment;
-        private readonly IHttpContextAccessor httpContextAccessor;
 
         public LessonController(
-            UserManager<ApplicationUser> userManager,
             ICategoriesService categoriesService,
             ILessonsService lessonsService,
             IFileDownloadService fileDownloadService,
-            IWebHostEnvironment environment,
-            IHttpContextAccessor httpContextAccessor) 
+            IWebHostEnvironment environment) 
         {
-            this.userManager = userManager;
             this.categoriesService = categoriesService;
             this.lessonsService = lessonsService;
             this.fileDownloadService = fileDownloadService;
             this.environment = environment;
-            this.httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet]
@@ -119,7 +113,7 @@ namespace WeLearn.Controllers
                 return View(lessonEditModel);
             }
 
-            if (GetUserId() != lessonEditModel.UserId)
+            if (lessonEditModel.UserId != GetUserId())
             {
                 return View(nameof(Unauthorized));
             }
@@ -140,9 +134,7 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(LessonDeleteModel lessonViewModel)
         {
-            string userName = HttpContext.User.Identity.Name;
-
-            if (userName != lessonViewModel.ApplicationUserUserName)
+            if (lessonViewModel.ApplicationUserUserName != GetUserName())
             {
                 return View("Unauthorized");
             }
@@ -164,7 +156,7 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> ByCategory(string categoryName, string searchString, int grade, int? pageNumber)
         {
-            var lessons = await this.lessonsService.GetLessonsByCategoryAndCategoryAsync(categoryName, searchString, grade);
+            var lessons = await this.lessonsService.GetLessonsByCategoryAndGradeAsync(categoryName, searchString, grade);
             var paginated = PaginatedList<LessonViewModel>.Create(lessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             paginated.Grade = Enum.Parse<Grade>(grade.ToString());
             paginated.CategoryName = categoryName;

@@ -16,7 +16,7 @@
                     <hr />
                     <p class="card-text mb-2">@Model.LessonDescription</p>
                     <p class="card-text">
-                        @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
+                        @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
                         <div>
                             <small class="text-muted">Created by - @createdBy</small>
                         </div>
@@ -31,7 +31,7 @@
                         </div>
                     </p>
                     <div class="mt-3">
-                        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.OriginId" class="btn btn-sm btn-outline-dark">
+                        <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
                             <i class="fas fa-info"></i> Details
                         </a>
                         <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="btn btn-sm btn-outline-info">
@@ -44,7 +44,7 @@
                     <hr />
                     <form asp-controller="Report" asp-action="LessonEdit" method="post">
                         <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
-                        <input type="hidden" value="@Model.ReportingUserId" asp-for="@Model.ReportingUserId" class="form-control" />
+                        <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
                         <div class="form-group">
                             <label asp-for="@Model.Subject"></label>
                             <input asp-for="@Model.Subject" class="form-control" />

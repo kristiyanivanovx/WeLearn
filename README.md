@@ -45,13 +45,15 @@ Structure influenced by:
 - https://welearn-bg.herokuapp.com/
 
 # Contact Info
-- Private message me on Facebook or LinkedIn, we can exchange information like mobile phone numbers or emails there
+- Private message me on Facebook or LinkedIn, we can exchange information like mobile phone numbers or emails there.
 
 # LinkedIn 
 - TBA
 
 # How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
+- An user cannot edit and delete another one's comments, reports and lessons if he is not the creator
+- The application has live chat functionality, realized with SignalR and websockets. Using Hangfire in production, every week the messages and chats are getting deleted/cleaned, the reason being that we can accumulate a lot of them and they are not that important at all. Another option is for the clean period to be monthly, weekly seems often.
 
 ## User Credentials: Administrator
 - Username: welearnbg@gmail.com
@@ -64,6 +66,16 @@ Structure influenced by:
 - Email: default@gmail.com
 
 # Installation Instructions
+
+## External logins
+For the Goolge Authentication option to work you need to configure it. Follow the guide:
+https://developers.google.com/identity/sign-in/web/sign-in
+
+You need to create new credentials and to change them in the ```/src/WeLearn.Web/appsettings.json``` file and make sure to change this line in ```_Layout.cshtml```- <meta name="google-signin-client_id" content="<your-client-id-here>.apps.googleusercontent.com">
+At the ```Create Credentials > OAuth client ID``` step, in ```Authorized redirect URIs > URIs *``` section add "https://localhost:<port>/signin-google" and "http://localhost:<port>/signin-google", where port is the port that you access the webapp from. For example ```44332``` or ```44333```.
+
+Additional information:
+https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0
 
 ## PostgreSQL (detailed explanation below)
 1. Follow the link and pick the version that suits your OS: https://www.postgresql.org/download/

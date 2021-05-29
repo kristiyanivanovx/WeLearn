@@ -16,19 +16,10 @@ namespace WeLearn.Web.Controllers
 {
     public class CommentController : BaseController
     {
-        private readonly UserManager<ApplicationUser> userManager;
-        private readonly IHttpContextAccessor httpContextAccessor;
         private readonly ICommentsService commentsService;
 
-        public CommentController(
-            UserManager<ApplicationUser> userManager,
-            IHttpContextAccessor httpContextAccessor,
-            ICommentsService commentsService)
-        {
-            this.userManager = userManager;
-            this.httpContextAccessor = httpContextAccessor;
-            this.commentsService = commentsService;
-        }
+        public CommentController(ICommentsService commentsService)
+            => this.commentsService = commentsService;
 
         [HttpGet]
         public IActionResult Create() => RedirectToAction("All", "Lesson");
@@ -65,7 +56,7 @@ namespace WeLearn.Web.Controllers
                 return View(model);
             }
 
-            if (GetUserId() != model.ApplicationUserId)
+            if (model.ApplicationUserId != GetUserId())
             {
                 return View(nameof(Unauthorized));
             }
@@ -86,7 +77,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(CommentDeleteModel model)
         {
-            if (GetUserId() != model.ApplicationUserId)
+            if (model.ApplicationUserId != GetUserId())
             {
                 return View("Unauthorized");
             }

@@ -13,9 +13,8 @@ namespace WeLearn.ViewModels.Lesson
 
         public int LessonId { get; set; }
 
-        [Display(Name = "Name")]
         [MaxLength(MaxNameLength)]
-        public string LessonName { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Description")]
         [MaxLength(MaxDescriptionLength)]

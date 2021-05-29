@@ -1,6 +1,6 @@
 ﻿@model CommentReportInputModel
 @{
-    ViewData["Title"] = "Reporting comment #" + Model.OriginId;
+    ViewData["Title"] = "Reporting comment #" + Model.CommentId;
 }
 
 <div class="container">
@@ -12,7 +12,7 @@
                     <hr />
                     <p class="card-text">@Model.CommentContent</p>
                     <p class="card-text">
-                        @{ var createdBy = Model.OriginApplicationUserUserName == null ? "Deleted User" : Model.OriginApplicationUserUserName; }
+                        @{ var createdBy = Model.CommentApplicationUserUserName == null ? "Deleted User" : Model.CommentApplicationUserUserName; }
                         <div>
                             <small class="text-muted">Created by - @createdBy </small>
                         </div>
@@ -24,10 +24,10 @@
             </div>
         </div>
         <div class="text-center mt-2">
-            <h3 class="text-center">Reporting comment #@Model.OriginId</h3>
+            <h3 class="text-center">Reporting comment #@Model.CommentId</h3>
             <hr />
             <form asp-controller="Report" asp-action="Comment" method="post">
-                <input type="hidden" value="@Model.OriginId" asp-for="@Model.OriginId" class="form-control" />
+                <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
                 <div class="form-group">
                     <label asp-for="Subject"></label>
                     <input asp-for="Subject" class="form-control" />
@@ -40,7 +40,7 @@
                 </div>
 
                 <input class="btn btn-sm btn-outline-info" type="submit" value="Report" />
-                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.OriginId" class="btn btn-sm btn-outline-dark">
+                <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark">
                     Cancel
                 </a>
             </form>

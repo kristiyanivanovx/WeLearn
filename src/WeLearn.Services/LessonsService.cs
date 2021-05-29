@@ -78,7 +78,7 @@ namespace WeLearn.Services
             return lessonMapped;
         }
 
-        public async Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndCategoryAsync(string categoryName, string searchString, int grade)
+        public async Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndGradeAsync(string categoryName, string searchString, int grade)
         {
             IQueryable<Lesson> lessonsByCategory = this.context.Lessons.Where(x => x.Category.Name == categoryName && !x.IsDeleted && x.IsApproved);
 
@@ -360,7 +360,7 @@ namespace WeLearn.Services
 
         private static void UpdateEntityProperties(LessonEditModel lessonEditModel, Lesson entity)
         {
-            entity.Name = lessonEditModel.LessonName ?? entity.Name;
+            entity.Name = lessonEditModel.Name ?? entity.Name;
             entity.Description = lessonEditModel.Description ?? entity.Description;
             entity.CategoryId = lessonEditModel.CategoryId;
             entity.Grade = lessonEditModel.Grade;

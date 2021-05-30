@@ -10,6 +10,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 -- Every post has files (as zip), video material, category and appropriate grade attached to it that can be changed
 - Comments -> creating, reading, updating, deleting
 - Reports (comment reports and post reports) -> creating, reading, updating, deleting
+- Live chat, that is cleaned weekly with Hangfire
 
 ## Technologies used
 - ASP.NET Core 5

@@ -32,7 +32,11 @@ namespace WeLearn
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddHttpContextAccessor();
 
             services.AddSignalR();
 
@@ -57,8 +61,6 @@ namespace WeLearn
             })
             .AddRazorRuntimeCompilation();
 
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IUsersService, UsersService>();
@@ -69,8 +71,8 @@ namespace WeLearn
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
-
-            services.AddHttpContextAccessor();
+            services.AddTransient<IEmailSender>(serviceProvider =>
+                new SendGridEmailSender(Configuration["SendGrid:ApiKey"]));
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -103,6 +105,8 @@ namespace WeLearn
             else
             {
                 app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
+                app.UseHangfire();
+
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
@@ -114,8 +118,6 @@ namespace WeLearn
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseHangfire();
 
             app.UseEndpoints();
         }

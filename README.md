@@ -73,7 +73,7 @@ For the Goolge Authentication option to work you need to configure it. Follow th
 https://developers.google.com/identity/sign-in/web/sign-in
 
 You need to create new credentials and to change them in the ```/src/WeLearn.Web/appsettings.json``` file and make sure to change this line in ```_Layout.cshtml```- ```<meta name="google-signin-client_id" content="your-client-id-here.apps.googleusercontent.com">```
-At the ```Create Credentials > OAuth client ID``` step, in ```Authorized redirect URIs > URIs *``` section add "https://localhost:<port>/signin-google" and "http://localhost:<port>/signin-google", where port is the port that you access the webapp from. For example ```44332``` or ```44333```.
+At the ```Create Credentials > OAuth client ID``` step, in ```Authorized redirect URIs > URIs *``` section add "https://localhost:port/signin-google" and "http://localhost:port/signin-google", where port is the port that you access the webapp from. For example ```44332``` or ```44333```.
 
 Additional information:
 https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0

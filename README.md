@@ -71,8 +71,7 @@ Create your account at https://signup.sendgrid.com/ or use existing one.
 
 From ```Marketing``` select ```Senders``` then ```Create New Sender```
 Add a sender and verify it.
-Use welearnbg@gmail.com for "Reply To" and "From Email Address".
-...or add your own - it is recommended for the "Reply To", "From Email Address" and the email you've registered with all to be identical. In that case, change the email address in ```ContactsController.cs``` to be your own - (await this.emailSender.SendEmailAsync("welearnbg@gmail.com", ...)).
+Use welearnbg@gmail.com for "Reply To" and "From Email Address" or add your own - it is recommended for the "Reply To", "From Email Address" and the email you've registered with all to be identical. In that case, change the email address in ```ContactsController.cs``` to be your own - (await this.emailSender.SendEmailAsync("welearnbg@gmail.com", ...)).
 
 From ```Settings``` select ```API Keys``` then ```Create API Key```
 API Key Name - WeLearn

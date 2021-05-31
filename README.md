@@ -75,6 +75,7 @@ Save that sender and verify it.
 Change the email address in ```ContactsController.cs``` to be your own - (await this.emailSender.SendEmailAsync(...)).
 
 From ```Settings``` select ```API Keys``` then ```Create API Key```
+
 API Key Name - Your Key's name
 API Key Permissions - Full Access
 

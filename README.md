@@ -76,8 +76,9 @@ Change the email address in ```ContactsController.cs``` to be your own - (await 
 
 From ```Settings``` select ```API Keys``` then ```Create API Key```
 
-API Key Name - Your Key's name
-API Key Permissions - Full Access
+|API Key Name   |API Key Permissions|
+|---------------|---------------|
+|Your Key's name|Full Access|
 
 Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web/appsettings.json``` file.
 

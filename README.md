@@ -20,6 +20,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 - PostgreSQL
 - AutoMapper
 - Hangfire
+- SendGrid
 - Cloudinary
 - Plyr 
 - HTML5, CSS3, Bootstrap 4

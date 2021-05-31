@@ -29,20 +29,6 @@ Primary focus is on students in primary/secondary school and respectively, their
 - Heroku
 - Docker
 
-## Acknowledgements
-Some of the (many) resources used for creating this project:
-- https://stackoverflow.com/a/59860450/13146140
-- https://stackoverflow.com/a/2776689/13146140
-- https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
-- https://www.youtube.com/watch?v=Bmm9X-YZtG4
-- https://www.youtube.com/watch?v=5iN1jhr6yQI
-- https://www.youtube.com/watch?v=gQMT4al2Grg
-- https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
-
-Structure influenced by:
-- https://github.com/NikolayIT/ASP.NET-Core-Template
-- https://www.youtube.com/watch?v=hD6RI0J4mt0
-
 # Deployed Version
 - https://welearn-bg.herokuapp.com/
 
@@ -167,3 +153,18 @@ dotnet WeLearn.Web.dll
 The app should be running on the address shown in the terminal's output.
 
 For Ubuntu, you may need additional codecs for playing the video files.
+
+## Acknowledgements
+Some of the (many) resources used for creating this project:
+- https://stackoverflow.com/a/59860450/13146140
+- https://stackoverflow.com/a/2776689/13146140
+- https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
+- https://www.youtube.com/watch?v=Bmm9X-YZtG4
+- https://www.youtube.com/watch?v=5iN1jhr6yQI
+- https://www.youtube.com/watch?v=gQMT4al2Grg
+- https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
+
+Structure influenced by:
+- https://github.com/NikolayIT/ASP.NET-Core-Template
+- https://www.youtube.com/watch?v=hD6RI0J4mt0
+

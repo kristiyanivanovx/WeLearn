@@ -59,12 +59,6 @@ namespace WeLearn.Web.Controllers
 
 			return Ok();
 		}
-
-		public async Task<IActionResult> Find()
-		{
-			IEnumerable<ApplicationUser> users = await this.usersService.GetUsersAsync(GetUserId());
-			return View(users);
-		}
 	
 		public async Task<IActionResult> CreateRoom(string name)
 		{

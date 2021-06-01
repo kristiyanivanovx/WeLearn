@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
@@ -29,7 +30,7 @@ namespace WeLearn.Web.Controllers
 				return View();
 			}
 
-			await this.emailSender.SendEmailAsync("welearnbg@gmail.com", "WeLearn", model.To, model.Subject, model.Content);
+			await this.emailSender.SendEmailAsync(model.FromEmail, model.FromName, "welearnbg@gmail.com", model.Subject, model.Content);
 			return View(nameof(Sent));
 		}
 	}

@@ -10,8 +10,12 @@ namespace WeLearn.ViewModels
 	public class ContactsInputModel
 	{
 		[Required]
+		[Display(Name = "Your name")]
+		public string FromName { get; set; }
+
+		[Required]
 		[Display(Name = "Your email")]
-		public string To { get; set; }
+		public string FromEmail { get; set; }
 
 		[Required]
 		public string Subject { get; set; }

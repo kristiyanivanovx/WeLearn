@@ -95,7 +95,7 @@ Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web
 - Password: root
 
 ## Cloudinary (optional)
-### Only needed for when running the app with the Production environment switch on. Skip if you are going to run it in Developmemt only.
+### Only needed for when running the application with the Production environment switch on. Skip if you are going to run it in Developmemt only.
 1. You need to sign up for Cloudinary (free plan will do just fine) - https://cloudinary.com/users/register/free
 2. Copy your ```API Environment variable``` and store it for later
 
@@ -114,7 +114,7 @@ Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web
 
 5. Set ```WeLearn.Web``` as a startup project
 6. Build the application with Ctrl + Shift + B
-7. Run the app with Ctrl + B
+7. Run the application with Ctrl + B
 8. Trust the certificate
 
 Note: If you are not using Visual Studio, you may need to set an environment variable, use this
@@ -153,15 +153,15 @@ dotnet WeLearn.Web.dll
 
 ## Notes
 - You can run with ```ASPNETCORE_ENVIRONMENT=Production``` too, but you will need to configure Cloudinary for this one.
-- CLOUDINARY_URL is the value we saved earlier.
+- CLOUDINARY_URL is the value we saved earlier (optional).
 - For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
 
-The app should be running on the address shown in the terminal's output.
+The application should be running on the address shown in the terminal's output.
 
 For Ubuntu, you may need additional codecs for playing the video files.
 
 ## Acknowledgements
-Some of the (many) resources used for creating this project:
+Some of the many resources used for creating this project:
 - https://stackoverflow.com/a/59860450/13146140
 - https://stackoverflow.com/a/2776689/13146140
 - https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
@@ -173,4 +173,3 @@ Some of the (many) resources used for creating this project:
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template
 - https://www.youtube.com/watch?v=hD6RI0J4mt0
-

@@ -56,17 +56,21 @@ Primary focus is on students in primary/secondary school and respectively, their
 # Installation Instructions
 
 ## External logins
-For the Goolge Authentication option to work you need to configure it. Follow the guide:
+For the Goolge Authentication option to work you need to configure it.
+
+* In the Credentials page of the Google console (https://console.developers.google.com/apis/credentials), after creating an project, select ```CREATE CREDENTIALS``` > ```OAuth client ID```.
+* In the Application type dialog, select ```Web application```. Provide a ```Name``` for it.
+* In the Authorized redirect URIs section, select ```ADD URI``` to set the redirect URI. Example redirect URIs: https://localhost:{PORT}/signin-google, http://localhost:{PORT}/signin-google, where the {PORT} placeholder is the application's port.
+Select the CREATE button.
+* Save the Client ID and Client Secret for use in the app's configuration - ```/src/WeLearn.Web/appsettings.json```.
+* Make sure to change this line in ```_Layout.cshtml``` - ```<meta name="google-signin-client_id" content="your-client-id-here.apps.googleusercontent.com">``` to include your Client Id.
+
+Additional information and documentation:
+https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0
 https://developers.google.com/identity/sign-in/web/sign-in
 
-You need to create new credentials and to change them in the ```/src/WeLearn.Web/appsettings.json``` file and make sure to change this line in ```_Layout.cshtml```- ```<meta name="google-signin-client_id" content="your-client-id-here.apps.googleusercontent.com">```
-At the ```Create Credentials > OAuth client ID``` step, in ```Authorized redirect URIs > URIs *``` section add "https://localhost:port/signin-google" and "http://localhost:port/signin-google", where port is the port that you access the webapp from. For example ```44332``` or ```44333```.
-
-Additional information:
-https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0
-
 ## SendGrid
-For the contacts functionality to work, you need to obtain a SendGrid Api Key.
+For the email sending functionality to work, you need to obtain a SendGrid Api Key and create a Sender.
 Create your account at https://signup.sendgrid.com/ or use existing one.
 
 From ```Marketing``` select ```Senders``` then ```Create New Sender```.
@@ -74,9 +78,9 @@ Use the email you registered with for "Reply To" and "From Email Address" - all 
 Save that sender and verify it.
 Change the email address in ```ContactsController.cs``` to be your own - (await this.emailSender.SendEmailAsync(...)).
 
-From ```Settings``` select ```API Keys``` then ```Create API Key```
+From ```Settings``` select ```API Keys```, then ```Create API Key```
 
-|API Key Name   |API Key Permissions|
+|API Key Name|API Key Permissions|
 |:---------------:|:---------------:|
 |Your Key's name|Full Access|
 

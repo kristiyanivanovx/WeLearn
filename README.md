@@ -6,8 +6,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 
 ## The application has the following functionalities and characteristics:
 - Administrator user role, only select few are in it and can moderate a large part the contents, regardless if particular one is their creation or not.
-- Posts - creating, reading, updating, deleting/
--- Every post has files (as zip), video material, category and appropriate grade attached to it that can be changed.
+- Posts - creating, reading, updating, deleting - every post has files (as zip), video material, category and appropriate grade attached to it that can be changed. An post is not publicly accessible through "View all" and "All categories".
 - Comments - creating, reading, updating, deleting.
 - Reports (comment reports and post reports) - creating, reading, updating, deleting.
 - Live chat, that is cleaned weekly with Hangfire.
@@ -41,8 +40,8 @@ Primary focus is on students in primary/secondary school and respectively, their
 
 # How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
-- An user cannot edit and delete another one's comments, reports and lessons if he is not the creator
-- The application has live chat functionality, realized with SignalR and websockets. Using Hangfire in production, every week the messages and chats are getting deleted/cleaned, the reason being that we can accumulate a lot of them and they are not that important at all. Another option is for the clean period to be monthly, weekly seems often.
+- An user cannot edit and delete another one's comments, reports and lessons if he is not the creator.
+- The application has live chat functionality, realized with SignalR and websockets. Using Hangfire in production, every week the messages and chats are getting deleted/cleaned, the reason being that we can accumulate a lot of them and they are not that important at all. Another option is for the clean period to be monthly, weekly seems too often.
 
 ## User Credentials: Administrator
 - Username: welearnbg@gmail.com

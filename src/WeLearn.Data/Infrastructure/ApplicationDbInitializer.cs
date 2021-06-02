@@ -30,7 +30,7 @@ namespace WeLearn.Data.Infrastructure
                     EmailConfirmed = false,
                     UserName = "welearnbg@gmail.com",
                     NormalizedEmail = "WELEARNBG@GMAIL.COM",
-                    NormalizedUserName = "ADMIN",
+                    NormalizedUserName = "WELEARNBG@GMAIL.COM",
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "admin_Pass123%").Result;

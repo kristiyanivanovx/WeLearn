@@ -8,6 +8,6 @@ namespace WeLearn.Services.Interfaces
 {
     public interface IEmailSender
     {
-        Task SendEmailAsync(string fromEmail, string fromName, string toEmail, string subject, string content);
+        Task SendEmailAsync(string toEmail, string subject, string content, bool isContentHtml);
     }
 }

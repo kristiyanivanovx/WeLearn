@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
@@ -30,7 +26,16 @@ namespace WeLearn.Web.Controllers
 				return View();
 			}
 
-			await this.emailSender.SendEmailAsync(model.FromEmail, model.FromName, "welearnbg@gmail.com", model.Subject, model.Content);
+			StringBuilder stringBuilder = new StringBuilder();
+			string message = stringBuilder
+				.AppendLine("From Name: " + model.FromName)
+				.AppendLine("From Email: " + model.FromEmail)
+				.AppendLine("Content: ")
+				.Append(model.Content)
+				.ToString()
+				.Trim();
+
+			await this.emailSender.SendEmailAsync("welearnbg@gmail.com", model.Subject, message, false);
 			return View(nameof(Sent));
 		}
 	}

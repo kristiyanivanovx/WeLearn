@@ -19,16 +19,25 @@ namespace WeLearn.Services
 			this.client = new SendGridClient(apiKey);
 		}
 
-		public async Task SendEmailAsync(string fromEmail, string fromName, string to, string subject, string content)
+		public async Task SendEmailAsync(string to, string subject, string content, bool isContentHtml)
 		{
 			if (string.IsNullOrWhiteSpace(subject) && string.IsNullOrWhiteSpace(content))
 			{
 				throw new ArgumentException("Subject and message should be provided.");
 			}
 
-			EmailAddress fromAddress = new EmailAddress(fromEmail, fromName);
+			EmailAddress fromAddress = new EmailAddress(to);
 			EmailAddress toAddress = new EmailAddress(to);
-			SendGridMessage message = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, null, content);
+			SendGridMessage message;
+
+			if (isContentHtml)
+			{
+				message = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, null, content);
+			} 
+			else
+			{
+				message = MailHelper.CreateSingleEmail(fromAddress, toAddress, subject, content, null);
+			}
 
 			try
 			{

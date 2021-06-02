@@ -6,11 +6,12 @@ Primary focus is on students in primary/secondary school and respectively, their
 
 ## The application has the following functionalities and characteristics:
 - Administrator user role, only select few are in it and can moderate a large part the contents, regardless if particular one is their creation or not.
-- Posts -> creating, reading, updating, deleting
--- Every post has files (as zip), video material, category and appropriate grade attached to it that can be changed
-- Comments -> creating, reading, updating, deleting
-- Reports (comment reports and post reports) -> creating, reading, updating, deleting
-- Live chat, that is cleaned weekly with Hangfire
+- Posts - creating, reading, updating, deleting/
+-- Every post has files (as zip), video material, category and appropriate grade attached to it that can be changed.
+- Comments - creating, reading, updating, deleting.
+- Reports (comment reports and post reports) - creating, reading, updating, deleting.
+- Live chat, that is cleaned weekly with Hangfire.
+- Contact us page - an email is sent using SendGrid.
 
 ## Technologies used
 - ASP.NET Core 5

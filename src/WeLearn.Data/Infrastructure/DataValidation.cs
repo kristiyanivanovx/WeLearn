@@ -37,7 +37,7 @@ namespace WeLearn.Data.Infrastructure
 
             public const int MaxLinkLength = 250;
 
-            public static readonly HashSet<string> AllowedFilesExtensions = new HashSet<string>
+            public static readonly HashSet<string> AllowedFileExtensions = new HashSet<string>
             {
                 ".mp3",
                 ".css", ".html", ".htm",

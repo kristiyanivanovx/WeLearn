@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
-using WeLearn.ViewModels.Index;
+using WeLearn.ViewModels.Home;
+using static WeLearn.Data.Infrastructure.DataValidation.Video;
+using static WeLearn.Data.Infrastructure.DataValidation.Material;
 
 namespace WeLearn.Services
 {
@@ -21,7 +23,14 @@ namespace WeLearn.Services
             this.lessonsService = lessonsService;
         }
 
-        public IndexViewModel GenerateIndexViewModel()
+        public FrequentQuestionsViewModel GenerateFrequentQuestionsViewModel()
+            => new FrequentQuestionsViewModel
+                {
+                    AllowedFileExtensions = string.Join(", ", AllowedFileExtensions),
+                    AllowedVideoExtensions = string.Join(", ", AllowedVideoExtensions),
+                };
+
+		public IndexViewModel GenerateIndexViewModel()
             => new IndexViewModel()
                 {
                     CategoriesCount = this.categoriesService.GetAllCategoriesCount(),

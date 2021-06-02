@@ -399,7 +399,7 @@ namespace WeLearn.Services
         {
             // check if the sum of files' sizes is above 0 mb and below 10 mb and all the extensions are permitted
             bool isFileSizeAcceptableForAll = lessonInputModel.Files.Sum(x => x.Length) > MinimumZipFileSizeInBytes && lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
-            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file => AllowedFilesExtensions.Any(extension => file.FileName.EndsWith(extension)));
+            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file => AllowedFileExtensions.Any(extension => file.FileName.EndsWith(extension)));
             bool areFilesValid = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;
 
             if (!areFilesValid)
@@ -451,7 +451,7 @@ namespace WeLearn.Services
 
             // check if the sum of files' sizes is above 0 mb, below 10 mb and all the extensions are permitted
             bool isFileSizeAcceptableForAll = lessonInputModel.Files.Sum(file => file.Length) > MinimumZipFileSizeInBytes && lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
-            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file => AllowedFilesExtensions.Any(extension => file.FileName.EndsWith(extension)));
+            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file => AllowedFileExtensions.Any(extension => file.FileName.EndsWith(extension)));
             bool areFilesAcceptable = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;
 
             if (!areFilesAcceptable)

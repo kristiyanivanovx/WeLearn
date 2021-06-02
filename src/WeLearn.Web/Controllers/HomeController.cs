@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
-using WeLearn.ViewModels.Index;
+using WeLearn.ViewModels.Home;
 
 namespace WeLearn.Controllers
 {
@@ -16,11 +16,15 @@ namespace WeLearn.Controllers
 
         public IActionResult Index()
         {
-            IndexViewModel indexViewModel = this.homeService.GenerateIndexViewModel();
-            return View(indexViewModel);
+            IndexViewModel model = this.homeService.GenerateIndexViewModel();
+            return View(model);
         }
 
-        public IActionResult FAQ() => View();
+        public IActionResult FAQ()
+        {
+            FrequentQuestionsViewModel model = this.homeService.GenerateFrequentQuestionsViewModel();
+            return View(model);
+        }
 
         public IActionResult Privacy() => View();
 

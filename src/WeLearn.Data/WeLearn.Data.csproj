@@ -27,4 +27,8 @@
 		<Folder Include="Migrations\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Common\WeLearn.Common.csproj" />
+	</ItemGroup>
+
 </Project>

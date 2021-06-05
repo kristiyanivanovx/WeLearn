@@ -164,3 +164,18 @@ p {
 	padding: 0 !important;
 	margin: 0 !important;
 }
+
+.home {
+	background: url('https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg');
+	/*-webkit-background-size: cover;*/
+	/*-moz-background-size: cover;*/
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	/*-o-background-size: cover;*/
+}
+
+.background-image {
+	max-width: 50%;
+	text-shadow: 2px 2px 3px rgba(0,0,0,1);
+}

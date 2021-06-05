@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
+using static WeLearn.Common.Constants;
 
 namespace WeLearn.Web.Controllers
 {
@@ -35,7 +36,7 @@ namespace WeLearn.Web.Controllers
 				.ToString()
 				.Trim();
 
-			await this.emailSender.SendEmailAsync("welearnbg@gmail.com", model.Subject, message, false);
+			await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, ApplicationAdministratorEmail, model.Subject, message, false);
 			return View(nameof(Sent));
 		}
 	}

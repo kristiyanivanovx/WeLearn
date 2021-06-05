@@ -1,6 +1,6 @@
 {
-	"version": "1.0",
-	"defaultProvider": "unpkg",
+  "version": "1.0",
+  "defaultProvider": "unpkg",
   "libraries": [
     {
       "library": "@microsoft/signalr@latest",
@@ -45,6 +45,11 @@
         "jquery.slim.min.js",
         "jquery.slim.min.map"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "luxon@1.26.0",
+      "destination": "wwwroot/lib/luxon/"
     }
   ]
 }

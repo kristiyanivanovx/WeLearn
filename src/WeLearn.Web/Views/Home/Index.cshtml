@@ -1,20 +1,23 @@
 ﻿@model IndexViewModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Home page";
 }
 
-<div class="container">
-    <div class="text-center">
-        <h1 class="display-4">Welcome to WeLearn!</h1>
-        <hr />
-        <h5>The purpose of the web application is to be a place for sharing all kinds of knowledge, but mainly information related to the subjects taught in school.</h5>
-        <h5 class="mb-4">Feel free to look around, register and submit a lesson!</h5>
-        <h5 class="mt-4">Currently we have:</h5>
-        <h5>@Model.UsersCount users</h5>
-        <h5>@Model.CategoriesCount categories</h5>
-        <h5>@Model.LessonsCount lessons</h5>
-    </div>
-    <div class="text-center">
-        <img src="https://images.pexels.com/photos/5905443/pexels-photo-5905443.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" class=" m-4 image-width" alt="education" />
-    </div>
+<div>
+	<div class="container text-center mb-3 mt-3">
+		<h1 class="display-4">Welcome to WeLearn!</h1>
+		<hr />
+		<h5>The purpose of the web application is to be a place for sharing all kinds of knowledge, but mainly information related to the subjects taught in school.</h5>
+		<h5 class="mb-4">Feel free to look around, register and submit a lesson!</h5>
+		<h5 class="mt-4 ">Currently we have:</h5>
+		<h5>@Model.UsersCount users</h5>
+		<h5>@Model.CategoriesCount categories</h5>
+		<h5>@Model.LessonsCount lessons</h5>
+	</div>
+	<div class="text-center">
+		<img src="https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg"
+			 class="background-image"
+			 alt="books" />
+	</div>
+
 </div>

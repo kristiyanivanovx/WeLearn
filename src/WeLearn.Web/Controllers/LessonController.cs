@@ -13,6 +13,7 @@ using WeLearn.Services.HelperModels;
 using System.Collections.Generic;
 using static WeLearn.Data.Infrastructure.DataValidation.Video;
 using static WeLearn.Data.Infrastructure.DataValidation.Material;
+using static WeLearn.Common.Constants;
 using WeLearn.ViewModels.HelperModels;
 using System.Linq;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +23,7 @@ using WeLearn.ViewModels.Lesson;
 using WeLearn.ViewModels.Category;
 using WeLearn.Data.Models.Enums;
 using System;
+using System.Text;
 
 namespace WeLearn.Controllers
 {
@@ -32,20 +34,26 @@ namespace WeLearn.Controllers
 
         private readonly ICategoriesService categoriesService;
         private readonly ILessonsService lessonsService;
-        private readonly IFileDownloadService fileDownloadService;
+		private readonly IEmailSender emailSender;
+		private readonly IFileDownloadService fileDownloadService;
         private readonly IWebHostEnvironment environment;
 
         public LessonController(
             ICategoriesService categoriesService,
             ILessonsService lessonsService,
+            IEmailSender emailSender,
             IFileDownloadService fileDownloadService,
             IWebHostEnvironment environment) 
         {
             this.categoriesService = categoriesService;
             this.lessonsService = lessonsService;
-            this.fileDownloadService = fileDownloadService;
+			this.emailSender = emailSender;
+			this.fileDownloadService = fileDownloadService;
             this.environment = environment;
         }
+
+        [HttpGet]
+        public IActionResult EmailSent() => View();
 
         [HttpGet]
         public IActionResult Index() => RedirectToAction(nameof(All));
@@ -53,8 +61,8 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> All(string searchString, int? pageNumber)
         {
-            var lessonsViewModels = await this.lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
-            var paginated = PaginatedList<LessonViewModel>.Create(lessonsViewModels.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
+            var models = await this.lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
+            var paginated = PaginatedList<LessonViewModel>.Create(models.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             paginated.SearchString = searchString;
             return View(paginated);
         }
@@ -62,8 +70,43 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> Watch(int id)
         {
-            LessonViewModel lessonViewModel = await this.lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
-            return View(lessonViewModel);
+            LessonViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Send(int id)
+        {
+            LessonSendEmailViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonSendEmailViewModel>(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Send(LessonSendEmailViewModel model)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            string subject = $"Lesson #{model.LessonId} - {model.Name}";
+
+            string createdBy = model.ApplicationUserUserName == null ? "Deleted User" : model.ApplicationUserUserName;
+
+            string message = stringBuilder
+                .AppendLine(@$"
+                <div>
+                    <video playsinline controls crossorigin=""anonymous"" alt=""{model.VideoName}"" >
+			            <source src=""{model.VideoLink}"" type=""{ model.VideoContentType}"" />
+		            </video>
+                </div>
+                <div>
+                    <p>Created by - {createdBy} | </p>
+				    <p>Category - {model.CategoryName} | </p>
+				    <p>Grade - {model.Grade} | </p>
+				    <p>Date created - {model.DateCreated.ToShortDateString()}</p>
+                </div>")
+                .ToString()
+                .Trim();
+
+            await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, model.Email, subject, message, true);
+            return View(nameof(EmailSent));
         }
 
         [HttpGet]
@@ -78,16 +121,16 @@ namespace WeLearn.Controllers
         [HttpPost]
         [Authorize]
         [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
-        public async Task<IActionResult> Create(LessonInputModel lessonInputModel)
+        public async Task<IActionResult> Create(LessonInputModel model)
         {
             if (!ModelState.IsValid)
             {
                 IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lessonInputModel.CategoryId);
-                return View(lessonInputModel);
+                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", model.CategoryId);
+                return View(model);
             }
 
-            await this.lessonsService.CreateLessonAsync(lessonInputModel, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
+            await this.lessonsService.CreateLessonAsync(model, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -95,30 +138,30 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            LessonEditModel lesson = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
+            LessonEditModel model = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
             IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
-            return View(lesson);
+            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", model.CategoryId);
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
         [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
-        public async Task<IActionResult> Edit(LessonEditModel lessonEditModel)
+        public async Task<IActionResult> Edit(LessonEditModel model)
         {
             if (!ModelState.IsValid)
             {
                 IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", lessonEditModel.CategoryId);
-                return View(lessonEditModel);
+                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", model.CategoryId);
+                return View(model);
             }
 
-            if (lessonEditModel.UserId != GetUserId())
+            if (model.UserId != GetUserId())
             {
                 return View(nameof(Unauthorized));
             }
 
-            await this.lessonsService.EditLessonAsync(lessonEditModel, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
+            await this.lessonsService.EditLessonAsync(model, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -126,20 +169,20 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            LessonDeleteModel lessonViewModel = await this.lessonsService.GetLessonByIdAsync<LessonDeleteModel>(id);
-            return View(lessonViewModel);
+            LessonDeleteModel model = await this.lessonsService.GetLessonByIdAsync<LessonDeleteModel>(id);
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Delete(LessonDeleteModel lessonViewModel)
+        public async Task<IActionResult> Delete(LessonDeleteModel model)
         {
-            if (lessonViewModel.ApplicationUserUserName != GetUserName())
+            if (model.ApplicationUserUserName != GetUserName())
             {
                 return View("Unauthorized");
             }
 
-            await this.lessonsService.SoftDeleteLessonByIdAsync(lessonViewModel.LessonId);
+            await this.lessonsService.SoftDeleteLessonByIdAsync(model.LessonId);
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -147,8 +190,8 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe(string searchString, int? pageNumber)
         {
-            IEnumerable<LessonViewModel> myLessons = await this.lessonsService.GetCreatedByMeAsync(GetUserId(), searchString);
-            var paginated = PaginatedList<LessonViewModel>.Create(myLessons.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
+            IEnumerable<LessonViewModel> models = await this.lessonsService.GetCreatedByMeAsync(GetUserId(), searchString);
+            var paginated = PaginatedList<LessonViewModel>.Create(models.OrderByDescending(x => x.LessonId), pageNumber ?? DefaultPageNumber, DefaultPageSize);
             paginated.SearchString = searchString;
             return View(paginated);
         }

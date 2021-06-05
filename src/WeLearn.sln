@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeLearn.ViewModels", "WeLea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeLearn.Tests", "WeLearn.Tests\WeLearn.Tests.csproj", "{3AEA1D53-D92F-4E06-86CE-FFD9DF33311D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Common", "Common\WeLearn.Common.csproj", "{BFE695E4-BC52-4BB1-8721-D2F050F84D7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3AEA1D53-D92F-4E06-86CE-FFD9DF33311D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AEA1D53-D92F-4E06-86CE-FFD9DF33311D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AEA1D53-D92F-4E06-86CE-FFD9DF33311D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE695E4-BC52-4BB1-8721-D2F050F84D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE695E4-BC52-4BB1-8721-D2F050F84D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE695E4-BC52-4BB1-8721-D2F050F84D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE695E4-BC52-4BB1-8721-D2F050F84D7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

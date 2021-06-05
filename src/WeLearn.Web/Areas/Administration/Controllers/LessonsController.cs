@@ -14,12 +14,11 @@ using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Lesson;
 using WeLearn.ViewModels.Category;
 using WeLearn.ViewModels.HelperModels;
+using static WeLearn.Common.Constants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    [Authorize(Roles = "Admin")]
-    public class LessonsController : Controller
+    public class LessonsController : AdministrationController
     {
         private readonly ILessonsService lessonsService;
         private readonly ICategoriesService categoriesService;

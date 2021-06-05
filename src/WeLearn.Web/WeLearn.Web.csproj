@@ -32,6 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Common\WeLearn.Common.csproj" />
 		<ProjectReference Include="..\WeLearn.Services\WeLearn.Services.csproj" />
 	</ItemGroup>
 

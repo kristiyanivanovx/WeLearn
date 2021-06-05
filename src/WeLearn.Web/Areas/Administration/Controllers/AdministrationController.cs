@@ -4,9 +4,9 @@ using static WeLearn.Common.Constants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    public class ManageController : AdministrationController
-    {
-        [HttpGet]
-        public IActionResult Index() => View();
-    }
+	[Area(ApplicationAdministrationAreaName)]
+	[Authorize(Roles = ApplicationAdministratorRoleName)]
+	public class AdministrationController : Controller
+	{
+	}
 }

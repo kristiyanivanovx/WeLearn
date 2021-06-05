@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Models;
+using static WeLearn.Common.Constants;
 
 namespace WeLearn.Data.Infrastructure
 {
@@ -13,31 +14,31 @@ namespace WeLearn.Data.Infrastructure
 
         private static void SeedRoles(RoleManager<ApplicationRole> roleManager)
         {
-            if (!roleManager.RoleExistsAsync("Admin").Result)
+            if (!roleManager.RoleExistsAsync(ApplicationAdministratorRoleName).Result)
             {
-                ApplicationRole role = new ApplicationRole("Admin");
+                ApplicationRole role = new ApplicationRole(ApplicationAdministratorRoleName);
                 _ = roleManager.CreateAsync(role).Result;
             }
         }
 
         private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
-            if (userManager.FindByEmailAsync("welearnbg@gmail.com").Result == null)
+            if (userManager.FindByEmailAsync(ApplicationAdministratorEmail).Result == null)
             {
                 ApplicationUser user = new ApplicationUser()
                 {
-                    Email = "welearnbg@gmail.com",
+                    Email = ApplicationAdministratorEmail,
                     EmailConfirmed = false,
-                    UserName = "welearnbg@gmail.com",
-                    NormalizedEmail = "WELEARNBG@GMAIL.COM",
-                    NormalizedUserName = "WELEARNBG@GMAIL.COM",
+                    UserName = ApplicationAdministratorEmail,
+                    NormalizedEmail = ApplicationAdministratorEmail.ToUpper(),
+                    NormalizedUserName = ApplicationAdministratorEmail.ToUpper(),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "admin_Pass123%").Result;
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, "Admin").Wait();
+                    userManager.AddToRoleAsync(user, ApplicationAdministratorRoleName).Wait();
                 }
             }
         }

@@ -15,9 +15,7 @@ using WeLearn.ViewModels.Admin.Report;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    [Authorize(Roles = "Admin")]
-    public class ReportsController : Controller
+    public class ReportsController : AdministrationController
     {
         private readonly IReportsService reportsService;
 

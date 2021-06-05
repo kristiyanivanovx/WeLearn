@@ -48,6 +48,9 @@ namespace WeLearn.Web.Infrastructure
 			CreateMap<Lesson, LessonViewModel>()
 				.ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id));
 
+			CreateMap<Lesson, LessonSendEmailViewModel>()
+				.ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id));
+
 			CreateMap<Lesson, LessonDeleteModel>()
 			  .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id));
 

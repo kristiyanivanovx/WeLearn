@@ -8,12 +8,11 @@ using System.Linq;
 using System.Collections.Generic;
 using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Comment;
+using static WeLearn.Common.Constants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area("Administration")]
-    [Authorize(Roles = "Admin")]
-    public class CommentsController : Controller
+    public class CommentsController : AdministrationController
     {
         private readonly ICommentsService commentsService;
 

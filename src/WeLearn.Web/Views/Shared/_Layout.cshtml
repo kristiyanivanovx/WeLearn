@@ -15,78 +15,81 @@
 	<link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="/logo.png" class="logo" alt="earth" /> <span>WeLearn</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-success" asp-area="Administration" asp-controller="Manage" asp-action="Index">Administration</a>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Chat</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="Create">Create&nbsp;new</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="All">View&nbsp;all</a>
-                        </li>
-                        @await Component.InvokeAsync("LessonsNavigatorDropdown")
-                        <li class="nav-item dropdown">
-                            <div class="dropdown">
-                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    My activity
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="ByMe">Lessons created by me</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Comment" asp-action="ByMe">Comments created by me</a>
-                                    <hr />
-                                    <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="LessonsByMe">Lessons reported by me</a>
-                                    <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="CommentsByMe">Comments reported by me</a>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <partial name="_LoginPartial" />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container-fluid padding">
-        @RenderBody()
-    </div>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+					<img src="/logo.png" class="logo" alt="earth" /> <span>WeLearn</span>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						@if (User.IsInRole("Admin"))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-success" asp-area="Administration" asp-controller="Manage" asp-action="Index">Administration</a>
+							</li>
+						}
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Chat</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="Create">Create&nbsp;new</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="All">View&nbsp;all</a>
+						</li>
+						@await Component.InvokeAsync("LessonsNavigatorDropdown")
+						<li class="nav-item dropdown">
+							<div class="dropdown">
+								<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									My activity
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="ByMe">Lessons created by me</a>
+									<a class="dropdown-item" asp-area="" asp-controller="Comment" asp-action="ByMe">Comments created by me</a>
+									<hr />
+									<a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="LessonsByMe">Lessons reported by me</a>
+									<a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="CommentsByMe">Comments reported by me</a>
+								</div>
+							</div>
+						</li>
+						<li class="nav-item">
+							<partial name="_LoginPartial" />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
 
-    <footer class="border-top footer text-muted">
+	<div class="container-fluid padding">
+		@RenderBody()
+	</div>
+
+	<footer class="border-top footer bg-white text-muted">
 		<div class="container">
 			&copy; @DateTime.Now.Year - WeLearn - @await Component.InvokeAsync("UsersCountSummary") -
 			<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -
 			<a asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a> -
 			<a asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>
 		</div>
-    </footer>
-    <script src="~/lib/jquery/jquery.min.js"></script>
-    @* bootstrap 4.3.1 *@
-    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
-    @* bootstrap 4.6.0 *@
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
-    @* unobtrusive client-side validation *@
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-    @*  *@
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	</footer>
+	<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+	@* bootstrap 4.3.1 *@
+	@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+	@* bootstrap 4.6.0 *@
+	<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+	@* unobtrusive client-side validation *@
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+	@*  *@
+	<script src="~/lib/luxon/luxon.min.js" asp-append-version="true"></script>
+	<script src="~/lib/moment.js/moment-with-locales.min.js" asp-append-version="true"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

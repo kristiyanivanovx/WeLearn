@@ -27,7 +27,7 @@
                             <small class="text-muted">Grade - @Model.LessonGrade</small>
                         </div>
                         <div>
-                            <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
+                            <small class="text-muted">Date created - <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time></small>
                         </div>
                     </p>
                     <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.LessonMaterialLink" class="mt-3 btn btn-sm btn-outline-dark">

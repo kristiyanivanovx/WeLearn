@@ -11,7 +11,7 @@
                 <p>
                     @item.Content
                 </p>
-                <small class="text-muted">on @item.DateCreated.ToShortDateString()</small>
+                <small class="text-muted">on <time datetime="@item.DateCreated.ToString("O")">@item.DateCreated.ToString("g")</time></small>
             </div>
             @if (User.Identity.Name == item.ApplicationUserUserName)
             {

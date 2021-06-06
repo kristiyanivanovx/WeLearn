@@ -39,7 +39,7 @@
             <hr />
             <p>Subject: @Model.Subject</p>
             <p>Description: @Model.Description</p>
-            <p>Date created: @Model.DateCreated.ToShortDateString()</p>
+            <p>Date created: <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
 
             <div class="form-group form-check">
                 <label class="form-check-label">

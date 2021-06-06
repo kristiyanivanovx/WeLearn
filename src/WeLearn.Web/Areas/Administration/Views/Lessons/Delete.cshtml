@@ -24,7 +24,7 @@
                         <p class="small text-muted mt-2">Grade - @Model.Grade</p>
                         <p class="small text-muted">Category - @Model.CategoryName</p>
                         <p class="small text-muted">Created by - @createdBy</p>
-                        <p class="small text-muted">Date created - @Model.DateCreated.ToShortDateString()</p>
+                        <p class="small text-muted">Date created - <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <div class="form-group">
-                    <p>Date created: @Model.DateCreated.ToShortDateString()</p>
+                    <p>Date created: <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
                 </div>
                 <div class="form-group form-check">
                     <label class="form-check-label">

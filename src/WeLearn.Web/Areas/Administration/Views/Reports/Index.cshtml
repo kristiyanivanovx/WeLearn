@@ -78,7 +78,7 @@
                         @Html.DisplayFor(modelItem => item.CommentContent)
                     </td>
                     <td>
-                        @item.DateCreated.ToShortDateString()
+                        <time datetime="@item.DateCreated.ToString("O")">@item.DateCreated.ToString("g")</time>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IsDeleted)

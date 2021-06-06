@@ -42,7 +42,7 @@
 				<small class="text-muted">Created by - @createdBy | </small>
 				<small class="text-muted">Category - @Model.CategoryName | </small>
 				<small class="text-muted">Grade - @Model.Grade | </small>
-				<small class="text-muted">Date created - @Model.DateCreated.ToShortDateString()</small>
+				<small class="text-muted">Date created - <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></small>
 			</p>
 			@if (User.Identity.Name == Model.ApplicationUserUserName)
 			{

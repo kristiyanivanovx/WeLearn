@@ -93,13 +93,13 @@ namespace WeLearn.Controllers
                 .AppendLine(@$"
                 <div>
                     <video playsinline controls crossorigin=""anonymous"" alt=""{model.VideoName}"" >
-			            <source src=""{model.VideoLink}"" type=""{ model.VideoContentType}"" />
+			            <source src=""{model.VideoLink}"" type=""{model.VideoContentType}"" />
 		            </video>
                 </div>
                 <div>
-                    <p>Created by - {createdBy} | </p>
-				    <p>Category - {model.CategoryName} | </p>
-				    <p>Grade - {model.Grade} | </p>
+                    <p>Created by - {createdBy}</p>
+				    <p>Category - {model.CategoryName}</p>
+				    <p>Grade - {model.Grade}</p>
 				    <p>Date created - {model.DateCreated.ToShortDateString()}</p>
                 </div>")
                 .ToString()

@@ -24,7 +24,7 @@
                         <p class="small text-muted mt-2">Grade - @Model.LessonGrade</p>
                         <p class="small text-muted">Category - @Model.LessonCategoryName</p>
                         <p class="small text-muted">Created by - @createdBy</p>
-                        <p class="small text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</p>
+                        <p class="small text-muted">Date created - <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time></p>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <p>Created by: @Model.ApplicationUserUserName</p>
-                <p>Date created: @Model.DateCreated.ToShortDateString()</p>
+                <p>Date created: <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
                 <p>Content: @Model.Content</p>
                 <input class="form-check-input" asp-for="IsDeleted" disabled />
                 @Html.DisplayNameFor(model => model.IsDeleted)

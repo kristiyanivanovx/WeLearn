@@ -27,7 +27,7 @@
                             <small class="text-muted">Grade - @Model.LessonGrade</small>
                         </div>
                         <div>
-                            <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
+                            <small class="text-muted">Date created - <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time></small>
                         </div>
                     </p>
                     <div class="mt-3">

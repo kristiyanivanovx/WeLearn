@@ -27,7 +27,7 @@
 							<small class="text-muted">Grade - @item.Grade</small>
 						</div>
 						<div class="mb-3">
-							<small class="text-muted">Date created - @item.DateCreated.ToShortDateString()</small>
+							<small class="text-muted">Date created - <time datetime="@item.DateCreated.ToString("O")">@item.DateCreated.ToString("g")</time></small>
 						</div>
 					</p>
 					<a asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-dark mb-1">

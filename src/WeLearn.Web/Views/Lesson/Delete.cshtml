@@ -29,7 +29,7 @@
                 <small class="text-muted">Created by - @Model.ApplicationUserUserName | </small>
                 <small class="text-muted">Category - @Model.CategoryName | </small>
                 <small class="text-muted">Grade - @Model.Grade | </small>
-                <small class="text-muted">Date created - @Model.DateCreated.ToShortDateString()</small>
+                <small class="text-muted">Date created - <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></small>
             </p>
             <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="mt-3 btn btn-sm btn-outline-info">
                 <i class="fas fa-arrow-down"></i> Download Resources

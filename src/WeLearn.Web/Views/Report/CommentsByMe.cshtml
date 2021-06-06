@@ -19,7 +19,7 @@
                                 <small class="text-muted">Created by - @createdBy</small>
                             </div>
                             <div>
-                                <small class="text-muted">Date created - @report.CommentDateCreated.ToShortDateString()</small>
+                                <small class="text-muted">Date created - <time datetime="@report.CommentDateCreated.ToString("O")">@report.CommentDateCreated.ToString("g")</time></small>
                             </div>
                         </p>
                     </div>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="@report.DateCreated">Date created</label>
-                            <h6 class="card-text">@report.DateCreated.ToShortDateString()</h6>
+                            <h6 class="card-text"><time datetime="@report.DateCreated.ToString("O")">@report.DateCreated.ToString("g")</time></h6>
                         </div>
                         <a asp-controller="Report" asp-action="CommentEdit" asp-route-reportid="@report.ReportId" class="btn btn-sm btn-outline-success mb-2">
                             <i class="fas fa-edit"></i> Edit

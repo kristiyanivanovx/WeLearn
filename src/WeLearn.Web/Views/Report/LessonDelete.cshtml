@@ -20,7 +20,7 @@
 			</div>
 			<div class="mb-3">
 				<p>Date created: </p>
-				<p>@Model.DateCreated.ToShortDateString()</p>
+				<p><time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
 			</div>
 			<div class="mb-3">
 				<input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
@@ -44,7 +44,7 @@
                 <small class="text-muted">Created by - @createdBy | </small>
                 <small class="text-muted">Category - @Model.LessonCategoryName | </small>
                 <small class="text-muted">Grade - @Model.LessonGrade | </small>
-                <small class="text-muted">Date created - @Model.LessonDateCreated.ToShortDateString()</small>
+                <small class="text-muted">Date created - <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time></small>
             </p>
             <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
                 <i class="fas fa-info"></i> Details

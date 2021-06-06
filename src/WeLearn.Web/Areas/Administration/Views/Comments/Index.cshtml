@@ -67,7 +67,7 @@
                         <hr />
                         Created by: @Html.DisplayFor(modelItem => item.LessonApplicationUserUserName)
                         <hr />
-                        Date created: @item.LessonDateCreated.ToShortDateString()
+                        Date created: <time datetime="@item.LessonDateCreated.ToString("O")">@item.LessonDateCreated.ToString("g")</time>
                     </td>
                     <td>
                         <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.LessonVideoName" data-poster="@item.LessonVideoLink">
@@ -81,7 +81,7 @@
                         </a>
                     </td>
                     <td>
-                        @item.DateCreated.ToShortDateString()
+						<time datetime="@item.DateCreated.ToString("O")">@item.DateCreated.ToString("g")</time>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IsDeleted)

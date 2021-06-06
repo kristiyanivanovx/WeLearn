@@ -54,7 +54,7 @@ namespace WeLearn.Web.Controllers
 				{
 					Text = messageModel.Text,
 					Name = messageModel.Name,
-					DateCreated = messageModel.DateCreated.ToString("dd/MM/yyyy @ hh:mm:ss")
+					DateCreated = messageModel.DateCreated.ToLocalTime().ToString("d/MM/yyyy, HH:mm")
 				});
 
 			return Ok();

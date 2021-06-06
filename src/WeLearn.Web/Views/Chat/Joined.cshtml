@@ -1,6 +1,6 @@
 ﻿@model Chat
 @{
-    ViewData["Title"] = "Chat #" + Model.Id;
+    ViewData["Title"] = $"Chat #{Model.Id} - {Model.Name}";
 }
 
 <div class="container text-center">
@@ -14,7 +14,7 @@
                     <div class="message mb-1">
                         <span><b>@message.Name</b>:</span>
                         <span>@message.Text</span>
-                        <span> | @message.DateCreated.ToString("dd/MM/yyyy @ hh:mm:ss")</span>
+                        <span> | <time datetime="@message.DateCreated.ToString("O")">@message.DateCreated.ToString("g")</time></span>
                     </div>
                 }
             </div>

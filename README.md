@@ -119,7 +119,7 @@ Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web
 
 5. Set ```WeLearn.Web``` as a startup project
 6. Build the application with Ctrl + Shift + B
-7. Run the application with Ctrl + B
+7. Run the application with Ctrl + F5
 8. Trust the certificate
 
 Note: If you are not using Visual Studio, you may need to set an environment variable, use this

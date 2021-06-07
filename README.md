@@ -81,7 +81,7 @@ Create your account at https://signup.sendgrid.com/ or use existing one.
 From ```Marketing``` select ```Senders``` then ```Create New Sender```.
 Use the email you registered with for "Reply To" and "From Email Address" - all three of them need to be identical. 
 Save that sender and verify it.
-Change the email address in ```ContactsController.cs``` to be your own - (await this.emailSender.SendEmailAsync(...)).
+Change the ```ApplicationAdministratorEmail``` value in ```WeLearn.Common/Constants.cs``` to be your own.
 
 From ```Settings``` select ```API Keys```, then ```Create API Key```
 

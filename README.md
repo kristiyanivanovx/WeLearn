@@ -4,18 +4,16 @@ Repository for the WeLearn project.
 The idea is for it to be a platform where everyone can share their self-made lectures/lessons and learn from the other ones available.
 Primary focus is on students in primary/secondary school and respectively, their teachers. 
 
-## The application has the following functionalities and characteristics:
-- Administrator user role, only select few are in it and can moderate a large part the contents, regardless if particular one is their creation or not.
-- Posts - creating, reading, updating, deleting - every post has files (as zip), video material, category and appropriate grade attached to it that can be changed. An post is not publicly accessible through "View all" and "All categories".
-- Comments - creating, reading, updating, deleting.
-- Reports (comment reports and post reports) - creating, reading, updating, deleting.
-- Live chat, that is cleaned weekly with Hangfire.
-- Contact us page - an email is sent using SendGrid.
+## Functionalities and characteristics
+- Administrator user role, only select few are in it and can moderate a large part of the contents, regardless if particular one is their creation or not - creating, reading, updating, deleting (soft and hard deletion).
+- Lessons - creating, reading, updating, deleting, reporting, sending to email. Every lesson has files (in a zip archive), video material, category and appropriate grade attached to it that can be changed. There is an option for the lesson to be sent to a particular email address using SendGrid. An lesson is not publicly accessible through "View all" and "All categories" if it hasn't been approved by the administrators. Users can soft delete their lessons, but hard deletion option is given to administrators only.
+- Comments - creating, reading, updating, deleting, reporting. Comments are related to a particular lesson. Users can soft delete their comments, but hard deletion option is given to administrators only.
+- Reports - creating, reading, updating, deleting. An user can report a comment or a lesson. Users can soft delete their reports, but hard deletion option is given to administrators only.
+- Live chat using SignalR. Cleaned weekly with Hangfire.
+- Contact us page with email sending functionality realized using SendGrid.
 
 ## Technologies used
-- ASP.NET Core 5
-- C#
-- Entity Framework Core
+- .NET - C#, ASP.NET Core MVC, Entity Framework Core, SignalR
 - Microsoft SQL Server 
 - PostgreSQL
 - AutoMapper
@@ -24,38 +22,45 @@ Primary focus is on students in primary/secondary school and respectively, their
 - Cloudinary
 - Plyr 
 - HTML5, CSS3, Bootstrap 4
-- JavaScript, jQuery
+- JavaScript, jQuery, luxon
 - Git, GitHub
 - Heroku
 - Docker
 
-# Deployed Version
+## Deployed version
 - https://welearn-bg.herokuapp.com/
 
-# Contact Info
+## Deployment strategy
+- Docker is used for containerization. The resulting images are pushed to Heroku. Server used is Kestrel.
+
+## Docker
+- To build the docker image, execute ```docker build -t app .``` inside ```/src/```.
+- To run the docker image, execute ```docker run -p 80:80 -it app``` inside ```/src/```.
+
+## Contact info
 - Private message me on Facebook or LinkedIn, we can exchange information like mobile phone numbers or emails there.
 
-# LinkedIn 
+## LinkedIn 
 - TBA
 
-# How to use 
+## How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
 - An user cannot edit and delete another one's comments, reports and lessons if he is not the creator.
 - The application has live chat functionality, realized with SignalR and websockets. Using Hangfire in production, every week the messages and chats are getting deleted/cleaned, the reason being that we can accumulate a lot of them and they are not that important at all. Another option is for the clean period to be monthly, weekly seems too often.
 
-## User Credentials: Administrator
+### User credentials: Administrator
 - Username: welearnbg@gmail.com
 - Password: admin_Pass123%
 - Email: welearnbg@gmail.com
 
-## User Credentials: Regular user
+### User credentials: Regular user
 - Username: Username
 - Password: User_qwerty_1234%
 - Email: default@gmail.com
 
-# Installation Instructions
+## Installation instructions
 
-## External logins
+### External logins
 For the Goolge Authentication option to work you need to configure it.
 
 * In the Credentials page of the Google console (https://console.developers.google.com/apis/credentials), after creating an project, select ```CREATE CREDENTIALS``` > ```OAuth client ID```.
@@ -69,7 +74,7 @@ Additional information and documentation:
 https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/google-logins?view=aspnetcore-5.0
 https://developers.google.com/identity/sign-in/web/sign-in
 
-## SendGrid
+### SendGrid
 For the email sending functionality to work, you need to obtain a SendGrid Api Key and create a Sender.
 Create your account at https://signup.sendgrid.com/ or use existing one.
 
@@ -86,7 +91,7 @@ From ```Settings``` select ```API Keys```, then ```Create API Key```
 
 Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web/appsettings.json``` file.
 
-## PostgreSQL (detailed explanation below)
+### PostgreSQL (detailed explanation below)
 1. Follow the link and pick the version that suits your OS: https://www.postgresql.org/download/
 2. You need to create an user and a database with the following credentials:
 - Port: 5432
@@ -94,12 +99,12 @@ Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web
 - Username: postgres
 - Password: root
 
-## Cloudinary (optional)
-### Only needed for when running the application with the Production environment switch on. Skip if you are going to run it in Developmemt only.
+### Cloudinary (optional)
+#### Only needed for when running the application with the Production environment switch on. Skip if you are going to run it in Developmemt only.
 1. You need to sign up for Cloudinary (free plan will do just fine) - https://cloudinary.com/users/register/free
 2. Copy your ```API Environment variable``` and store it for later
 
-## Windows / Mac
+### Windows / Mac
 1. Install/Update Visual Studio 2019 Community / Visual Studio for Mac, latest edition - https://visualstudio.microsoft.com/downloads/
 2. Add the module "ASP.NET and web development"
 3. Additional modules than may be required ".NET desktop development", ".NET Core cross-platform development"
@@ -120,7 +125,7 @@ Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web
 Note: If you are not using Visual Studio, you may need to set an environment variable, use this
 ```set ASPNETCORE_ENVIRONMENT=Development```
 
-## Linux - Tested on Ubuntu 20.04
+### Linux - Tested on Ubuntu 20.04
 1. Pick your IDE / code editor of choice or install Visual Studio Code - https://code.visualstudio.com/
 2. Download the source code
 3. Run the following commands
@@ -151,7 +156,7 @@ export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
 
-## Notes
+### Notes
 - You can run with ```ASPNETCORE_ENVIRONMENT=Production``` too, but you will need to configure Cloudinary for this one.
 - CLOUDINARY_URL is the value we saved earlier (optional).
 - For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
@@ -164,6 +169,7 @@ For Ubuntu, you may need additional codecs for playing the video files.
 Some of the many resources used for creating this project:
 - https://stackoverflow.com/a/59860450/13146140
 - https://stackoverflow.com/a/2776689/13146140
+- https://stackoverflow.com/a/48599532/13146140
 - https://stackoverflow.com/questions/55832888/how-to-create-drop-down-list-from-database-in-asp-net-core-mvc
 - https://www.youtube.com/watch?v=Bmm9X-YZtG4
 - https://www.youtube.com/watch?v=5iN1jhr6yQI

@@ -38,7 +38,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 - To run the docker image, execute ```docker run -p 80:80 -it app``` inside ```/src/```.
 
 ## Contact info
-- Private message me on Facebook or LinkedIn, we can exchange information like mobile phone numbers or emails there.
+- Private message me on Facebook or LinkedIn.
 
 ## LinkedIn 
 - TBA

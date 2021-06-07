@@ -38,10 +38,10 @@ Primary focus is on students in primary/secondary school and respectively, their
 - To run the docker image, execute ```docker run -p 80:80 -it app``` inside ```/src/```.
 
 ## Contact info
-- Private message me on Facebook or LinkedIn, we can exchange information like mobile phone numbers or emails there.
+- Private message me on Facebook or LinkedIn.
 
 ## LinkedIn 
-- TBA
+- https://www.linkedin.com/in/kristiyan-ivanov-a54a80180/
 
 ## How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
@@ -81,7 +81,7 @@ Create your account at https://signup.sendgrid.com/ or use existing one.
 From ```Marketing``` select ```Senders``` then ```Create New Sender```.
 Use the email you registered with for "Reply To" and "From Email Address" - all three of them need to be identical. 
 Save that sender and verify it.
-Change the email address in ```ContactsController.cs``` to be your own - (await this.emailSender.SendEmailAsync(...)).
+Change the ```ApplicationAdministratorEmail``` value in ```WeLearn.Common/Constants.cs``` to be your own.
 
 From ```Settings``` select ```API Keys```, then ```Create API Key```
 
@@ -119,7 +119,7 @@ Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web
 
 5. Set ```WeLearn.Web``` as a startup project
 6. Build the application with Ctrl + Shift + B
-7. Run the application with Ctrl + B
+7. Run the application with Ctrl + F5
 8. Trust the certificate
 
 Note: If you are not using Visual Studio, you may need to set an environment variable, use this
@@ -138,7 +138,7 @@ sudo apt-get upgrade
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 sudo -u postgres createdb WeLearn
-sudo -u postgres psql Welearn
+sudo -u postgres psql WeLearn
 \password
 root
 root

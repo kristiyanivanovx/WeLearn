@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Common\WeLearn.Common.csproj" />
+		<ProjectReference Include="..\WeLearn.Common\WeLearn.Common.csproj" />
 		<ProjectReference Include="..\WeLearn.Services\WeLearn.Services.csproj" />
 	</ItemGroup>
 
@@ -47,6 +47,10 @@
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="..\.dockerignore" />
 	</ItemGroup>
 
 </Project>

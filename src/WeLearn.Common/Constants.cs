@@ -7,5 +7,7 @@
 		public const string ApplicationAdministratorRoleName = "Admin";
 
 		public const string ApplicationAdministrationAreaName = "Administration";
+
+		public const string ApplicationHostName = "welearn-bg.herokuapp.com";
 	}
 }

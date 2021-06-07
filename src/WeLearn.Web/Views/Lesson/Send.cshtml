@@ -9,15 +9,16 @@
 		<hr />
 		<form asp-controller="Lesson" asp-action="Send" asp-route-id="@Model.LessonId" method="post" class="mb-3">
 			<div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center form-group">
-				<input asp-for="LessonId" type="hidden"/>
-				<input asp-for="Name" type="hidden"/>
-				<input asp-for="ApplicationUserUserName" type="hidden"/>
-				<input asp-for="VideoName" type="hidden"/>
-				<input asp-for="VideoLink" type="hidden"/>
-				<input asp-for="VideoContentType" type="hidden"/>
-				<input asp-for="CategoryName" type="hidden"/>
-				<input asp-for="Grade" type="hidden"/>
-				<input asp-for="DateCreated" type="hidden"/>
+				<input asp-for="LessonId" type="hidden" />
+				<input asp-for="Name" type="hidden" />
+				<input asp-for="ApplicationUserUserName" type="hidden" />
+				<input asp-for="VideoName" type="hidden" />
+				<input asp-for="VideoLink" type="hidden" />
+				<input asp-for="MaterialLink" type="hidden" />
+				<input asp-for="VideoContentType" type="hidden" />
+				<input asp-for="CategoryName" type="hidden" />
+				<input asp-for="Grade" type="hidden" />
+				<input asp-for="DateCreated" type="hidden" />
 
 				<input asp-for="Email" placeholder="Email" class="form-control" />
 				<span asp-validation-for="Email" class="text-danger"></span>

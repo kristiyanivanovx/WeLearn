@@ -75,41 +75,6 @@ namespace WeLearn.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Send(int id)
-        {
-            LessonSendEmailViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonSendEmailViewModel>(id);
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Send(LessonSendEmailViewModel model)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
-            string subject = $"Lesson #{model.LessonId} - {model.Name}";
-
-            string createdBy = model.ApplicationUserUserName == null ? "Deleted User" : model.ApplicationUserUserName;
-
-            string message = stringBuilder
-                .AppendLine(@$"
-                <div>
-                    <video playsinline controls crossorigin=""anonymous"" alt=""{model.VideoName}"" >
-			            <source src=""{model.VideoLink}"" type=""{model.VideoContentType}"" />
-		            </video>
-                </div>
-                <div>
-                    <p>Created by - {createdBy}</p>
-				    <p>Category - {model.CategoryName}</p>
-				    <p>Grade - {model.Grade}</p>
-				    <p>Date created - {model.DateCreated.ToShortDateString()}</p>
-                </div>")
-                .ToString()
-                .Trim();
-
-            await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, model.Email, subject, message, true);
-            return View(nameof(EmailSent));
-        }
-
-        [HttpGet]
         [Authorize]
         public IActionResult Create()
         {
@@ -213,5 +178,45 @@ namespace WeLearn.Controllers
             FileDownload fileParsed = this.fileDownloadService.DownloadFile(link);
             return File(fileParsed.Content, fileParsed.ContentType, fileParsed.FileName);
         }
-    }
+
+        [HttpGet]
+        public async Task<IActionResult> Send(int id)
+        {
+            LessonSendEmailViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonSendEmailViewModel>(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Send(LessonSendEmailViewModel model)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			string subject = $"Lesson #{model.LessonId} - {model.Name}";
+			string createdBy = model.ApplicationUserUserName == null ? "Deleted User" : model.ApplicationUserUserName;
+			string message = BuildMessage(model, stringBuilder, createdBy);
+			await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, model.Email, subject, message, true);
+			return View(nameof(EmailSent));
+		}
+
+		private static string BuildMessage(LessonSendEmailViewModel model, StringBuilder stringBuilder, string createdBy)
+		{
+			return stringBuilder
+				.AppendLine(@$"
+                <div>
+                    <video playsinline controls crossorigin=""anonymous"" alt=""{model.VideoName}"" src=""{model.VideoLink}"" >
+                        <!-- fallback -->
+                        Video: <a href=""{model.VideoLink}"">{model.Name}</a>
+                    </video>
+                </div>
+                <div>
+				    <p>Materials (as zip file) - {model.MaterialLink}</p>
+                    <p>Created by - {createdBy}</p>
+				    <p>Category - {model.CategoryName}</p>
+				    <p>Grade - {model.Grade}</p>
+				    <p>Date created - {model.DateCreated.ToLocalTime().ToString("d/MM/yyyy, HH:mm")}</p>
+				    <p>Link - <a href=""https://{ApplicationHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
+                </div>")
+				.ToString()
+				.Trim();
+		}
+	}
 }

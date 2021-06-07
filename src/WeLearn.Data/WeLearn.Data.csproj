@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Common\WeLearn.Common.csproj" />
+	  <ProjectReference Include="..\WeLearn.Common\WeLearn.Common.csproj" />
 	</ItemGroup>
 
 </Project>

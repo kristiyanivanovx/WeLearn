@@ -27,6 +27,13 @@ namespace WeLearn.Web.Controllers
 				return View();
 			}
 
+			string message = BuildMessage(model);
+			await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, ApplicationAdministratorEmail, model.Subject, message, false);
+			return View(nameof(Sent));
+		}
+
+		private static string BuildMessage(ContactsInputModel model)
+		{
 			StringBuilder stringBuilder = new StringBuilder();
 			string message = stringBuilder
 				.AppendLine("From Name: " + model.FromName)
@@ -36,8 +43,7 @@ namespace WeLearn.Web.Controllers
 				.ToString()
 				.Trim();
 
-			await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, ApplicationAdministratorEmail, model.Subject, message, false);
-			return View(nameof(Sent));
+			return message;
 		}
 	}
 }

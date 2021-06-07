@@ -138,7 +138,7 @@ sudo apt-get upgrade
 sudo apt update
 sudo apt install postgresql postgresql-contrib
 sudo -u postgres createdb WeLearn
-sudo -u postgres psql Welearn
+sudo -u postgres psql WeLearn
 \password
 root
 root

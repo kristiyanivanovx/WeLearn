@@ -41,7 +41,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 - Private message me on Facebook or LinkedIn.
 
 ## LinkedIn 
-- TBA
+- https://www.linkedin.com/in/kristiyan-ivanov-a54a80180/
 
 ## How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.

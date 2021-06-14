@@ -45,7 +45,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 
 ## How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
-- An user cannot edit and delete another one's comments, reports and lessons if he is not the creator.
+- An user cannot edit and delete another one's comments, reports and lessons.
 - The application has live chat functionality, realized with SignalR and websockets. Using Hangfire in production, every week the messages and chats are getting deleted/cleaned, the reason being that we can accumulate a lot of them and they are not that important at all. Another option is for the clean period to be monthly, weekly seems too often.
 
 ### User credentials: Administrator

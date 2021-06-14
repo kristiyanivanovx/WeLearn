@@ -72,7 +72,7 @@ namespace WeLearn
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
             services.AddTransient<IEmailSender>(serviceProvider =>
-                new SendGridEmailSender(Configuration["SendGrid:ApiKey"]));
+                new SendGridEmailService(Configuration["SendGrid:ApiKey"]));
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -104,9 +104,6 @@ namespace WeLearn
             }
             else
             {
-                app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
-                app.UseHangfire();
-
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
@@ -118,6 +115,9 @@ namespace WeLearn
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
+            app.UseHangfire();
 
             app.UseEndpoints();
         }

@@ -142,8 +142,8 @@ namespace WeLearn.Services
                 .Include(x => x.Material)
                 .ToListAsync();
 
-            T[] lessonsViewModel = this.mapper.Map<T[]>(lessons);
-            return lessonsViewModel;
+            T[] models = this.mapper.Map<T[]>(lessons);
+            return models;
         }
 
         public async Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString)
@@ -182,10 +182,9 @@ namespace WeLearn.Services
                 .Include(x => x.Material)
                 .FirstOrDefault(x => x.Id == lessonId);
 
-            Cloudinary cloudinary = new Cloudinary();
-
             if (lesson.Video.PublicId != null && lesson.Material.PublicId != null)
             {
+                Cloudinary cloudinary = new Cloudinary();
                 DelResResult deleteMaterialResult = await cloudinary.DeleteResourcesAsync(lesson.Video.PublicId);
                 DelResResult deleteVideoResult = await cloudinary.DeleteResourcesAsync(lesson.Material.PublicId);
             }
@@ -394,7 +393,7 @@ namespace WeLearn.Services
             //await this.context.SaveChangesAsync();
             return videoEntity;
         }
-
+        
         public async Task UploadMaterialsAsync(ILessonModel lessonInputModel, string path)
         {
             // check if the sum of files' sizes is above 0 mb and below 10 mb and all the extensions are permitted

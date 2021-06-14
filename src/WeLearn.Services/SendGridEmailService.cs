@@ -10,11 +10,11 @@ using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
 {
-	public class SendGridEmailSender : IEmailSender
+	public class SendGridEmailService : IEmailSender
 	{
 		private readonly SendGridClient client;
 
-		public SendGridEmailSender(string apiKey)
+		public SendGridEmailService(string apiKey)
 		{
 			this.client = new SendGridClient(apiKey);
 		}

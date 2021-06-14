@@ -17,7 +17,6 @@ namespace WeLearn.Services
         public ChatService(ApplicationDbContext context)
             => this.context = context;
 
-
         public async Task<Message> CreateMessageAsync(int chatId, string message, string userName)
         {
             Message messageModel = new Message

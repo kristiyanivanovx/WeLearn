@@ -13,6 +13,10 @@ namespace WeLearn.Data
         {
         }
 
+		public ApplicationDbContext()
+		{
+		}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -20,24 +24,24 @@ namespace WeLearn.Data
             modelBuilder.ConfigureRelations();
         }
 
-        public DbSet<Chat> Chats { get; set; }
+        public virtual DbSet<Chat> Chats { get; set; }
 
-        public DbSet<Message> Messages { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
 
-        public DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
+        public virtual DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
 
-        public DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Material> Materials { get; set; }
+        public virtual DbSet<Material> Materials { get; set; }
 
-        public DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
 
-        public DbSet<Video> Videos { get; set; }
+        public virtual DbSet<Video> Videos { get; set; }
 
-        public DbSet<Report> Reports { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

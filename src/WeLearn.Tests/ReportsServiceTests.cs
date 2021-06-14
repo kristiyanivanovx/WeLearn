@@ -15,6 +15,10 @@ using Xunit;
 using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Report.Lesson;
 using WeLearn.ViewModels.Admin.Report;
+using Moq;
+using WeLearn.Tests.HelperClasses;
+using System.Threading;
+using WeLearn.ViewModels.Report.Comment;
 
 namespace WeLearn.Tests
 {
@@ -28,221 +32,293 @@ namespace WeLearn.Tests
         }
 
         [Fact]
-        public async Task CreatingAndGettingReportShouldWorkAsExpected()
+        public async Task Should_Succeed_When_ReportIsCreated()
         {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test8");
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+            }.AsQueryable();
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz123",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Material>().Add(new Material()
-            {
-                Id = 1,
-                Name = "m-name",
-                Link = "..."
-            });
-            db.Set<Video>().Add(new Video()
-            {
-                Id = 2,
-                Name = "v-name",
-                Link = "..",
-                ContentType = "null"
-            });
-            db.Set<Category>().Add(new Category()
-            {
-                Id = 3,
-                Name = "c-name",
-            });
-            db.Set<Lesson>().Add(new Lesson()
-            {
-                Id = 6,
-                Name = "No23",
-                IsApproved = true,
-                Description = "New and fun",
-                Grade = Grade.Eighth,
-                CategoryId = 3,
-                MaterialId = 1,
-                VideoId = 2,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            db.Set<Report>().Add(new Report()
-            {
-                Id = 6,
-                Subject = "subject",
-                Description = "New and fun",
-                LessonId = 6,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
 
-            var service = new ReportsService(db, mapper);
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
 
             // act
-            var result = await service.GetReportByIdAsync<AdminReportEditModel>(6);
+            var model = new LessonReportInputModel() { Subject = "Cdsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 };
+            await service.CreateReportAsync(model);
 
             // assert
-            Assert.NotNull(result);
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
         }
 
         [Fact]
-        public async Task CreatingAndGettingMultipleReportsShouldWorkAsExpected()
+        public async Task Should_Succeed_When_LessonReportIsEdited()
         {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test9");
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+            }.AsQueryable();
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz123",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Material>().Add(new Material()
-            {
-                Id = 1,
-                Name = "m-name",
-                Link = "..."
-            });
-            db.Set<Video>().Add(new Video()
-            {
-                Id = 2,
-                Name = "v-name",
-                Link = "..",
-                ContentType = "null"
-            });
-            db.Set<Category>().Add(new Category()
-            {
-                Id = 3,
-                Name = "c-name",
-            });
-            db.Set<Lesson>().Add(new Lesson()
-            {
-                Id = 6,
-                Name = "No23",
-                IsApproved = true,
-                Description = "New and fun",
-                Grade = Grade.Eighth,
-                CategoryId = 3,
-                MaterialId = 1,
-                VideoId = 2,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            db.Set<Report>().Add(new Report()
-            {
-                Id = 6,
-                Subject = "subject",
-                Description = "New and fun",
-                LessonId = 6,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            db.Set<Report>().Add(new Report()
-            {
-                Id = 7,
-                Subject = "subject",
-                Description = "New and fun",
-                LessonId = 6,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            db.Set<Report>().Add(new Report()
-            {
-                Id = 8,
-                Subject = "subject",
-                Description = "New and fun",
-                LessonId = 6,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
 
-            var service = new ReportsService(db, mapper);
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
 
             // act
-            var result = await service.GetAllReportsAsync<LessonReportViewModel>(null);
+            var model = new LessonReportEditModel() { ReportId = 1, Subject = "Cdsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 };
+            await service.EditLessonReportAsync(model);
 
             // assert
-            Assert.Equal(3, result.Count());
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+        }
+        [Fact]
+        public async Task Should_Succeed_When_CommentReportIsEdited()
+        {
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+            }.AsQueryable();
+
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
+
+            // act
+            var model = new CommentReportEditModel() { ReportId = 1, Subject = "Cdsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" };
+            await service.EditCommentReportAsync(model);
+
+            // assert
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
         }
 
         [Fact]
-        public async Task CreatingAndHardDeletingReportShouldWorkAsExpected()
+        public async Task Should_Succeed_When_ReportIsEditedByAdmin()
         {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test10");
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+            }.AsQueryable();
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz123",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Material>().Add(new Material()
-            {
-                Id = 1,
-                Name = "m-name",
-                Link = "..."
-            });
-            db.Set<Video>().Add(new Video()
-            {
-                Id = 2,
-                Name = "v-name",
-                Link = "..",
-                ContentType = "null"
-            });
-            db.Set<Category>().Add(new Category()
-            {
-                Id = 3,
-                Name = "c-name",
-            });
-            db.Set<Lesson>().Add(new Lesson()
-            {
-                Id = 6,
-                Name = "No23",
-                IsApproved = true,
-                Description = "New and fun",
-                Grade = Grade.Eighth,
-                CategoryId = 3,
-                MaterialId = 1,
-                VideoId = 2,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            db.Set<Report>().Add(new Report()
-            {
-                Id = 6,
-                Subject = "subject",
-                Description = "New and fun",
-                LessonId = 6,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
 
-            var service = new ReportsService(db, mapper);
-            
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
+
             // act
-            await service.HardDeleteReportByIdAsync(6);
-
-            var reports = await service.GetAllReportsAsync<LessonReportViewModel>(null);
+            var model = new AdminReportEditModel() { Id = 1, Subject = "Cdsa66", Description = "1223", DateCreated = DateTime.Now, ApplicationUserId = "1asd" };
+            await service.EditReportAdministrationAsync(model);
 
             // assert
-            Assert.Empty(reports);
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_ReportIsSoftDeletedById()
+        {
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+            }.AsQueryable();
+
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
+
+            // act
+            await service.SoftDeleteReportByIdAsync(1);
+
+            // assert
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_ReportIsHardDeletedById()
+        {
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+            }.AsQueryable();
+
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
+
+            // act
+            await service.HardDeleteReportByIdAsync(1);
+
+            // assert
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_AllReportsAreRetrieved()
+        {
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 2, Subject = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", LessonId = 3 },
+            }.AsQueryable();
+
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
+
+            // act
+            var reports = await service.GetAllReportsAsync<CommentReportViewModel>(null);
+
+            // assert
+            Assert.Equal(2, reports.Count());
+        }
+
+        //  Message: 
+        //    System.ArgumentException : Argument expression is not valid
+        [Fact]
+        public async Task Should_Succeed_When_ReportByIdIsRetrieved()
+        {
+            string userId = "asd";
+
+            // arrange 
+            var data = new List<Report>
+            {
+                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, CommentId = 3, IsDeleted = false, },
+                new Report { Id = 2, Subject = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = userId, CommentId = 3, IsDeleted = false },
+            }.AsQueryable();
+
+            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
+
+            var service = new ReportsService(mockContext.Object, mapper);
+
+            // act
+            CommentReportViewModel report = await service.GetReportByIdAsync<CommentReportViewModel>(1);
+
+            // assert
+            Assert.NotNull(report);
+            mockContext.Verify(x => x.Reports.FirstOrDefaultAsync(new CancellationToken()), Times.Once());
         }
     }
 }

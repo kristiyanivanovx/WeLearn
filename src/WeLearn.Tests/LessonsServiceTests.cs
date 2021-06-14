@@ -14,6 +14,10 @@ using WeLearn.Data.Models.Enums;
 using Xunit;
 using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Lesson;
+using Moq;
+using WeLearn.Tests.HelperClasses;
+using System.Threading;
+using WeLearn.ViewModels.Lesson;
 
 namespace WeLearn.Tests
 {
@@ -27,179 +31,192 @@ namespace WeLearn.Tests
         }
 
         [Fact]
-        public async Task SoftDeletingLessonShouldWorkAsExpected()
+        public async Task Should_Succeed_When_LessonIsSoftDeleted()
         {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test5");
+            // arrange 
+            var data = new List<Lesson>
+            {
+                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" },
+                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d" },
+            }.AsQueryable();
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+            Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz123",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Material>().Add(new Material()
-            {
-                Id = 1,
-                Name = "m-name",
-                Link = "..."
-            });
-            db.Set<Video>().Add(new Video()
-            {
-                Id = 2,
-                Name = "v-name",
-                Link = "..",
-                ContentType = "null"
-            });
-            db.Set<Category>().Add(new Category()
-            {
-                Id = 3,
-                Name = "c-name",
-            });
-            db.Set<Lesson>().Add(new Lesson()
-            {
-                Id = 6,
-                Name = "No23",
-                Description = "New and fun",
-                Grade = Grade.Eighth,
-                CategoryId = 3,
-                MaterialId = 1,
-                VideoId = 2,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var lessonsService = new LessonsService(db, mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
 
             // act
-            await lessonsService.SoftDeleteLessonByIdAsync(6);
-            var comment = await lessonsService.GetLessonByIdAdministrationAsync<AdminLessonViewModel>(6);
+            await service.SoftDeleteLessonByIdAsync(1);
 
             // assert
-            Assert.Equal(6, comment.Id);
-            Assert.False(comment.IsApproved);
-            Assert.True(comment.IsDeleted);
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Once());
         }
 
         [Fact]
-        public async Task GettingByCategoryShouldWorkAsExpected()
+        public async Task Should_Succeed_When_AllLessonsAreRetrieved()
         {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test6");
+            // arrange 
+            var data = new List<Lesson>
+            {
+                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", IsApproved = true },
+                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true },
+            }.AsQueryable();
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+            Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz123",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Material>().Add(new Material()
-            {
-                Id = 1,
-                Name = "m-name",
-                Link = "..."
-            });
-            db.Set<Video>().Add(new Video()
-            {
-                Id = 2,
-                Name = "v-name",
-                Link = "..",
-                ContentType = "null"
-            });
-            db.Set<Category>().Add(new Category()
-            {
-                Id = 3,
-                Name = "c-name",
-            });
-            db.Set<Lesson>().Add(new Lesson()
-            {
-                Id = 6,
-                Name = "No23",
-                IsApproved = true,
-                Description = "New and fun",
-                Grade = Grade.Eighth,
-                CategoryId = 3,
-                MaterialId = 1,
-                VideoId = 2,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var lessonsService = new LessonsService(db, mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
 
             // act
-            var comments = await lessonsService.GetLessonsByCategoryAndGradeAsync("c-name", null, 1);
+            var models = await service.GetAllLessonsAsync<LessonViewModel>(null);
 
             // assert
-            Assert.Single(comments);
+            Assert.Equal(2, models.Count());
         }
 
         [Fact]
-        public async Task HardDeletingLessonShouldWorkAsExpected()
+        public async Task Should_Succeed_When_LessonsAreRetrievedByUser()
         {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test7");
+            var userId = "asd";
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+            // arrange 
+            var data = new List<Lesson>
+            {
+                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, IsApproved = true },
+                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true },
+            }.AsQueryable();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz123",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Material>().Add(new Material()
-            {
-                Id = 1,
-                Name = "m-name",
-                Link = "..."
-            });
-            db.Set<Video>().Add(new Video()
-            {
-                Id = 2,
-                Name = "v-name",
-                Link = "..",
-                ContentType = "null"
-            });
-            db.Set<Category>().Add(new Category()
-            {
-                Id = 3,
-                Name = "c-name",
-            });
-            db.Set<Lesson>().Add(new Lesson()
-            {
-                Id = 6,
-                Name = "No23",
-                Description = "New and fun",
-                Grade = Grade.Eighth,
-                CategoryId = 3,
-                MaterialId = 1,
-                VideoId = 2,
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+            Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
 
-            var archiveService = new InputOutputService();
-            var lessonsService = new LessonsService(db, mapper, archiveService);
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
+
+            var inputOutputService = new InputOutputService();
+            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
 
             // act
-            await lessonsService.HardDeleteLessonByIdAsync(6);
-            var comment = await lessonsService.GetLessonByIdAdministrationAsync<AdminLessonViewModel>(6);
+            var models = await service.GetCreatedByMeAsync(userId, null);
 
             // assert
-            Assert.Null(comment);
+            Assert.Single(models);
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_LessonsAreRetrievedByAdmin()
+        {
+            var userId = "asd";
+
+            // arrange 
+            var data = new List<Lesson>
+            {
+                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, IsApproved = true, Grade = Grade.Second },
+                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true, Grade = Grade.Second },
+            }.AsQueryable();
+
+            Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
+
+            var inputOutputService = new InputOutputService();
+            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
+
+            // act
+            var models = await service.GetAllLessonsAdministrationAsync<AdminLessonViewModel>(null);
+
+            // assert
+            Assert.Equal(2, models.Count());
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_LessonIsHardDeleted()
+        {
+            // arrange 
+            var data = new List<Lesson>
+            {
+                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" },
+                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d" },
+            }.AsQueryable();
+
+            Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
+
+            mockSet.As<IAsyncEnumerable<Report>>()
+                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
+
+            mockSet.As<IQueryable<Report>>()
+                .Setup(m => m.Provider)
+                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
+
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
+
+            var inputOutputService = new InputOutputService();
+            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
+
+            // act
+            await service.HardDeleteLessonByIdAsync(1);
+
+            // assert
+            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(2));
         }
     }
 }

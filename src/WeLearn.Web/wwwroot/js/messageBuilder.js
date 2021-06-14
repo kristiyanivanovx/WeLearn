@@ -30,8 +30,10 @@
             return this;
         },
         withFooter: function (text) {
+            let time = DateTime.fromISO(text, { zone: "utc", locale: "bg" });
+            let localized = time.toLocal().toLocaleString(DateTime.DATETIME_MED);
             span3 = document.createElement("span")
-            span3.appendChild(document.createTextNode(text))
+            span3.appendChild(document.createTextNode(localized))
             return this;
         },
         build: function () {

@@ -1,128 +1,288 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using WeLearn.Data;
-using WeLearn.Services;
-using WeLearn.ViewModels;
-using WeLearn.Web.Controllers;
 using WeLearn.Data.Models;
-using Xunit;
-using AutoMapper;
+using WeLearn.Services;
+using WeLearn.Tests.HelperClasses;
+using WeLearn.ViewModels.Admin.Comment;
+using WeLearn.ViewModels.Comment;
 using WeLearn.Web.Infrastructure;
+using Xunit;
 
 namespace WeLearn.Tests
 {
-    public class CommentsServiceTests
-    {
-        private IMapper mapper;
+	public class CommentsServiceTests
+	{
+		private IMapper mapper;
 
-        public CommentsServiceTests()
-        {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
-        }
+		public CommentsServiceTests()
+		{
+			this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
+		}
 
-        [Fact]
-        public async Task CreatingAndGettingOneNewCommentShouldWorkAsExpected()
-        {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test2");
+		[Fact]
+		public async Task Should_ReturnAllComments_When_ParameterIsNull()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Content = "BBB" },
+				new Comment { Content = "ZZZ" },
+				new Comment { Content = "AAA" },
+			}.AsQueryable();
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "322s",
-                UserName = "New",
-                PasswordHash = "123"
-            });
-            db.Set<Comment>().Add(new Comment()
-            {
-                Id = 1,
-                Content = "New",
-                ApplicationUserId = "322s",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
-                
-            var service = new CommentsService(db, mapper);
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
 
-            // act
-            var result = await service.GetAllCommentsAsync();
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
 
-            // assert
-            Assert.Single(result);
-        }
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-        [Fact]
-        public async Task HardDeletingCommentShouldWorkAsExpected()
-        {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test3");
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+			var service = new CommentsService(mockContext.Object, mapper);
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "2",
-                UserName = "New",
-                PasswordHash = "123"
-            });
-            db.Set<Comment>().Add(new Comment()
-            {
-                Id = 2,
-                Content = "New",
-                ApplicationUserId = "2",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+			// act
+			var result = await service.GetAllCommentsAsync(null);
 
-            var service = new CommentsService(db, mapper);
+			// assert
+			Assert.Equal(3, result.Count());
+		}
 
-            // act
-            await service.HardDeleteCommentByIdAsync(2);
-            var comments = await service.GetAllCommentsAsync();
+		[Fact]
+		public async Task Should_Succeed_When_CommentsAreHardDeleted()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Id = 1, Content = "C" },
+				new Comment { Id = 2, Content = "Ca" },
+				new Comment { Id = 3, Content = "Cab" },
+			}.AsQueryable();
 
-            // assert
-            Assert.Empty(comments);
-        }
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
 
-        [Fact]
-        public async Task SoftDeletingCommentShouldWorkAsExpected()
-        {
-            var dbOptionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                    .UseInMemoryDatabase("Test4");
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
 
-            // arrange
-            using var db = new ApplicationDbContext(dbOptionsBuilder.Options);
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
 
-            db.Set<ApplicationUser>().Add(new ApplicationUser()
-            {
-                Id = "xyz",
-                UserName = "New22",
-                PasswordHash = "123"
-            });
-            db.Set<Comment>().Add(new Comment()
-            {
-                Id = 3,
-                Content = "New",
-                ApplicationUserId = "xyz",
-                DateCreated = DateTime.UtcNow
-            });
-            await db.SaveChangesAsync();
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var service = new CommentsService(db, mapper);
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            // act
-            await service.SoftDeleteCommentByIdAsync(3);
-            var comments = await service.GetAllCommentsAsync();
+			var service = new CommentsService(mockContext.Object, mapper);
 
-            // assert
-            Assert.True(comments.FirstOrDefault().IsDeleted);
-        }
-    }
+			// act
+			await service.HardDeleteCommentByIdAsync(1);
+			await service.HardDeleteCommentByIdAsync(2);
+			var result = await service.GetAllCommentsAsync(null);
+
+			// assert
+			mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(2));
+		}
+
+		[Fact]
+		public async Task Should_Succeed_When_CommentsAreSoftDeleted()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Id = 1, Content = "c" },
+				new Comment { Id = 2, Content = "a" },
+			}.AsQueryable();
+
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+
+			var service = new CommentsService(mockContext.Object, mapper);
+
+			// act
+			await service.SoftDeleteCommentByIdAsync(1);
+			await service.SoftDeleteCommentByIdAsync(2);
+			var result = await service.GetAllCommentsAsync(null);
+
+			// assert
+			mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(2));
+		}
+
+		[Fact]
+		public async Task Should_Succeed_When_CommentIsEdited()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Id = 1, Content = "C", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3, },
+			}.AsQueryable();
+
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+
+			var service = new CommentsService(mockContext.Object, mapper);
+
+			// act
+			var model = new CommentEditModel() { Id = 1, Content = "asd", DateCreated = DateTime.Now };
+			await service.EditCommentAsync(model);
+
+			// assert
+			mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+		}
+
+		[Fact]
+		public async Task Should_Succeed_When_CommentIsEditedByAdmin()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Id = 1, Content = "C", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3, },
+			}.AsQueryable();
+
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+
+			var service = new CommentsService(mockContext.Object, mapper);
+
+			// act
+			var model = new AdminCommentEditModel() { Id = 1, Content = "asd1", DateCreated = DateTime.Now };
+			await service.EditCommentByAdminAsync(model);
+
+			// assert
+			mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+		}
+
+		[Fact]
+		public async Task Should_Succeed_When_CommentIsCreated()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Id = 1, Content = "Cdsa", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3, },
+			}.AsQueryable();
+
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+
+			var service = new CommentsService(mockContext.Object, mapper);
+
+			// act
+			var model = new CommentInputModel() { Content = "asd", DateCreated = DateTime.Now };
+			await service.CreateCommentAsync(model);
+
+			// assert
+			mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+		}
+
+		//  Message: 
+		//	  System.ArgumentException : Argument expression is not valid
+		[Fact]
+		public async Task Should_Succeed_When_CommentIsRetrievedById()
+		{
+			// arrange 
+			var data = new List<Comment>
+			{
+				new Comment { Id = 1, Content = "C", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3, },
+			}.AsQueryable();
+
+			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+
+			mockSet.As<IAsyncEnumerable<Comment>>()
+				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+
+			mockSet.As<IQueryable<Comment>>()
+				.Setup(m => m.Provider)
+				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
+			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+
+			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+
+			var service = new CommentsService(mockContext.Object, mapper);
+
+			// act
+			CommentViewModel result = await service.GetCommentByIdAsync<CommentViewModel>(1);
+
+			// assert
+			mockContext.Verify(x => x.Comments.FirstOrDefaultAsync(new CancellationToken()), Times.Once());
+		}
+	}
 }

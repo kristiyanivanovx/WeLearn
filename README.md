@@ -14,8 +14,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 
 ## Technologies used
 - .NET - C#, ASP.NET Core MVC, Entity Framework Core, SignalR
-- Microsoft SQL Server 
-- PostgreSQL
+- PostgreSQL (Microsoft SQL Server in earlier development)
 - AutoMapper
 - Hangfire
 - SendGrid

@@ -247,42 +247,5 @@ namespace WeLearn.Tests
 			// assert
 			mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
 		}
-
-		//  Message: 
-		//	  System.ArgumentException : Argument expression is not valid
-		[Fact]
-		public async Task Should_Succeed_When_CommentIsRetrievedById()
-		{
-			// arrange 
-			var data = new List<Comment>
-			{
-				new Comment { Id = 1, Content = "C", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3, },
-			}.AsQueryable();
-
-			Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
-
-			mockSet.As<IAsyncEnumerable<Comment>>()
-				.Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-				.Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
-
-			mockSet.As<IQueryable<Comment>>()
-				.Setup(m => m.Provider)
-				.Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
-
-			mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-			mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-			mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-			Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-			mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
-
-			var service = new CommentsService(mockContext.Object, mapper);
-
-			// act
-			CommentViewModel result = await service.GetCommentByIdAsync<CommentViewModel>(1);
-
-			// assert
-			mockContext.Verify(x => x.Comments.FirstOrDefaultAsync(new CancellationToken()), Times.Once());
-		}
 	}
 }

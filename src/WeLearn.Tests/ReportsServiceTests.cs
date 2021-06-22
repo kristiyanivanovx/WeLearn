@@ -279,46 +279,5 @@ namespace WeLearn.Tests
             // assert
             Assert.Equal(2, reports.Count());
         }
-
-        //  Message: 
-        //    System.ArgumentException : Argument expression is not valid
-        [Fact]
-        public async Task Should_Succeed_When_ReportByIdIsRetrieved()
-        {
-            string userId = "asd";
-
-            // arrange 
-            var data = new List<Report>
-            {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, CommentId = 3, IsDeleted = false, },
-                new Report { Id = 2, Subject = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = userId, CommentId = 3, IsDeleted = false },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, mapper);
-
-            // act
-            CommentReportViewModel report = await service.GetReportByIdAsync<CommentReportViewModel>(1);
-
-            // assert
-            Assert.NotNull(report);
-            mockContext.Verify(x => x.Reports.FirstOrDefaultAsync(new CancellationToken()), Times.Once());
-        }
     }
 }

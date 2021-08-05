@@ -71,6 +71,7 @@ namespace WeLearn
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
+            services.AddTransient<IPrivateMessageService, PrivateMessageService>();
             services.AddTransient<IEmailSender>(serviceProvider =>
                 new SendGridEmailService(Configuration["SendGrid:ApiKey"]));
 

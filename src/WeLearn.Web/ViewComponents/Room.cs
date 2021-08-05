@@ -20,7 +20,7 @@ namespace WeLearn.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Chat> chats = await this.chatService.GetChatsByType(ChatType.Room);
+            List<Chat> chats = await this.chatService.GetAllChats();
             return View(chats);
         }
     }

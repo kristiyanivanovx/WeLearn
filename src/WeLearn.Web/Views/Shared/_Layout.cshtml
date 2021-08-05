@@ -26,41 +26,44 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav mr-auto">
-						@if (User.IsInRole("Admin"))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-success" asp-area="Administration" asp-controller="Manage" asp-action="Index">Administration</a>
-							</li>
-						}
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Chat</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="Create">Create&nbsp;new</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="All">View&nbsp;all</a>
-						</li>
-						@await Component.InvokeAsync("LessonsNavigatorDropdown")
-						<li class="nav-item dropdown">
-							<div class="dropdown">
-								<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									My activity
-								</button>
-								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="ByMe">Lessons created by me</a>
-									<a class="dropdown-item" asp-area="" asp-controller="Comment" asp-action="ByMe">Comments created by me</a>
-									<hr />
-									<a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="LessonsByMe">Lessons reported by me</a>
-									<a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="CommentsByMe">Comments reported by me</a>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item">
-							<partial name="_LoginPartial" />
-						</li>
-					</ul>
+                    <ul class="navbar-nav mr-auto">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-success" asp-area="Administration" asp-controller="Manage" asp-action="Index">Administration</a>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Index">Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="Create">Create&nbsp;new</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="All">View&nbsp;all</a>
+                        </li>
+                        @await Component.InvokeAsync("LessonsNavigatorDropdown")
+                        <li class="nav-item dropdown">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    My activity
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="ByMe">Lessons created by me</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Comment" asp-action="ByMe">Comments created by me</a>
+                                    <hr />
+                                    <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="LessonsByMe">Lessons reported by me</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Report" asp-action="CommentsByMe">Comments reported by me</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <partial name="_PrivateMessagesPartial" />
+                        </li>
+                        <li class="nav-item">
+                            <partial name="_LoginPartial" />
+                        </li>
+                    </ul>
 				</div>
 			</div>
 		</nav>

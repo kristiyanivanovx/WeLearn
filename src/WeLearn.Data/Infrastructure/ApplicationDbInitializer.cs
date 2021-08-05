@@ -29,9 +29,9 @@ namespace WeLearn.Data.Infrastructure
                 {
                     Email = ApplicationAdministratorEmail,
                     EmailConfirmed = false,
-                    UserName = ApplicationAdministratorEmail,
+                    UserName = ApplicationAdministratorUsername,
                     NormalizedEmail = ApplicationAdministratorEmail.ToUpper(),
-                    NormalizedUserName = ApplicationAdministratorEmail.ToUpper(),
+                    NormalizedUserName = ApplicationAdministratorUsername.ToUpper(),
                 };
 
                 IdentityResult result = userManager.CreateAsync(user, "admin_Pass123%").Result;

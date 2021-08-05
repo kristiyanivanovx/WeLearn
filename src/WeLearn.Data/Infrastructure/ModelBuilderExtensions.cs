@@ -11,6 +11,14 @@ namespace WeLearn.Data.Infrastructure
     {
         public static void ConfigureRelations(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApplicationUser>()
+               .HasMany(x => x.SentPrivateMessages)
+               .WithOne(x => x.Sender);
+
+            modelBuilder.Entity<ApplicationUser>()
+               .HasMany(x => x.ReceivedPrivateMessages)
+               .WithOne(x => x.Receiver);
+
             modelBuilder.Entity<ChatApplicationUser>()
                 .HasKey(x => new { x.ChatId, x.ApplicationUserId });
 

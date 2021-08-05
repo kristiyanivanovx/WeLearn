@@ -8,6 +8,8 @@ namespace WeLearn.Services.Interfaces
     {
         int GetAllUsersCount();
 
+        Task<ApplicationUser> GetUserByUsernameAsync(string username);
+
         Task<IEnumerable<ApplicationUser>> GetUsersAsync(string userId);
     }
 }

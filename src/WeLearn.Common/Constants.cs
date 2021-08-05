@@ -4,6 +4,8 @@
 	{
 		public const string ApplicationAdministratorEmail = "welearnbg@gmail.com";
 
+		public const string ApplicationAdministratorUsername = "Admin";
+
 		public const string ApplicationAdministratorRoleName = "Admin";
 
 		public const string ApplicationAdministrationAreaName = "Administration";

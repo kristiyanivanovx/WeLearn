@@ -20,6 +20,10 @@ namespace WeLearn.Services
                 .Where(x => x.Id != userId)
                 .ToListAsync();
 
+        public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
+           => await this.context.ApplicationUsers
+               .FirstOrDefaultAsync(x => x.UserName == username);
+
         public int GetAllUsersCount()
             => this.context.Users.Count();
     }

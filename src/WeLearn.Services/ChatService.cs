@@ -38,18 +38,15 @@ namespace WeLearn.Services
             Chat chat = new Chat
             {
                 Name = name,
-                Type = ChatType.Room,
                 DateCreated = DateTime.UtcNow,
             };
 
             chat.ChatApplicationUsers.Add(new ChatApplicationUser
             {
-                Role = ChatApplicationUserRole.Admin,
                 ApplicationUserId = userId,
             });
 
             this.context.Chats.Add(chat);
-
             await this.context.SaveChangesAsync();
         }
 
@@ -58,9 +55,8 @@ namespace WeLearn.Services
                 .Include(x => x.Messages)
                 .FirstOrDefault(x => x.Id == id);
 
-        public async Task<List<Chat>> GetChatsByType(ChatType type)
+        public async Task<List<Chat>> GetAllChats()
             => await this.context.Chats
-                .Where(x => x.Type == type)
                 .ToListAsync();
 
         public IEnumerable<Chat> GetChats(string userId)
@@ -75,7 +71,6 @@ namespace WeLearn.Services
             ChatApplicationUser chatUser = new ChatApplicationUser
             {
                 ChatId = chatId,
-                Role = ChatApplicationUserRole.Member,
                 ApplicationUserId = userId,
             };
 

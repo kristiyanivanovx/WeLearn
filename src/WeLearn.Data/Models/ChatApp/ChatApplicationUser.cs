@@ -15,7 +15,5 @@ namespace WeLearn.Data.Models.ChatApp
         public int ChatId { get; set; }
 
         public Chat Chat { get; set; }
-
-        public ChatApplicationUserRole Role { get; set; }
     }
 }

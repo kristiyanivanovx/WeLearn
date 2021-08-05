@@ -20,8 +20,6 @@ namespace WeLearn.Data.Models.ChatApp
         [MaxLength(100)]
         public string Name { get; set; }
 
-        public ChatType Type { get; set; }
-
         public ICollection<Message> Messages { get; set; }
         
         public ICollection<ChatApplicationUser> ChatApplicationUsers { get; set; }

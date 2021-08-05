@@ -58,8 +58,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Chat>
             {
-                new Chat { Id = 1, Name = "Cdsa", Type = ChatType.Room, DateCreated = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", Type = ChatType.Room, DateCreated = DateTime.Now  },
+                new Chat { Id = 1, Name = "Cdsa", DateCreated = DateTime.Now },
+                new Chat { Id = 2, Name = "Cdsa2", DateCreated = DateTime.Now  },
             }.AsQueryable();
 
             Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
@@ -94,8 +94,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Chat>
             {
-                new Chat { Id = 1, Name = "Cdsa", Type = ChatType.Room, DateCreated = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", Type = ChatType.Room, DateCreated = DateTime.Now  },
+                new Chat { Id = 1, Name = "Cdsa", DateCreated = DateTime.Now },
+                new Chat { Id = 2, Name = "Cdsa2", DateCreated = DateTime.Now  },
             }.AsQueryable();
 
             Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
@@ -130,8 +130,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Chat>
             {
-                new Chat { Id = 1, Name = "Cdsa", Type = ChatType.Room, DateCreated = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", Type = ChatType.Room, DateCreated = DateTime.Now  },
+                new Chat { Id = 1, Name = "Cdsa",  DateCreated = DateTime.Now },
+                new Chat { Id = 2, Name = "Cdsa2", DateCreated = DateTime.Now  },
             }.AsQueryable();
 
             Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
@@ -154,7 +154,7 @@ namespace WeLearn.Tests
             var service = new ChatService(mockContext.Object);
 
             // act
-            var chats = await service.GetChatsByType(ChatType.Room);
+            var chats = await service.GetAllChats();
 
             // assert
             Assert.Equal(2, chats.Count());

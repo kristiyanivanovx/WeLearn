@@ -8,11 +8,11 @@ namespace WeLearn.Tests.HelperClasses
 {
     internal class TestingDbAsyncQueryProvider<TEntity> : IAsyncQueryProvider
     {
-        private readonly IQueryProvider _inner;
+        private readonly IQueryProvider inner;
 
         internal TestingDbAsyncQueryProvider(IQueryProvider inner)
         {
-            _inner = inner;
+            this.inner = inner;
         }
 
         public IQueryable CreateQuery(Expression expression)
@@ -27,12 +27,12 @@ namespace WeLearn.Tests.HelperClasses
 
         public object Execute(Expression expression)
         {
-            return _inner.Execute(expression);
+            return this.inner.Execute(expression);
         }
 
         public TResult Execute<TResult>(Expression expression)
         {
-            return _inner.Execute<TResult>(expression);
+            return this.inner.Execute<TResult>(expression);
         }
 
         public Task<object> ExecuteAsync(Expression expression, CancellationToken cancellationToken)

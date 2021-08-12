@@ -2,12 +2,12 @@
 using System.Text;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels;
+using WeLearn.ViewModels.Contacts;
 using static WeLearn.Common.Constants;
 
 namespace WeLearn.Web.Controllers
 {
-	public class ContactsController : BaseController
+    public class ContactsController : BaseController
 	{
 		private readonly IEmailSender emailSender;
 

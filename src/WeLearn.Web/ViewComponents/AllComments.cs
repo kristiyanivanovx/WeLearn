@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels;
 using System.Collections.Generic;
 using WeLearn.ViewModels.Comment;
 

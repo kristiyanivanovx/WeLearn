@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using SendGrid;
@@ -10,7 +7,7 @@ using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
 {
-	public class SendGridEmailService : IEmailSender
+    public class SendGridEmailService : IEmailSender
 	{
 		private readonly SendGridClient client;
 

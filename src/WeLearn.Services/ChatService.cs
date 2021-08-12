@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;

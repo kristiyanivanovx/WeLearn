@@ -6,10 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
-using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels.Comment;
-using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Comment;
 
 namespace WeLearn.Services

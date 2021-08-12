@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using static WeLearn.Common.Constants;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {

@@ -1,11 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Security.Claims;
-using WeLearn.Data;
-using WeLearn.Data.Models;
-using WeLearn.Web.ChatApp;
+﻿using System.Security.Claims;
 
 namespace WeLearn.Web.Infrastructure
 {

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels;
+﻿using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels.Home;
 using static WeLearn.Data.Infrastructure.DataValidation.Video;
 using static WeLearn.Data.Infrastructure.DataValidation.Material;

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace WeLearn.ViewModels
+namespace WeLearn.ViewModels.Contacts
 {
-	public class ContactsInputModel
+    public class ContactsInputModel
 	{
 		[Required]
 		[MaxLength(200)]

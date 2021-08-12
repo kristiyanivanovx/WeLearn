@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeLearn.ViewModels;
-using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Comment;
 using WeLearn.ViewModels.Comment;
 

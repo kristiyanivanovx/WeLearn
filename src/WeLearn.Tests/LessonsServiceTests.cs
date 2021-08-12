@@ -3,23 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
-using WeLearn.ViewModels;
 using WeLearn.Web.Infrastructure;
-using WeLearn.Data.Models.Enums;
 using Xunit;
-using WeLearn.ViewModels.Admin;
-using WeLearn.ViewModels.Admin.Lesson;
 using Moq;
 using WeLearn.Tests.HelperClasses;
 using System.Threading;
 using WeLearn.ViewModels.Lesson;
-using Microsoft.AspNetCore.Http;
-using System.IO;
 
 namespace WeLearn.Tests
 {

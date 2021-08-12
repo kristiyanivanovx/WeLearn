@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using WeLearn.Data.Models;
-using WeLearn.Web.Infrastructure;
-using WeLearn.ViewModels;
 using WeLearn.Services.Interfaces;
 using System.Collections.Generic;
 using WeLearn.ViewModels.Comment;

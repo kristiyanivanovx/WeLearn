@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
-using WeLearn.Web.Infrastructure;
-using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.ViewComponents

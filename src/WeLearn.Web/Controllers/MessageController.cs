@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
-using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels.Message;

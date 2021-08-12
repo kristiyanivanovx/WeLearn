@@ -1,20 +1,17 @@
 ﻿using AutoMapper;
-using System;
 using WeLearn.Data.Models;
-using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Comment;
 using WeLearn.ViewModels.Admin.Lesson;
 using WeLearn.ViewModels.Admin.Report;
 using WeLearn.ViewModels.Category;
 using WeLearn.ViewModels.Comment;
 using WeLearn.ViewModels.Lesson;
-using WeLearn.ViewModels.Report;
 using WeLearn.ViewModels.Report.Comment;
 using WeLearn.ViewModels.Report.Lesson;
 
 namespace WeLearn.Web.Infrastructure
 {
-	public class MappingProfile : Profile
+    public class MappingProfile : Profile
 	{
 		public MappingProfile()
 		{

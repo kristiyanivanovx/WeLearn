@@ -1,22 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ChatApp;
-using WeLearn.Web.Infrastructure;
 
 namespace WeLearn.Web.Controllers
 {
-	[Authorize]
+    [Authorize]
 	public class ChatController : BaseController
 	{
 		private readonly IHubContext<ChatHub> chatHub;

@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WeLearn.Web.Infrastructure
+﻿namespace WeLearn.Web.Infrastructure
 {
     public static class StringExtensions
     {

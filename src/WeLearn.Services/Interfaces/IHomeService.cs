@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using WeLearn.ViewModels;
-using WeLearn.ViewModels.Home;
+﻿using WeLearn.ViewModels.Home;
 
 namespace WeLearn.Services.Interfaces
 {

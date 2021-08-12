@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.ChatApp;
 
 namespace WeLearn.Data.Models

@@ -1,11 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeLearn.Data.Models;
-using WeLearn.ViewModels.Interfaces;
-using WeLearn.ViewModels;
-using WeLearn.ViewModels.Admin;
-using WeLearn.ViewModels.Report;
-using WeLearn.ViewModels.Comment;
 using WeLearn.ViewModels.Admin.Report;
 using WeLearn.ViewModels.Report.Comment;
 using WeLearn.ViewModels.Report.Lesson;

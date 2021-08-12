@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels;
-using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Lesson;
 using WeLearn.ViewModels.Category;
 using WeLearn.ViewModels.HelperModels;
-using static WeLearn.Common.Constants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {

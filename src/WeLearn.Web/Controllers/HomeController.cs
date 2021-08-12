@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
 using WeLearn.ViewModels.Home;

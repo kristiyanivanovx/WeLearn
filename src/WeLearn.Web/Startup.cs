@@ -11,10 +11,8 @@ using WeLearn.Data.Models;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.Infrastructure;
-using Microsoft.AspNetCore.SignalR;
 using Hangfire;
 using Hangfire.PostgreSql;
-using System.Diagnostics;
 
 namespace WeLearn
 {

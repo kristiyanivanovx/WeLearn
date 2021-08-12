@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WeLearn.Data.Models;

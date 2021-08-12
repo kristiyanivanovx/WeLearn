@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using WeLearn.Data;
 using WeLearn.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using WeLearn.ViewModels;
 using AutoMapper;
 using System.Linq;
 using WeLearn.ViewModels.Category;

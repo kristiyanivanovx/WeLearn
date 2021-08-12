@@ -2,11 +2,8 @@
 using System.Threading.Tasks;
 using WeLearn.Data.Models;
 using WeLearn.ViewModels.Interfaces;
-using WeLearn.ViewModels;
 using WeLearn.ViewModels.Lesson;
-using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Lesson;
-using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.Services.Interfaces
 {

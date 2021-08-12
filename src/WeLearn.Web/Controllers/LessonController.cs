@@ -1,29 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using WeLearn.Data.Models;
-using WeLearn.ViewModels;
-using WeLearn.Services.Interfaces;
-using WeLearn.Services.HelperModels;
-using System.Collections.Generic;
-using static WeLearn.Data.Infrastructure.DataValidation.Video;
-using static WeLearn.Data.Infrastructure.DataValidation.Material;
-using static WeLearn.Common.Constants;
-using WeLearn.ViewModels.HelperModels;
-using System.Linq;
 using Microsoft.Extensions.Hosting;
-using WeLearn.Web.Controllers;
-using WeLearn.Web.Infrastructure;
-using WeLearn.ViewModels.Lesson;
-using WeLearn.ViewModels.Category;
-using WeLearn.Data.Models.Enums;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using WeLearn.Data.Models.Enums;
+using WeLearn.Services.HelperModels;
+using WeLearn.Services.Interfaces;
+using WeLearn.ViewModels.Category;
+using WeLearn.ViewModels.HelperModels;
+using WeLearn.ViewModels.Lesson;
+using WeLearn.Web.Controllers;
+using static WeLearn.Common.Constants;
+using static WeLearn.Data.Infrastructure.DataValidation.Material;
+using static WeLearn.Data.Infrastructure.DataValidation.Video;
 
 namespace WeLearn.Controllers
 {

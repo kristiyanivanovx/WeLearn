@@ -1,16 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Services;
-using WeLearn.ViewModels;
 using System.Collections.Generic;
 using WeLearn.ViewModels.HelperModels;
-using WeLearn.ViewModels.Admin;
 using WeLearn.ViewModels.Admin.Report;
 
 namespace WeLearn.Web.Areas.Administration.Controllers

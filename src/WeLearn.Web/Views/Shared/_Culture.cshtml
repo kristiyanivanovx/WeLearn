@@ -1,9 +1,8 @@
-﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
-@inject Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions> localizationOptions
-
+﻿@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> localizationOptions
 @{
     var culture = Context.Features.Get<IRequestCultureFeature>();
-    var cultureList = localizationOptions.Value.SupportedUICultures.Select(x => new SelectListItem { Value = x.Name, Text = x.Name }).ToList();
+    var cultureList = localizationOptions.Value.SupportedUICultures.Select(x => new SelectListItem { Value = x.Name, Text = localizer.GetString(x.Name) }).ToList();
     var returnUrl = string.IsNullOrWhiteSpace(Context.Request.Path) ? "~/" : $"~{Context.Request.Path}{Context.Request.QueryString}";
 }
 

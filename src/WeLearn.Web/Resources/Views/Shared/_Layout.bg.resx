@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="categories" xml:space="preserve">
-    <value>categories</value>
+  <data name="Contacts" xml:space="preserve">
+    <value>Контакти</value>
   </data>
-  <data name="Currently we have" xml:space="preserve">
-    <value>Currently we have</value>
+  <data name="FAQ" xml:space="preserve">
+    <value>ЧЗВ</value>
   </data>
-  <data name="Feel free to look around..." xml:space="preserve">
-    <value>Feel free to look around, register and submit a lesson!</value>
-  </data>
-  <data name="Home page" xml:space="preserve">
-    <value>Home page</value>
-  </data>
-  <data name="lessons" xml:space="preserve">
-    <value>lessons</value>
-  </data>
-  <data name="The purpose..." xml:space="preserve">
-    <value>The purpose of the web application is to be a place for sharing all kinds of knowledge, but mainly information related to the subjects taught in school.</value>
-  </data>
-  <data name="to" xml:space="preserve">
-    <value>to</value>
-  </data>
-  <data name="users" xml:space="preserve">
-    <value>users</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="Privacy" xml:space="preserve">
+    <value>Поверителност</value>
   </data>
 </root>

@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="categories" xml:space="preserve">
+    <value>категории</value>
+  </data>
+  <data name="Currently we have" xml:space="preserve">
+    <value>В момента разполагаме с</value>
+  </data>
+  <data name="Feel free to look around..." xml:space="preserve">
+    <value>Чувствайте се поканени да разгледате, да се регистрирате и да създадете урок!</value>
+  </data>
+  <data name="Home page" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="lessons" xml:space="preserve">
+    <value>уроци</value>
+  </data>
+  <data name="The purpose..." xml:space="preserve">
+    <value>Целта на уеб приложението е да бъде платформа за споделяне на знания от всякакъв тип, но главно относно материалът, който се изучава в училище.</value>
+  </data>
   <data name="to" xml:space="preserve">
     <value>в</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>потребителя</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Добре дошли</value>

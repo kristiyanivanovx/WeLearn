@@ -142,14 +142,6 @@ namespace WeLearn
             app.UseRequestLocalization(app.ApplicationServices
                 .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
-            //string[] supportedCultures = new string[] { "en", "bg" };
-            //RequestLocalizationOptions localizationOptions = new RequestLocalizationOptions()
-            //    .SetDefaultCulture(supportedCultures[0])
-            //    .AddSupportedCultures(supportedCultures)
-            //    .AddSupportedUICultures(supportedCultures);
-
-            //app.UseRequestLocalization(localizationOptions);
-
             app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
             app.UseHangfire();
 

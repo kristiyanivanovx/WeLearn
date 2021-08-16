@@ -36,12 +36,6 @@ Primary focus is on students in primary/secondary school and respectively, their
 - To build the docker image, execute ```docker build -t app .``` inside ```/src/```.
 - To run the docker image, execute ```docker run -p 80:80 -it app``` inside ```/src/```.
 
-## Contact info
-- Private message me on Facebook or LinkedIn.
-
-## LinkedIn 
-- https://www.linkedin.com/in/kristiyan-ivanov-a54a80180/
-
 ## How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
 - An user cannot edit and delete another one's comments, reports and lessons.

@@ -167,6 +167,7 @@ Some of the many resources used for creating this project:
 - https://www.youtube.com/watch?v=Bmm9X-YZtG4
 - https://www.youtube.com/watch?v=5iN1jhr6yQI
 - https://www.youtube.com/watch?v=gQMT4al2Grg
+- https://www.youtube.com/watch?v=Hy9G30nncMM
 - https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
 
 Structure influenced by:

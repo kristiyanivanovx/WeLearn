@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels;
@@ -14,18 +12,6 @@ namespace WeLearn.Controllers
 
         public HomeController(IHomeService homeService)
             => this.homeService = homeService;
-
-        [HttpPost]
-        public IActionResult CultureManagement(string culture, string returnUrl)
-        {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = System.DateTimeOffset.Now.AddDays(30) }
-            );
-
-            return LocalRedirect(returnUrl);
-        }
 
         public IActionResult Index()
         {

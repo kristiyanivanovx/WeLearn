@@ -65,24 +65,6 @@ namespace WeLearn
             })
             .AddRazorRuntimeCompilation();
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
-            services.Configure<RequestLocalizationOptions>(options => 
-            {
-                CultureInfo[] supportedCultures = new CultureInfo[]
-                {
-                    new CultureInfo("en"),
-                    new CultureInfo("bg"),
-                };
-
-                options.DefaultRequestCulture = new RequestCulture("en");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
-
-            services.AddMvc()
-                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
-
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IUsersService, UsersService>();
@@ -138,9 +120,6 @@ namespace WeLearn
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseRequestLocalization(app.ApplicationServices
-                .GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
             app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
             app.UseHangfire();

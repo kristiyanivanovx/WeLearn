@@ -1,33 +1,19 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using WeLearn.Data.Models.Enums;
-using static WeLearn.Data.Infrastructure.DataValidation.Comment;
 
-namespace WeLearn.ViewModels.Admin.Comment
+namespace WeLearn.ViewModels.Admin.User
 {
     public class AdminUserViewModel
     {
-        public string ApplicationUserUserName { get; set; }
+        public string Id { get; set; }
+        
+        public string Email { get; init; }
 
-        public string ApplicationUserEmail { get; set; }
+        public string UserName { get; set; }
 
-        [Display(Name = "Is deleted")]
-        public bool IsDeleted { get; set; }
-
-        public int CommentId { get; set; }
-
-        public int LessonId { get; set; }
-
-        [Display(Name = "Content")]
-        [Required(ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
-        [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
-        public string Content { get; set; }
+        public bool IsAdministrator { get; set; }
 
         [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
-
-        public string ApplicationUserId { get; set; }
-
-        public DateTime LessonDateCreated { get; set; }
     }
 }

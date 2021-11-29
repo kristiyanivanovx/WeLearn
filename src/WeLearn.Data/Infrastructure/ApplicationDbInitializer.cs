@@ -9,7 +9,7 @@ namespace WeLearn.Data.Infrastructure
         public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             SeedRoles(roleManager);
-            SeedUsers(userManager);
+            SeedHeadAdminUser(userManager);
         }
 
         private static void SeedRoles(RoleManager<ApplicationRole> roleManager)
@@ -19,9 +19,15 @@ namespace WeLearn.Data.Infrastructure
                 ApplicationRole role = new ApplicationRole(ApplicationAdministratorRoleName);
                 _ = roleManager.CreateAsync(role).Result;
             }
+            
+            if (!roleManager.RoleExistsAsync(ApplicationHeadAdministratorRoleName).Result)
+            {
+                ApplicationRole role = new ApplicationRole(ApplicationHeadAdministratorRoleName);
+                _ = roleManager.CreateAsync(role).Result;
+            }
         }
 
-        private static void SeedUsers(UserManager<ApplicationUser> userManager)
+        private static void SeedHeadAdminUser(UserManager<ApplicationUser> userManager)
         {
             if (userManager.FindByEmailAsync(ApplicationAdministratorEmail).Result == null)
             {
@@ -39,6 +45,7 @@ namespace WeLearn.Data.Infrastructure
                 if (result.Succeeded)
                 {
                     userManager.AddToRoleAsync(user, ApplicationAdministratorRoleName).Wait();
+                    userManager.AddToRoleAsync(user, ApplicationHeadAdministratorRoleName).Wait();
                 }
             }
         }

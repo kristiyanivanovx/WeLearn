@@ -362,16 +362,17 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # custom ignores
-bin-obj-yeeter.bat
-appsettings.Production.json
-WeLearn.Data/appsettings.Production.json
-WeLearn.Web/appsettings.Production.json
-src/WeLearn.Data/appsettings.Production.json
-src/WeLearn.Web/appsettings.Production.json
-src/WeLearn.Web/wwwroot/uploads/materials/
-src/WeLearn.Web/wwwroot/uploads/videos/
+**/appsettings.Production.json
 
+**/wwwroot/uploads/materials/
+**/wwwroot/uploads/videos/
 **/wwwroot/lib/
+**/ScaffoldingReadMe.txt
+
 *.min.css
 *.min.js
-src/WeLearn.Web/ScaffoldingReadMe.txt
+
+.vs
+.idea
+*.bat
+seed.txt

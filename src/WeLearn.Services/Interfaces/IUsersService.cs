@@ -10,6 +10,16 @@ namespace WeLearn.Services.Interfaces
 
         Task<ApplicationUser> GetUserByUsernameAsync(string username);
 
-        Task<IEnumerable<ApplicationUser>> GetUsersAsync(string userId);
+        Task<IEnumerable<T>> GetAllUsersAsync<T>(string searchString);
+
+        Task ToggleAdminRoleAsync(string userId);
+        
+        Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId);
+
+        Task<T> GetUserByIdAsync<T>(string userId);
+
+        Task SoftDeleteUserByIdAsync(string userId);
+
+        Task HardDeleteUserByIdAsync(string userId);
     }
 }

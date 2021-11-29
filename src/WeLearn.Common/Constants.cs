@@ -7,6 +7,8 @@
 		public const string ApplicationAdministratorUsername = "Admin";
 
 		public const string ApplicationAdministratorRoleName = "Admin";
+		
+		public const string ApplicationHeadAdministratorRoleName = "HeadAdmin";
 
 		public const string ApplicationAdministrationAreaName = "Administration";
 

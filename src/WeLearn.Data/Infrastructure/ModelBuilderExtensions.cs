@@ -13,11 +13,13 @@ namespace WeLearn.Data.Infrastructure
         {
             modelBuilder.Entity<ApplicationUser>()
                .HasMany(x => x.SentPrivateMessages)
-               .WithOne(x => x.Sender);
+               .WithOne(x => x.Sender)
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ApplicationUser>()
                .HasMany(x => x.ReceivedPrivateMessages)
-               .WithOne(x => x.Receiver);
+               .WithOne(x => x.Receiver)
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ChatApplicationUser>()
                 .HasKey(x => new { x.ChatId, x.ApplicationUserId });

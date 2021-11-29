@@ -33,7 +33,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 1, Subject = "123", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
@@ -56,7 +56,7 @@ namespace WeLearn.Tests
             var service = new ReportsService(mockContext.Object, mapper);
 
             // act
-            var model = new LessonReportInputModel() { Subject = "Cdsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 };
+            var model = new LessonReportInputModel() { Subject = "123", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 };
             await service.CreateReportAsync(model);
 
             // assert
@@ -69,7 +69,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 1, Subject = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
@@ -92,7 +92,7 @@ namespace WeLearn.Tests
             var service = new ReportsService(mockContext.Object, mapper);
 
             // act
-            var model = new LessonReportEditModel() { ReportId = 1, Subject = "Cdsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 };
+            var model = new LessonReportEditModel() { ReportId = 1, Subject = "dsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 };
             await service.EditLessonReportAsync(model);
 
             // assert
@@ -104,7 +104,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
@@ -127,7 +127,7 @@ namespace WeLearn.Tests
             var service = new ReportsService(mockContext.Object, mapper);
 
             // act
-            var model = new CommentReportEditModel() { ReportId = 1, Subject = "Cdsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" };
+            var model = new CommentReportEditModel() { ReportId = 1, Subject = "dsa", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" };
             await service.EditCommentReportAsync(model);
 
             // assert
@@ -140,7 +140,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
@@ -163,7 +163,7 @@ namespace WeLearn.Tests
             var service = new ReportsService(mockContext.Object, mapper);
 
             // act
-            var model = new AdminReportEditModel() { Id = 1, Subject = "Cdsa66", Description = "1223", DateCreated = DateTime.Now, ApplicationUserId = "1asd" };
+            var model = new AdminReportEditModel() { Id = 1, Subject = "das", Description = "1223", DateCreated = DateTime.Now, ApplicationUserId = "1asd" };
             await service.EditReportAdministrationAsync(model);
 
             // assert
@@ -176,7 +176,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
@@ -211,7 +211,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
@@ -246,8 +246,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Report>
             {
-                new Report { Id = 1, Subject = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
-                new Report { Id = 2, Subject = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", LessonId = 3 },
+                new Report { Id = 1, Subject = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3 },
+                new Report { Id = 2, Subject = "asd", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", LessonId = 3 },
             }.AsQueryable();
 
             Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();

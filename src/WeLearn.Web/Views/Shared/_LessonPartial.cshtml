@@ -1,10 +1,10 @@
 ﻿@model LessonViewModel
 
 <div class="card mb-3 card-style-80-rem">
-    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
-        <source src="@Model.VideoLink" type="@Model.VideoContentType" />
-        @*<a href="@Model.VideoLink" download>Download</a>*@
-    </video>
+	<video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+		<source src="@Model.VideoLink" type="@Model.VideoContentType" />
+		@*<a href="@Model.VideoLink" download>Download</a>*@
+	</video>
 	<div class="card-body ">
 		<h5 class="card-title">@Model.Name</h5>
 		<hr />
@@ -36,5 +36,6 @@
 		</a>
 	</div>
 </div>
-<partial name="_CommentPartial" model="new CommentViewModel { LessonId = Model.LessonId };">
+
+<partial name="_CommentPartial" model="new CommentViewModel { LessonId = Model.LessonId }" />
 @await Component.InvokeAsync("AllComments", new { lessonId = Model.LessonId })

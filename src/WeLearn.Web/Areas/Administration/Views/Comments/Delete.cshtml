@@ -15,11 +15,13 @@
                     <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
                     <a href="@Model.LessonVideoLink" download>Download</a>
                 </video>
+                
                 <div class="card-body">
                     <h5 class="card-title">@Model.LessonName</h5>
                     <hr />
                     <p class="card-text">@Model.LessonDescription</p>
                     @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                   
                     <div class="card-text">
                         <p class="small text-muted mt-2">Grade - @Model.LessonGrade</p>
                         <p class="small text-muted">Category - @Model.LessonCategoryName</p>
@@ -34,9 +36,11 @@
             </a>
             <hr />
         </div>
+        
         <div class="col-md-6">
             <h2>Comment</h2>
             <hr />
+            
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <p>Created by: @Model.ApplicationUserUserName</p>
@@ -45,7 +49,6 @@
                 <input class="form-check-input" asp-for="IsDeleted" disabled />
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </div>
-
            
             <hr />
             <form asp-action="Delete">

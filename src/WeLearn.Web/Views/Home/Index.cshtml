@@ -1,24 +1,24 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model IndexViewModel
 @{
-	ViewData["Title"] = localizer["Home page"];
+    ViewData["Title"] = localizer["Home page"];
 }
 
+
 <div>
-	<div class="container text-center mb-3 mt-3">
+    <div class="container text-center mb-3 mt-3">
         <h1 class="display-4">@localizer["Welcome"] @localizer["to"] WeLearn!</h1>
-		<hr />
+        <hr/>
         <h5>@localizer["The purpose..."]</h5>
         <h5 class="mb-4">@localizer["Feel free to look around..."]</h5>
-		<h5 class="mt-4 ">@localizer["Currently we have"]:</h5>
+        <h5 class="mt-4 ">@localizer["Currently we have"]:</h5>
         <h5>@Model.UsersCount @localizer["users"]</h5>
         <h5>@Model.CategoriesCount @localizer["categories"]</h5>
         <h5>@Model.LessonsCount @localizer["lessons"]</h5>
-	</div>
-	<div class="text-center">
-		<img src="https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg"
-			 class="background-image"
-			 alt="books" />
-	</div>
-
+    </div>
+    <div class="text-center">
+        <img src="https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg"
+             class="background-image"
+             alt="books"/>
+    </div>
 </div>

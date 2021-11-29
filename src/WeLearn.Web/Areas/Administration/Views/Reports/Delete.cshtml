@@ -12,9 +12,9 @@
             <div>
                 <h4>Information about the user</h4>
                 <hr />
-                <p>User ID: @Model.ApplicationUserId</p>
-                <p>Username: @Model.ApplicationUserUserName</p>
-                <p>Email: @Model.ApplicationUserEmail</p>
+                <p><strong>User ID:</strong> @Model.ApplicationUserId</p>
+                <p><strong>Username:</strong> @Model.ApplicationUserUserName</p>
+                <p><strong>Email:</strong> @Model.ApplicationUserEmail</p>
             </div>
             <hr />
             <div>
@@ -22,24 +22,27 @@
                 {
                     <h4>Additional information about the lesson</h4>
                     <hr />
-                    <p>Name: @Model.LessonName</p>
-                    <p>Description: @Model.LessonDescription</p>
-                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-secondary mt-2 mb-1">Watch</a>
+                    <p><strong>Name:</strong> @Model.LessonName</p>
+                    <p><strong>Description:</strong> @Model.LessonDescription</p>
+                                                                             
+                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-secondary mt-2 mb-1">
+                        Watch
+                    </a>
                 }
                 @if (Model.CommentId != null)
                 {
                     <h4>Additional information about the comment</h4>
                     <hr />
-                    <span>Content: @Model.CommentContent</span>
+                    <span><strong>Content:</strong> @Model.CommentContent</span>
                 }
             </div>
 
             <hr />
             <h4>Report details</h4>
             <hr />
-            <p>Subject: @Model.Subject</p>
-            <p>Description: @Model.Description</p>
-            <p>Date created: <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
+            <p><strong>Subject:</strong> @Model.Subject</p>
+            <p><strong>Description:</strong> @Model.Description</p>
+            <p><strong>Date created:</strong> <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
 
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -49,6 +52,7 @@
 
             <form asp-action="Delete">
                 <input asp-for="Id" type="hidden" />
+                
                 <div class="form-group">
                     <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
@@ -57,6 +61,7 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     <partial name="_DateTimePicker" />
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

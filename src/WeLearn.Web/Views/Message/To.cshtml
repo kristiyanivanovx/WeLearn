@@ -36,7 +36,7 @@
             <hr />
         }
         @{ var receiverUsername = Model.PrivateMessageModels.First(x => x.ReplyTo != x.CurrentUsername).ReplyTo; }
-        <partial name="_MessageResponsePartial"  model="new PrivateMessageInputModel { ReceiverUsername = receiverUsername };"/>
+        <partial name="_MessageResponsePartial"  model="new PrivateMessageInputModel { ReceiverUsername = receiverUsername }"/>
     </div>
     <div class="col-sm-12 col-md-12 text-center">
         <a asp-controller="Message" asp-action="Index" class="btn btn-sm btn-outline-dark">
@@ -44,6 +44,6 @@
         </a>
     </div>
 
-    @* todo: add padding insted of br tag *@
+    @* todo: add padding instead of br tag *@
     <br />  
 </div>

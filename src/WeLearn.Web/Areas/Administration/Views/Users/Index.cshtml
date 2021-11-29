@@ -1,0 +1,155 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using static WeLearn.Common.Constants; 
+@inject UserManager<ApplicationUser> userManager
+
+@model PaginatedList<AdminUserViewModel>
+@{
+    ViewData["Title"] = "Users administration";
+}
+
+<partial name="_AdminPartial"/>
+<h3>Manage Users</h3>
+
+<form asp-area="Administration" asp-controller="Users" asp-action="Index" method="get">
+    <label>Find by user's name or email:</label>
+    <div class="input-group input-group-sm mb-3">
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString"/>
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1"/>
+    </div>
+</form>
+
+<div class="text-center">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Roles
+            </th>
+            <th>
+                Is Administrator
+            </th>
+            <th>
+                Manage
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @{
+                    var user = await userManager.FindByIdAsync(item.Id);
+                    var userIsAdmin = await userManager.IsInRoleAsync(user, "Admin");
+                    var adminRoleButtonClassStyling = userIsAdmin ?
+                        "btn btn-sm btn-outline-warning mb-1" :
+                        "btn btn-sm btn-outline-success mb-1";
+
+                    var disableIfUnauthorized = User.IsInRole(ApplicationHeadAdministratorRoleName) ? "enabled" : "disabled";
+                }
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @string.Join(", ", await userManager.GetRolesAsync(user))
+                </td>
+                <td>
+                    @if (userIsAdmin)
+                    {
+                        <div class="admin-role-color">Yes</div>
+                    }
+                    else
+                    {
+                        <div>No</div>
+                    }
+                </td>
+                <td>
+                    <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-id="@item.Id">
+                        <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
+                            @if (userIsAdmin)
+                            {
+                                <div>Demote</div>
+                            }
+                            else
+                            {
+                                <div>Promote</div>
+                            }
+                        </button>
+
+                        <span asp-area="Administration" asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id">
+                            <button class="btn btn-sm btn-outline-danger mb-1" @disableIfUnauthorized>
+                                Hard delete (Irreversible)
+                            </button>
+                        </span>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    @* pagination section *@
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <div class="mt-2 mb-2 text-center">
+        <a asp-area="Administration"
+           asp-controller="Users"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-categoryName="@ViewData["UserName"]"
+           class="btn btn-sm btn-outline-dark @prevDisabled">
+            <i class="fas fa-arrow-left"></i> Previous
+        </a>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-area="Administration"
+               asp-controller="Users"
+               asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@i"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               asp-route-searchString="@Model.SearchString"
+               asp-route-categoryName="@ViewData["UserName"]"
+               class="btn btn-sm btn-outline-dark ">
+                @i
+            </a>
+        }
+        <a asp-area="Administration"
+           asp-controller="Users"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-categoryName="@ViewData["UserName"]"
+           class="btn btn-sm btn-outline-dark @nextDisabled">
+            Next <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+    
+    @* pagination section end *@
+</div>
+
+@* todo: find a way to add padding/margin *@
+<br/>

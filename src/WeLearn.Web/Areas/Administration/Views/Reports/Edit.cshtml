@@ -8,63 +8,82 @@
         <div class="offset-md-3 col-md-6 text-center">
             <h1>Edit</h1>
             <h3>Report</h3>
-            <hr />
+            <hr/>
+
             <div>
                 <h4>Information about the user</h4>
-                <hr />
-                <p>User ID: @Model.ApplicationUserId</p>
-                <p>Username: @Model.ApplicationUserUserName</p>
-                <p>Email: @Model.ApplicationUserEmail</p>
+                <hr/>
+                <p>
+                    <strong>User ID:</strong> @Model.ApplicationUserId
+                </p>
+                <p>
+                    <strong>Username:</strong> @Model.ApplicationUserUserName
+                </p>
+                <p>
+                    <strong>Email:</strong> @Model.ApplicationUserEmail
+                </p>
             </div>
-            <hr />
+            <hr/>
             <div>
                 @if (Model.LessonId != null)
                 {
                     <h4>Additional information about the lesson</h4>
-                    <hr />
-                    <p>Name: @Model.LessonName</p>
-                    <p>Description: @Model.LessonDescription</p>
-                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-secondary mt-2 mb-1">Watch</a>
+                    <hr/>
+
+                    <p>
+                        <strong>Name:</strong> @Model.LessonName
+                    </p>
+                    <p>
+                        <strong>Description:</strong> @Model.LessonDescription
+                    </p>
+
+                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-secondary mt-2 mb-1">
+                        Watch
+                    </a>
                 }
                 @if (Model.CommentId != null)
                 {
                     <h4>Additional information about the comment</h4>
-                    <hr />
-                    <p>Content: @Model.CommentContent</p>
+                    <hr/>
+                    <p>
+                        <strong>Content:</strong> @Model.CommentContent
+                    </p>
                 }
             </div>
-            <hr />
+
+            <hr/>
             <form asp-action="Edit">
                 <div class="form-group">
                     <label asp-for="Subject" class="control-label"></label>
-                    <input asp-for="Subject" class="form-control" />
+                    <input asp-for="Subject" class="form-control"/>
                     <span asp-validation-for="Subject" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
+                    <input asp-for="Description" class="form-control"/>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" />
+                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text"/>
                     <span asp-validation-for="DateCreated" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                        <input class="form-check-input" asp-for="IsDeleted"/> @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
                 <input asp-for="Id" type="hidden"/>
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-sm btn-outline-success" />
+                    <input type="submit" value="Save" class="btn btn-sm btn-outline-success"/>
                     <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 @section Scripts {
-    <partial name="_DateTimePicker" />
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_DateTimePicker"/>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

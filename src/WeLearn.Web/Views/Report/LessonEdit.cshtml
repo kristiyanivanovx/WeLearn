@@ -7,7 +7,8 @@
     <div class="card-deck">
         <div class="row">
             <div class="card mb-3 card-style-20-rem">
-                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" 
+                       alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
                     <source src="@Model.LessonVideoLink" type="@Model.VideoContentType" />
                     <a href="@Model.LessonVideoLink" download>Download</a>
                 </video>
@@ -27,7 +28,9 @@
                             <small class="text-muted">Grade - @Model.LessonGrade</small>
                         </div>
                         <div>
-                            <small class="text-muted">Date created - <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time></small>
+                            <small class="text-muted">Date created - 
+                                <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time>
+                            </small>
                         </div>
                     </p>
                     <div class="mt-3">
@@ -56,7 +59,9 @@
                             <span asp-validation-for="@Model.ReportDescription" class="text-danger"></span>
                         </div>
                         <input type="submit" name="submit" value="Save" class="btn btn-sm btn-outline-success" />
-                        <a asp-controller="Report" asp-action="ByMe" class="btn btn-sm btn-outline-dark">
+                        
+                        @* <a asp-controller="Report" asp-action="ByMe" class="btn btn-sm btn-outline-dark"> *@
+                        <a asp-controller="Report" asp-action="LessonsByMe" class="btn btn-sm btn-outline-dark">
                             Cancel
                         </a>
                     </form>

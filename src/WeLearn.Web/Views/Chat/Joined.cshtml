@@ -19,7 +19,8 @@
                 }
             </div>
             <div class="offset-md-2 col-md-8 mt-3">
-                <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage" method="post">
+                @* <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage" method="post"> *@
+                <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="SendMessage" method="post">
                     <input type="hidden" name="roomId" value="@Model.Id" />
                     <input type="text" name="message" id="message-input" class="form-control form-control-sm" />
                     <input type="submit" value="Send" class="btn btn-sm btn-outline-success mt-3 mb-3" />

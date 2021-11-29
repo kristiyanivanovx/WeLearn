@@ -10,11 +10,13 @@
         <div class="col-md-6">
             <h2>Lesson</h2>
             <hr />
+            
             <div class="card">
                 <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
                     <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
                     <a href="@Model.LessonVideoLink" download>Download</a>
                 </video>
+                
                 <div class="card-body">
                     <div class="card-text">
                         <h5 class="card-title">@Model.LessonName</h5>
@@ -37,9 +39,11 @@
         <div class="col-md-6">
             <h2>Comment</h2>
             <hr />
+            
             <p>Created by: @Model.ApplicationUserUserName</p>
             <p>Date created: <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
             <hr />
+            
             <form asp-action="Edit">
                 <input asp-for="LessonId" type="hidden" />
                 <input asp-for="ApplicationUserId" type="hidden" />

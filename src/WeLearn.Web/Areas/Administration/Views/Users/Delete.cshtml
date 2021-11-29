@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> userManager
+
+@model WeLearn.ViewModels.Admin.User.AdminUserDeleteModel
+@{
+    ViewData["Title"] = "Deleting a user";
+}
+
+<div class="container text-center">
+    <h1>Delete</h1>
+
+    <div class="row">
+        <div class="offset-md-3 col-md-6 text-center">
+            <h2>User</h2>
+            <hr>
+
+            <p class="card-title">
+                <strong>Id:</strong> @Model.Id
+            </p>
+            
+            <p class="card-title">
+                <strong>Username:</strong> @Model.UserName
+            </p>
+
+            <p class="card-title">
+                <strong>Email:</strong> @Model.Email
+            </p>
+            
+            @{
+                var user = await userManager.FindByIdAsync(@Model.Id);
+            }
+            
+            <p>
+                @string.Join(", ", await userManager.GetRolesAsync(user))
+            </p>
+            
+            <p class="card-title">  
+                <strong>Is Administrator:</strong>
+                @if (await userManager.IsInRoleAsync(user, "Admin"))
+                {
+                    <span class="admin-role-color">Yes</span>
+                }
+                else
+                {
+                    <span>No</span>
+                }
+            </p>
+        </div>
+    </div>
+
+    <form asp-action="Delete" class="mt-3">
+        <input asp-for="Id" type="hidden" />
+        
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger"/>
+            <a asp-action="Index" class="btn btn-sm btn-outline-dark">Back to all</a>
+        </div>
+    </form>
+</div>

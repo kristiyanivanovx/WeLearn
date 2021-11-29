@@ -8,6 +8,8 @@ using WeLearn.ViewModels.Comment;
 using WeLearn.ViewModels.Lesson;
 using WeLearn.ViewModels.Report.Comment;
 using WeLearn.ViewModels.Report.Lesson;
+using WeLearn.Common;
+using WeLearn.ViewModels.Admin.User;
 
 namespace WeLearn.Web.Infrastructure
 {
@@ -138,6 +140,11 @@ namespace WeLearn.Web.Infrastructure
 			CreateMap<Report, AdminReportEditModel>();
 
 			CreateMap<Report, AdminReportDeleteModel>();
+			
+			// users administration
+			CreateMap<ApplicationUser, AdminUserViewModel>();
+			
+			CreateMap<ApplicationUser, AdminUserDeleteModel>();
 		}
 	}
 }

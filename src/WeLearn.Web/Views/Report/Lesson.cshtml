@@ -16,7 +16,7 @@
                     <hr />
                     <p class="card-text">@Model.LessonDescription</p>
                     <p class="card-text">
-                        @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                        @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
                         <div>
                             <small class="text-muted">Created by - @createdBy</small>
                         </div>

@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -15,7 +16,7 @@ namespace WeLearn.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Text = table.Column<string>(type: "character varying(1500)", maxLength: 1500, nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -27,7 +28,7 @@ namespace WeLearn.Data.Migrations
                 columns: table => new
                 {
                     ParticipantsId = table.Column<string>(type: "text", nullable: false),
-                    PrivateMessagesId = table.Column<int>(type: "integer", nullable: false)
+                    PrivateMessagesId = table.Column<int>(type: "integer", nullable: false),
                 },
                 constraints: table =>
                 {

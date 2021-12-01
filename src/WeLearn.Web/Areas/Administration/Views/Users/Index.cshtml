@@ -123,16 +123,17 @@
         </a>
         @for (int i = 1; i <= Model.TotalPages; i++)
         {
+            var current = i;
             <a asp-area="Administration"
                asp-controller="Users"
                asp-action="Index"
                asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@i"
+               asp-route-pageNumber="@current"
                asp-route-currentFilter="@ViewData["CurrentFilter"]"
                asp-route-searchString="@Model.SearchString"
                asp-route-categoryName="@ViewData["UserName"]"
                class="btn btn-sm btn-outline-dark ">
-                @i
+                @current
             </a>
         }
         <a asp-area="Administration"

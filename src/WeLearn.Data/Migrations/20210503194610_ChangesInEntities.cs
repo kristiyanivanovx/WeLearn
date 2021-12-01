@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using System;
 
 namespace WeLearn.Data.Migrations
 {
@@ -304,7 +305,7 @@ namespace WeLearn.Data.Migrations
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateDeleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {

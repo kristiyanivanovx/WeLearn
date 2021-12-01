@@ -9,11 +9,13 @@ namespace WeLearn.Tests.HelperClasses
     {
         public TestingDbAsyncEnumerable(IEnumerable<T> enumerable)
             : base(enumerable)
-        { }
+        {
+        }
 
         public TestingDbAsyncEnumerable(Expression expression)
             : base(expression)
-        { }
+        {
+        }
 
         public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {

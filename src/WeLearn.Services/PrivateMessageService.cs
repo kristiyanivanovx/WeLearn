@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
@@ -21,7 +22,7 @@ namespace WeLearn.Services
 
         public AllPrivateMessagesViewModel<PrivateMessageConversationViewModel> CreateConversationViewModel(string correspondent, string currentUserName, string currentUserId)
         {
-            string sender = context.ApplicationUsers.FirstOrDefault(x => x.UserName == currentUserName).UserName;
+            string sender = this.context.ApplicationUsers.FirstOrDefault(x => x.UserName == currentUserName)?.UserName;
 
             List<PrivateMessage> privateMessages = this.context.PrivateMessages
                 .Include(x => x.Sender)
@@ -34,7 +35,7 @@ namespace WeLearn.Services
 
             var model = new AllPrivateMessagesViewModel<PrivateMessageConversationViewModel>()
             {
-                PrivateMessageModels = new List<PrivateMessageConversationViewModel>()
+                PrivateMessageModels = new List<PrivateMessageConversationViewModel>(),
             };
 
             foreach (PrivateMessage privateMessage in privateMessages)
@@ -63,9 +64,9 @@ namespace WeLearn.Services
             var privateMessage = new PrivateMessage()
             {
                 Text = model.Text,
-                ReceiverId = context.ApplicationUsers.First(x => x.UserName == model.ReceiverUsername).Id,
+                ReceiverId = this.context.ApplicationUsers.First(x => x.UserName == model.ReceiverUsername).Id,
                 SenderId = currentUserId,
-                DateCreated = DateTime.UtcNow
+                DateCreated = DateTime.UtcNow,
             };
 
             await this.context.PrivateMessages.AddAsync(privateMessage);
@@ -81,13 +82,13 @@ namespace WeLearn.Services
 
             var model = new AllPrivateMessagesViewModel<PrivateMessageIndexViewModel>()
             {
-                PrivateMessageModels = new List<PrivateMessageIndexViewModel>()
+                PrivateMessageModels = new List<PrivateMessageIndexViewModel>(),
             };
 
             foreach (PrivateMessage privateMessage in privateMessages)
             {
-                string receiver = context.ApplicationUsers.First(x => x.Id == privateMessage.ReceiverId).UserName;
-                string sender = context.ApplicationUsers.First(x => x.Id == privateMessage.SenderId).UserName;
+                string receiver = this.context.ApplicationUsers.First(x => x.Id == privateMessage.ReceiverId).UserName;
+                string sender = this.context.ApplicationUsers.First(x => x.Id == privateMessage.SenderId).UserName;
                 string otherCorrespondent = receiver == currentUsername ? sender : receiver;
                 bool isAlreadyPresent = model.PrivateMessageModels.Any(x => x.OtherCorrespondent == otherCorrespondent);
 

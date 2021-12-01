@@ -1,10 +1,11 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Http;
 using WeLearn.Services.Interfaces;
-using System;
 
 namespace WeLearn.Services
 {
@@ -59,7 +60,7 @@ namespace WeLearn.Services
             return uniqueFileName;
         }
 
-        public string GenerateItemPath(string root, string subItem, string subSubItem = null) 
-            => Path.Combine(root, subItem, subSubItem);
+        public string GenerateItemPath(string root, string subItem, string subSubItem = null)
+            => Path.Combine(root, subItem, subSubItem ?? string.Empty);
     }
 }

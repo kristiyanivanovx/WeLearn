@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Models.Enums;
+
 using static WeLearn.Data.Infrastructure.DataValidation.Comment;
 
 namespace WeLearn.ViewModels.Admin.Comment
@@ -16,6 +18,7 @@ namespace WeLearn.ViewModels.Admin.Comment
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
+
         public string ApplicationUserId { get; set; }
 
         public string ApplicationUserUserName { get; set; }

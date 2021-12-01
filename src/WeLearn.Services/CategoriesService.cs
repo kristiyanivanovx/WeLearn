@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+
+using AutoMapper;
 using WeLearn.Data;
 using WeLearn.Services.Interfaces;
-using AutoMapper;
-using System.Linq;
 using WeLearn.ViewModels.Category;
 
 namespace WeLearn.Services

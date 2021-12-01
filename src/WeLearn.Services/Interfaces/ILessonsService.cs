@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using WeLearn.Data.Models;
+using WeLearn.ViewModels.Admin.Lesson;
 using WeLearn.ViewModels.Interfaces;
 using WeLearn.ViewModels.Lesson;
-using WeLearn.ViewModels.Admin.Lesson;
 
 namespace WeLearn.Services.Interfaces
 {
@@ -32,7 +33,7 @@ namespace WeLearn.Services.Interfaces
         Task SoftDeleteLessonByIdAsync(int lessonId);
 
         Task HardDeleteLessonByIdAsync(int lessonId);
-        
+
         Task UploadMaterialsAsync(ILessonModel model, string uploadsMaterials);
 
         Task<Video> UploadVideoAsync(Lesson lesson, ILessonModel model, string environmentWebRootPath);

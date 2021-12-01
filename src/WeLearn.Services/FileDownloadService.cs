@@ -1,7 +1,8 @@
 ﻿using System.IO;
 using System.Net;
-using WeLearn.Services.Interfaces;
+
 using WeLearn.Services.HelperModels;
+using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
 {
@@ -15,7 +16,7 @@ namespace WeLearn.Services
             WebClient webClient = new WebClient();
             byte[] data = webClient.DownloadData(link);
             MemoryStream content = new MemoryStream(data);
-           
+
             return new FileDownload { Content = content, ContentType = contentType, FileName = fileName };
         }
     }

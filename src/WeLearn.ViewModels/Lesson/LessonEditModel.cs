@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
+using Microsoft.AspNetCore.Http;
 using WeLearn.Data.Models.Enums;
 using WeLearn.ViewModels.Interfaces;
+
 using static WeLearn.Data.Infrastructure.DataValidation.Lesson;
 
 namespace WeLearn.ViewModels.Lesson
@@ -32,7 +34,7 @@ namespace WeLearn.ViewModels.Lesson
         public string OldFilesLink { get; set; }
 
         public IFormFile Video { get; set; }
-        
+
         public IEnumerable<IFormFile> Files { get; set; }
     }
 }

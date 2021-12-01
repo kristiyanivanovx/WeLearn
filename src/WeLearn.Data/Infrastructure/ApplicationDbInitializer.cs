@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Models;
+
 using static WeLearn.Common.Constants;
 
 namespace WeLearn.Data.Infrastructure
@@ -19,7 +20,7 @@ namespace WeLearn.Data.Infrastructure
                 ApplicationRole role = new ApplicationRole(ApplicationAdministratorRoleName);
                 _ = roleManager.CreateAsync(role).Result;
             }
-            
+
             if (!roleManager.RoleExistsAsync(ApplicationHeadAdministratorRoleName).Result)
             {
                 ApplicationRole role = new ApplicationRole(ApplicationHeadAdministratorRoleName);

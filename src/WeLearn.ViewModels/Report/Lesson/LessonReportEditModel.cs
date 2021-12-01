@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Models.Enums;
+
 using static WeLearn.Data.Infrastructure.DataValidation.Report;
 
 namespace WeLearn.ViewModels.Report.Lesson

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Services.Interfaces;
@@ -23,7 +24,7 @@ namespace WeLearn.Services
                 ChatId = chatId,
                 Text = message,
                 Name = userName,
-                DateCreated = DateTime.UtcNow
+                DateCreated = DateTime.UtcNow,
             };
 
             this.context.Messages.Add(messageModel);
@@ -61,8 +62,7 @@ namespace WeLearn.Services
         public IEnumerable<Chat> GetChats(string userId)
             => this.context.Chats
                 .Include(x => x.ChatApplicationUsers)
-                .Where(x => !x.ChatApplicationUsers
-                    .Any(y => y.ApplicationUserId == userId))
+                .Where(x => x.ChatApplicationUsers.All(y => y.ApplicationUserId != userId))
                 .ToList();
 
         public async Task JoinRoomAsync(int chatId, string userId)

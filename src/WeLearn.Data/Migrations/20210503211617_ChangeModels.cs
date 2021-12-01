@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -80,7 +81,7 @@ namespace WeLearn.Data.Migrations
                     DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateModified = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     DateDeleted = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -283,7 +284,7 @@ namespace WeLearn.Data.Migrations
                     { 12, "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", 12, new DateTime(2021, 5, 3, 21, 16, 16, 374, DateTimeKind.Utc).AddTicks(7646), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "A lesson about the different types of cells and their differences.", 0, false, 12, "Cells. Prokaryotic and Eukaryotic", 12 },
                     { 13, "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", 13, new DateTime(2021, 5, 3, 21, 16, 16, 374, DateTimeKind.Utc).AddTicks(7647), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "A lesson about acids, they effects on the environtment and usage cases.", 0, false, 13, "Acids, Bases and pH", 13 },
                     { 14, "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", 14, new DateTime(2021, 5, 3, 21, 16, 16, 374, DateTimeKind.Utc).AddTicks(7649), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Genres, instruments and notation.", 0, false, 14, "Popular music", 14 },
-                    { 7, "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", 7, new DateTime(2021, 5, 3, 21, 16, 16, 374, DateTimeKind.Utc).AddTicks(7583), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "A peek into Shakespere's art.", 0, false, 7, "William Shakespere's 106 sonnet", 7 }
+                    { 7, "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", 7, new DateTime(2021, 5, 3, 21, 16, 16, 374, DateTimeKind.Utc).AddTicks(7583), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "A peek into Shakespere's art.", 0, false, 7, "William Shakespere's 106 sonnet", 7 },
                 });
 
             migrationBuilder.UpdateData(

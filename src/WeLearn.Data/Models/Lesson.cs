@@ -1,12 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Models.Base;
 using WeLearn.Data.Models.Enums;
-using System.ComponentModel.DataAnnotations;
+
 using static WeLearn.Data.Infrastructure.DataValidation.Lesson;
 
 namespace WeLearn.Data.Models
 {
-    public class Lesson :  SoftDeleteable, IMetadataHaveable
+    public class Lesson : SoftDeleteable, IMetadataHaveable
     {
         [Required]
         [MaxLength(MaxNameLength)]

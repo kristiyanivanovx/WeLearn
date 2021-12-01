@@ -1,18 +1,19 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
+using WeLearn.Tests.HelperClasses;
+using WeLearn.ViewModels.Lesson;
 using WeLearn.Web.Infrastructure;
 using Xunit;
-using Moq;
-using WeLearn.Tests.HelperClasses;
-using System.Threading;
-using WeLearn.ViewModels.Lesson;
 
 namespace WeLearn.Tests
 {
@@ -28,11 +29,11 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonIsSoftDeleted()
         {
-            // arrange 
+            // arrange
             var data = new List<Lesson>
             {
-                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" },
-                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d" },
+                new Lesson { Id = 1, Name = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" },
+                new Lesson { Id = 2, Name = "asd", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d" },
             }.AsQueryable();
 
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
@@ -53,7 +54,7 @@ namespace WeLearn.Tests
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, this.mapper, inputOutputService);
 
             // act
             await service.SoftDeleteLessonByIdAsync(1);
@@ -65,7 +66,7 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_AllLessonsAreRetrieved()
         {
-            // arrange 
+            // arrange
             var data = new List<Lesson>
             {
                 new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", IsApproved = true },
@@ -104,11 +105,11 @@ namespace WeLearn.Tests
         {
             var userId = "asd";
 
-            // arrange 
+            // arrange
             var data = new List<Lesson>
             {
-                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, IsApproved = true },
-                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true },
+                new Lesson { Id = 1, Name = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, IsApproved = true },
+                new Lesson { Id = 2, Name = "asd", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true },
             }.AsQueryable();
 
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
@@ -129,7 +130,7 @@ namespace WeLearn.Tests
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, this.mapper, inputOutputService);
 
             // act
             var models = await service.GetCreatedByMeAsync(userId, null);

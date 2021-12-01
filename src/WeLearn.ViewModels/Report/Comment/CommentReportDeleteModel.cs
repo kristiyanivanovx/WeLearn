@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using static WeLearn.Data.Infrastructure.DataValidation.Report;
 
 namespace WeLearn.ViewModels.Report.Comment

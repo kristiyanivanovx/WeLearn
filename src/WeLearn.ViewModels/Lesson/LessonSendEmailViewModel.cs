@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Models.Enums;
 
 namespace WeLearn.ViewModels.Lesson
 {
     public class LessonSendEmailViewModel
     {
-		public int LessonId { get; set; }
+        public int LessonId { get; set; }
 
         public string Name { get; set; }
 
@@ -16,7 +17,7 @@ namespace WeLearn.ViewModels.Lesson
 
         [Display(Name = "Date created")]
         public DateTime DateCreated { get; set; }
-            
+
         public string CategoryName { get; set; }
 
         public string ApplicationUserUserName { get; set; }

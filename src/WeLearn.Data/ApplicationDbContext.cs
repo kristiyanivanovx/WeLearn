@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WeLearn.Data.Infrastructure;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.ChatApp;
-using WeLearn.Data.Infrastructure;
 
 namespace WeLearn.Data
 {
@@ -13,9 +13,9 @@ namespace WeLearn.Data
         {
         }
 
-		public ApplicationDbContext()
-		{
-		}
+        public ApplicationDbContext()
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

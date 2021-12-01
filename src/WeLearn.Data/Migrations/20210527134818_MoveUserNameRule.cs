@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WeLearn.Data.Migrations
@@ -523,7 +524,7 @@ namespace WeLearn.Data.Migrations
                 type: "character varying(256)",
                 maxLength: 256,
                 nullable: false,
-                defaultValue: "",
+                defaultValue: string.Empty,
                 oldClrType: typeof(string),
                 oldType: "character varying(35)",
                 oldMaxLength: 35,

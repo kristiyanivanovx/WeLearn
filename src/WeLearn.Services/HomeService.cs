@@ -1,7 +1,8 @@
 ﻿using WeLearn.Services.Interfaces;
 using WeLearn.ViewModels.Home;
-using static WeLearn.Data.Infrastructure.DataValidation.Video;
+
 using static WeLearn.Data.Infrastructure.DataValidation.Material;
+using static WeLearn.Data.Infrastructure.DataValidation.Video;
 
 namespace WeLearn.Services
 {
@@ -28,12 +29,12 @@ namespace WeLearn.Services
                     AllowedVideoExtensions = string.Join(", ", AllowedVideoExtensions),
                 };
 
-		public IndexViewModel GenerateIndexViewModel()
+        public IndexViewModel GenerateIndexViewModel()
             => new IndexViewModel()
                 {
                     CategoriesCount = this.categoriesService.GetAllCategoriesCount(),
                     UsersCount = this.userService.GetAllUsersCount(),
-                    LessonsCount = this.lessonsService.GetAllLessonsCount()
+                    LessonsCount = this.lessonsService.GetAllLessonsCount(),
                 };
     }
 }

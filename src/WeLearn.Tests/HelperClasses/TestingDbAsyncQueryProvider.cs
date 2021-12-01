@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
-using System.Linq;
+﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace WeLearn.Tests.HelperClasses
 {
@@ -37,17 +38,17 @@ namespace WeLearn.Tests.HelperClasses
 
         public Task<object> ExecuteAsync(Expression expression, CancellationToken cancellationToken)
         {
-            return Task.FromResult(Execute(expression));
+            return Task.FromResult(this.Execute(expression));
         }
 
         public Task<TResult> ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
         {
-            return Task.FromResult(Execute<TResult>(expression));
+            return Task.FromResult(this.Execute<TResult>(expression));
         }
 
         TResult IAsyncQueryProvider.ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
         {
-            return Execute<TResult>(expression);
+            return this.Execute<TResult>(expression);
         }
     }
 }

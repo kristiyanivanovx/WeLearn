@@ -4,8 +4,13 @@ namespace WeLearn.Data.Models
 {
     public class ApplicationRole : IdentityRole
     {
-        public ApplicationRole() : base () { }
+        public ApplicationRole()
+        {
+        }
 
-        public ApplicationRole(string roleName) : base (roleName) { }
+        public ApplicationRole(string roleName)
+            : base(roleName)
+        {
+        }
     }
 }

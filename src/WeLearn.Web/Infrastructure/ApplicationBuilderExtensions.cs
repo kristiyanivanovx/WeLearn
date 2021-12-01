@@ -24,11 +24,9 @@ namespace WeLearn.Web.Infrastructure
 
         public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
         {
-            using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
-            {
-                ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                context.Database.Migrate();
-            }
+            using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
+            ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            context.Database.Migrate();
 
             return app;
         }

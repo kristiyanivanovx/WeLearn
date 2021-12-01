@@ -1,14 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Comment;
 using WeLearn.ViewModels.Admin.Comment;
+using WeLearn.ViewModels.Comment;
 
 namespace WeLearn.Services
 {
@@ -34,30 +35,46 @@ namespace WeLearn.Services
         public async Task EditCommentAsync(CommentEditModel commentEditModel)
         {
             Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.Id);
-            entity.Content = commentEditModel.Content ?? entity.Content;
+            if (entity != null)
+            {
+                entity.Content = commentEditModel.Content ?? entity.Content;
+            }
+
             await this.context.SaveChangesAsync();
         }
 
         public async Task EditCommentByAdminAsync(AdminCommentEditModel commentEditModel)
         {
             Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.Id);
-            entity.Content = commentEditModel.Content ?? entity.Content;
-            entity.IsDeleted = commentEditModel.IsDeleted;
-            entity.DateCreated = commentEditModel.DateCreated;
+            if (entity != null)
+            {
+                entity.Content = commentEditModel.Content ?? entity.Content;
+                entity.IsDeleted = commentEditModel.IsDeleted;
+                entity.DateCreated = commentEditModel.DateCreated;
+            }
+
             await this.context.SaveChangesAsync();
         }
 
         public async Task SoftDeleteCommentByIdAsync(int commentId)
         {
             Comment comment = this.context.Comments.FirstOrDefault(x => x.Id == commentId);
-            comment.IsDeleted = true;
+            if (comment != null)
+            {
+                comment.IsDeleted = true;
+            }
+
             await this.context.SaveChangesAsync();
         }
 
         public async Task HardDeleteCommentByIdAsync(int commentId)
         {
             Comment comment = this.context.Comments.FirstOrDefault(x => x.Id == commentId);
-            this.context.Comments.Remove(comment);
+            if (comment != null)
+            {
+                this.context.Comments.Remove(comment);
+            }
+
             await this.context.SaveChangesAsync();
         }
 
@@ -95,7 +112,6 @@ namespace WeLearn.Services
         public async Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString = null)
         {
             IQueryable<Comment> allComments = this.context.Comments;
-                            
             if (!string.IsNullOrEmpty(searchString))
             {
                 allComments = allComments.Where(x => x.Content.ToLower().Contains(searchString.ToLower()));

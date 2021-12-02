@@ -24,7 +24,7 @@ namespace WeLearn.Services
                 ChatId = chatId,
                 Text = message,
                 Name = userName,
-                DateCreated = DateTime.UtcNow,
+                
             };
 
             this.context.Messages.Add(messageModel);
@@ -38,7 +38,7 @@ namespace WeLearn.Services
             Chat chat = new Chat
             {
                 Name = name,
-                DateCreated = DateTime.UtcNow,
+                CreatedOn = DateTime.UtcNow,
             };
 
             chat.ChatApplicationUsers.Add(new ChatApplicationUser

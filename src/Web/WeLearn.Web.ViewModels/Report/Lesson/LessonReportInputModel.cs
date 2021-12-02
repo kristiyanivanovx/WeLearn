@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using WeLearn.Data.Models.Enums;
-using static WeLearn.Data.Infrastructure.DataValidation.Report;
+using WeLearn.Services.Mapping;
+using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
-namespace WeLearn.ViewModels.Report.Lesson
+namespace WeLearn.Web.ViewModels.Report.Lesson
 {
-    public class LessonReportInputModel
+    public class LessonReportInputModel : IMapFrom<Data.Models.Lesson>, IMapTo<Data.Models.Report>, IHaveCustomMappings
     {
         public int LessonId { get; set; }
 
@@ -13,7 +15,7 @@ namespace WeLearn.ViewModels.Report.Lesson
 
         public string LessonName { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string LessonApplicationUserUserName { get; set; }
 
@@ -25,7 +27,7 @@ namespace WeLearn.ViewModels.Report.Lesson
 
         public string CreatedByUserName { get; set; }
 
-        public DateTime LessonDateCreated { get; set; }
+        public DateTime LessonCreatedOn { get; set; }
 
         public string LessonVideoName { get; set; }
 
@@ -45,5 +47,42 @@ namespace WeLearn.ViewModels.Report.Lesson
         public string ReportDescription { get; set; }
 
         public string ApplicationUserId { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<LessonReportInputModel, Data.Models.Report>()
+                .ForMember(
+                    dest => dest.Description, 
+                    opt => opt.MapFrom(src => src.ReportDescription));
+
+            configuration.CreateMap<Data.Models.Lesson, LessonReportInputModel>()
+                .ForMember(
+                    dest => dest.LessonId,
+                    opt => opt.MapFrom(src => src.Id))
+                .ForMember(
+                    dest => dest.LessonName,
+                    opt => opt.MapFrom(src => src.Name))
+                .ForMember(
+                    dest => dest.LessonGrade,
+                    opt => opt.MapFrom(src => src.Grade))
+                .ForMember(
+                    dest => dest.LessonVideoName,
+                    opt => opt.MapFrom(src => src.Video.Name))
+                .ForMember(
+                    dest => dest.LessonVideoLink,
+                    opt => opt.MapFrom(src => src.Video.Link))
+                .ForMember(
+                    dest => dest.LessonDescription,
+                    opt => opt.MapFrom(src => src.Description))
+                .ForMember(
+                    dest => dest.LessonCreatedOn,
+                    opt => opt.MapFrom(src => src.CreatedOn))
+                .ForMember(
+                    dest => dest.LessonCategoryName,
+                    opt => opt.MapFrom(src => src.Category.Name))
+                .ForMember(
+                    dest => dest.LessonApplicationUserUserName,
+                    opt => opt.MapFrom(src => src.ApplicationUser.UserName));
+        }
     }
 }

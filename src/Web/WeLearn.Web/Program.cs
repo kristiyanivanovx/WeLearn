@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace WeLearn
+namespace WeLearn.Web
 {
     public class Program
     {
@@ -10,7 +10,7 @@ namespace WeLearn
                 .Build()
                 .Run();
 
-        public static IHostBuilder CreateHostBuilder(string[] args) 
+        public static IHostBuilder CreateHostBuilder(string[] args)
             => Host
                 .CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => webBuilder

@@ -1,3 +1,5 @@
+using System.Reflection;
+
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
@@ -10,11 +12,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Seeding;
+
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.Infrastructure;
+using WeLearn.Web.ViewModels;
 
-namespace WeLearn
+namespace WeLearn.Web
 {
     public class Startup
     {
@@ -31,8 +37,6 @@ namespace WeLearn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddHttpContextAccessor();
 
@@ -95,9 +99,17 @@ namespace WeLearn
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {
-            app.MigrateDatabase();
-            app.SeedData(userManager, roleManager);
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
+            // app.MigrateDatabase();
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
+            // app.SeedData(userManager, roleManager);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

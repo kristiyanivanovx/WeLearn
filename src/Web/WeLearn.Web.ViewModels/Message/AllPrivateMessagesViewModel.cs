@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WeLearn.ViewModels.Message
+namespace WeLearn.Web.ViewModels.Message
 {
     public class AllPrivateMessagesViewModel<T>
     {

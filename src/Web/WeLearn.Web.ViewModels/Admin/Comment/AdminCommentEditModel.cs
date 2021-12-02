@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
 using WeLearn.Data.Models.Enums;
+using WeLearn.Services.Mapping;
+using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
-using static WeLearn.Data.Infrastructure.DataValidation.Comment;
-
-namespace WeLearn.ViewModels.Admin.Comment
+namespace WeLearn.Web.ViewModels.Admin.Comment
 {
-    public class AdminCommentEditModel
+    public class AdminCommentEditModel : IMapFrom<Data.Models.Comment>
     {
         public int Id { get; set; }
 
@@ -26,9 +25,9 @@ namespace WeLearn.ViewModels.Admin.Comment
         public int LessonId { get; set; }
 
         [Display(Name = "Date created")]
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public DateTime LessonDateCreated { get; set; }
+        public DateTime LessonCreatedOn { get; set; }
 
         public string LessonName { get; set; }
 

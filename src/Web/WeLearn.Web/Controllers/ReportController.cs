@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 using System.Collections.Generic;
-using WeLearn.ViewModels.Report.Comment;
-using WeLearn.ViewModels.Report.Lesson;
+using WeLearn.Web.ViewModels.Report.Comment;
+using WeLearn.Web.ViewModels.Report.Lesson;
 
 namespace WeLearn.Web.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WeLearn.ViewModels.Message
+namespace WeLearn.Web.ViewModels.Message
 {
     public class PrivateMessageInputModel
     {
@@ -15,6 +15,6 @@ namespace WeLearn.ViewModels.Message
 
         public string ReceiverUsernameErrorMessage { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

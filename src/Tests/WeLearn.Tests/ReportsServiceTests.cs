@@ -10,11 +10,11 @@ using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
+using WeLearn.Services.Mapping;
 using WeLearn.Tests.HelperClasses;
-using WeLearn.ViewModels.Admin.Report;
-using WeLearn.ViewModels.Report.Comment;
-using WeLearn.ViewModels.Report.Lesson;
-using WeLearn.Web.Infrastructure;
+using WeLearn.Web.ViewModels.Admin.Report;
+using WeLearn.Web.ViewModels.Report.Comment;
+using WeLearn.Web.ViewModels.Report.Lesson;
 using Xunit;
 
 namespace WeLearn.Tests
@@ -25,7 +25,8 @@ namespace WeLearn.Tests
 
         public ReportsServiceTests()
         {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
+            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
         [Fact]
@@ -36,7 +37,7 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "123", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1, Subject = "123", Description = "123", ApplicationUserId = "asd",
                     LessonId = 3
                 },
             }.AsQueryable();
@@ -63,7 +64,9 @@ namespace WeLearn.Tests
             // act
             var model = new LessonReportInputModel()
             {
-                Subject = "123", ReportDescription = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                Subject = "123",
+                ReportDescription = "123",
+                ApplicationUserId = "asd",
                 LessonId = 3
             };
             await service.CreateReportAsync(model);
@@ -80,7 +83,9 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1, Subject = "asd",
+                    Description = "123", 
+                    ApplicationUserId = "asd",
                     LessonId = 3
                 },
             }.AsQueryable();
@@ -107,8 +112,11 @@ namespace WeLearn.Tests
             // act
             var model = new LessonReportEditModel()
             {
-                ReportId = 1, Subject = "dsa", ReportDescription = "123", DateCreated = DateTime.Now,
-                ApplicationUserId = "asd", LessonId = 3
+                ReportId = 1,
+                Subject = "dsa",
+                ReportDescription = "123",
+                ApplicationUserId = "asd",
+                LessonId = 3
             };
             await service.EditLessonReportAsync(model);
 
@@ -124,7 +132,7 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1, Subject = "dsa", Description = "123", ApplicationUserId = "asd",
                     LessonId = 3
                 },
             }.AsQueryable();
@@ -151,7 +159,9 @@ namespace WeLearn.Tests
             // act
             var model = new CommentReportEditModel()
             {
-                ReportId = 1, Subject = "dsa", ReportDescription = "123", DateCreated = DateTime.Now,
+                ReportId = 1,
+                Subject = "dsa",
+                ReportDescription = "123",
                 ApplicationUserId = "asd"
             };
             await service.EditCommentReportAsync(model);
@@ -168,7 +178,10 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1,
+                    Subject = "dsa",
+                    Description = "123",
+                    ApplicationUserId = "asd",
                     LessonId = 3
                 },
             }.AsQueryable();
@@ -194,7 +207,12 @@ namespace WeLearn.Tests
 
             // act
             var model = new AdminReportEditModel()
-                {Id = 1, Subject = "das", Description = "1223", DateCreated = DateTime.Now, ApplicationUserId = "1asd"};
+                {
+                    Id = 1,
+                    Subject = "das",
+                    Description = "1223",
+                    ApplicationUserId = "1asd"
+                };
             await service.EditReportAdministrationAsync(model);
 
             // assert
@@ -209,7 +227,10 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1, 
+                    Subject = "dsa", 
+                    Description = "123",
+                    ApplicationUserId = "asd",
                     LessonId = 3
                 },
             }.AsQueryable();
@@ -248,7 +269,10 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "dsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1,
+                    Subject = "dsa",
+                    Description = "123",
+                    ApplicationUserId = "asd",
                     LessonId = 3
                 },
             }.AsQueryable();
@@ -287,13 +311,18 @@ namespace WeLearn.Tests
             {
                 new Report
                 {
-                    Id = 1, Subject = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd",
+                    Id = 1,
+                    Subject = "asd",
+                    Description = "123",
+                    ApplicationUserId = "asd",
                     LessonId = 3
                 },
                 new Report
                 {
-                    Id = 2, Subject = "asd", Description = "1233", DateCreated = DateTime.Now,
-                    ApplicationUserId = "as4d", LessonId = 3
+                    Id = 2, Subject = "asd",
+                    Description = "1233",
+                    ApplicationUserId = "as4d",
+                    LessonId = 3
                 },
             }.AsQueryable();
 

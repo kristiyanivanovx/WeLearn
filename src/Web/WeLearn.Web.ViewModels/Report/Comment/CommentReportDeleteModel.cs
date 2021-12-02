@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using WeLearn.Services.Mapping;
+using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
-using static WeLearn.Data.Infrastructure.DataValidation.Report;
-
-namespace WeLearn.ViewModels.Report.Comment
+namespace WeLearn.Web.ViewModels.Report.Comment
 {
-    public class CommentReportDeleteModel
+    public class CommentReportDeleteModel : IMapFrom<Data.Models.Report>, IHaveCustomMappings
     {
         public int CommentId { get; set; }
 
@@ -15,7 +16,7 @@ namespace WeLearn.ViewModels.Report.Comment
 
         public string CommentContent { get; set; }
 
-        public DateTime CommentDateCreated { get; set; }
+        public DateTime CommentCreatedOn { get; set; }
 
         [MaxLength(MaxSubjectLength)]
         [Required(ErrorMessage = "Please provide subject to the report.")]
@@ -30,6 +31,14 @@ namespace WeLearn.ViewModels.Report.Comment
 
         public string ApplicationUserUserName { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Data.Models.Report, CommentReportDeleteModel>()
+                .ForMember(dest => dest.ReportId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description));
+
+        }
     }
 }

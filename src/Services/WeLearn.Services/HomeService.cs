@@ -1,8 +1,7 @@
 ﻿using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Home;
-
-using static WeLearn.Data.Infrastructure.DataValidation.Material;
-using static WeLearn.Data.Infrastructure.DataValidation.Video;
+using WeLearn.Web.ViewModels.Home;
+using static WeLearn.Data.Common.Validation.DataValidation.Material;
+using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
 namespace WeLearn.Services
 {

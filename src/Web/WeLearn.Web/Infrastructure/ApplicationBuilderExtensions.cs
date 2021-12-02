@@ -31,11 +31,7 @@ namespace WeLearn.Web.Infrastructure
             return app;
         }
 
-        public static IApplicationBuilder SeedData(this IApplicationBuilder app, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
-        {
-            ApplicationDbInitializer.SeedData(userManager, roleManager);
-            return app;
-        }
+      
 
         public static IApplicationBuilder SeedHangfireJobs(this IApplicationBuilder app, IRecurringJobManager recurringJobManager, ApplicationDbContext applicationDbContext)
         {

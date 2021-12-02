@@ -1,4 +1,4 @@
-namespace WeLearn.ViewModels
+namespace WeLearn.Web.ViewModels
 {
     public class ErrorViewModel
     {

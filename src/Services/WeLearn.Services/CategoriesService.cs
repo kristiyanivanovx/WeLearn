@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using WeLearn.Data;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Category;
+using WeLearn.Web.ViewModels.Category;
 
 namespace WeLearn.Services
 {

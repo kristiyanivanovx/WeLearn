@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
+using WeLearn.Services.Mapping;
 
-namespace WeLearn.ViewModels.ViewModels.Admin.Lesson
+namespace WeLearn.Web.ViewModels.Admin.Lesson
 {
-    public class AdminLessonEditModel 
+    public class AdminLessonEditModel : IMapFrom<Data.Models.Lesson>
     {
         public int Id { get; set; }
 
@@ -18,14 +19,14 @@ namespace WeLearn.ViewModels.ViewModels.Admin.Lesson
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
-        
+
         [Display(Name = "Is approved")]
         public bool IsApproved { get; set; }
 
         public Grade Grade { get; set; }
 
         [Display(Name = "Date created")]
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string VideoName { get; set; }
 

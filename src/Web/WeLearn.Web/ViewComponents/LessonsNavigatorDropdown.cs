@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Lesson;
+using WeLearn.Web.ViewModels.Lesson;
 
 namespace WeLearn.Web.ViewComponents
 {

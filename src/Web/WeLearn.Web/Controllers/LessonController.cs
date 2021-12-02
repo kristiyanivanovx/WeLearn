@@ -12,14 +12,15 @@ using Microsoft.Extensions.Hosting;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.HelperModels;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Category;
-using WeLearn.ViewModels.HelperModels;
-using WeLearn.ViewModels.Lesson;
+using WeLearn.Web.ViewModels.Category;
+using WeLearn.Web.ViewModels.HelperModels;
+using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.Controllers;
 using WeLearn.Web.ViewModels.Lesson;
-using static WeLearn.Common.Constants;
-using static WeLearn.Data.Infrastructure.DataValidation.Material;
-using static WeLearn.Data.Infrastructure.DataValidation.Video;
+
+using static WeLearn.Common.GlobalConstants;
+using static WeLearn.Data.Common.Validation.DataValidation.Material;
+using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
 namespace WeLearn.Controllers
 {
@@ -58,7 +59,11 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> All(string searchString, int? pageNumber)
         {
             var models = await this.lessonsService.GetAllLessonsAsync<LessonViewModel>(searchString);
-            var paginated = PaginatedList<LessonViewModel>.Create(models.OrderByDescending(x => x.LessonId), pageNumber ?? defaultPageNumber, defaultPageSize);
+            var paginated = PaginatedList<LessonViewModel>.Create(
+                models.OrderByDescending(x => x.LessonId),
+                pageNumber ?? defaultPageNumber,
+                defaultPageSize);
+
             paginated.SearchString = searchString;
             return this.View(paginated);
         }
@@ -91,7 +96,12 @@ namespace WeLearn.Controllers
                 return this.View(model);
             }
 
-            await this.lessonsService.CreateLessonAsync(model, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
+            await this.lessonsService.CreateLessonAsync(
+                model,
+                this.environment.WebRootPath,
+                this.environment.IsDevelopment(),
+                GetUserId());
+
             return this.RedirectToAction(nameof(ByMe));
         }
 
@@ -122,7 +132,12 @@ namespace WeLearn.Controllers
                 return View(nameof(Unauthorized));
             }
 
-            await this.lessonsService.EditLessonAsync(model, this.environment.WebRootPath, this.environment.IsDevelopment(), GetUserId());
+            await this.lessonsService.EditLessonAsync(
+                model,
+                this.environment.WebRootPath,
+                this.environment.IsDevelopment(),
+                GetUserId());
+
             return RedirectToAction(nameof(ByMe));
         }
 
@@ -151,17 +166,34 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe(string searchString, int? pageNumber)
         {
-            IEnumerable<LessonViewModel> models = await this.lessonsService.GetCreatedByMeAsync(GetUserId(), searchString);
-            var paginated = PaginatedList<LessonViewModel>.Create(models.OrderByDescending(x => x.LessonId), pageNumber ?? defaultPageNumber, defaultPageSize);
+            IEnumerable<LessonViewModel> models =
+                await this.lessonsService.GetCreatedByMeAsync(GetUserId(), searchString);
+
+            var paginated = PaginatedList<LessonViewModel>.Create(
+                models.OrderByDescending(x => x.LessonId),
+                pageNumber ?? defaultPageNumber,
+                defaultPageSize);
+
             paginated.SearchString = searchString;
+
             return View(paginated);
         }
 
         [HttpGet]
-        public async Task<IActionResult> ByCategory(string categoryName, string searchString, int grade, int? pageNumber)
+        public async Task<IActionResult> ByCategory(
+            string categoryName,
+            string searchString, 
+            int grade,
+            int? pageNumber)
         {
-            var lessons = await this.lessonsService.GetLessonsByCategoryAndGradeAsync(categoryName, searchString, grade);
-            var paginated = PaginatedList<LessonViewModel>.Create(lessons.OrderByDescending(x => x.LessonId), pageNumber ?? defaultPageNumber, defaultPageSize);
+            var lessons =
+                await this.lessonsService.GetLessonsByCategoryAndGradeAsync(categoryName, searchString, grade);
+
+            var paginated = PaginatedList<LessonViewModel>.Create(
+                lessons.OrderByDescending(x => x.LessonId),
+                pageNumber ?? this.defaultPageNumber,
+                this.defaultPageSize);
+
             paginated.Grade = Enum.Parse<Grade>(grade.ToString());
             paginated.CategoryName = categoryName;
             paginated.SearchString = searchString;
@@ -184,19 +216,22 @@ namespace WeLearn.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Send(LessonSendEmailViewModel model)
-		{
-			StringBuilder stringBuilder = new StringBuilder();
-			string subject = $"Lesson #{model.LessonId} - {model.Name}";
-			string createdBy = model.ApplicationUserUserName == null ? "Deleted User" : model.ApplicationUserUserName;
-			string message = BuildMessage(model, stringBuilder, createdBy);
-			await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, model.Email, subject, message, true);
-			return View(nameof(EmailSent));
-		}
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            string subject = $"Lesson #{model.LessonId} - {model.Name}";
+            string createdBy = model.ApplicationUserUserName ?? "Deleted User";
+            string message = BuildMessage(model, stringBuilder, createdBy);
+            await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, model.Email, subject, message, true);
+            return this.View(nameof(this.EmailSent));
+        }
 
-		private static string BuildMessage(LessonSendEmailViewModel model, StringBuilder stringBuilder, string createdBy)
-		{
-			return stringBuilder
-				.AppendLine(@$"
+        private static string BuildMessage(
+            LessonSendEmailViewModel model,
+            StringBuilder stringBuilder,
+            string createdBy)
+        {
+            return stringBuilder
+                .AppendLine(@$"
                 <div>
                     <video playsinline controls crossorigin=""anonymous"" alt=""{model.VideoName}"" src=""{model.VideoLink}"" >
                         <!-- fallback -->
@@ -208,11 +243,11 @@ namespace WeLearn.Controllers
                     <p>Created by - {createdBy}</p>
 				    <p>Category - {model.CategoryName}</p>
 				    <p>Grade - {model.Grade}</p>
-				    <p>Date created - {model.DateCreated.ToLocalTime().ToString("d/MM/yyyy, HH:mm")}</p>
+				    <p>Date created - {model.CreatedOn.ToLocalTime():d/MM/yyyy, HH:mm}</p>
 				    <p>Link - <a href=""https://{ApplicationHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
                 </div>")
-				.ToString()
-				.Trim();
-		}
-	}
+                .ToString()
+                .Trim();
+        }
+    }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CommentViewModel>
+﻿@model IEnumerable<WeLearn.Web.ViewModels.Comment.CommentViewModel>
 
 @foreach (var item in Model)
 {
@@ -11,9 +11,9 @@
                 <p>
                     @item.Content
                 </p>
-                <small class="text-muted">on <time datetime="@item.DateCreated.ToString("O")">@item.DateCreated.ToString("g")</time></small>
+                <small class="text-muted">on <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time></small>
             </div>
-            @if (User.Identity.Name == item.ApplicationUserUserName)
+            @if (User.Identity?.Name == item.ApplicationUserUserName)
             {
                 <a asp-controller="Comment" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success">
                     <i class="fas fa-edit"></i> Edit

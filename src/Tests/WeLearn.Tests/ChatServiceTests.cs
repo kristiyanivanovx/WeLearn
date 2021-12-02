@@ -21,8 +21,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Message>
             {
-                new Message { Id = 1, Name = "Cdsa", Text = "123", DateCreated = DateTime.Now, ChatId = 1 },
-                new Message { Id = 2, Name = "Cdsa2", Text = "1233", DateCreated = DateTime.Now, ChatId = 1  },
+                new Message { Id = 1, Name = "Cdsa", Text = "123", ChatId = 1 },
+                new Message { Id = 2, Name = "Cdsa2", Text = "1233",  ChatId = 1 },
             }.AsQueryable();
 
             Mock<DbSet<Message>> mockSet = new Mock<DbSet<Message>>();
@@ -57,8 +57,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Chat>
             {
-                new Chat { Id = 1, Name = "Cdsa", DateCreated = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", DateCreated = DateTime.Now  },
+                new Chat { Id = 1, Name = "Cdsa", CreatedOn = DateTime.Now },
+                new Chat { Id = 2, Name = "Cdsa2", CreatedOn = DateTime.Now  },
             }.AsQueryable();
 
             Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
@@ -93,8 +93,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Chat>
             {
-                new Chat { Id = 1, Name = "Cdsa", DateCreated = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", DateCreated = DateTime.Now  },
+                new Chat { Id = 1, Name = "Cdsa", CreatedOn = DateTime.Now },
+                new Chat { Id = 2, Name = "Cdsa2", CreatedOn = DateTime.Now  },
             }.AsQueryable();
 
             Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
@@ -129,8 +129,8 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Chat>
             {
-                new Chat { Id = 1, Name = "Cdsa",  DateCreated = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", DateCreated = DateTime.Now  },
+                new Chat { Id = 1, Name = "Cdsa",  CreatedOn = DateTime.Now },
+                new Chat { Id = 2, Name = "Cdsa2", CreatedOn = DateTime.Now  },
             }.AsQueryable();
 
             Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();

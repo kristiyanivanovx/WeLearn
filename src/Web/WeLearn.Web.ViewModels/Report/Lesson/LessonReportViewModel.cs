@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using AutoMapper;
 using WeLearn.Data.Models.Enums;
+using WeLearn.Services.Mapping;
+using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
-using static WeLearn.Data.Infrastructure.DataValidation.Report;
-
-namespace WeLearn.ViewModels.Report.Lesson
+namespace WeLearn.Web.ViewModels.Report.Lesson
 {
-    public class LessonReportViewModel
+    public class LessonReportViewModel : IMapFrom<Data.Models.Report>, IHaveCustomMappings
     {
         public int LessonId { get; set; }
 
@@ -25,7 +25,7 @@ namespace WeLearn.ViewModels.Report.Lesson
 
         public string CreatedByUserName { get; set; }
 
-        public DateTime LessonDateCreated { get; set; }
+        public DateTime LessonCreatedOn { get; set; }
 
         public string LessonVideoName { get; set; }
 
@@ -46,6 +46,14 @@ namespace WeLearn.ViewModels.Report.Lesson
 
         public string ReportingUserId { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Data.Models.Report, LessonReportViewModel>()
+                .ForMember(dest => dest.ReportId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description));
+
+        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.HelperModels;
+using WeLearn.Web.ViewModels.HelperModels;
 using System.Linq;
-using WeLearn.ViewModels.Admin.Comment;
+using WeLearn.Web.ViewModels.Admin.Comment;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {

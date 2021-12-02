@@ -1,8 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using static WeLearn.Common.Constants; 
+@using static WeLearn.Common.GlobalConstants; 
 @inject UserManager<ApplicationUser> userManager
 
-@model PaginatedList<AdminUserViewModel>
+@model PaginatedList<WeLearn.Web.ViewModels.Admin.User.AdminUserViewModel>
 @{
     ViewData["Title"] = "Users administration";
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ChatApp;
@@ -47,7 +48,7 @@ namespace WeLearn.Web.Controllers
                 {
                     Text = messageModel.Text,
                     Name = messageModel.Name,
-                    DateCreated = messageModel.DateCreated
+                    CreatedOn = messageModel.CreatedOn
                 });
 
             return Ok();
@@ -68,7 +69,7 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> JoinRoom(int id)
         {
             await this.chatService.JoinRoomAsync(id, GetUserId());
-            return RedirectToAction(nameof(Joined), new {id});
+            return RedirectToAction(nameof(Joined), new { id });
         }
     }
 }

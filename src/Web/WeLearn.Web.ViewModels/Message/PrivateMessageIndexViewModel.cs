@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeLearn.ViewModels.Message
+namespace WeLearn.Web.ViewModels.Message
 {
     public class PrivateMessageIndexViewModel
     {
@@ -8,6 +8,6 @@ namespace WeLearn.ViewModels.Message
 
         public string OtherCorrespondent { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

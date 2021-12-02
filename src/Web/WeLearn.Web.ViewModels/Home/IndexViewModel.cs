@@ -1,4 +1,4 @@
-﻿namespace WeLearn.ViewModels.Home
+﻿namespace WeLearn.Web.ViewModels.Home
 {
     public class IndexViewModel
     {

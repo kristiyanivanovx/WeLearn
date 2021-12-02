@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace>WeLearn.Data</RootNamespace>
 	</PropertyGroup>
 
   <PropertyGroup>
@@ -40,6 +41,8 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Common\WeLearn.Common\WeLearn.Common.csproj" />
+	  <ProjectReference Include="..\WeLearn.Data.Common\WeLearn.Data.Common.csproj" />
+	  <ProjectReference Include="..\WeLearn.Data.Models\WeLearn.Data.Models.csproj" />
 	</ItemGroup>
 
 </Project>

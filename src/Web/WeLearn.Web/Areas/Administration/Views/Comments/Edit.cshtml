@@ -1,4 +1,4 @@
-﻿@model AdminCommentEditModel
+﻿@model WeLearn.Web.ViewModels.Admin.Comment.AdminCommentEditModel
 @{
     ViewData["Title"] = "Edit a comment";
 }
@@ -26,7 +26,7 @@
                         <p class="small text-muted mt-3">Grade - @Model.LessonGrade</p>
                         <p class="small text-muted">Category - @Model.LessonCategoryName</p>
                         <p class="small text-muted">Created by - @createdBy</p>
-                        <p class="small text-muted">Date created - <time datetime="@Model.LessonDateCreated.ToString("O")">@Model.LessonDateCreated.ToString("g")</time></p>
+                        <p class="small text-muted">Date created - <time datetime="@Model.LessonCreatedOn.ToString("O")">@Model.LessonCreatedOn.ToString("g")</time></p>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <hr />
             
             <p>Created by: @Model.ApplicationUserUserName</p>
-            <p>Date created: <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
+            <p>Date created: <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
             <hr />
             
             <form asp-action="Edit">
@@ -54,9 +54,9 @@
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DateCreated" class="control-label"></label>
-                    <input asp-for="DateCreated" class="form-control" id="datepicker" type="text" />
-                    <span asp-validation-for="DateCreated" class="text-danger"></span>
+                    <label asp-for="CreatedOn" class="control-label"></label>
+                    <input asp-for="CreatedOn" class="form-control" id="datepicker" type="text" />
+                    <span asp-validation-for="CreatedOn" class="text-danger"></span>
                 </div>
                 <div class="form-group form-check">
                     <label class="form-check-label">

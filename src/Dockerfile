@@ -10,7 +10,7 @@ COPY WeLearn.sln ./
 COPY WeLearn.Web/WeLearn.Web.csproj ./WeLearn.Web/
 COPY WeLearn.Common/WeLearn.Common.csproj ./WeLearn.Common/
 COPY WeLearn.Services/WeLearn.Services.csproj ./WeLearn.Services/
-COPY WeLearn.ViewModels/WeLearn.ViewModels.csproj ./WeLearn.ViewModels/
+COPY WeLearn.Web.ViewModels/WeLearn.Web.ViewModels.csproj ./WeLearn.Web.ViewModels/
 COPY WeLearn.Data/WeLearn.Data.csproj ./WeLearn.Data/
 COPY WeLearn.Tests/WeLearn.Tests.csproj ./WeLearn.Tests/
 

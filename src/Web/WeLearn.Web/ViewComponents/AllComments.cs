@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using System.Collections.Generic;
-using WeLearn.ViewModels.Comment;
+using WeLearn.Web.ViewModels.Comment;
 
 namespace WeLearn.Web.ViewComponents
 {

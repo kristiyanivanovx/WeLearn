@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Admin.Lesson;
-using WeLearn.ViewModels.Category;
-using WeLearn.ViewModels.HelperModels;
-using WeLearn.ViewModels.ViewModels.Admin.Lesson;
+using WeLearn.Web.ViewModels.Category;
+using WeLearn.Web.ViewModels.HelperModels;
+using WeLearn.Web.ViewModels.Admin.Lesson;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using WeLearn.ViewModels.Admin.Comment;
-using WeLearn.ViewModels.Comment;
+using WeLearn.Web.ViewModels.Admin.Comment;
+using WeLearn.Web.ViewModels.Comment;
 
 namespace WeLearn.Services.Interfaces
 {

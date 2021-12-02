@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services;
 using System.Collections.Generic;
-using WeLearn.ViewModels.HelperModels;
-using WeLearn.ViewModels.Admin.Report;
+using WeLearn.Web.ViewModels.HelperModels;
+using WeLearn.Web.ViewModels.Admin.Report;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {

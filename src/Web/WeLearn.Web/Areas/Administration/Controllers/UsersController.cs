@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.HelperModels;
+using WeLearn.Web.ViewModels.HelperModels;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
-using WeLearn.ViewModels.Admin.User;
-using static WeLearn.Common.Constants;
+using WeLearn.Web.ViewModels.Admin.User;
+using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {

@@ -2,8 +2,8 @@
 using System.Text;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Contacts;
-using static WeLearn.Common.Constants;
+using WeLearn.Web.ViewModels.Contacts;
+using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Controllers
 {

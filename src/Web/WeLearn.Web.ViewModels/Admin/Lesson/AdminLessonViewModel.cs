@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
+using WeLearn.Services.Mapping;
 
-namespace WeLearn.ViewModels.Admin.Lesson
+namespace WeLearn.Web.ViewModels.Admin.Lesson
 {
-    public class AdminLessonViewModel
+    public class AdminLessonViewModel : IMapFrom<Data.Models.Lesson>
     {
         public int Id { get; set; }
 
@@ -16,7 +17,7 @@ namespace WeLearn.ViewModels.Admin.Lesson
         public Grade Grade { get; set; }
 
         [Display(Name = "Date created")]
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string CategoryName { get; set; }
 

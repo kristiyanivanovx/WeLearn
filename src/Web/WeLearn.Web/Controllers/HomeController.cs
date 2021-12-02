@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels;
-using WeLearn.ViewModels.Home;
+using WeLearn.Web.ViewModels;
+using WeLearn.Web.ViewModels.Home;
 
 namespace WeLearn.Controllers
 {

@@ -4,6 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<UserSecretsId>aspnet-WeLearn-02453164-0FFE-450E-88D2-2472E9B63F19</UserSecretsId>
 		<CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+		<RootNamespace>WeLearn.Web</RootNamespace>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 

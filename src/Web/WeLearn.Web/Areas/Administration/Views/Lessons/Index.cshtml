@@ -1,4 +1,4 @@
-﻿@model PaginatedList<AdminLessonViewModel>
+﻿@model PaginatedList<WeLearn.Web.ViewModels.Admin.Lesson.AdminLessonViewModel>
 @{
     ViewData["Title"] = "Lessons administration";
 }
@@ -91,7 +91,7 @@
                         </a>
                     </td>
                     <td>
-                        <time datetime="@item.DateCreated.ToString("O")">@item.DateCreated.ToString("g")</time>
+                        <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IsDeleted)

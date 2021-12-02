@@ -15,11 +15,11 @@ using WeLearn.Data.Models;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Interfaces;
-using WeLearn.ViewModels.Lesson;
-using WeLearn.ViewModels.ViewModels.Admin.Lesson;
 using WeLearn.Web.ViewModels.Lesson;
-using static WeLearn.Data.Infrastructure.DataValidation.Material;
-using static WeLearn.Data.Infrastructure.DataValidation.Video;
+using WeLearn.Web.ViewModels.Admin.Lesson;
+using WeLearn.Web.ViewModels.Lesson;
+using static WeLearn.Data.Common.Validation.DataValidation.Material;
+using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
 namespace WeLearn.Services
 {
@@ -243,8 +243,8 @@ namespace WeLearn.Services
             entity.Description = model.Description ?? entity.Description;
             entity.CategoryId = model.CategoryId;
             entity.Grade = model.Grade;
-            entity.DateCreated = model.DateCreated;
-            entity.IsDeleted = model.IsDeleted;
+            // entity.DateCreated = model.DateCreated;
+            // entity.IsDeleted = model.IsDeleted;
             entity.IsApproved = model.IsApproved;
 
             await this.context.SaveChangesAsync();
@@ -354,7 +354,6 @@ namespace WeLearn.Services
 
             lesson.VideoId = videoEntity.Id;
             lesson.MaterialId = materialEntity.Id;
-            lesson.DateCreated = DateTime.UtcNow;
         }
 
         private async Task UpdateFilesInDevelopment(LessonEditModel lessonEditModel, Lesson lesson, string path)
@@ -538,7 +537,6 @@ namespace WeLearn.Services
             => new Material
             {
                 Name = stringGuid,
-                DateCreated = DateTime.UtcNow,
                 Link = path,
                 PublicId = publicId,
                 Lesson = lesson
@@ -554,7 +552,6 @@ namespace WeLearn.Services
             {
                 Name = video.FileName,
                 ContentType = video.ContentType,
-                DateCreated = DateTime.UtcNow,
                 Link = path,
                 PublicId = publicId,
                 Lesson = lesson

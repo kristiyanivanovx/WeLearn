@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeLearn.ViewModels.Admin.Report;
-using WeLearn.ViewModels.Report.Comment;
-using WeLearn.ViewModels.Report.Lesson;
+using WeLearn.Web.ViewModels.Admin.Report;
+using WeLearn.Web.ViewModels.Report.Comment;
+using WeLearn.Web.ViewModels.Report.Lesson;
 
 namespace WeLearn.Services
 {

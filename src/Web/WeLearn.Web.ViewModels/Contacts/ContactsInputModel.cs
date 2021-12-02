@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WeLearn.ViewModels.Contacts
+namespace WeLearn.Web.ViewModels.Contacts
 {
     public class ContactsInputModel
     {

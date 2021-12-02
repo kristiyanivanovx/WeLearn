@@ -1,4 +1,4 @@
-﻿@model AdminReportDeleteModel
+﻿@model WeLearn.Web.ViewModels.Admin.Report.AdminReportDeleteModel
 @{
     ViewData["Title"] = "Delete a report";
 }
@@ -42,7 +42,7 @@
             <hr />
             <p><strong>Subject:</strong> @Model.Subject</p>
             <p><strong>Description:</strong> @Model.Description</p>
-            <p><strong>Date created:</strong> <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></p>
+            <p><strong>Date created:</strong> <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
 
             <div class="form-group form-check">
                 <label class="form-check-label">

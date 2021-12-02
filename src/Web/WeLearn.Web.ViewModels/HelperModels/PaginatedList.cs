@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WeLearn.Data.Models.Enums;
 
-namespace WeLearn.ViewModels.HelperModels
+namespace WeLearn.Web.ViewModels.HelperModels
 {
     public class PaginatedList<T> : List<T>
     {

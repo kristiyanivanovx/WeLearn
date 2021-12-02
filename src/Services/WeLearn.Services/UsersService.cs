@@ -9,7 +9,7 @@ using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
 
-using static WeLearn.Common.Constants;
+using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Services
 {

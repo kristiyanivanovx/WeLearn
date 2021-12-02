@@ -10,9 +10,9 @@ using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
+using WeLearn.Services.Mapping;
 using WeLearn.Tests.HelperClasses;
-using WeLearn.ViewModels.Lesson;
-using WeLearn.Web.Infrastructure;
+using WeLearn.Web.ViewModels.Lesson;
 using Xunit;
 
 namespace WeLearn.Tests
@@ -23,7 +23,8 @@ namespace WeLearn.Tests
 
         public LessonsServiceTests()
         {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
+            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
         [Fact]
@@ -32,8 +33,8 @@ namespace WeLearn.Tests
             // arrange
             var data = new List<Lesson>
             {
-                new Lesson { Id = 1, Name = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd" },
-                new Lesson { Id = 2, Name = "asd", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d" },
+                new Lesson { Id = 1, Name = "asd", Description = "123", ApplicationUserId = "asd" },
+                new Lesson { Id = 2, Name = "asd", Description = "1233", ApplicationUserId = "as4d" },
             }.AsQueryable();
 
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
@@ -69,8 +70,8 @@ namespace WeLearn.Tests
             // arrange
             var data = new List<Lesson>
             {
-                new Lesson { Id = 1, Name = "Cdsa", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = "asd", IsApproved = true },
-                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true },
+                new Lesson { Id = 1, Name = "Cdsa", Description = "123", ApplicationUserId = "asd", IsApproved = true },
+                new Lesson { Id = 2, Name = "Cdsa2", Description = "1233", ApplicationUserId = "as4d", IsApproved = true },
             }.AsQueryable();
 
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
@@ -108,8 +109,8 @@ namespace WeLearn.Tests
             // arrange
             var data = new List<Lesson>
             {
-                new Lesson { Id = 1, Name = "asd", Description = "123", DateCreated = DateTime.Now, ApplicationUserId = userId, IsApproved = true },
-                new Lesson { Id = 2, Name = "asd", Description = "1233", DateCreated = DateTime.Now, ApplicationUserId = "as4d", IsApproved = true },
+                new Lesson { Id = 1, Name = "asd", Description = "123", ApplicationUserId = userId, IsApproved = true },
+                new Lesson { Id = 2, Name = "asd", Description = "1233", ApplicationUserId = "as4d", IsApproved = true },
             }.AsQueryable();
 
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();

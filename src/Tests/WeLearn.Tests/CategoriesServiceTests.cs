@@ -9,8 +9,8 @@ using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
+using WeLearn.Services.Mapping;
 using WeLearn.Tests.HelperClasses;
-using WeLearn.Web.Infrastructure;
 using Xunit;
 
 namespace WeLearn.Tests
@@ -21,7 +21,8 @@ namespace WeLearn.Tests
 
         public CategoriesServiceTests()
         {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
+            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
         [Fact]
@@ -30,10 +31,10 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Category>
             {
-                new Category {Id = 1, Name = "Category1", DateCreated = DateTime.Now,},
-                new Category {Id = 2, Name = "Category2", DateCreated = DateTime.Now,},
-                new Category {Id = 3, Name = "Category3", DateCreated = DateTime.Now,},
-                new Category {Id = 4, Name = "Category4", DateCreated = DateTime.Now,},
+                new Category {Id = 1, Name = "Category1" },
+                new Category {Id = 2, Name = "Category2" },
+                new Category {Id = 3, Name = "Category3" },
+                new Category {Id = 4, Name = "Category4" },
             }.AsQueryable();
 
             Mock<DbSet<Category>> mockSet = new Mock<DbSet<Category>>();
@@ -68,7 +69,7 @@ namespace WeLearn.Tests
             // arrange 
             var data = new List<Category>
             {
-                new Category {Id = 1, Name = "Category1", DateCreated = DateTime.Now,},
+                new Category {Id = 1, Name = "Category1", CreatedOn = DateTime.Now,},
             }.AsQueryable();
 
             Mock<DbSet<Category>> mockSet = new Mock<DbSet<Category>>();

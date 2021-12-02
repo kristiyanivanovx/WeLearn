@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WeLearn.ViewModels.Message
+namespace WeLearn.Web.ViewModels.Message
 {
     public class PrivateMessageConversationViewModel
     {
@@ -16,6 +16,6 @@ namespace WeLearn.ViewModels.Message
 
         public string ReplyTo { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CommentByMeModel>
+﻿@model IEnumerable<WeLearn.Web.ViewModels.Comment.CommentByMeModel>
 @{
     ViewData["Title"] = "Comments created by me";
 }
@@ -29,7 +29,7 @@
                                 <small class="text-muted">Grade - @comment.LessonGrade</small>
                             </div>
                             <div>
-                                <small class="text-muted">Date created - <time datetime="@comment.LessonDateCreated.ToString("O")">@comment.LessonDateCreated.ToString("g")</time></small>
+                                <small class="text-muted">Date created - <time datetime="@comment.LessonCreatedOn.ToString("O")">@comment.LessonCreatedOn.ToString("g")</time></small>
                             </div>
                         </p>
 						<div class="mt-3">
@@ -49,7 +49,7 @@
                         <hr />
                         <div>
                             <p class="card-text mb-3">@comment.Content</p>
-                            <small><time datetime="@comment.DateCreated.ToString("O")">@comment.DateCreated.ToString("g")</time></small>
+                            <small><time datetime="@comment.CreatedOn.ToString("O")">@comment.CreatedOn.ToString("g")</time></small>
                         </div>
                         <div class="mt-3">
                             <a asp-controller="Comment" asp-action="Edit" asp-route-id="@comment.Id" class="btn btn-sm btn-outline-success mb-2">

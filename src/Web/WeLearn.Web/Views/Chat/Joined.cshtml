@@ -14,7 +14,7 @@
                     <div class="message mb-1">
                         <span><b>@message.Name</b>:</span>
                         <span>@message.Text</span>
-                        <span> | <time datetime="@message.DateCreated.ToString("O")">@message.DateCreated.ToString("g")</time></span>
+                        <span> | <time datetime="@message.CreatedOn.ToString("O")">@message.CreatedOn.ToString("g")</time></span>
                     </div>
                 }
             </div>
@@ -54,7 +54,7 @@
                 .createMessage()
                 .withHeader(data.name)
                 .withParagraph(data.text)
-                .withFooter(data.dateCreated)
+                .withFooter(data.CreatedOn)
                 .build();
 
             document.querySelector('.chat-body').append(message);

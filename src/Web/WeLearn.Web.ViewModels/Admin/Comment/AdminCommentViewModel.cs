@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using AutoMapper;
 using WeLearn.Data.Models.Enums;
-using static WeLearn.Data.Infrastructure.DataValidation.Comment;
+using WeLearn.Services.Mapping;
+using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
-namespace WeLearn.ViewModels.Admin.Comment
+namespace WeLearn.Web.ViewModels.Admin.Comment
 {
-    public class AdminCommentViewModel
+    public class AdminCommentViewModel : IMapFrom<Data.Models.Comment>, IHaveCustomMappings
     {
         public string ApplicationUserUserName { get; set; }
 
@@ -24,11 +26,11 @@ namespace WeLearn.ViewModels.Admin.Comment
         public string Content { get; set; }
 
         [Display(Name = "Date created")]
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string ApplicationUserId { get; set; }
 
-        public DateTime LessonDateCreated { get; set; }
+        public DateTime LessonCreatedOn { get; set; }
 
         public string LessonName { get; set; }
 
@@ -47,5 +49,14 @@ namespace WeLearn.ViewModels.Admin.Comment
         public string LessonMaterialLink { get; set; }
 
         public string LessonApplicationUserUserName { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Data.Models.Comment, AdminCommentViewModel>()
+                .ForMember(
+                    dest => dest.CommentId,
+                    opt =>
+                        opt.MapFrom(src => src.Id));
+        }
     }
 }

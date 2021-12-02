@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using System;
-using WeLearn.ViewModels.Admin.Report;
-using WeLearn.ViewModels.Report.Comment;
-using WeLearn.ViewModels.Report.Lesson;
+using WeLearn.Web.ViewModels.Admin.Report;
+using WeLearn.Web.ViewModels.Report.Comment;
+using WeLearn.Web.ViewModels.Report.Lesson;
 
 namespace WeLearn.Services
 {
@@ -90,7 +90,7 @@ namespace WeLearn.Services
         public async Task CreateReportAsync<T>(T model)
         {
             Report reportMapped = this.mapper.Map<Report>(model);
-            reportMapped.DateCreated = DateTime.UtcNow;
+            // reportMapped.DateCreated = DateTime.UtcNow;
             await this.context.Reports.AddAsync(reportMapped);
             await this.context.SaveChangesAsync();
         }
@@ -116,15 +116,15 @@ namespace WeLearn.Services
             Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.Id);
             entity.Subject = model.Subject ?? entity.Subject;
             entity.Description = model.Description ?? entity.Description;
-            entity.IsDeleted = model.IsDeleted;
-            entity.DateCreated = model.DateCreated;
+            // entity.IsDeleted = model.IsDeleted;
+            // entity.DateCreated = model.DateCreated;
             await this.context.SaveChangesAsync();
         }
 
         public async Task SoftDeleteReportByIdAsync(int? reportId)
         {
             Report report = this.context.Reports.FirstOrDefault(x => x.Id == reportId);
-            report.IsDeleted = true;
+            // report.IsDeleted = true;
             await this.context.SaveChangesAsync();
         }
 

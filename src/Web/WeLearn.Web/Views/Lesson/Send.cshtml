@@ -1,4 +1,4 @@
-﻿@model LessonSendEmailViewModel
+﻿@model WeLearn.Web.ViewModels.Lesson.LessonSendEmailViewModel
 @{
 	ViewData["Title"] = $"Send lesson #{Model.LessonId} to email";
 }
@@ -18,7 +18,7 @@
 				<input asp-for="VideoContentType" type="hidden" />
 				<input asp-for="CategoryName" type="hidden" />
 				<input asp-for="Grade" type="hidden" />
-				<input asp-for="DateCreated" type="hidden" />
+				<input asp-for="CreatedOn" type="hidden" />
 
 				<input asp-for="Email" placeholder="Email" class="form-control" />
 				<span asp-validation-for="Email" class="text-danger"></span>
@@ -43,7 +43,7 @@
 				<small class="text-muted">Created by - @createdBy | </small>
 				<small class="text-muted">Category - @Model.CategoryName | </small>
 				<small class="text-muted">Grade - @Model.Grade | </small>
-				<small class="text-muted">Date created - <time datetime="@Model.DateCreated.ToString("O")">@Model.DateCreated.ToString("g")</time></small>
+				<small class="text-muted">Date created - <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></small>
 			</p>
 			@if (User.Identity.Name == Model.ApplicationUserUserName)
 			{

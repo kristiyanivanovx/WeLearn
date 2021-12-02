@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Admin.Comment;
-using WeLearn.ViewModels.Comment;
+using WeLearn.Web.ViewModels.Admin.Comment;
+using WeLearn.Web.ViewModels.Comment;
 
 namespace WeLearn.Services
 {
@@ -27,7 +27,6 @@ namespace WeLearn.Services
         public async Task CreateCommentAsync(CommentInputModel commentInputModel)
         {
             Comment comment = this.mapper.Map<Comment>(commentInputModel);
-            comment.DateCreated = DateTime.UtcNow;
             await this.context.Comments.AddAsync(comment);
             await this.context.SaveChangesAsync();
         }
@@ -49,8 +48,8 @@ namespace WeLearn.Services
             if (entity != null)
             {
                 entity.Content = commentEditModel.Content ?? entity.Content;
-                entity.IsDeleted = commentEditModel.IsDeleted;
-                entity.DateCreated = commentEditModel.DateCreated;
+                // entity.IsDeleted = commentEditModel.IsDeleted;
+                // entity.DateCreated = commentEditModel.DateCreated;
             }
 
             await this.context.SaveChangesAsync();
@@ -124,7 +123,7 @@ namespace WeLearn.Services
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.ApplicationUser)
-                .OrderByDescending(x => x.DateCreated)
+                .OrderByDescending(x => x.CreatedOn)
                 .ToListAsync();
 
             AdminCommentViewModel[] allCommentsMapped = this.mapper.Map<AdminCommentViewModel[]>(allComments);

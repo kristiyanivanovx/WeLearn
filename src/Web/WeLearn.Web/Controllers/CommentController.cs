@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WeLearn.Services.Interfaces;
 using System.Collections.Generic;
-using WeLearn.ViewModels.Comment;
-using WeLearn.ViewModels.Lesson;
+using WeLearn.Web.ViewModels.Lesson;
+using WeLearn.Web.ViewModels.Comment;
+using WeLearn.Web.ViewModels.Lesson;
 
 namespace WeLearn.Web.Controllers
 {

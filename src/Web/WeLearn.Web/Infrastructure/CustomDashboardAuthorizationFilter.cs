@@ -1,5 +1,5 @@
 ﻿using Hangfire.Dashboard;
-using static WeLearn.Common.Constants;
+using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Infrastructure
 {
@@ -8,4 +8,3 @@ namespace WeLearn.Web.Infrastructure
         public bool Authorize(DashboardContext context) => context.GetHttpContext().User.IsInRole(ApplicationAdministratorRoleName);
     }
 }
-

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,10 +9,10 @@ using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
+using WeLearn.Services.Mapping;
 using WeLearn.Tests.HelperClasses;
-using WeLearn.ViewModels.Admin.Comment;
-using WeLearn.ViewModels.Comment;
-using WeLearn.Web.Infrastructure;
+using WeLearn.Web.ViewModels.Admin.Comment;
+using WeLearn.Web.ViewModels.Comment;
 using Xunit;
 
 namespace WeLearn.Tests
@@ -24,7 +23,8 @@ namespace WeLearn.Tests
 
         public CommentsServiceTests()
         {
-            this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
+            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
         [Fact]
@@ -144,12 +144,12 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_CommentIsEdited()
         {
-            // arrange 
+            // arrange
             var data = new List<Comment>
             {
                 new Comment
                 {
-                    Id = 1, Content = "C", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3,
+                    Id = 1, Content = "C", ApplicationUserId = "asd", LessonId = 3,
                 },
             }.AsQueryable();
 
@@ -173,7 +173,7 @@ namespace WeLearn.Tests
             var service = new CommentsService(mockContext.Object, mapper);
 
             // act
-            var model = new CommentEditModel() {Id = 1, Content = "asd", DateCreated = DateTime.Now};
+            var model = new CommentEditModel { Id = 1, Content = "asd" };
             await service.EditCommentAsync(model);
 
             // assert
@@ -188,7 +188,7 @@ namespace WeLearn.Tests
             {
                 new Comment
                 {
-                    Id = 1, Content = "C", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3,
+                    Id = 1, Content = "C", ApplicationUserId = "asd", LessonId = 3,
                 },
             }.AsQueryable();
 
@@ -212,7 +212,7 @@ namespace WeLearn.Tests
             var service = new CommentsService(mockContext.Object, mapper);
 
             // act
-            var model = new AdminCommentEditModel() {Id = 1, Content = "asd1", DateCreated = DateTime.Now};
+            var model = new AdminCommentEditModel() { Id = 1, Content = "asd1" };
             await service.EditCommentByAdminAsync(model);
 
             // assert
@@ -227,7 +227,7 @@ namespace WeLearn.Tests
             {
                 new Comment
                 {
-                    Id = 1, Content = "Cdsa", DateCreated = DateTime.Now, ApplicationUserId = "asd", LessonId = 3,
+                    Id = 1, Content = "Cdsa", ApplicationUserId = "asd", LessonId = 3,
                 },
             }.AsQueryable();
 
@@ -251,7 +251,7 @@ namespace WeLearn.Tests
             var service = new CommentsService(mockContext.Object, mapper);
 
             // act
-            var model = new CommentInputModel() {Content = "asd", DateCreated = DateTime.Now};
+            var model = new CommentInputModel() {Content = "asd" };
             await service.CreateCommentAsync(model);
 
             // assert

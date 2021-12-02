@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-
-using WeLearn.ViewModels.Category;
+using WeLearn.Web.ViewModels.Category;
 
 namespace WeLearn.Services.Interfaces
 {

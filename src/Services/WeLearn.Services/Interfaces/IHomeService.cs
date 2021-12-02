@@ -1,4 +1,4 @@
-﻿using WeLearn.ViewModels.Home;
+﻿using WeLearn.Web.ViewModels.Home;
 
 namespace WeLearn.Services.Interfaces
 {

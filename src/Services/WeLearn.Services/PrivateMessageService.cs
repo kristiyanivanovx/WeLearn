@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
-using WeLearn.ViewModels.Message;
+using WeLearn.Web.ViewModels.Message;
+using WeLearn.Web.ViewModels.Message;
 
 namespace WeLearn.Services
 {
@@ -30,7 +31,7 @@ namespace WeLearn.Services
                 .Where(x =>
                     (x.SenderId == currentUserId && x.Receiver.UserName == correspondent) ||
                     (x.ReceiverId == currentUserId && x.Sender.UserName == correspondent))
-                .OrderBy(x => x.DateCreated)
+                .OrderBy(x => x.CreatedOn)
                 .ToList();
 
             var model = new AllPrivateMessagesViewModel<PrivateMessageConversationViewModel>()
@@ -50,7 +51,7 @@ namespace WeLearn.Services
                     SenderUsername = privateMessage.Sender.UserName,
                     CurrentUsername = currentUserName,
                     ReplyTo = otherCorrespondent,
-                    DateCreated = privateMessage.DateCreated,
+                    CreatedOn = privateMessage.CreatedOn,
                 };
 
                 model.PrivateMessageModels.Add(privateMessageModel);
@@ -61,12 +62,11 @@ namespace WeLearn.Services
 
         public async Task CreatePrivateMessageAsync(PrivateMessageInputModel model, string currentUserId)
         {
-            var privateMessage = new PrivateMessage()
+            var privateMessage = new PrivateMessage
             {
                 Text = model.Text,
                 ReceiverId = this.context.ApplicationUsers.First(x => x.UserName == model.ReceiverUsername).Id,
                 SenderId = currentUserId,
-                DateCreated = DateTime.UtcNow,
             };
 
             await this.context.PrivateMessages.AddAsync(privateMessage);
@@ -77,7 +77,7 @@ namespace WeLearn.Services
         {
             List<PrivateMessage> privateMessages = this.context.PrivateMessages
                             .Where(x => x.SenderId == currentUserId || x.ReceiverId == currentUserId)
-                            .OrderByDescending(x => x.DateCreated)
+                            .OrderByDescending(x => x.CreatedOn)
                             .ToList();
 
             var model = new AllPrivateMessagesViewModel<PrivateMessageIndexViewModel>()
@@ -98,7 +98,7 @@ namespace WeLearn.Services
                     {
                         Text = privateMessage.Text,
                         OtherCorrespondent = otherCorrespondent,
-                        DateCreated = privateMessage.DateCreated,
+                        CreatedOn = privateMessage.CreatedOn,
                     };
 
                     model.PrivateMessageModels.Add(privateMessageModel);

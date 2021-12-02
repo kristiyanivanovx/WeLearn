@@ -1,0 +1,81 @@
+﻿@model WeLearn.Web.ViewModels.Lesson.LessonEditModel
+@{
+    ViewData["Title"] = "Editing lesson #" + Model.LessonId;
+}
+
+<div class="container">
+    <h4 class="text-center">Previous video and attached files.</h4>
+    <hr />
+    <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">
+        <div class="card">
+            <div>
+                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.OldVideoLink" data-poster="@Model.OldVideoLink">
+                    <source src="@Model.OldVideoLink" type="@Model.OldVideoContentType" />
+                    <a href="@Model.OldVideoLink" download>Download</a>
+                </video>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.OldFilesLink" class="btn btn-sm btn-outline-dark">
+                    <i class="fas fa-arrow-down"></i> Download Resources
+                </a>
+            </div>
+        </div>
+        <div class="text-center">
+            <h3 class="mt-2">Editing lesson #@Model.LessonId</h3>
+            <hr />
+            <form asp-controller="Lesson" asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="@Model.LessonId" asp-for="@Model.LessonId" class="form-control" />
+                <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
+                <div class="form-group">
+                    <label asp-for="@Model.Name"></label>
+                    <input asp-for="@Model.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Description"></label>
+                    <textarea asp-for="@Model.Description" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.CategoryId" class="control-label"></label>
+                    <select asp-for="@Model.CategoryId" asp-items="@ViewBag.CategoryId" class="form-control"></select>
+                    <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Grade" class="control-label"></label>
+                    <select asp-for="Grade" asp-items="Html.GetEnumSelectList<Grade>()" class="form-control">
+                        <option selected="selected" disabled value="">- Please Select Grade -</option>
+                    </select>
+                    <span asp-validation-for="Grade" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Video"></label>
+                    <input asp-for="@Model.Video" class="form-control" />
+                    <span asp-validation-for="@Model.Video" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Files"></label>
+                    <input asp-for="@Model.Files" class="form-control" />
+                    <span asp-validation-for="@Model.Files" class="text-danger"></span>
+                </div>
+
+                <input class="btn btn-sm btn-outline-success" type="submit" value="Save" />
+                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
+                    Cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* todo: find a way to add padding/margin *@
+<br />
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
+        const player = new Plyr('#player');
+        window.player = player;
+    </script>
+}

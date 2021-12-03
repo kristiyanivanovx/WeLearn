@@ -4,6 +4,7 @@ using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,6 @@ using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 
 using WeLearn.Data.Repositories;
-using WeLearn.Data.Seeding;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
@@ -90,19 +90,24 @@ namespace WeLearn.Web
         }
 
         public void Configure(
-            ApplicationDbContext applicationDbContext,
             IApplicationBuilder app,
             IWebHostEnvironment env,
-            IRecurringJobManager recurringJobManager)
+            IRecurringJobManager recurringJobManager,
+            ApplicationDbContext applicationDbContext,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            }
+            app.MigrateDatabase();
+            app.SeedData(userManager, roleManager);
+
+            // using (var serviceScope = app.ApplicationServices.CreateScope())
+            // {
+            //     ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            //     dbContext.Database.Migrate();
+            //     new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            // }
 
             if (env.IsDevelopment())
             {
@@ -123,7 +128,7 @@ namespace WeLearn.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
+            app.SeedHangfireJobs(recurringJobManager);
             app.UseHangfire();
 
             app.UseEndpoints();

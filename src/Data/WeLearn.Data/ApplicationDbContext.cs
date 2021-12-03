@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Models;
+using WeLearn.Data.Infrastructure;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.ChatApp;
 
@@ -56,6 +57,9 @@ namespace WeLearn.Data
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            modelBuilder.Seed();
+            modelBuilder.ConfigureRelations();
 
             // todo: seed - modelBuilder.Seed();
         }

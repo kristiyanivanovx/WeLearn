@@ -29,16 +29,6 @@ namespace WeLearn.Data.Configurations
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
-            appUser
-                .HasMany(x => x.SentPrivateMessages)
-                .WithOne(x => x.Sender)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            appUser
-                .HasMany(x => x.ReceivedPrivateMessages)
-                .WithOne(x => x.Receiver)
-                .OnDelete(DeleteBehavior.Cascade);
-
             // do not cascade delete the lessons on user delete, just set their owner to null
             appUser
                 .HasMany(x => x.Lessons)
@@ -56,6 +46,7 @@ namespace WeLearn.Data.Configurations
                 .HasMany(x => x.Comments)
                 .WithOne(x => x.ApplicationUser)
                 .OnDelete(DeleteBehavior.Cascade);
+                // .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

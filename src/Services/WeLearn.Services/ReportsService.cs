@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using System;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Repositories;
+using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Report;
 using WeLearn.Web.ViewModels.Report.Comment;
@@ -16,9 +18,9 @@ namespace WeLearn.Services
 {
     public class ReportsService : IReportsService
     {
-        private readonly ReportRepository reportRepository;
+        private readonly IDeletableEntityRepository<Report> reportRepository;
 
-        public ReportsService(ReportRepository reportRepository)
+        public ReportsService(IDeletableEntityRepository<Report> reportRepository)
             => this.reportRepository = reportRepository;
 
         public async Task<T> GetReportByIdAsync<T>(int reportId)
@@ -76,13 +78,35 @@ namespace WeLearn.Services
             return reportsMapped;
         }
 
-        public async Task CreateReportAsync<T>(T model)
+        public async Task CreateLessonReportAsync(LessonReportInputModel model)
         {
-            // todo-critical: refactor
-            // Report reportMapped = this.mapper.Map<Report>(model);
+            Report report = new Report
+            {
+                LessonId = model.LessonId,
+                Subject = model.Subject,
+                Description = model.ReportDescription,
 
-            // reportMapped.DateCreated = DateTime.UtcNow;
-            // await this.context.Reports.AddAsync(reportMapped);
+                // todo: validate
+                ApplicationUserId = model.ApplicationUserId,
+            };
+
+            await this.reportRepository.AddAsync(report);
+            await this.reportRepository.SaveChangesAsync();
+        }
+
+        public async Task CreateCommentReportAsync(CommentReportInputModel model)
+        {
+            Report report = new Report
+            {
+                CommentId = model.CommentId,
+                Subject = model.Subject,
+                Description = model.ReportDescription,
+
+                // todo: validate
+                ApplicationUserId = model.ApplicationUserId,
+            };
+
+            await this.reportRepository.AddAsync(report);
             await this.reportRepository.SaveChangesAsync();
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
@@ -17,9 +18,9 @@ namespace WeLearn.Services
 {
     public class CommentsService : ICommentsService
     {
-        private readonly CommentRepository commentRepository;
+        private readonly IDeletableEntityRepository<Comment> commentRepository;
 
-        public CommentsService(CommentRepository commentRepository)
+        public CommentsService(IDeletableEntityRepository<Comment> commentRepository)
             => this.commentRepository = commentRepository;
 
         public async Task CreateCommentAsync(CommentInputModel commentInputModel)

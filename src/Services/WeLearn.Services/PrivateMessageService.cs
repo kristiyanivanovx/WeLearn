@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
@@ -12,12 +13,12 @@ namespace WeLearn.Services
 {
     public class PrivateMessageService : IPrivateMessageService
     {
-        private readonly PrivateMessageRepository privateMessageRepository;
-        private readonly ApplicationUserRepository appUserRepository;
+        private readonly IDeletableEntityRepository<PrivateMessage> privateMessageRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> appUserRepository;
 
         public PrivateMessageService(
-            PrivateMessageRepository privateMessageRepository,
-            ApplicationUserRepository appUserRepository)
+            IDeletableEntityRepository<PrivateMessage> privateMessageRepository,
+            IDeletableEntityRepository<ApplicationUser> appUserRepository)
         {
             this.privateMessageRepository = privateMessageRepository;
             this.appUserRepository = appUserRepository;

@@ -50,6 +50,29 @@
       "provider": "cdnjs",
       "library": "luxon@1.26.0",
       "destination": "wwwroot/lib/luxon/"
+    }, 
+    {
+      "library": "tinymce@5.7.1",
+      "destination": "wwwroot/lib/tinymce/",
+      "files": [
+        "tinymce.min.js",
+        "themes/silver/theme.min.js",
+        "skins/ui/oxide/content.min.css",
+        "skins/ui/oxide/skin.min.css",
+        "skins/content/default/content.min.css",
+        "icons/default/icons.min.js",
+        "plugins/image/plugin.min.js",
+        "plugins/paste/plugin.min.js",
+        "plugins/table/plugin.min.js",
+        "plugins/link/plugin.min.js",
+        "plugins/code/plugin.min.js",
+        "plugins/media/plugin.min.js",
+
+        "plugins/fullscreen/plugin.min.js",
+        "plugins/wordcount/plugin.min.js",
+        "plugins/searchreplace/plugin.min.js",
+        "plugins/lists/plugin.min.js"
+      ]
     }
   ]
 }

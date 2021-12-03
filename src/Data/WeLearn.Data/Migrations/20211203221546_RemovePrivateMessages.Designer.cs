@@ -10,8 +10,8 @@ using WeLearn.Data;
 namespace WeLearn.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211203103043_AddAuditInfoProperties")]
-    partial class AddAuditInfoProperties
+    [Migration("20211203221546_RemovePrivateMessages")]
+    partial class RemovePrivateMessages
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -487,47 +487,6 @@ namespace WeLearn.Data.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.PrivateMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SenderId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(1500)
-                        .HasColumnType("character varying(1500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ReceiverId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("PrivateMessages");
-                });
-
             modelBuilder.Entity("WeLearn.Data.Models.Report", b =>
                 {
                     b.Property<int>("Id")
@@ -756,23 +715,6 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.PrivateMessage", b =>
-                {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "Receiver")
-                        .WithMany("ReceivedPrivateMessages")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "Sender")
-                        .WithMany("SentPrivateMessages")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
-                });
-
             modelBuilder.Entity("WeLearn.Data.Models.Report", b =>
                 {
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
@@ -820,13 +762,9 @@ namespace WeLearn.Data.Migrations
 
                     b.Navigation("Logins");
 
-                    b.Navigation("ReceivedPrivateMessages");
-
                     b.Navigation("Reports");
 
                     b.Navigation("Roles");
-
-                    b.Navigation("SentPrivateMessages");
                 });
 
             modelBuilder.Entity("WeLearn.Data.Models.Category", b =>

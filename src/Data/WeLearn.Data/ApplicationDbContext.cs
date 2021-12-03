@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Models;
@@ -50,6 +51,7 @@ namespace WeLearn.Data
             var foreignKeys = entityTypes
                 .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
 
+            // todo: validate if works
             foreach (var foreignKey in foreignKeys)
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
@@ -58,7 +60,7 @@ namespace WeLearn.Data
             // todo: seed - modelBuilder.Seed();
         }
 
-        public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
+        // public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
 
         public virtual DbSet<Chat> Chats { get; set; }
 

@@ -13,6 +13,7 @@ namespace WeLearn.Data.Configurations
                 .WithOne(x => x.Video)
                 .HasForeignKey<Video>(x => x.LessonId)
                 .OnDelete(DeleteBehavior.Cascade);
+                // .OnDelete(DeleteBehavior.Restrict);
 
             // todo: move in their own config when builds
             // modelBuilder.Entity<Lesson>()

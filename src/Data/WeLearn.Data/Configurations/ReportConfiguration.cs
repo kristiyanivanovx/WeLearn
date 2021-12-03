@@ -13,12 +13,18 @@ namespace WeLearn.Data.Configurations
                 .HasOne(x => x.Lesson)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
+                // .OnDelete(DeleteBehavior.Restrict);
+
+            // .OnDelete(DeleteBehavior.Cascade);
 
             // rules for deleting a report in administration
             report
                 .HasOne(x => x.Comment)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
+                // .OnDelete(DeleteBehavior.Restrict);
+
+            // .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

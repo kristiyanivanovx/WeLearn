@@ -9,7 +9,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 - Lessons - creating, reading, updating, deleting, reporting, sending to email. Every lesson has files (in a zip archive), video material, category and appropriate grade attached to it that can be changed. There is an option for the lesson to be sent to a particular email address using SendGrid. An lesson is not publicly accessible through "View all" and "All categories" if it hasn't been approved by the administrators. Users can soft delete their lessons, but hard deletion option is given to administrators only.
 - Comments - creating, reading, updating, deleting, reporting. Comments are related to a particular lesson. Users can soft delete their comments, but hard deletion option is given to administrators only.
 - Reports - creating, reading, updating, deleting. An user can report a comment or a lesson. Users can soft delete their reports, but hard deletion option is given to administrators only.
-- Live chat using SignalR. Cleaned weekly with Hangfire.
+- Live chat using SignalR, it is cleaned automatically every month with Hangfire.
 - Contact us page with email sending functionality realized using SendGrid.
 
 ## Technologies used
@@ -39,7 +39,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 ## How to use 
 - Navigate around, create new lessons, reports, comments and moderate them through the administration.
 - An user cannot edit and delete another one's comments, reports and lessons.
-- The application has live chat functionality, realized with SignalR and websockets. Using Hangfire in production, every week the messages and chats are getting deleted/cleaned, the reason being that we can accumulate a lot of them and they are not that important at all. Another option is for the clean period to be monthly, weekly seems too often.
+- The application has live chat functionality, realized with SignalR and websockets. Using Hangfire, every month the messages and chats are getting deleted/cleaned - the reason being that we can accumulate a lot of them and they are not that important.
 
 ### User credentials: Administrator
 - Username: welearnbg@gmail.com

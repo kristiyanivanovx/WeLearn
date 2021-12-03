@@ -6,7 +6,7 @@ namespace WeLearn.Data.Models.ChatApp
 {
     public class Chat : BaseModel<int>
     {
-        public Chat() 
+        public Chat()
         {
             this.Messages = new HashSet<Message>();
             this.ChatApplicationUsers = new HashSet<ChatApplicationUser>();

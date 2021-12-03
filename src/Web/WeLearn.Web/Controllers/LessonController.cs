@@ -72,6 +72,11 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> Watch(int id)
         {
             LessonViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
+            if (model == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(model);
         }
 

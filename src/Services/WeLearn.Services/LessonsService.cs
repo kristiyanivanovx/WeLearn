@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
+
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.Enums;
-using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Lesson;
 using WeLearn.Web.ViewModels.Interfaces;
 using WeLearn.Web.ViewModels.Lesson;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
@@ -25,9 +25,9 @@ namespace WeLearn.Services
 {
     public class LessonsService : ILessonsService
     {
-        private readonly VideoRepository videoRepository;
-        private readonly MaterialRepository materialRepository;
-        private readonly LessonRepository lessonRepository;
+        private readonly IDeletableEntityRepository<Data.Models.Video> videoRepository;
+        private readonly IDeletableEntityRepository<Data.Models.Material> materialRepository;
+        private readonly IDeletableEntityRepository<Data.Models.Lesson> lessonRepository;
         private readonly IInputOutputService inputOutputService;
 
         private const string InvalidFileSizeMessage =
@@ -42,9 +42,9 @@ namespace WeLearn.Services
         private const string CloudinaryVideosFolder = "welearn-asp-net-core-app/videos/";
 
         public LessonsService(
-            VideoRepository videoRepository,
-            MaterialRepository materialRepository,
-            LessonRepository lessonRepository,
+            IDeletableEntityRepository<Data.Models.Video> videoRepository,
+            IDeletableEntityRepository<Data.Models.Material> materialRepository,
+            IDeletableEntityRepository<Data.Models.Lesson> lessonRepository,
             IInputOutputService inputOutputService)
         {
             this.videoRepository = videoRepository;

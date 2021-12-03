@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
@@ -16,11 +16,11 @@ namespace WeLearn.Services
 {
     public class ApplicationUsersService : IUsersService
     {
-        private readonly ApplicationUserRepository appUserRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> appUserRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
         public ApplicationUsersService(
-            ApplicationUserRepository appUserRepository,
+            IDeletableEntityRepository<ApplicationUser> appUserRepository,
             UserManager<ApplicationUser> userManager)
         {
             this.appUserRepository = appUserRepository;

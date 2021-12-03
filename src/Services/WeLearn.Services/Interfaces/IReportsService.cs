@@ -4,7 +4,7 @@ using WeLearn.Web.ViewModels.Admin.Report;
 using WeLearn.Web.ViewModels.Report.Comment;
 using WeLearn.Web.ViewModels.Report.Lesson;
 
-namespace WeLearn.Services
+namespace WeLearn.Services.Interfaces
 {
     public interface IReportsService
     {
@@ -16,7 +16,9 @@ namespace WeLearn.Services
 
         Task<IEnumerable<CommentReportViewModel>> GetCommentReportsCreatedByMeAsync(string userId);
 
-        Task CreateReportAsync<T>(T model);
+        Task CreateLessonReportAsync(LessonReportInputModel model);
+
+        Task CreateCommentReportAsync(CommentReportInputModel model);
 
         Task EditCommentReportAsync(CommentReportEditModel commentReportModel);
 

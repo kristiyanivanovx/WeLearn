@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
@@ -12,22 +13,25 @@ namespace WeLearn.Data.Seeding
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            ApplicationUser applicationUser = new ApplicationUser
+            var headAdminUser = dbContext.ApplicationUsers.FirstOrDefault(x => x.Id == SeededUserId);
+
+            if (headAdminUser == null)
             {
-                Id = SeededUserId,
-                Email = "default@gmail.com",
-                EmailConfirmed = false,
-                NormalizedEmail = "default@gmail.com".ToUpper(),
-                UserName = "Username",
-                NormalizedUserName = "Username".ToUpper(),
-            };
+                ApplicationUser applicationUser = new ApplicationUser
+                {
+                    Email = "default@gmail.com",
+                    EmailConfirmed = false,
+                    NormalizedEmail = "default@gmail.com".ToUpper(),
+                    UserName = "Username",
+                    NormalizedUserName = "Username".ToUpper(),
+                };
 
-            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
-            applicationUser.PasswordHash = passwordHasher.HashPassword(applicationUser, "User_qwerty_1234%");
+                PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+                applicationUser.PasswordHash = passwordHasher.HashPassword(applicationUser, "User_qwerty_1234%");
 
-            // modelBuilder.Entity<ApplicationUser>().HasData(applicationUser);
-            await dbContext.Users.AddAsync(applicationUser);
-            // await dbContext.ApplicationUsers.AddAsync(applicationUser);
+                await dbContext.ApplicationUsers.AddAsync(applicationUser);
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }

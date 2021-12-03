@@ -25,17 +25,26 @@ namespace WeLearn.Data.Seeding
 
             var seeders = new List<ISeeder>
             {
+                //todo: seed admins with a role
+                new RolesSeeder(),
                 new HeadAdminSeeder(),
                 new UsersSeeder(),
-                new RolesSeeder(),
+                new CategoriesSeeder(),
+                new VideosSeeder(),
+                new MaterialsSeeder(),
+                new LessonsSeeder(),
+                new CommentsSeeder(),
+                new ReportsSeeder(),
             };
 
             foreach (var seeder in seeders)
             {
                 await seeder.SeedAsync(dbContext, serviceProvider);
-                await dbContext.SaveChangesAsync();
                 logger.LogInformation($"Seeder {seeder.GetType().Name} done.");
             }
+
+            await dbContext.SaveChangesAsync();
+            logger.LogInformation($"All seeders have completed.");
         }
     }
 }

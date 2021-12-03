@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace WeLearn.Data.Migrations
 {
-    public partial class AddAuditInfoProperties : Migration
+    public partial class RemovePrivateMessages : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,6 +71,9 @@ namespace WeLearn.Data.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Videos_Lessons_LessonId",
                 table: "Videos");
+
+            migrationBuilder.DropTable(
+                name: "PrivateMessages");
 
             migrationBuilder.DeleteData(
                 table: "Categories",
@@ -438,11 +442,6 @@ namespace WeLearn.Data.Migrations
 
             migrationBuilder.RenameColumn(
                 name: "DateCreated",
-                table: "PrivateMessages",
-                newName: "CreatedOn");
-
-            migrationBuilder.RenameColumn(
-                name: "DateCreated",
                 table: "Messages",
                 newName: "CreatedOn");
 
@@ -492,25 +491,6 @@ namespace WeLearn.Data.Migrations
             migrationBuilder.AddColumn<DateTime>(
                 name: "ModifiedOn",
                 table: "Reports",
-                type: "timestamp without time zone",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DeletedOn",
-                table: "PrivateMessages",
-                type: "timestamp without time zone",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "IsDeleted",
-                table: "PrivateMessages",
-                type: "boolean",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "ModifiedOn",
-                table: "PrivateMessages",
                 type: "timestamp without time zone",
                 nullable: true);
 
@@ -634,11 +614,6 @@ namespace WeLearn.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Reports_IsDeleted",
                 table: "Reports",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PrivateMessages_IsDeleted",
-                table: "PrivateMessages",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
@@ -875,10 +850,6 @@ namespace WeLearn.Data.Migrations
                 table: "Reports");
 
             migrationBuilder.DropIndex(
-                name: "IX_PrivateMessages_IsDeleted",
-                table: "PrivateMessages");
-
-            migrationBuilder.DropIndex(
                 name: "IX_Materials_IsDeleted",
                 table: "Materials");
 
@@ -917,18 +888,6 @@ namespace WeLearn.Data.Migrations
             migrationBuilder.DropColumn(
                 name: "ModifiedOn",
                 table: "Reports");
-
-            migrationBuilder.DropColumn(
-                name: "DeletedOn",
-                table: "PrivateMessages");
-
-            migrationBuilder.DropColumn(
-                name: "IsDeleted",
-                table: "PrivateMessages");
-
-            migrationBuilder.DropColumn(
-                name: "ModifiedOn",
-                table: "PrivateMessages");
 
             migrationBuilder.DropColumn(
                 name: "ModifiedOn",
@@ -1014,11 +973,6 @@ namespace WeLearn.Data.Migrations
 
             migrationBuilder.RenameColumn(
                 name: "CreatedOn",
-                table: "PrivateMessages",
-                newName: "DateCreated");
-
-            migrationBuilder.RenameColumn(
-                name: "CreatedOn",
                 table: "Messages",
                 newName: "DateCreated");
 
@@ -1046,6 +1000,34 @@ namespace WeLearn.Data.Migrations
                 name: "CreatedOn",
                 table: "Categories",
                 newName: "DateCreated");
+
+            migrationBuilder.CreateTable(
+                name: "PrivateMessages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DateCreated = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ReceiverId = table.Column<string>(type: "text", nullable: true),
+                    SenderId = table.Column<string>(type: "text", nullable: true),
+                    Text = table.Column<string>(type: "character varying(1500)", maxLength: 1500, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrivateMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PrivateMessages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PrivateMessages_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
@@ -1164,6 +1146,16 @@ namespace WeLearn.Data.Migrations
                 table: "Reports",
                 columns: new[] { "Id", "ApplicationUserId", "CommentId", "DateCreated", "Description", "IsDeleted", "LessonId", "Subject" },
                 values: new object[] { 3, "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", 1, new DateTime(2021, 8, 5, 11, 24, 18, 343, DateTimeKind.Utc).AddTicks(734), "Bad language in comment.", false, null, "Unacceptable behaviour" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrivateMessages_ReceiverId",
+                table: "PrivateMessages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrivateMessages_SenderId",
+                table: "PrivateMessages",
+                column: "SenderId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",

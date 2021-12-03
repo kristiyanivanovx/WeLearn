@@ -4,11 +4,15 @@
     <div class="card-body">
         <h5 class="card-title">Leave your comment</h5>
         <hr />
+        
+        @* <partial name="Templates/_TinyEditor"/> *@
+        
         <form asp-controller="Comment" asp-action="Create" method="post">
             <input asp-for="LessonId" type="hidden" />
             <div class="form-group">
                 <label asp-for="@Model.Content"></label>
-                <textarea asp-for="@Model.Content" id="content" rows="3" class="form-control"></textarea>
+                
+                <textarea asp-for="@Model.Content" id="content" rows="3" class="form-control edit-with-tinymce"></textarea>
                 <span asp-validation-for="@Model.Content" class="text-danger"></span>
                 @if (!User.Identity.IsAuthenticated)
                 {
@@ -18,5 +22,7 @@
             <input class="btn btn-sm btn-outline-success" type="submit" name="name" value="Submit" />
             <a class="btn btn-sm btn-outline-info cancel" href="">Cancel</a>
         </form>
+        
     </div>
 </div>
+

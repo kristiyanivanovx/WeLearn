@@ -3,6 +3,8 @@ using System.Linq;
 
 using AutoMapper;
 using WeLearn.Data;
+using WeLearn.Data.Common.Repositories;
+using WeLearn.Data.Models;
 using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
@@ -12,9 +14,9 @@ namespace WeLearn.Services
 {
     public class CategoriesService : ICategoriesService
     {
-        private readonly CategoryRepository categoryRepository;
+        private readonly IDeletableEntityRepository<Category> categoryRepository;
 
-        public CategoriesService(CategoryRepository categoryRepository)
+        public CategoriesService(IDeletableEntityRepository<Category> categoryRepository)
             => this.categoryRepository = categoryRepository;
 
         public IEnumerable<CategoryViewModel> GetAllCategories()

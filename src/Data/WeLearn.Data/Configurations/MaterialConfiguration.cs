@@ -13,6 +13,7 @@ namespace WeLearn.Data.Configurations
                 .WithOne(x => x.Material)
                 .HasForeignKey<Material>(x => x.LessonId)
                 .OnDelete(DeleteBehavior.Cascade);
+                // .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -1,11 +1,8 @@
 ﻿using Hangfire;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WeLearn.Data;
-using WeLearn.Data.Infrastructure;
-using WeLearn.Data.Models;
 using WeLearn.Services.CronJobs;
 using WeLearn.Web.ChatApp;
 
@@ -22,18 +19,18 @@ namespace WeLearn.Web.Infrastructure
                     endpoints.MapRazorPages();
                 });
 
-        public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
-        {
-            using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
-            ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
-
-            return app;
-        }
+        // public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
+        // {
+        //     using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
+        //     ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        //     context.Database.Migrate();
+        //
+        //     return app;
+        // }
 
         public static IApplicationBuilder SeedHangfireJobs(this IApplicationBuilder app, IRecurringJobManager recurringJobManager, ApplicationDbContext applicationDbContext)
         {
-            recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.WorkAsync(), Cron.Weekly());
+            recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.WorkAsync(), Cron.Monthly());
             return app;
         }
 

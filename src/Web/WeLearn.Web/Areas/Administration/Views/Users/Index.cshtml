@@ -48,13 +48,16 @@
         {
             <tr>
                 @{
-                    var user = await userManager.FindByIdAsync(item.Id);
-                    var userIsAdmin = await userManager.IsInRoleAsync(user, "Admin");
-                    var adminRoleButtonClassStyling = userIsAdmin ?
+                    var dbUser = await userManager.FindByIdAsync(item.Id);
+                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, "Admin");
+                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, "HeadAdmin");
+                    
+                    var adminRoleButtonClassStyling = dbUserIsAdmin ?
                         "btn btn-sm btn-outline-warning mb-1" :
                         "btn btn-sm btn-outline-success mb-1";
 
-                    var disableIfUnauthorized = User.IsInRole(ApplicationHeadAdministratorRoleName) ? "enabled" : "disabled";
+                    var disableIfUnauthorized = 
+                        User.IsInRole(ApplicationHeadAdministratorRoleName) ? "enabled" : "disabled";
                 }
                 
                 <td>
@@ -67,10 +70,10 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @string.Join(", ", await userManager.GetRolesAsync(user))
+                    @string.Join(", ", await userManager.GetRolesAsync(dbUser))
                 </td>
                 <td>
-                    @if (userIsAdmin)
+                    @if (dbUserIsAdmin || dbUserIsHeadAdmin)
                     {
                         <div class="admin-role-color">Yes</div>
                     }
@@ -82,7 +85,7 @@
                 <td>
                     <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-id="@item.Id">
                         <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
-                            @if (userIsAdmin)
+                            @if (dbUserIsHeadAdmin)
                             {
                                 <div>Demote</div>
                             }

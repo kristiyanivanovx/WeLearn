@@ -1,9 +1,9 @@
 using System.Reflection;
+
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +13,7 @@ using WeLearn.Data;
 using WeLearn.Data.Common;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
-using WeLearn.Data.Models.ChatApp;
+
 using WeLearn.Data.Repositories;
 using WeLearn.Data.Seeding;
 using WeLearn.Services;
@@ -26,15 +26,10 @@ namespace WeLearn.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
-        {
-            this.Configuration = configuration;
-            this.WebHostEnvironment = env;
-        }
+        private readonly IConfiguration configuration;
 
-        public IConfiguration Configuration { get; }
-
-        public IWebHostEnvironment WebHostEnvironment { get; }
+        public Startup(IConfiguration configuration)
+            => this.configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -45,8 +40,7 @@ namespace WeLearn.Web
             services.AddSignalR();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                options.UseNpgsql(this.configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -59,26 +53,14 @@ namespace WeLearn.Web
                 })
                 .AddRazorRuntimeCompilation();
 
+            services.AddSingleton(this.configuration);
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            services.AddScoped(typeof(IDeletableEntityRepository<Category>), typeof(EfDeletableEntityRepository<Category>));
-            services.AddScoped(typeof(IDeletableEntityRepository<Comment>), typeof(EfDeletableEntityRepository<Comment>));
-            services.AddScoped(typeof(IDeletableEntityRepository<Lesson>), typeof(EfDeletableEntityRepository<Lesson>));
-            services.AddScoped(typeof(IDeletableEntityRepository<Material>), typeof(EfDeletableEntityRepository<Material>));
-            services.AddScoped(typeof(IDeletableEntityRepository<PrivateMessage>), typeof(EfDeletableEntityRepository<PrivateMessage>));
-            services.AddScoped(typeof(IDeletableEntityRepository<Report>), typeof(EfDeletableEntityRepository<Report>));
-            services.AddScoped(typeof(IDeletableEntityRepository<Video>), typeof(EfDeletableEntityRepository<Video>));
-
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped(typeof(IRepository<ChatApplicationUser>), typeof(EfRepository<ChatApplicationUser>));
-            services.AddScoped(typeof(IRepository<Chat>), typeof(EfRepository<Chat>));
-            services.AddScoped(typeof(IRepository<Message>), typeof(EfRepository<Message>));
-
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddSingleton(this.Configuration);
-            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IUsersService, ApplicationUsersService>();
@@ -91,27 +73,30 @@ namespace WeLearn.Web
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
             services.AddTransient<IPrivateMessageService, PrivateMessageService>();
             services.AddTransient<IEmailSender>(serviceProvider =>
-                new SendGridEmailService(this.Configuration["SendGrid:ApiKey"]));
+                new SendGridEmailService(this.configuration["SendGrid:ApiKey"]));
 
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
                     IConfigurationSection googleAuthenticationSection =
-                        this.Configuration.GetSection("Authentication:Google");
+                        this.configuration.GetSection("Authentication:Google");
                     options.ClientId = googleAuthenticationSection["ClientId"];
                     options.ClientSecret = googleAuthenticationSection["ClientSecret"];
                 });
 
             services.AddHangfire(config =>
                 config.UsePostgreSqlStorage(
-                    this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                    this.configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            ApplicationDbContext applicationDbContext,
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            IRecurringJobManager recurringJobManager)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            // app.MigrateDatabase();
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -119,7 +104,6 @@ namespace WeLearn.Web
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            // app.SeedData(userManager, roleManager);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -139,7 +123,7 @@ namespace WeLearn.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
+            app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
             app.UseHangfire();
 
             app.UseEndpoints();

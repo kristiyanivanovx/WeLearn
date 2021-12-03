@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
@@ -13,14 +13,14 @@ namespace WeLearn.Services
 {
     public class ChatService : IChatService
     {
-        private readonly ChatRepository chatRepository;
-        private readonly ChatApplicationUserRepository chatAppUserRepository;
-        private readonly MessageRepository messageRepository;
+        private readonly IRepository<Chat> chatRepository;
+        private readonly IRepository<ChatApplicationUser> chatAppUserRepository;
+        private readonly IRepository<Message> messageRepository;
 
         public ChatService(
-            ChatRepository chatRepository,
-            ChatApplicationUserRepository chatAppUserRepository,
-            MessageRepository messageRepository)
+            IRepository<Chat> chatRepository,
+            IRepository<ChatApplicationUser> chatAppUserRepository,
+            IRepository<Message> messageRepository)
         {
             this.chatRepository = chatRepository;
             this.chatAppUserRepository = chatAppUserRepository;

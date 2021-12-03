@@ -45,15 +45,15 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(LessonReportInputModel lessonReportModel)
         {
-            lessonReportModel.ApplicationUserId = GetUserId();
+            lessonReportModel.ApplicationUserId = this.GetUserId();
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View();
+                return this.View();
             }
 
-            await this.reportsService.CreateReportAsync<LessonReportInputModel>(lessonReportModel);
-            return RedirectToAction(nameof(LessonsByMe));
+            await this.reportsService.CreateLessonReportAsync(lessonReportModel);
+            return this.RedirectToAction(nameof(this.LessonsByMe));
         }
 
         [HttpGet]
@@ -129,7 +129,7 @@ namespace WeLearn.Web.Controllers
                 return View();
             }
 
-            await this.reportsService.CreateReportAsync<CommentReportInputModel>(commentReportModel);
+            await this.reportsService.CreateCommentReportAsync(commentReportModel);
             return RedirectToAction(nameof(CommentsByMe));
         }
 

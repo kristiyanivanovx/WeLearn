@@ -6,7 +6,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Material;
 
 namespace WeLearn.Data.Models
 {
-    public class Material : BaseDeletableModel<int> //SoftDeleteable, IMetadataHaveable
+    public class Material : BaseDeletableModel<int> // SoftDeleteable, IMetadataHaveable
     {
         [Required]
         [MaxLength(MaxNameLength)]

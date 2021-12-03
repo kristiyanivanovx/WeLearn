@@ -19,18 +19,16 @@ namespace WeLearn.Tests
 {
     public class CommentsServiceTests
     {
-        private IMapper mapper;
-
         public CommentsServiceTests()
         {
-            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = AutoMapperConfig.MapperInstance;
             // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
         [Fact]
         public async Task Should_ReturnAllComments_When_ParameterIsNull()
         {
-            // arrange 
+            // arrange
             var data = new List<Comment>
             {
                 new Comment {Content = "BBB"},
@@ -55,7 +53,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var service = new CommentsService(mockContext.Object, mapper);
+            var service = new CommentsService(mockContext.Object);
 
             // act
             var result = await service.GetAllCommentsAsync(null);
@@ -92,7 +90,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var service = new CommentsService(mockContext.Object, mapper);
+            var service = new CommentsService(mockContext.Object);
 
             // act
             await service.HardDeleteCommentByIdAsync(1);
@@ -130,7 +128,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var service = new CommentsService(mockContext.Object, mapper);
+            var service = new CommentsService(mockContext.Object);
 
             // act
             await service.SoftDeleteCommentByIdAsync(1);
@@ -170,7 +168,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var service = new CommentsService(mockContext.Object, mapper);
+            var service = new CommentsService(mockContext.Object);
 
             // act
             var model = new CommentEditModel { Id = 1, Content = "asd" };
@@ -209,7 +207,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var service = new CommentsService(mockContext.Object, mapper);
+            var service = new CommentsService(mockContext.Object);
 
             // act
             var model = new AdminCommentEditModel() { Id = 1, Content = "asd1" };
@@ -248,7 +246,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var service = new CommentsService(mockContext.Object, mapper);
+            var service = new CommentsService(mockContext.Object);
 
             // act
             var model = new CommentInputModel() {Content = "asd" };

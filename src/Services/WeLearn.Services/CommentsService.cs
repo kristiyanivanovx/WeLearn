@@ -7,7 +7,9 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Comment;
 using WeLearn.Web.ViewModels.Comment;
 
@@ -15,71 +17,82 @@ namespace WeLearn.Services
 {
     public class CommentsService : ICommentsService
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly CommentRepository commentRepository;
 
-        public CommentsService(ApplicationDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
+        public CommentsService(CommentRepository commentRepository)
+            => this.commentRepository = commentRepository;
 
         public async Task CreateCommentAsync(CommentInputModel commentInputModel)
         {
-            Comment comment = this.mapper.Map<Comment>(commentInputModel);
-            await this.context.Comments.AddAsync(comment);
-            await this.context.SaveChangesAsync();
+            Comment comment = new Comment
+            {
+                Content = commentInputModel.Content,
+                ApplicationUserId = commentInputModel.ApplicationUserId,
+                LessonId = commentInputModel.LessonId,
+            };
+
+            await this.commentRepository.AddAsync(comment);
+            await this.commentRepository.SaveChangesAsync();
         }
 
         public async Task EditCommentAsync(CommentEditModel commentEditModel)
         {
-            Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.Id);
+            Comment entity = this.commentRepository.All().FirstOrDefault(x => x.Id == commentEditModel.Id);
             if (entity != null)
             {
                 entity.Content = commentEditModel.Content ?? entity.Content;
             }
 
-            await this.context.SaveChangesAsync();
+            await this.commentRepository.SaveChangesAsync();
         }
 
         public async Task EditCommentByAdminAsync(AdminCommentEditModel commentEditModel)
         {
-            Comment entity = this.context.Comments.FirstOrDefault(x => x.Id == commentEditModel.Id);
-            if (entity != null)
+            Comment comment = this.commentRepository
+                .All()
+                .FirstOrDefault(x => x.Id == commentEditModel.Id);
+
+            if (comment != null)
             {
-                entity.Content = commentEditModel.Content ?? entity.Content;
-                // entity.IsDeleted = commentEditModel.IsDeleted;
-                // entity.DateCreated = commentEditModel.DateCreated;
+                comment.Content = commentEditModel.Content ?? comment.Content;
+
+                if (comment.IsDeleted)
+                {
+                    this.commentRepository.Delete(comment);
+                }
+                else
+                {
+                    this.commentRepository.Undelete(comment);
+                }
             }
 
-            await this.context.SaveChangesAsync();
+            await this.commentRepository.SaveChangesAsync();
         }
 
         public async Task SoftDeleteCommentByIdAsync(int commentId)
         {
-            Comment comment = this.context.Comments.FirstOrDefault(x => x.Id == commentId);
+            Comment comment = this.commentRepository.AllWithDeleted().FirstOrDefault(x => x.Id == commentId);
             if (comment != null)
             {
-                comment.IsDeleted = true;
+                this.commentRepository.Delete(comment);
             }
 
-            await this.context.SaveChangesAsync();
+            await this.commentRepository.SaveChangesAsync();
         }
 
         public async Task HardDeleteCommentByIdAsync(int commentId)
         {
-            Comment comment = this.context.Comments.FirstOrDefault(x => x.Id == commentId);
+            Comment comment = this.commentRepository.AllWithDeleted().FirstOrDefault(x => x.Id == commentId);
             if (comment != null)
             {
-                this.context.Comments.Remove(comment);
+                this.commentRepository.HardDelete(comment);
             }
 
-            await this.context.SaveChangesAsync();
+            await this.commentRepository.SaveChangesAsync();
         }
 
         public async Task<T> GetCommentByIdAsync<T>(int id)
-        {
-            Comment comment = await this.context.Comments
+            => await this.commentRepository.All()
                 .Where(x => x.Id == id)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)
@@ -87,36 +100,29 @@ namespace WeLearn.Services
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.ApplicationUser)
                 .Include(x => x.ApplicationUser)
+                .To<T>()
                 .FirstOrDefaultAsync();
 
-            T commentMapped = this.mapper.Map<T>(comment);
-            return commentMapped;
-        }
-
         public async Task<IEnumerable<CommentByMeModel>> GetCommentsMadeByMeAsync(string userId)
-        {
-            List<Comment> commentsByMe = await this.context.Comments
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
+            => await this.commentRepository.All()
+                .Where(x => x.ApplicationUserId == userId)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.ApplicationUser)
+                .To<CommentByMeModel>()
                 .ToListAsync();
-
-            CommentByMeModel[] commentsByMeMapped = this.mapper.Map<CommentByMeModel[]>(commentsByMe);
-            return commentsByMeMapped;
-        }
 
         public async Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString = null)
         {
-            IQueryable<Comment> allComments = this.context.Comments;
+            IQueryable<Comment> allComments = this.commentRepository.AllWithDeleted();
             if (!string.IsNullOrEmpty(searchString))
             {
                 allComments = allComments.Where(x => x.Content.ToLower().Contains(searchString.ToLower()));
             }
 
-            await allComments
+            var comments = await allComments
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Category)
@@ -124,10 +130,10 @@ namespace WeLearn.Services
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.ApplicationUser)
                 .OrderByDescending(x => x.CreatedOn)
+                .To<AdminCommentViewModel>()
                 .ToListAsync();
 
-            AdminCommentViewModel[] allCommentsMapped = this.mapper.Map<AdminCommentViewModel[]>(allComments);
-            return allCommentsMapped;
+            return comments;
         }
     }
 }

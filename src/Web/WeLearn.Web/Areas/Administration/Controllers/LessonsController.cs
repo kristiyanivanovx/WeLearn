@@ -23,7 +23,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            var lessonsViewModels = await this.lessonsService.GetAllLessonsAdministrationAsync<AdminLessonViewModel>(searchString);
+            var lessonsViewModels = await this.lessonsService.GetAllLessonsWithDeletedAsync<AdminLessonViewModel>(searchString);
             var paginated = PaginatedList<AdminLessonViewModel>.Create(lessonsViewModels.OrderBy(x => x.IsApproved), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
             return View(paginated);
@@ -31,7 +31,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdminLessonEditModel>(id);
+            var lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
             IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
             ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
             return View(lesson);
@@ -53,7 +53,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdminLessonDeleteModel>(id);
+            var lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonDeleteModel>(id);
             return View(lesson);
         }
 

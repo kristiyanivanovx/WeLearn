@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Models;
-using WeLearn.Data.Infrastructure;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.ChatApp;
 
@@ -46,8 +47,15 @@ namespace WeLearn.Data
                 method.Invoke(null, new object[] { modelBuilder });
             }
 
-            // todo: seed
-            // modelBuilder.Seed();
+            var foreignKeys = entityTypes
+                .SelectMany(e => e.GetForeignKeys().Where(f => f.DeleteBehavior == DeleteBehavior.Cascade));
+
+            foreach (var foreignKey in foreignKeys)
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            // todo: seed - modelBuilder.Seed();
         }
 
         public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
@@ -71,6 +79,27 @@ namespace WeLearn.Data
         public virtual DbSet<Report> Reports { get; set; }
 
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        // public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
+        public override int SaveChanges() => this.SaveChanges(true);
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
+            this.SaveChangesAsync(true, cancellationToken);
+
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
             where T : class, IDeletableEntity

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Comment;
 using WeLearn.Web.ViewModels.Lesson;
@@ -16,33 +17,25 @@ namespace WeLearn.Services
     public class ViewComponentsService : IViewComponentsService
     {
         private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
 
-        public ViewComponentsService(ApplicationDbContext context, IMapper mapper)
+        public ViewComponentsService(ApplicationDbContext context)
         {
             this.context = context;
-            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<CommentViewModel>> GetCommentsAsync(int lessonId)
-        {
-            Comment[] comments = await this.context.Comments
+            => await this.context.Comments
                 .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
                 .Include(x => x.ApplicationUser)
                 .OrderByDescending(x => x.CreatedOn)
+                .To<CommentViewModel>()
                 .ToArrayAsync();
-
-            // .То<CommentViewModel>()
-
-            CommentViewModel[] commentViewModels = this.mapper.Map<CommentViewModel[]>(comments);
-            return commentViewModels;
-        }
 
         public LessonsNavigationDropdownModel GenerateDropdownModel()
             => new LessonsNavigationDropdownModel
                 {
-                    Categories = this.mapper.Map<CategoryViewModel[]>(this.context.Categories.ToArray()),
-                    Lessons = this.mapper.Map<LessonViewModel[]>(this.context.Lessons.ToArray()),
+                    Categories = this.context.Categories.To<CategoryViewModel>().ToArray(),
+                    Lessons = this.context.Lessons.To<LessonViewModel>().ToArray(),
                 };
 
         public async Task<int> GetUsersCount()

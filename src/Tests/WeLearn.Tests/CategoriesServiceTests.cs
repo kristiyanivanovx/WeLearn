@@ -17,11 +17,11 @@ namespace WeLearn.Tests
 {
     public class CategoriesServiceTests
     {
-        private IMapper mapper;
-
+        //todo-crit-plus-other-tests: For these tests and others,
+        // see how to unit test with repository and rewreite
         public CategoriesServiceTests()
         {
-            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = AutoMapperConfig.MapperInstance;
             // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
@@ -54,13 +54,14 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Categories).Returns(mockSet.Object);
 
-            var service = new CategoriesService(mockContext.Object, mapper);
+            // var service = new CategoriesService(mockContext.Object);
 
             // act
-            var categoriesCount = service.GetAllCategories();
+            // var categoriesCount = service.GetAllCategories();
 
             // assert
-            Assert.Equal(4, categoriesCount.Count());
+            // Assert.Equal(4, categoriesCount.Count());
+            Assert.Equal(4, 1);
         }
 
         [Fact]
@@ -89,13 +90,14 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Categories).Returns(mockSet.Object);
 
-            var service = new CategoriesService(mockContext.Object, mapper);
+            // var service = new CategoriesService(mockContext.Object);
 
             // act
-            int categoriesCount = service.GetAllCategoriesCount();
+            // int categoriesCount = service.GetAllCategoriesCount();
 
             // assert
-            Assert.Equal(1, categoriesCount);
+            // Assert.Equal(1, categoriesCount);
+            Assert.Equal(1, 3);
         }
     }
 }

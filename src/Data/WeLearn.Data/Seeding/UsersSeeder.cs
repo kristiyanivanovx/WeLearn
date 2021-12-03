@@ -26,7 +26,8 @@ namespace WeLearn.Data.Seeding
             applicationUser.PasswordHash = passwordHasher.HashPassword(applicationUser, "User_qwerty_1234%");
 
             // modelBuilder.Entity<ApplicationUser>().HasData(applicationUser);
-            await dbContext.ApplicationUsers.AddAsync(applicationUser);
+            await dbContext.Users.AddAsync(applicationUser);
+            // await dbContext.ApplicationUsers.AddAsync(applicationUser);
         }
     }
 }

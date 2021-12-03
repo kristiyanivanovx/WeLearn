@@ -2,43 +2,42 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
+
 using WeLearn.Data.Models;
+using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Services
 {
-    public class UsersService : IUsersService
+    public class ApplicationUsersService : IUsersService
     {
-        private readonly IMapper mapper;
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationUserRepository appUserRepository;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UsersService(
-            IMapper mapper,
-            ApplicationDbContext context,
+        public ApplicationUsersService(
+            ApplicationUserRepository appUserRepository,
             UserManager<ApplicationUser> userManager)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.appUserRepository = appUserRepository;
             this.userManager = userManager;
         }
 
         public int GetAllUsersCount()
-            => this.context.Users.Count();
+            => this.appUserRepository.All().Count();
 
         public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
-            => await this.context.ApplicationUsers
+            => await this.appUserRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.UserName == username);
 
         public async Task<IEnumerable<T>> GetAllUsersAsync<T>(string searchString)
         {
-            IQueryable<ApplicationUser> users = this.context.ApplicationUsers;
+            IQueryable<ApplicationUser> users = this.appUserRepository.All();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -47,16 +46,15 @@ namespace WeLearn.Services
                                          x.Email.ToLower().Contains(searchStringLowerCase));
             }
 
-            await users.ToListAsync();
-
-            T[] usersViewModels = this.mapper.Map<T[]>(users);
+            T[] usersViewModels = await users.To<T>().ToArrayAsync();
 
             return usersViewModels;
         }
 
         public async Task ToggleAdminRoleAsync(string userId)
         {
-            var user = await this.context.ApplicationUsers
+            var user = await this.appUserRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
             var isAdmin = await this.userManager.IsInRoleAsync(user, ApplicationAdministratorRoleName);
@@ -70,45 +68,41 @@ namespace WeLearn.Services
                 await this.userManager.AddToRoleAsync(user, ApplicationAdministratorRoleName);
             }
 
-            await this.context.SaveChangesAsync();
+            await this.appUserRepository.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId)
-            => await this.context.ApplicationUsers
+            => await this.appUserRepository
+                .All()
                 .Where(x => x.Id != userId)
                 .ToListAsync();
 
         public async Task<T> GetUserByIdAsync<T>(string userId)
-        {
-            var user = await this.context.ApplicationUsers
+            => await this.appUserRepository
+                .All()
                 .Where(x => x.Id == userId)
+                .To<T>()
                 .FirstOrDefaultAsync();
-
-            T userMapped = this.mapper.Map<T>(user);
-
-            return userMapped;
-        }
 
         public async Task SoftDeleteUserByIdAsync(string userId)
         {
-            // todo: implement, check if works with service
-            var user = this.context.ApplicationUsers
+            var user = this.appUserRepository
+                .AllWithDeleted()
                 .FirstOrDefault(x => x.Id == userId);
 
-            // var user = await this.GetUserByIdAsync(userId);
-            // user.IsDeleted = true;
-            await this.context.SaveChangesAsync();
+            this.appUserRepository.Delete(user);
+            await this.appUserRepository.SaveChangesAsync();
         }
 
         public async Task HardDeleteUserByIdAsync(string userId)
         {
-            var user = this.context.Users.FirstOrDefault(x => x.Id == userId);
+            var user = this.appUserRepository.All().FirstOrDefault(x => x.Id == userId);
             if (user != null)
             {
-                this.context.ApplicationUsers.Remove(user);
+                this.appUserRepository.HardDelete(user);
             }
 
-            await this.context.SaveChangesAsync();
+            await this.appUserRepository.SaveChangesAsync();
         }
     }
 }

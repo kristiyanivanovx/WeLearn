@@ -8,7 +8,6 @@ using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 namespace WeLearn.Data.Models
 {
     public class Lesson : BaseDeletableModel<int>
-        //SoftDeleteable, IMetadataHaveable
     {
         [Required]
         [MaxLength(MaxNameLength)]

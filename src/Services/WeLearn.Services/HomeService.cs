@@ -29,7 +29,7 @@ namespace WeLearn.Services
                 };
 
         public IndexViewModel GenerateIndexViewModel()
-            => new IndexViewModel()
+            => new IndexViewModel
                 {
                     CategoriesCount = this.categoriesService.GetAllCategoriesCount(),
                     UsersCount = this.userService.GetAllUsersCount(),

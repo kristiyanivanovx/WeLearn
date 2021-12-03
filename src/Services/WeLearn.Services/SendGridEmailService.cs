@@ -12,9 +12,7 @@ namespace WeLearn.Services
         private readonly SendGridClient client;
 
         public SendGridEmailService(string apiKey)
-        {
-            this.client = new SendGridClient(apiKey);
-        }
+            => this.client = new SendGridClient(apiKey);
 
         public async Task SendEmailAsync(string from, string to, string subject, string content, bool isContentHtml)
         {

@@ -21,24 +21,21 @@ namespace WeLearn.Tests
 {
     public class ReportsServiceTests
     {
-        private IMapper mapper;
-
         public ReportsServiceTests()
         {
-            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = AutoMapperConfig.MapperInstance;
             // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
         [Fact]
         public async Task Should_Succeed_When_ReportIsCreated()
         {
-            // arrange 
+            // arrange
             var data = new List<Report>
             {
                 new Report
                 {
-                    Id = 1, Subject = "123", Description = "123", ApplicationUserId = "asd",
-                    LessonId = 3
+                    Id = 1, Subject = "123", Description = "123", ApplicationUserId = "asd", LessonId = 3
                 },
             }.AsQueryable();
 
@@ -59,7 +56,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, this.mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             var model = new LessonReportInputModel()
@@ -107,7 +104,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, this.mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             var model = new LessonReportEditModel()
@@ -154,7 +151,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             var model = new CommentReportEditModel()
@@ -203,7 +200,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, this.mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             var model = new AdminReportEditModel()
@@ -252,7 +249,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, this.mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             await service.SoftDeleteReportByIdAsync(1);
@@ -294,7 +291,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             await service.HardDeleteReportByIdAsync(1);
@@ -343,7 +340,7 @@ namespace WeLearn.Tests
             Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
 
-            var service = new ReportsService(mockContext.Object, this.mapper);
+            var service = new ReportsService(mockContext.Object);
 
             // act
             var reports = await service.GetAllReportsAsync<CommentReportViewModel>(null);

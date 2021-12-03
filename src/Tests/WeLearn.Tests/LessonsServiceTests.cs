@@ -4,13 +4,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Services;
-using WeLearn.Services.Mapping;
 using WeLearn.Tests.HelperClasses;
 using WeLearn.Web.ViewModels.Lesson;
 using Xunit;
@@ -19,11 +17,9 @@ namespace WeLearn.Tests
 {
     public class LessonsServiceTests
     {
-        private readonly IMapper mapper;
-
         public LessonsServiceTests()
         {
-            this.mapper = AutoMapperConfig.MapperInstance;
+            // this.mapper = AutoMapperConfig.MapperInstance;
             // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
         }
 
@@ -55,7 +51,7 @@ namespace WeLearn.Tests
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var service = new LessonsService(mockContext.Object, this.mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, inputOutputService);
 
             // act
             await service.SoftDeleteLessonByIdAsync(1);
@@ -92,7 +88,7 @@ namespace WeLearn.Tests
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var service = new LessonsService(mockContext.Object, mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, inputOutputService);
 
             // act
             var models = await service.GetAllLessonsAsync<LessonViewModel>(null);
@@ -131,7 +127,7 @@ namespace WeLearn.Tests
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var inputOutputService = new InputOutputService();
-            var service = new LessonsService(mockContext.Object, this.mapper, inputOutputService);
+            var service = new LessonsService(mockContext.Object, inputOutputService);
 
             // act
             var models = await service.GetCreatedByMeAsync(userId, null);

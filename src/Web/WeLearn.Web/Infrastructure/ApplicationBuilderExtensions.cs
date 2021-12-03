@@ -31,8 +31,6 @@ namespace WeLearn.Web.Infrastructure
             return app;
         }
 
-      
-
         public static IApplicationBuilder SeedHangfireJobs(this IApplicationBuilder app, IRecurringJobManager recurringJobManager, ApplicationDbContext applicationDbContext)
         {
             recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.WorkAsync(), Cron.Weekly());

@@ -7,7 +7,7 @@ namespace WeLearn.Web.ViewModels.Comment
 {
     public class CommentInputModel : IMapTo<Data.Models.Comment>
     {
-        public int CommentId { get; set; }
+        // public int CommentId { get; set; }
 
         public int LessonId { get; set; }
 
@@ -16,9 +16,9 @@ namespace WeLearn.Web.ViewModels.Comment
         [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         public string Content { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        // public string ApplicationUserUserName { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        // public DateTime CreatedOn { get; set; }
 
         public string ApplicationUserId { get; set; }
     }

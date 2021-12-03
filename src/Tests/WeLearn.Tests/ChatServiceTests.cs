@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Services;
@@ -14,7 +15,7 @@ using Xunit;
 namespace WeLearn.Tests
 {
     public class ChatServiceTests
-	{
+    {
         [Fact]
         public async Task Should_Succeed_When_MessageIsCreated()
         {

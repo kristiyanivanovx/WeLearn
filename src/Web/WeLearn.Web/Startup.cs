@@ -1,5 +1,4 @@
 using System.Reflection;
-
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
@@ -11,9 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeLearn.Data;
+using WeLearn.Data.Common;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.ChatApp;
+using WeLearn.Data.Repositories;
 using WeLearn.Data.Seeding;
-
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
@@ -43,30 +45,43 @@ namespace WeLearn.Web
             services.AddSignalR();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseNpgsql(
-                       this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                options.UseNpgsql(
+                    this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-            .AddRoles<ApplicationRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddRazorPages();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            })
-            .AddRazorRuntimeCompilation();
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                })
+                .AddRazorRuntimeCompilation();
 
+            // Data repositories
+            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+            services.AddScoped(typeof(IDeletableEntityRepository<Category>), typeof(EfDeletableEntityRepository<Category>));
+            services.AddScoped(typeof(IDeletableEntityRepository<Comment>), typeof(EfDeletableEntityRepository<Comment>));
+            services.AddScoped(typeof(IDeletableEntityRepository<Lesson>), typeof(EfDeletableEntityRepository<Lesson>));
+            services.AddScoped(typeof(IDeletableEntityRepository<Material>), typeof(EfDeletableEntityRepository<Material>));
+            services.AddScoped(typeof(IDeletableEntityRepository<PrivateMessage>), typeof(EfDeletableEntityRepository<PrivateMessage>));
+            services.AddScoped(typeof(IDeletableEntityRepository<Report>), typeof(EfDeletableEntityRepository<Report>));
+            services.AddScoped(typeof(IDeletableEntityRepository<Video>), typeof(EfDeletableEntityRepository<Video>));
+
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped(typeof(IRepository<ChatApplicationUser>), typeof(EfRepository<ChatApplicationUser>));
+            services.AddScoped(typeof(IRepository<Chat>), typeof(EfRepository<Chat>));
+            services.AddScoped(typeof(IRepository<Message>), typeof(EfRepository<Message>));
+
+            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+
+            // Application services
+            services.AddSingleton(this.Configuration);
+            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IChatService, ChatService>();
-            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersService, ApplicationUsersService>();
             services.AddTransient<ILessonsService, LessonsService>();
             services.AddTransient<IReportsService, ReportsService>();
             services.AddTransient<IInputOutputService, InputOutputService>();
@@ -81,7 +96,8 @@ namespace WeLearn.Web
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthenticationSection = this.Configuration.GetSection("Authentication:Google");
+                    IConfigurationSection googleAuthenticationSection =
+                        this.Configuration.GetSection("Authentication:Google");
                     options.ClientId = googleAuthenticationSection["ClientId"];
                     options.ClientSecret = googleAuthenticationSection["ClientSecret"];
                 });
@@ -91,13 +107,7 @@ namespace WeLearn.Web
                     this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
         }
 
-        public void Configure(
-            IApplicationBuilder app,
-            IWebHostEnvironment env,
-            IRecurringJobManager recurringJobManager,
-            ApplicationDbContext applicationDbContext,
-            UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -129,7 +139,7 @@ namespace WeLearn.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
+            // app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
             app.UseHangfire();
 
             app.UseEndpoints();

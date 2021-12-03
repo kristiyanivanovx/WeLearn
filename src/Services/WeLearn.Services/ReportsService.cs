@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using System;
+using WeLearn.Data.Repositories;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Report;
 using WeLearn.Web.ViewModels.Report.Comment;
 using WeLearn.Web.ViewModels.Report.Lesson;
@@ -14,18 +16,14 @@ namespace WeLearn.Services
 {
     public class ReportsService : IReportsService
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly ReportRepository reportRepository;
 
-        public ReportsService(ApplicationDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
+        public ReportsService(ReportRepository reportRepository)
+            => this.reportRepository = reportRepository;
 
         public async Task<T> GetReportByIdAsync<T>(int reportId)
-        {
-            Report reportByMe = await this.context.Reports
+            => await this.reportRepository
+                .All()
                 .Where(x => x.Id == reportId)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)
@@ -34,42 +32,33 @@ namespace WeLearn.Services
                 .Include(x => x.Lesson.ApplicationUser)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Comment)
+                .To<T>()
                 .FirstOrDefaultAsync();
 
-            T reportByIdMapped = this.mapper.Map<T>(reportByMe);
-            return reportByIdMapped;
-        }
-
         public async Task<IEnumerable<LessonReportViewModel>> GetLessonReportsCreatedByMeAsync(string userId)
-        {
-            List<Report> lessonsReportedByMe = await this.context.Reports
+            => await this.reportRepository
+                .All()
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.ApplicationUser)
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.LessonId != null && !x.Lesson.IsDeleted)
+                .Where(x => x.ApplicationUserId == userId && x.LessonId != null && !x.Lesson.IsDeleted)
+                .To<LessonReportViewModel>()
                 .ToListAsync();
-
-            LessonReportViewModel[] lessonsByMeMapped = this.mapper.Map<LessonReportViewModel[]>(lessonsReportedByMe);
-            return lessonsByMeMapped;
-        }
 
         public async Task<IEnumerable<CommentReportViewModel>> GetCommentReportsCreatedByMeAsync(string userId)
-        {
-            List<Report> commentsByMe = await this.context.Reports
+            => await this.reportRepository
+                .All()
                 .Include(x => x.Comment)
                 .Include(x => x.Comment.ApplicationUser)
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted && x.CommentId != null && !x.Comment.IsDeleted)
+                .Where(x => x.ApplicationUserId == userId && x.CommentId != null && !x.Comment.IsDeleted)
+                .To<CommentReportViewModel>()
                 .ToListAsync();
-
-            CommentReportViewModel[] commentsReportedByMeMapped = this.mapper.Map<CommentReportViewModel[]>(commentsByMe);
-            return commentsReportedByMeMapped;
-        }
 
         public async Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString)
         {
-            IQueryable<Report> reports = this.context.Reports;
+            IQueryable<Report> reports = this.reportRepository.All();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -77,62 +66,85 @@ namespace WeLearn.Services
                                              x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            await reports
+            var reportsMapped = await reports
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Lesson)
                 .Include(x => x.Comment)
+                .To<T>()
                 .ToListAsync();
 
-            T[] reportsMapped = this.mapper.Map<T[]>(reports);
             return reportsMapped;
         }
 
         public async Task CreateReportAsync<T>(T model)
         {
-            Report reportMapped = this.mapper.Map<Report>(model);
+            // todo-critical: refactor
+            // Report reportMapped = this.mapper.Map<Report>(model);
+
             // reportMapped.DateCreated = DateTime.UtcNow;
-            await this.context.Reports.AddAsync(reportMapped);
-            await this.context.SaveChangesAsync();
+            // await this.context.Reports.AddAsync(reportMapped);
+            await this.reportRepository.SaveChangesAsync();
         }
 
         public async Task EditLessonReportAsync(LessonReportEditModel model)
         {
-            Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.ReportId);
-            entity.Subject = model.Subject ?? entity.Subject;
-            entity.Description = model.ReportDescription ?? entity.Description;
-            await this.context.SaveChangesAsync();
+            Report entity = this.reportRepository.All().FirstOrDefault(x => x.Id == model.ReportId);
+            if (entity != null)
+            {
+                entity.Subject = model.Subject ?? entity.Subject;
+                entity.Description = model.ReportDescription ?? entity.Description;
+            }
+
+            await this.reportRepository.SaveChangesAsync();
         }
 
         public async Task EditCommentReportAsync(CommentReportEditModel model)
         {
-            Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.ReportId);
-            entity.Subject = model.Subject ?? entity.Subject;
-            entity.Description = model.ReportDescription ?? entity.Description;
-            await this.context.SaveChangesAsync();
+            Report entity = this.reportRepository.All().FirstOrDefault(x => x.Id == model.ReportId);
+            if (entity != null)
+            {
+                entity.Subject = model.Subject ?? entity.Subject;
+                entity.Description = model.ReportDescription ?? entity.Description;
+            }
+
+            await this.reportRepository.SaveChangesAsync();
         }
 
         public async Task EditReportAdministrationAsync(AdminReportEditModel model)
         {
-            Report entity = this.context.Reports.FirstOrDefault(x => x.Id == model.Id);
-            entity.Subject = model.Subject ?? entity.Subject;
-            entity.Description = model.Description ?? entity.Description;
-            // entity.IsDeleted = model.IsDeleted;
-            // entity.DateCreated = model.DateCreated;
-            await this.context.SaveChangesAsync();
+            Report entity = this.reportRepository.AllWithDeleted().FirstOrDefault(x => x.Id == model.Id);
+            if (entity != null)
+            {
+                entity.Subject = model?.Subject ?? entity.Subject;
+                entity.Description = model?.Description ?? entity.Description;
+
+                if (model.IsDeleted)
+                {
+                    this.reportRepository.Delete(entity);
+                }
+                else
+                {
+                    this.reportRepository.Undelete(entity);
+                }
+            }
+
+            await this.reportRepository.SaveChangesAsync();
         }
 
         public async Task SoftDeleteReportByIdAsync(int? reportId)
         {
-            Report report = this.context.Reports.FirstOrDefault(x => x.Id == reportId);
-            // report.IsDeleted = true;
-            await this.context.SaveChangesAsync();
+            Report report = this.reportRepository.All().FirstOrDefault(x => x.Id == reportId);
+
+            // todo validate it is marked as deleted but not actually deleted.
+            this.reportRepository.Delete(report);
+            await this.reportRepository.SaveChangesAsync();
         }
 
         public async Task HardDeleteReportByIdAsync(int reportId)
         {
-            Report report = this.context.Reports.FirstOrDefault(x => x.Id == reportId);
-            this.context.Remove(report);
-            await this.context.SaveChangesAsync();
+            Report report = this.reportRepository.AllWithDeleted().FirstOrDefault(x => x.Id == reportId);
+            this.reportRepository.HardDelete(report);
+            await this.reportRepository.SaveChangesAsync();
         }
     }
 }

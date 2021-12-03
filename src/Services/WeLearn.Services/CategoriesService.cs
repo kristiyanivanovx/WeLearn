@@ -3,26 +3,24 @@ using System.Linq;
 
 using AutoMapper;
 using WeLearn.Data;
+using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;
 
 namespace WeLearn.Services
 {
     public class CategoriesService : ICategoriesService
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly CategoryRepository categoryRepository;
 
-        public CategoriesService(ApplicationDbContext context, IMapper mapper)
-        {
-            this.context = context;
-            this.mapper = mapper;
-        }
+        public CategoriesService(CategoryRepository categoryRepository)
+            => this.categoryRepository = categoryRepository;
 
         public IEnumerable<CategoryViewModel> GetAllCategories()
-            => this.mapper.Map<CategoryViewModel[]>(this.context.Categories.ToArray());
+            => this.categoryRepository.All().To<CategoryViewModel>().ToArray();
 
         public int GetAllCategoriesCount()
-            => this.context.Categories.Count();
+            => this.categoryRepository.All().Count();
     }
 }

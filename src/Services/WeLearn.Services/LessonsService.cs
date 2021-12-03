@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
 using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -13,10 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.Enums;
+using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
-using WeLearn.Web.ViewModels.Interfaces;
-using WeLearn.Web.ViewModels.Lesson;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Lesson;
+using WeLearn.Web.ViewModels.Interfaces;
 using WeLearn.Web.ViewModels.Lesson;
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
@@ -25,8 +25,9 @@ namespace WeLearn.Services
 {
     public class LessonsService : ILessonsService
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly VideoRepository videoRepository;
+        private readonly MaterialRepository materialRepository;
+        private readonly LessonRepository lessonRepository;
         private readonly IInputOutputService inputOutputService;
 
         private const string InvalidFileSizeMessage =
@@ -40,42 +41,41 @@ namespace WeLearn.Services
 
         private const string CloudinaryVideosFolder = "welearn-asp-net-core-app/videos/";
 
-        public LessonsService(ApplicationDbContext context, IMapper mapper, IInputOutputService inputOutputService)
+        public LessonsService(
+            VideoRepository videoRepository,
+            MaterialRepository materialRepository,
+            LessonRepository lessonRepository,
+            IInputOutputService inputOutputService)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.videoRepository = videoRepository;
+            this.materialRepository = materialRepository;
+            this.lessonRepository = lessonRepository;
             this.inputOutputService = inputOutputService;
         }
 
-        public int GetAllLessonsCount() => this.context.Lessons.Count();
+        public int GetAllLessonsCount() => this.lessonRepository.All().Count();
 
         public async Task<T> GetLessonByIdAsync<T>(int id)
-        {
-            Lesson lesson = await this.context.Lessons
-                .Where(x => x.Id == id && !x.IsDeleted)
-                .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
-                .Include(x => x.Video)
-                .Include(x => x.Material)
-                .FirstOrDefaultAsync();
-
-            T lessonMapped = this.mapper.Map<T>(lesson);
-            return lessonMapped;
-        }
-
-        public async Task<T> GetLessonByIdAdministrationAsync<T>(int id)
-        {
-            Lesson lesson = await this.context.Lessons
+            => await this.lessonRepository
+                .All()
                 .Where(x => x.Id == id)
                 .Include(x => x.Category)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
+                .To<T>()
                 .FirstOrDefaultAsync();
 
-            T lessonMapped = this.mapper.Map<T>(lesson);
-            return lessonMapped;
-        }
+        public async Task<T> GetLessonByIdWithDeletedAsync<T>(int id)
+            => await this.lessonRepository
+                .AllWithDeleted()
+                .Where(x => x.Id == id)
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .To<T>()
+                .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndGradeAsync(
             string categoryName,
@@ -83,7 +83,7 @@ namespace WeLearn.Services
             int grade)
         {
             IQueryable<Lesson> lessonsByCategory =
-                this.context.Lessons.Where(x => x.Category.Name == categoryName && !x.IsDeleted && x.IsApproved);
+                this.lessonRepository.All().Where(x => x.Category.Name == categoryName && x.IsApproved);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -94,23 +94,24 @@ namespace WeLearn.Services
 
             if (grade != -1)
             {
-                lessonsByCategory = lessonsByCategory.Where(x => x.Grade == (Grade) grade);
+                lessonsByCategory = lessonsByCategory.Where(x => x.Grade == (Grade)grade);
             }
 
-            await lessonsByCategory
+            var lessons = await lessonsByCategory
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .Include(x => x.Category)
                 .Include(x => x.ApplicationUser)
+                .To<LessonViewModel>()
                 .ToListAsync();
 
-            LessonViewModel[] lessonsMapped = this.mapper.Map<LessonViewModel[]>(lessonsByCategory);
-            return lessonsMapped;
+            return lessons;
         }
 
         public async Task<IEnumerable<T>> GetAllLessonsAsync<T>(string searchString)
         {
-            IQueryable<Lesson> lessons = this.context.Lessons.Where(x => !x.IsDeleted && x.IsApproved);
+            IQueryable<Lesson> lessons =
+                this.lessonRepository.All().Where(x => x.IsApproved);
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -118,20 +119,20 @@ namespace WeLearn.Services
                                              x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            await lessons
+            var models = await lessons
                 .Include(x => x.Category)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
+                .To<T>()
                 .ToListAsync();
 
-            T[] lessonsViewModel = this.mapper.Map<T[]>(lessons);
-            return lessonsViewModel;
+            return models;
         }
 
-        public async Task<IEnumerable<T>> GetAllLessonsAdministrationAsync<T>(string searchString)
+        public async Task<IEnumerable<T>> GetAllLessonsWithDeletedAsync<T>(string searchString)
         {
-            IQueryable<Lesson> lessons = this.context.Lessons;
+            IQueryable<Lesson> lessons = this.lessonRepository.AllWithDeleted();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -139,20 +140,20 @@ namespace WeLearn.Services
                                              x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            await lessons
+            var mapped = await lessons
                 .Include(x => x.Category)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
+                .To<T>()
                 .ToListAsync();
 
-            T[] models = this.mapper.Map<T[]>(lessons);
-            return models;
+            return mapped;
         }
 
         public async Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString)
         {
-            IQueryable<Lesson> lessons = this.context.Lessons;
+            IQueryable<Lesson> lessons = this.lessonRepository.All();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -160,45 +161,47 @@ namespace WeLearn.Services
                                              x.Description.ToLower().Contains(searchString.ToLower()));
             }
 
-            List<Lesson> lessonsByMe = await lessons
-                .Where(x => x.ApplicationUserId == userId && !x.IsDeleted)
+            List<LessonViewModel> lessonsByMe = await lessons
+                .Where(x => x.ApplicationUserId == userId)
                 .Include(x => x.Category)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
+                .To<LessonViewModel>()
                 .ToListAsync();
 
-            LessonViewModel[] lessonsByMeMapped = this.mapper.Map<LessonViewModel[]>(lessonsByMe);
-            return lessonsByMeMapped;
+            return lessonsByMe;
         }
 
         public async Task SoftDeleteLessonByIdAsync(int lessonId)
         {
-            Lesson lesson = this.context.Lessons.FirstOrDefault(x => x.Id == lessonId);
-            lesson!.IsDeleted = true;
-            await this.context.SaveChangesAsync();
+            Lesson lesson = this.lessonRepository.All().FirstOrDefault(x => x.Id == lessonId);
+            this.lessonRepository.Delete(lesson);
+            await this.lessonRepository.SaveChangesAsync();
         }
 
         public async Task HardDeleteLessonByIdAsync(int lessonId)
         {
-            Lesson lesson = this.context.Lessons
+            Lesson lesson = this.lessonRepository.AllWithDeleted()
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .FirstOrDefault(x => x.Id == lessonId);
 
-            if (lesson.Video.PublicId != null && lesson.Material.PublicId != null)
+            if (lesson?.Video.PublicId != null && lesson.Material.PublicId != null)
             {
                 Cloudinary cloudinary = new Cloudinary();
                 DelResResult deleteMaterialResult = await cloudinary.DeleteResourcesAsync(lesson.Video.PublicId);
                 DelResResult deleteVideoResult = await cloudinary.DeleteResourcesAsync(lesson.Material.PublicId);
             }
 
-            this.context.Videos.Remove(lesson.Video);
-            this.context.Materials.Remove(lesson.Material);
-            await this.context.SaveChangesAsync();
+            this.videoRepository.HardDelete(lesson?.Video);
+            this.materialRepository.HardDelete(lesson?.Material);
 
-            this.context.Lessons.Remove(lesson);
-            await this.context.SaveChangesAsync();
+            await this.videoRepository.SaveChangesAsync();
+            await this.materialRepository.SaveChangesAsync();
+
+            this.lessonRepository.HardDelete(lesson);
+            await this.lessonRepository.SaveChangesAsync();
         }
 
         [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
@@ -208,14 +211,23 @@ namespace WeLearn.Services
             bool isDevelopment,
             string userId)
         {
-            Lesson lesson = this.mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
-            lesson.ApplicationUserId = userId;
-            await this.context.Lessons.AddAsync(lesson);
-            await this.context.SaveChangesAsync();
+            // Lesson lesson = this.mapper.Map<LessonInputModel, Lesson>(lessonInputModel);
+            Lesson lesson = new Lesson
+            {
+                Name = lessonInputModel.LessonName,
+                ApplicationUserId = userId
+            };
 
-            await this.CreateLessonBasedOnEnvironmentAsync(lessonInputModel, environmentWebRootPath, isDevelopment,
+            await this.lessonRepository.AddAsync(lesson);
+            await this.lessonRepository.SaveChangesAsync();
+
+            await this.CreateLessonBasedOnEnvironmentAsync(
+                lessonInputModel,
+                environmentWebRootPath,
+                isDevelopment,
                 lesson);
-            await this.context.SaveChangesAsync();
+
+            await this.lessonRepository.SaveChangesAsync();
         }
 
         public async Task EditLessonAsync(
@@ -226,28 +238,35 @@ namespace WeLearn.Services
         {
             Lesson lesson = await this.FindLessonAsync(lessonEditModel);
             UpdateEntityProperties(lessonEditModel, lesson);
+
             await this.UpdateVideoAndFilesBasedOnEnvironmentAsync(
                 lessonEditModel,
                 environmentWebRootPath,
                 isDevelopment,
                 lesson);
 
-            await this.context.SaveChangesAsync();
+            await this.lessonRepository.SaveChangesAsync();
         }
 
         public async Task EditLessonAdministrationAsync(AdminLessonEditModel model)
         {
-            Lesson entity = this.context.Lessons.FirstOrDefault(x => x.Id == model.Id);
+            Lesson entity = this.lessonRepository.AllWithDeleted().FirstOrDefault(x => x.Id == model.Id);
 
-            entity!.Name = model.Name ?? entity.Name;
-            entity.Description = model.Description ?? entity.Description;
-            entity.CategoryId = model.CategoryId;
-            entity.Grade = model.Grade;
-            // entity.DateCreated = model.DateCreated;
-            // entity.IsDeleted = model.IsDeleted;
-            entity.IsApproved = model.IsApproved;
+            if (entity != null)
+            {
+                entity.Name = model.Name ?? entity.Name;
+                entity.Description = model.Description ?? entity.Description;
+                entity.CategoryId = model.CategoryId;
+                entity.Grade = model.Grade;
+                entity.IsApproved = model.IsApproved;
 
-            await this.context.SaveChangesAsync();
+                if (model.IsDeleted)
+                {
+                    this.lessonRepository.Delete(entity);
+                }
+            }
+
+            await this.lessonRepository.SaveChangesAsync();
         }
 
         private async Task UpdateVideoAndFilesBasedOnEnvironmentAsync(
@@ -281,12 +300,12 @@ namespace WeLearn.Services
                 Data.Models.Video previousVideoEntity = lesson.Video;
 
                 DelResResult result = await cloudinary.DeleteResourcesAsync(previousVideoEntity.PublicId);
-                this.context.Remove(previousVideoEntity);
-                await this.context.SaveChangesAsync();
+                this.videoRepository.HardDelete(previousVideoEntity);
+                await this.videoRepository.SaveChangesAsync();
 
-                Data.Models.Video newVideoEntity = await UploadVideoCloudinaryAsync(lesson, lessonEditModel);
+                Data.Models.Video newVideoEntity = await this.UploadVideoCloudinaryAsync(lesson, lessonEditModel);
 
-                await this.context.SaveChangesAsync();
+                await this.videoRepository.SaveChangesAsync();
                 lesson.VideoId = newVideoEntity.Id;
             }
         }
@@ -298,18 +317,18 @@ namespace WeLearn.Services
                 Cloudinary cloudinary = new Cloudinary();
                 Material previousMaterialEntity = lesson.Material;
 
-                RawUploadResult materialUploadResult = await UploadMaterialsCloudinaryAsync(lessonEditModel);
+                RawUploadResult materialUploadResult = await this.UploadMaterialsCloudinaryAsync(lessonEditModel);
 
                 string path = materialUploadResult.SecureUrl.AbsoluteUri;
                 string name = Guid.NewGuid().ToString();
                 string publicId = materialUploadResult.PublicId;
 
                 DelResResult result = await cloudinary.DeleteResourcesAsync(previousMaterialEntity.PublicId);
-                this.context.Remove(previousMaterialEntity);
-                await this.context.SaveChangesAsync();
+                this.materialRepository.Delete(previousMaterialEntity);
+                await this.materialRepository.SaveChangesAsync();
 
                 Material materialEntity = await this.AddMaterialToDatabaseAsync(lesson, path, name, publicId);
-                await this.context.SaveChangesAsync();
+                await this.materialRepository.SaveChangesAsync();
 
                 lesson.MaterialId = materialEntity.Id;
             }
@@ -332,7 +351,7 @@ namespace WeLearn.Services
                     this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");
                 string filesPath = Path.Combine(uploadsMaterialsPath, stringGuid + ".zip");
 
-                await UploadMaterialsAsync(lessonInputModel, filesPath);
+                await this.UploadMaterialsAsync(lessonInputModel, filesPath);
 
                 materialEntity = await this.AddMaterialToDatabaseAsync(lesson, filesPath, stringGuid, null);
                 videoEntity = await this.UploadVideoAsync(lesson, lessonInputModel, environmentWebRootPath);
@@ -347,9 +366,9 @@ namespace WeLearn.Services
                 string publicId = materialUploadResult.PublicId;
 
                 materialEntity = await this.AddMaterialToDatabaseAsync(lesson, path, name, publicId);
-                videoEntity = await UploadVideoCloudinaryAsync(lesson, lessonInputModel);
+                videoEntity = await this.UploadVideoCloudinaryAsync(lesson, lessonInputModel);
 
-                await this.context.SaveChangesAsync();
+                await this.lessonRepository.SaveChangesAsync();
             }
 
             lesson.VideoId = videoEntity.Id;
@@ -361,10 +380,10 @@ namespace WeLearn.Services
             if (lessonEditModel.Files != null)
             {
                 string stringGuid = Guid.NewGuid().ToString();
-                await UploadMaterialsAsync(lessonEditModel, path);
+                await this.UploadMaterialsAsync(lessonEditModel, path);
                 Material materialEntity = await this.AddMaterialToDatabaseAsync(lesson, path, stringGuid, null);
                 lesson.MaterialId = materialEntity.Id;
-                await this.context.SaveChangesAsync();
+                await this.materialRepository.SaveChangesAsync();
             }
         }
 
@@ -375,14 +394,15 @@ namespace WeLearn.Services
         {
             if (lessonEditModel.Video != null)
             {
-                Data.Models.Video videoEntity = await UploadVideoAsync(lesson, lessonEditModel, environmentWebRootPath);
+                Data.Models.Video videoEntity = await this.UploadVideoAsync(lesson, lessonEditModel, environmentWebRootPath);
                 lesson.VideoId = videoEntity.Id;
-                await this.context.SaveChangesAsync();
+                await this.lessonRepository.SaveChangesAsync();
             }
         }
 
         private async Task<Lesson> FindLessonAsync(LessonEditModel lessonEditModel)
-            => await this.context.Lessons
+            => await this.lessonRepository
+                .All()
                 .Include(x => x.Material)
                 .Include(x => x.Video)
                 .FirstOrDefaultAsync(x => x.Id == lessonEditModel.LessonId);
@@ -420,7 +440,8 @@ namespace WeLearn.Services
             string publicId = uploadParams.PublicId;
             Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, path, publicId);
 
-            await this.context.Videos.AddAsync(videoEntity);
+            await this.videoRepository.AddAsync(videoEntity);
+
             // await this.context.SaveChangesAsync();
             return videoEntity;
         }
@@ -479,8 +500,8 @@ namespace WeLearn.Services
 
             Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
 
-            await this.context.Videos.AddAsync(videoEntity);
-            await this.context.SaveChangesAsync();
+            await this.videoRepository.AddAsync(videoEntity);
+            await this.videoRepository.SaveChangesAsync();
 
             return videoEntity;
         }
@@ -565,9 +586,9 @@ namespace WeLearn.Services
             string publicId = null)
         {
             Material materialEntity = CreateMaterial(lesson, path, stringGuid, publicId);
-            await this.context.Materials.AddAsync(materialEntity);
+            await this.materialRepository.AddAsync(materialEntity);
+            await this.materialRepository.SaveChangesAsync();
 
-            // await this.context.SaveChangesAsync();
             return materialEntity;
         }
     }

@@ -10,8 +10,8 @@ using WeLearn.Data;
 namespace WeLearn.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211202201043_RenameAuditInfoFields")]
-    partial class RenameAuditInfoFields
+    [Migration("20211203103043_AddAuditInfoProperties")]
+    partial class AddAuditInfoProperties
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -633,7 +633,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -660,7 +660,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
@@ -675,7 +675,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -684,13 +684,13 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Chats")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("WeLearn.Data.Models.ChatApp.Chat", "Chat")
                         .WithMany("ChatApplicationUsers")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -703,7 +703,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ChatApp.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Chat");
@@ -714,12 +714,12 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Comments")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
                         .WithMany()
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -737,7 +737,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.Category", "Category")
                         .WithMany("Lessons")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -750,7 +750,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
                         .WithOne("Material")
                         .HasForeignKey("WeLearn.Data.Models.Material", "LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Lesson");
@@ -761,12 +761,12 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "Receiver")
                         .WithMany("ReceivedPrivateMessages")
                         .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WeLearn.Data.Models.ApplicationUser", "Sender")
                         .WithMany("SentPrivateMessages")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Receiver");
 
@@ -783,12 +783,12 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.Comment", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
                         .WithMany()
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ApplicationUser");
 
@@ -802,7 +802,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
                         .WithOne("Video")
                         .HasForeignKey("WeLearn.Data.Models.Video", "LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Lesson");

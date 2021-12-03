@@ -17,7 +17,7 @@ namespace WeLearn.Data.Models.ChatApp
         public string Name { get; set; }
 
         public ICollection<Message> Messages { get; set; }
-        
+
         public ICollection<ChatApplicationUser> ChatApplicationUsers { get; set; }
     }
 }

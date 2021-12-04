@@ -60,7 +60,7 @@ namespace WeLearn.Services
 
         public async Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString)
         {
-            IQueryable<Report> reports = this.reportRepository.All();
+            IQueryable<Report> reports = this.reportRepository.AllWithDeleted();
 
             if (!string.IsNullOrEmpty(searchString))
             {

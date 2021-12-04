@@ -22,7 +22,7 @@
                         <h5 class="card-title">@Model.LessonName</h5>
                         <hr />
                         <p class="card-text">@Model.LessonDescription</p>
-                        @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                        @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
                         <p class="small text-muted mt-3">Grade - @Model.LessonGrade</p>
                         <p class="small text-muted">Category - @Model.LessonCategoryName</p>
                         <p class="small text-muted">Created by - @createdBy</p>

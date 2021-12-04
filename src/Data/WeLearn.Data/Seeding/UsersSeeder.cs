@@ -13,7 +13,7 @@ namespace WeLearn.Data.Seeding
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            var headAdminUser = dbContext.ApplicationUsers.FirstOrDefault(x => x.Id == SeededUserId);
+            var headAdminUser = dbContext.ApplicationUsers.FirstOrDefault(x => x.Id == ApplicationAdministratorId);
 
             if (headAdminUser == null)
             {

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+using WeLearn.Web.ViewModels.Category;
 
 namespace WeLearn.Web.ViewModels.Admin.Lesson
 {
@@ -35,5 +37,7 @@ namespace WeLearn.Web.ViewModels.Admin.Lesson
         public string VideoLink { get; set; }
 
         public string MaterialLink { get; set; }
+
+        public IEnumerable<CategoryViewModel> Categories { get; set; }
     }
 }

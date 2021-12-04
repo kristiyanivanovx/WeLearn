@@ -16,8 +16,8 @@ namespace WeLearn.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
 
-            this.SentPrivateMessages = new HashSet<PrivateMessage>();
-            this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            // this.SentPrivateMessages = new HashSet<PrivateMessage>();
+            // this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
             this.Lessons = new HashSet<Lesson>();
             this.Comments = new HashSet<Comment>();
             this.Reports = new HashSet<Report>();
@@ -34,9 +34,9 @@ namespace WeLearn.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public ICollection<PrivateMessage> SentPrivateMessages { get; set; }
+        // public ICollection<PrivateMessage> SentPrivateMessages { get; set; }
 
-        public ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
+        // public ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
 
         public ICollection<Lesson> Lessons { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,13 @@ namespace WeLearn.Web.Controllers
         public IActionResult Joined(int id)
         {
             Chat chat = this.chatService.GetChat(id);
+            // todo: implement 404 not found
+            // if (chat == null)
+            // {
+            //     Response.StatusCode = 404;
+            //     return View("PageNotFound");
+            // }
+
             return View(chat);
         }
 
@@ -43,12 +51,12 @@ namespace WeLearn.Web.Controllers
         {
             Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, GetUserName());
 
-            await chatHub.Clients.Group(roomId.ToString())
+            await this.chatHub.Clients.Group(roomId.ToString())
                 .SendAsync("ReceiveMessage", new
                 {
                     Text = messageModel.Text,
                     Name = messageModel.Name,
-                    CreatedOn = messageModel.CreatedOn
+                    CreatedOn = messageModel.CreatedOn,
                 });
 
             return Ok();

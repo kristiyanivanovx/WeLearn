@@ -26,7 +26,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            AdminCommentEditModel comment = await this.commentsService.GetCommentByIdAsync<AdminCommentEditModel>(id);
+            AdminCommentEditModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<AdminCommentEditModel>(id);
             return View(comment);
         }
 
@@ -45,7 +45,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            AdminCommentDeleteModel comment = await this.commentsService.GetCommentByIdAsync<AdminCommentDeleteModel>(id);
+            AdminCommentDeleteModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<AdminCommentDeleteModel>(id);
             return View(comment);
         }
 

@@ -114,7 +114,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(int id)
         {
-            CommentReportInputModel lessonToReport = await this.commentsService.GetCommentByIdAsync<CommentReportInputModel>(id);
+            CommentReportInputModel lessonToReport = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentReportInputModel>(id);
             return View(lessonToReport);
         }
 

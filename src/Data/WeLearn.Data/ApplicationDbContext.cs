@@ -60,8 +60,6 @@ namespace WeLearn.Data
 
             modelBuilder.Seed();
             modelBuilder.ConfigureRelations();
-
-            // todo: seed - modelBuilder.Seed();
         }
 
         // public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }

@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Interfaces;
 using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
@@ -36,6 +37,8 @@ namespace WeLearn.Web.ViewModels.Lesson
         public IFormFile Video { get; set; }
 
         public IEnumerable<IFormFile> Files { get; set; }
+
+        public IEnumerable<CategoryViewModel> Categories { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

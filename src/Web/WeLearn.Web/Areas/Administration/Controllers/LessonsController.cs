@@ -31,9 +31,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
-            IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
+            AdminLessonEditModel lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
+            lesson.Categories = this.categoriesService.GetAllCategories();
             return View(lesson);
         }
 
@@ -42,8 +41,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lessonModel.CategoryId);
+                // lessonModel.Categories = this.categoriesService.GetAllCategories();
                 return View(lessonModel);
             }
 

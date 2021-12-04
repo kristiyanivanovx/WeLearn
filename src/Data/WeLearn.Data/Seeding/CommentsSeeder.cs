@@ -19,21 +19,21 @@ namespace WeLearn.Data.Seeding
                     new Comment
                     {
                         Id = 1,
-                        ApplicationUserId = SeededUserId,
+                        ApplicationUserId = ApplicationAdministratorId,
                         Content = "I like it!",
                         LessonId = 1
                     },
                     new Comment
                     {
                         Id = 2,
-                        ApplicationUserId = SeededUserId,
+                        ApplicationUserId = ApplicationAdministratorId,
                         Content = "The teacher is awesome.",
                         LessonId = 2
                     },
                     new Comment
                     {
                         Id = 3,
-                        ApplicationUserId = SeededUserId,
+                        ApplicationUserId = ApplicationAdministratorId,
                         Content = "This is just great.",
                         LessonId = 3
                     });

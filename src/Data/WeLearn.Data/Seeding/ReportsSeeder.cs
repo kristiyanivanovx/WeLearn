@@ -18,12 +18,12 @@ namespace WeLearn.Data.Seeding
                 await dbContext.Reports.AddRangeAsync(
                         new Report
                         {
-                            Id = 1, ApplicationUserId = SeededUserId, LessonId = 5,
+                            Id = 1, ApplicationUserId = ApplicationAdministratorId, LessonId = 5,
                             Subject = "The language used in title", Description = "Bad language in lesson's title."
                         },
                         new Report
                         {
-                            Id = 3, ApplicationUserId = SeededUserId, CommentId = 1,
+                            Id = 3, ApplicationUserId = ApplicationAdministratorId, CommentId = 1,
                             Subject = "Unacceptable behaviour", Description = "Bad language in comment."
                         });
             }

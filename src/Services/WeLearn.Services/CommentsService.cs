@@ -50,14 +50,14 @@ namespace WeLearn.Services
         public async Task EditCommentByAdminAsync(AdminCommentEditModel commentEditModel)
         {
             Comment comment = this.commentRepository
-                .All()
+                .AllWithDeleted()
                 .FirstOrDefault(x => x.Id == commentEditModel.Id);
 
             if (comment != null)
             {
                 comment.Content = commentEditModel.Content ?? comment.Content;
 
-                if (comment.IsDeleted)
+                if (commentEditModel.IsDeleted)
                 {
                     this.commentRepository.Delete(comment);
                 }
@@ -92,8 +92,8 @@ namespace WeLearn.Services
             await this.commentRepository.SaveChangesAsync();
         }
 
-        public async Task<T> GetCommentByIdAsync<T>(int id)
-            => await this.commentRepository.All()
+        public async Task<T> GetCommentByIdWithDeletedAsync<T>(int id)
+            => await this.commentRepository.AllWithDeleted()
                 .Where(x => x.Id == id)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)

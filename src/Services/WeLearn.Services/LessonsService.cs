@@ -215,6 +215,9 @@ namespace WeLearn.Services
             Lesson lesson = new Lesson
             {
                 Name = lessonInputModel.LessonName,
+                Grade = lessonInputModel.Grade,
+                Description = lessonInputModel.Description,
+                CategoryId = lessonInputModel.CategoryId,
                 ApplicationUserId = userId
             };
 
@@ -263,6 +266,10 @@ namespace WeLearn.Services
                 if (model.IsDeleted)
                 {
                     this.lessonRepository.Delete(entity);
+                }
+                else
+                {
+                    this.lessonRepository.Undelete(entity);
                 }
             }
 

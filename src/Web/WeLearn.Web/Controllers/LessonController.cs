@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +16,6 @@ using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.Controllers;
 using WeLearn.Web.ViewModels.Lesson;
-
 using static WeLearn.Common.GlobalConstants;
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
@@ -84,9 +82,13 @@ namespace WeLearn.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-            this.ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name");
-            return this.View();
+            var categories = this.categoriesService.GetAllCategories();
+            var viewModel = new LessonInputModel
+            {
+                Categories = categories,
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -96,16 +98,15 @@ namespace WeLearn.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-                this.ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", model.CategoryId);
                 return this.View(model);
             }
 
+            var userId = this.GetUserId();
             await this.lessonsService.CreateLessonAsync(
                 model,
                 this.environment.WebRootPath,
                 this.environment.IsDevelopment(),
-                GetUserId());
+                userId);
 
             return this.RedirectToAction(nameof(ByMe));
         }
@@ -115,8 +116,8 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             LessonEditModel model = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
-            IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-            this.ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", model.CategoryId);
+            model.Categories = this.categoriesService.GetAllCategories();
+
             return this.View(model);
         }
 
@@ -127,12 +128,10 @@ namespace WeLearn.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "CategoryName", model.CategoryId);
                 return View(model);
             }
 
-            if (model.UserId != GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return View(nameof(Unauthorized));
             }
@@ -176,8 +175,8 @@ namespace WeLearn.Controllers
 
             var paginated = PaginatedList<LessonViewModel>.Create(
                 models.OrderByDescending(x => x.LessonId),
-                pageNumber ?? defaultPageNumber,
-                defaultPageSize);
+                pageNumber ?? this.defaultPageNumber,
+                this.defaultPageSize);
 
             paginated.SearchString = searchString;
 
@@ -187,7 +186,7 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> ByCategory(
             string categoryName,
-            string searchString, 
+            string searchString,
             int grade,
             int? pageNumber)
         {
@@ -226,7 +225,14 @@ namespace WeLearn.Controllers
             string subject = $"Lesson #{model.LessonId} - {model.Name}";
             string createdBy = model.ApplicationUserUserName ?? "Deleted User";
             string message = BuildMessage(model, stringBuilder, createdBy);
-            await this.emailSender.SendEmailAsync(ApplicationAdministratorEmail, model.Email, subject, message, true);
+
+            await this.emailSender.SendEmailAsync(
+                ApplicationAdministratorEmail,
+                model.Email,
+                subject,
+                message,
+                true);
+
             return this.View(nameof(this.EmailSent));
         }
 

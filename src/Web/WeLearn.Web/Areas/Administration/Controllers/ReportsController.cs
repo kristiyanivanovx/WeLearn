@@ -22,6 +22,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             IEnumerable<AdminReportViewModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportViewModel>(searchString);
             var paginated = PaginatedList<AdminReportViewModel>.Create(reports.OrderByDescending(x => x.Id), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
+
             return View(paginated);
         }
 

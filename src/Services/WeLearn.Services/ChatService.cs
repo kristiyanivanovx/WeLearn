@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.ChatApp;
-using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services
@@ -34,6 +33,7 @@ namespace WeLearn.Services
                 ChatId = chatId,
                 Text = message,
                 Name = userName,
+                CreatedOn = DateTime.UtcNow,
             };
 
             await this.messageRepository.AddAsync(messageModel);

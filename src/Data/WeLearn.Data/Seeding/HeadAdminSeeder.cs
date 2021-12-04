@@ -18,7 +18,7 @@ namespace WeLearn.Data.Seeding
             {
                 ApplicationUser applicationUser = new ApplicationUser
                 {
-                    Id = SeededUserId,
+                    Id = ApplicationAdministratorId,
                     Email = ApplicationAdministratorEmail,
                     EmailConfirmed = false,
                     UserName = ApplicationAdministratorUsername,

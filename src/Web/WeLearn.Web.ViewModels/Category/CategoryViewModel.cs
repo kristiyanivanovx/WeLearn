@@ -7,7 +7,7 @@ namespace WeLearn.Web.ViewModels.Category
 {
     public class CategoryViewModel : IMapFrom<Data.Models.Category>, IMapTo<Data.Models.Category>
     {
-        // public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public int Id { get; set; }
 

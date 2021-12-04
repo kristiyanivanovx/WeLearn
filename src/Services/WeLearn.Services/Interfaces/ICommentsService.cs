@@ -7,7 +7,7 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ICommentsService
     {
-        Task<T> GetCommentByIdAsync<T>(int id);
+        Task<T> GetCommentByIdWithDeletedAsync<T>(int id);
 
         Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString);
 

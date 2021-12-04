@@ -11,13 +11,13 @@ namespace WeLearn.Data.Infrastructure
     {
         public static void ConfigureRelations(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ApplicationUser>()
-               .HasMany(x => x.SentPrivateMessages)
-               .WithOne(x => x.Sender);
-
-            modelBuilder.Entity<ApplicationUser>()
-               .HasMany(x => x.ReceivedPrivateMessages)
-               .WithOne(x => x.Receiver);
+            // modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(x => x.SentPrivateMessages)
+            //    .WithOne(x => x.Sender);
+            //
+            // modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(x => x.ReceivedPrivateMessages)
+            //    .WithOne(x => x.Receiver);
 
             modelBuilder.Entity<ChatApplicationUser>()
                 .HasKey(x => new { x.ChatId, x.ApplicationUserId });
@@ -79,7 +79,7 @@ namespace WeLearn.Data.Infrastructure
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            const string UserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6";
+            const string UserId = "d91316c6-8823-4614-a3c5-6228f06c746a";
 
             ApplicationUser applicationUser = new ApplicationUser
             {

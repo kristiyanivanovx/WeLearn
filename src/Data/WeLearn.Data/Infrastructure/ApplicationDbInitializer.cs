@@ -37,6 +37,7 @@ namespace WeLearn.Data.Infrastructure
             {
                 ApplicationUser user = new ApplicationUser()
                 {
+                    Id = ApplicationAdministratorId,
                     Email = ApplicationAdministratorEmail,
                     EmailConfirmed = false,
                     UserName = ApplicationAdministratorUsername,

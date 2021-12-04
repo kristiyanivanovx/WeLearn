@@ -38,7 +38,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            CommentEditModel comment = await this.commentsService.GetCommentByIdAsync<CommentEditModel>(id);
+            CommentEditModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentEditModel>(id);
             return View(comment);
         }
 
@@ -64,7 +64,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var commentModel = await this.commentsService.GetCommentByIdAsync<CommentDeleteModel>(id);
+            var commentModel = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentDeleteModel>(id);
             return View(commentModel);
         }
 

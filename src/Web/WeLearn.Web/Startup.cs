@@ -26,10 +26,15 @@ namespace WeLearn.Web
 {
     public class Startup
     {
-        private readonly IConfiguration configuration;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        {
+            this.Configuration = configuration;
+            this.WebHostEnvironment = env;
+        }
 
-        public Startup(IConfiguration configuration)
-            => this.configuration = configuration;
+        public IConfiguration Configuration { get; }
+
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -40,7 +45,7 @@ namespace WeLearn.Web
             services.AddSignalR();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(this.configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                options.UseNpgsql(this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -53,7 +58,7 @@ namespace WeLearn.Web
                 })
                 .AddRazorRuntimeCompilation();
 
-            services.AddSingleton(this.configuration);
+            services.AddSingleton(this.Configuration);
 
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
@@ -73,20 +78,20 @@ namespace WeLearn.Web
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
             services.AddTransient<IPrivateMessageService, PrivateMessageService>();
             services.AddTransient<IEmailSender>(serviceProvider =>
-                new SendGridEmailService(this.configuration["SendGrid:ApiKey"]));
+                new SendGridEmailService(this.Configuration["SendGrid:ApiKey"]));
 
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
                     IConfigurationSection googleAuthenticationSection =
-                        this.configuration.GetSection("Authentication:Google");
+                        this.Configuration.GetSection("Authentication:Google");
                     options.ClientId = googleAuthenticationSection["ClientId"];
                     options.ClientSecret = googleAuthenticationSection["ClientSecret"];
                 });
 
             services.AddHangfire(config =>
                 config.UsePostgreSqlStorage(
-                    this.configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                    this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
         }
 
         public void Configure(

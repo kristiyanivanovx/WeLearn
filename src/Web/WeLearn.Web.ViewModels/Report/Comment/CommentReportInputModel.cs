@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Services.Mapping;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Comment
@@ -37,7 +39,8 @@ namespace WeLearn.Web.ViewModels.Report.Comment
                 .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CommentContent, opt => opt.MapFrom(src => src.Content))
                 .ForMember(dest => dest.CommentCreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
-                .ForMember(dest => dest.CommentApplicationUserUserName,
+                .ForMember(
+                    dest => dest.CommentApplicationUserUserName,
                     opt => opt.MapFrom(src => src.ApplicationUser.UserName));
 
             configuration.CreateMap<CommentReportInputModel, Data.Models.Report>()

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeLearn.Services;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using System.Collections.Generic;
 using WeLearn.Web.ViewModels.Report.Comment;
 using WeLearn.Web.ViewModels.Report.Lesson;
 
@@ -29,8 +29,8 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
-            IEnumerable<LessonReportViewModel> myReports = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
-            return View(myReports);
+            IEnumerable<LessonReportViewModel> lessonReportsByMe = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
+            return View(lessonReportsByMe);
         }
 
         [HttpGet]
@@ -106,8 +106,8 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            IEnumerable<CommentReportViewModel> myReports = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
-            return View(myReports);
+            IEnumerable<CommentReportViewModel> commentReportsByMe = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
+            return View(commentReportsByMe);
         }
 
         [HttpGet]
@@ -124,9 +124,9 @@ namespace WeLearn.Web.Controllers
         {
             commentReportModel.ApplicationUserId = GetUserId();
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View();
+                return this.View();
             }
 
             await this.reportsService.CreateCommentReportAsync(commentReportModel);

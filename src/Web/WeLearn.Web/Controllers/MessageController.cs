@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Message;
-using WeLearn.Web.ViewModels.Message;
 
 namespace WeLearn.Web.Controllers
 {

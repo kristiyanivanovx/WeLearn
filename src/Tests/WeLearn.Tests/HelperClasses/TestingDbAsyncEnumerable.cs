@@ -22,9 +22,6 @@ namespace WeLearn.Tests.HelperClasses
             return new TestingDbAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
         }
 
-        IQueryProvider IQueryable.Provider
-        {
-            get { return new TestingDbAsyncQueryProvider<T>(this); }
-        }
+        IQueryProvider IQueryable.Provider => new TestingDbAsyncQueryProvider<T>(this);
     }
 }

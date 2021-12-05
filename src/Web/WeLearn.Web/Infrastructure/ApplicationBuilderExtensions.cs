@@ -50,10 +50,10 @@ namespace WeLearn.Web.Infrastructure
 
         public static IApplicationBuilder UseHangfire(this IApplicationBuilder app)
         {
-            app.UseHangfireServer(new BackgroundJobServerOptions {WorkerCount = 2});
+            app.UseHangfireServer(new BackgroundJobServerOptions { WorkerCount = 2 });
             app.UseHangfireDashboard("/hangfire", new DashboardOptions
             {
-                Authorization = new[] {new CustomDashboardAuthorizationFilter()}
+                Authorization = new[] { new CustomDashboardAuthorizationFilter() }
             });
 
             return app;

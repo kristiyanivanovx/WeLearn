@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Data.Common", "Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Data.Models", "Data\WeLearn.Data.Models\WeLearn.Data.Models.csproj", "{FE22C1C2-41D1-4649-8B52-AEF35C0CA6CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Services.Messaging", "Services\WeLearn.Services.Messaging\WeLearn.Services.Messaging.csproj", "{BADD3B13-4DA5-42B1-A3A5-4C1413152492}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{FE22C1C2-41D1-4649-8B52-AEF35C0CA6CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE22C1C2-41D1-4649-8B52-AEF35C0CA6CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE22C1C2-41D1-4649-8B52-AEF35C0CA6CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +103,6 @@ Global
 		{FB0A27A2-9AD4-42E5-A796-249A5DA8FE39} = {308EA089-7CFC-4423-92B8-7C775F56B060}
 		{C6B39E99-2307-4F97-9BD8-603E55309B96} = {DE18CB4D-E931-472C-AA71-D34846EB2F42}
 		{FE22C1C2-41D1-4649-8B52-AEF35C0CA6CF} = {DE18CB4D-E931-472C-AA71-D34846EB2F42}
+		{BADD3B13-4DA5-42B1-A3A5-4C1413152492} = {5A7BD9C0-3F58-4E9C-8697-9710EA306333}
 	EndGlobalSection
 EndGlobal

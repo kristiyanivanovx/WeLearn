@@ -169,6 +169,8 @@ Some of the many resources used for creating this project:
 - https://www.youtube.com/watch?v=gQMT4al2Grg
 - https://www.youtube.com/watch?v=Hy9G30nncMM
 - https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
+- https://stackoverflow.com/a/57440303/13146140
+- https://www.softwaredeveloper.blog/multi-project-dotnet-core-solution-in-docker-image
 
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template

@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Messaging.Interfaces;
 
-namespace WeLearn.Services
+namespace WeLearn.Services.Messaging
 {
     public class SendGridEmailService : IEmailSender
     {

@@ -25,11 +25,6 @@ namespace WeLearn.Services
 {
     public class LessonsService : ILessonsService
     {
-        private readonly IDeletableEntityRepository<Data.Models.Video> videoRepository;
-        private readonly IDeletableEntityRepository<Data.Models.Material> materialRepository;
-        private readonly IDeletableEntityRepository<Data.Models.Lesson> lessonRepository;
-        private readonly IInputOutputService inputOutputService;
-
         private const string InvalidFileSizeMessage =
             "There was an error with the upload of one of the files. " +
             "Contact us or check whether all of your file formats are supported and if their sizes are acceptable.";
@@ -40,6 +35,11 @@ namespace WeLearn.Services
         private const string CloudinaryZipFilesFolder = "welearn-asp-net-core-app/zip-files/";
 
         private const string CloudinaryVideosFolder = "welearn-asp-net-core-app/videos/";
+
+        private readonly IDeletableEntityRepository<Data.Models.Video> videoRepository;
+        private readonly IDeletableEntityRepository<Data.Models.Material> materialRepository;
+        private readonly IDeletableEntityRepository<Data.Models.Lesson> lessonRepository;
+        private readonly IInputOutputService inputOutputService;
 
         public LessonsService(
             IDeletableEntityRepository<Data.Models.Video> videoRepository,
@@ -276,6 +276,119 @@ namespace WeLearn.Services
             await this.lessonRepository.SaveChangesAsync();
         }
 
+        public async Task<Data.Models.Video> UploadVideoAsync(
+            Lesson lesson,
+            ILessonModel lessonInputModel,
+            string environmentWebRootPath)
+        {
+            IFormFile video = lessonInputModel.Video;
+            bool isVideoExtensionAllowed = AllowedVideoExtensions.Any(x => video.FileName.EndsWith(x));
+            bool isVideoWithAcceptableSize =
+                video.Length > MinimumVideoSizeInBytes && video.Length < MaximumVideoSizeInBytes;
+
+            bool isVideoAcceptable = isVideoExtensionAllowed && isVideoWithAcceptableSize;
+
+            if (!isVideoAcceptable)
+            {
+                throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
+            }
+
+            string uniqueFileNameVideo = this.inputOutputService.GetUniqueFileName(video.FileName);
+            string uploadsVideos =
+                this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "videos");
+
+            string videoPath = this.inputOutputService.GenerateItemPath("\\uploads", "videos", uniqueFileNameVideo);
+
+            string fullFilePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
+            using (FileStream stream = new FileStream(fullFilePath, FileMode.Create))
+            {
+                await video.CopyToAsync(stream);
+            }
+
+            Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
+
+            await this.videoRepository.AddAsync(videoEntity);
+            await this.videoRepository.SaveChangesAsync();
+
+            return videoEntity;
+        }
+
+        public async Task UploadMaterialsAsync(ILessonModel lessonInputModel, string path)
+        {
+            // check if the sum of files' sizes is above 0 mb and below 10 mb and all the extensions are permitted
+            bool isFileSizeAcceptableForAll =
+                lessonInputModel.Files.Sum(x => x.Length) > MinimumZipFileSizeInBytes &&
+                lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
+
+            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file =>
+                AllowedFileExtensions.Any(extension => file.FileName.EndsWith(extension)));
+
+            bool areFilesValid = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;
+
+            if (!areFilesValid)
+            {
+                throw new InvalidOperationException(InvalidFileSizeMessage);
+            }
+
+            await using FileStream fileStream = File.Create(path);
+            await using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
+            files.Seek(0, SeekOrigin.Begin);
+            files.CopyTo(fileStream);
+        }
+
+        private static Data.Models.Video CreateVideoEntity(
+            Lesson lesson,
+            IFormFile video,
+            string path,
+            string publicId = null)
+        {
+            return new Data.Models.Video
+            {
+                Name = video.FileName,
+                ContentType = video.ContentType,
+                Link = path,
+                PublicId = publicId,
+                Lesson = lesson
+            };
+        }
+
+        private static VideoUploadParams GenerateVideoUploadParams(MemoryStream videoStream, IFormFile video)
+            => new VideoUploadParams()
+            {
+                File = new FileDescription(@$"{video.FileName}", videoStream),
+                PublicId = video.FileName,
+                Folder = CloudinaryVideosFolder,
+                Overwrite = true,
+                UniqueFilename = true,
+            };
+
+        private static RawUploadParams GenerateRawUploadParam(Stream files, string name)
+            => new RawUploadParams()
+            {
+                File = new FileDescription(@$"{name}.zip", files),
+                PublicId = name,
+                Folder = CloudinaryZipFilesFolder,
+                Overwrite = true,
+                UniqueFilename = false,
+            };
+
+        private static Material CreateMaterial(Lesson lesson, string path, string stringGuid, string publicId = null)
+            => new Material
+            {
+                Name = stringGuid,
+                Link = path,
+                PublicId = publicId,
+                Lesson = lesson
+            };
+
+        private static void UpdateEntityProperties(LessonEditModel lessonEditModel, Lesson entity)
+        {
+            entity.Name = lessonEditModel.Name ?? entity.Name;
+            entity.Description = lessonEditModel.Description ?? entity.Description;
+            entity.CategoryId = lessonEditModel.CategoryId;
+            entity.Grade = lessonEditModel.Grade;
+        }
+
         private async Task UpdateVideoAndFilesBasedOnEnvironmentAsync(
             LessonEditModel lessonEditModel,
             string environmentWebRootPath,
@@ -339,6 +452,19 @@ namespace WeLearn.Services
 
                 lesson.MaterialId = materialEntity.Id;
             }
+        }
+
+        private async Task<Material> AddMaterialToDatabaseAsync(
+            Lesson lesson,
+            string path,
+            string stringGuid,
+            string publicId = null)
+        {
+            Material materialEntity = CreateMaterial(lesson, path, stringGuid, publicId);
+            await this.materialRepository.AddAsync(materialEntity);
+            await this.materialRepository.SaveChangesAsync();
+
+            return materialEntity;
         }
 
         private async Task CreateLessonBasedOnEnvironmentAsync(
@@ -414,12 +540,32 @@ namespace WeLearn.Services
                 .Include(x => x.Video)
                 .FirstOrDefaultAsync(x => x.Id == lessonEditModel.LessonId);
 
-        private static void UpdateEntityProperties(LessonEditModel lessonEditModel, Lesson entity)
+        private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(ILessonModel lessonInputModel)
         {
-            entity.Name = lessonEditModel.Name ?? entity.Name;
-            entity.Description = lessonEditModel.Description ?? entity.Description;
-            entity.CategoryId = lessonEditModel.CategoryId;
-            entity.Grade = lessonEditModel.Grade;
+            Cloudinary cloudinary = new Cloudinary();
+
+            // check if the sum of files' sizes is above 0 mb, below 10 mb and all the extensions are permitted
+            bool isFileSizeAcceptableForAll =
+                lessonInputModel.Files.Sum(file => file.Length) > MinimumZipFileSizeInBytes &&
+                lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
+
+            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file =>
+                AllowedFileExtensions.Any(extension => file.FileName.EndsWith(extension)));
+
+            bool areFilesAcceptable = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;
+
+            if (!areFilesAcceptable)
+            {
+                throw new InvalidOperationException(InvalidFileSizeMessage);
+            }
+
+            string name = Guid.NewGuid().ToString();
+
+            using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
+            RawUploadParams uploadParams = GenerateRawUploadParam(files, name);
+            RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
+
+            return uploadResult;
         }
 
         private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(Lesson lesson, ILessonModel lessonInputModel)
@@ -451,152 +597,6 @@ namespace WeLearn.Services
 
             // await this.context.SaveChangesAsync();
             return videoEntity;
-        }
-
-        public async Task UploadMaterialsAsync(ILessonModel lessonInputModel, string path)
-        {
-            // check if the sum of files' sizes is above 0 mb and below 10 mb and all the extensions are permitted
-            bool isFileSizeAcceptableForAll =
-                lessonInputModel.Files.Sum(x => x.Length) > MinimumZipFileSizeInBytes &&
-                lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
-
-            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file =>
-                AllowedFileExtensions.Any(extension => file.FileName.EndsWith(extension)));
-
-            bool areFilesValid = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;
-
-            if (!areFilesValid)
-            {
-                throw new InvalidOperationException(InvalidFileSizeMessage);
-            }
-
-            await using FileStream fileStream = File.Create(path);
-            await using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
-            files.Seek(0, SeekOrigin.Begin);
-            files.CopyTo(fileStream);
-        }
-
-        public async Task<Data.Models.Video> UploadVideoAsync(
-            Lesson lesson,
-            ILessonModel lessonInputModel,
-            string environmentWebRootPath)
-        {
-            IFormFile video = lessonInputModel.Video;
-            bool isVideoExtensionAllowed = AllowedVideoExtensions.Any(x => video.FileName.EndsWith(x));
-            bool isVideoWithAcceptableSize =
-                video.Length > MinimumVideoSizeInBytes && video.Length < MaximumVideoSizeInBytes;
-
-            bool isVideoAcceptable = isVideoExtensionAllowed && isVideoWithAcceptableSize;
-
-            if (!isVideoAcceptable)
-            {
-                throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
-            }
-
-            string uniqueFileNameVideo = this.inputOutputService.GetUniqueFileName(video.FileName);
-            string uploadsVideos =
-                this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "videos");
-
-            string videoPath = this.inputOutputService.GenerateItemPath("\\uploads", "videos", uniqueFileNameVideo);
-
-            string fullFilePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
-            using (FileStream stream = new FileStream(fullFilePath, FileMode.Create))
-            {
-                await video.CopyToAsync(stream);
-            }
-
-            Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
-
-            await this.videoRepository.AddAsync(videoEntity);
-            await this.videoRepository.SaveChangesAsync();
-
-            return videoEntity;
-        }
-
-        private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(ILessonModel lessonInputModel)
-        {
-            Cloudinary cloudinary = new Cloudinary();
-
-            // check if the sum of files' sizes is above 0 mb, below 10 mb and all the extensions are permitted
-            bool isFileSizeAcceptableForAll =
-                lessonInputModel.Files.Sum(file => file.Length) > MinimumZipFileSizeInBytes &&
-                lessonInputModel.Files.Sum(x => x.Length) < MaximumZipFileSizeInBytes;
-
-            bool isFileExtensionAcceptableForAll = lessonInputModel.Files.All(file =>
-                AllowedFileExtensions.Any(extension => file.FileName.EndsWith(extension)));
-
-            bool areFilesAcceptable = isFileSizeAcceptableForAll && isFileExtensionAcceptableForAll;
-
-            if (!areFilesAcceptable)
-            {
-                throw new InvalidOperationException(InvalidFileSizeMessage);
-            }
-
-            string name = Guid.NewGuid().ToString();
-
-            using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
-            RawUploadParams uploadParams = GenerateRawUploadParam(files, name);
-            RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
-
-            return uploadResult;
-        }
-
-        private static VideoUploadParams GenerateVideoUploadParams(MemoryStream videoStream, IFormFile video)
-            => new VideoUploadParams()
-            {
-                File = new FileDescription(@$"{video.FileName}", videoStream),
-                PublicId = video.FileName,
-                Folder = CloudinaryVideosFolder,
-                Overwrite = true,
-                UniqueFilename = true,
-            };
-
-        private static RawUploadParams GenerateRawUploadParam(Stream files, string name)
-            => new RawUploadParams()
-            {
-                File = new FileDescription(@$"{name}.zip", files),
-                PublicId = name,
-                Folder = CloudinaryZipFilesFolder,
-                Overwrite = true,
-                UniqueFilename = false,
-            };
-
-        private static Material CreateMaterial(Lesson lesson, string path, string stringGuid, string publicId = null)
-            => new Material
-            {
-                Name = stringGuid,
-                Link = path,
-                PublicId = publicId,
-                Lesson = lesson
-            };
-
-        private static Data.Models.Video CreateVideoEntity(
-            Lesson lesson,
-            IFormFile video,
-            string path,
-            string publicId = null)
-        {
-            return new Data.Models.Video
-            {
-                Name = video.FileName,
-                ContentType = video.ContentType,
-                Link = path,
-                PublicId = publicId,
-                Lesson = lesson
-            };
-        }
-
-        private async Task<Material> AddMaterialToDatabaseAsync(
-            Lesson lesson,
-            string path,
-            string stringGuid,
-            string publicId = null)
-        {
-            Material materialEntity = CreateMaterial(lesson, path, stringGuid, publicId);
-            await this.materialRepository.AddAsync(materialEntity);
-            await this.materialRepository.SaveChangesAsync();
-
-            return materialEntity;
         }
     }
 }

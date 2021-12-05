@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Data.Models
 {
-    public class Report : BaseDeletableModel<int> //SoftDeleteable, IMetadataHaveable
+    public class Report : BaseDeletableModel<int>
     {
         [Required]
         [MaxLength(MaxSubjectLength)]

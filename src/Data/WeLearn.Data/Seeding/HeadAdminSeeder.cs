@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using WeLearn.Data.Models;
+
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Data.Seeding

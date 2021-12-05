@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
@@ -40,7 +41,6 @@ namespace WeLearn.Web.ViewModels.Lesson
         {
             configuration.CreateMap<Data.Models.Lesson, LessonSendEmailViewModel>()
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id));
-
         }
     }
 }

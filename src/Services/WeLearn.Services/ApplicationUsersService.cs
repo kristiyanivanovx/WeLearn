@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
-using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 
@@ -58,7 +57,15 @@ namespace WeLearn.Services
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
             var isAdmin = await this.userManager.IsInRoleAsync(user, ApplicationAdministratorRoleName);
+            var isHeadAdmin = await this.userManager.IsInRoleAsync(user, ApplicationHeadAdministratorRoleName);
 
+            // if HeadAdmin is trying to remove his Admin role, restrict him
+            if (isHeadAdmin)
+            {
+                return;
+            }
+
+            // if HeadAdmin is trying to toggle Admin role on an User
             if (isAdmin)
             {
                 await this.userManager.RemoveFromRoleAsync(user, ApplicationAdministratorRoleName);

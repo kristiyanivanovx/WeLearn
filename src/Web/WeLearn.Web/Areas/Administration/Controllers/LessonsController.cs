@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using WeLearn.Services.Interfaces;
-using WeLearn.Web.ViewModels.Category;
-using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Admin.Lesson;
+using WeLearn.Web.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -55,7 +54,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return View(lesson);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this.lessonsService.HardDeleteLessonByIdAsync(id);

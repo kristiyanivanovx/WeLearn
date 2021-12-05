@@ -1,12 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 
 namespace WeLearn.Data.Models
 {
-    public class Material : BaseDeletableModel<int> // SoftDeleteable, IMetadataHaveable
+    public class Material : BaseDeletableModel<int> // SoftDeletable, IMetadataHavable
     {
         [Required]
         [MaxLength(MaxNameLength)]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.Enums;
 

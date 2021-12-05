@@ -37,7 +37,6 @@ namespace WeLearn.Data.Models
         // public ICollection<PrivateMessage> SentPrivateMessages { get; set; }
 
         // public ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
-
         public ICollection<Lesson> Lessons { get; set; }
 
         public ICollection<Comment> Comments { get; set; }

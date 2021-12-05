@@ -1,5 +1,7 @@
 using System;
+
 using Microsoft.AspNetCore.Identity;
+using Microsoft.VisualBasic;
 using WeLearn.Data.Models;
 
 using static WeLearn.Common.GlobalConstants;
@@ -33,9 +35,12 @@ namespace WeLearn.Data.Infrastructure
 
         private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
-            if (userManager.FindByEmailAsync(ApplicationAdministratorEmail).Result == null)
+            var headAdmin = userManager.FindByEmailAsync(ApplicationAdministratorEmail).Result;
+
+            // Head Admin doesn't exist, create him and add him to HeadAdmin and Admin roles
+            if (headAdmin == null)
             {
-                ApplicationUser user = new ApplicationUser()
+                ApplicationUser user = new ApplicationUser
                 {
                     Id = ApplicationAdministratorId,
                     Email = ApplicationAdministratorEmail,
@@ -52,6 +57,22 @@ namespace WeLearn.Data.Infrastructure
                 {
                     userManager.AddToRoleAsync(user, ApplicationAdministratorRoleName).Wait();
                     userManager.AddToRoleAsync(user, ApplicationHeadAdministratorRoleName).Wait();
+                }
+            }
+            else
+            {
+                // Head Admin does exist, ensure he is in HeadAdmin and Admin roles
+                var isInAdminRole = userManager.IsInRoleAsync(headAdmin, ApplicationAdministratorRoleName).GetAwaiter().GetResult();
+                var isInHeadAdminRole = userManager.IsInRoleAsync(headAdmin, ApplicationHeadAdministratorRoleName).GetAwaiter().GetResult();
+
+                if (!isInAdminRole)
+                {
+                    userManager.AddToRoleAsync(headAdmin, ApplicationAdministratorRoleName).GetAwaiter().GetResult();
+                }
+
+                if (!isInHeadAdminRole)
+                {
+                    userManager.AddToRoleAsync(headAdmin, ApplicationHeadAdministratorRoleName).GetAwaiter().GetResult();
                 }
             }
         }

@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Interfaces;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
     public class LessonInputModel : IMapTo<Data.Models.Lesson>,
+
         // IMapFrom not necessary
         IMapFrom<Data.Models.Lesson>,
         IHaveCustomMappings, ILessonModel

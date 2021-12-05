@@ -31,7 +31,7 @@
             <h3 class="mt-4">All chats</h3>
             <hr />
             @await Component.InvokeAsync("Room")
-            <a asp-controller="Chat" asp-action="Index" class="btn btn-sm btn-outline-dark mt-3">
+            <a asp-controller="Chat" asp-action="Index" class="btn btn-sm btn-outline-dark mt-3 mb-3">
                 <i class="fas fa-arrow-left"></i> Back to home
             </a>
         </div>
@@ -52,9 +52,9 @@
         connection.on("ReceiveMessage", function (data) {
             var message = messageBuilder()
                 .createMessage()
-                .withHeader(data.name)
-                .withParagraph(data.text)
-                .withFooter(data.createdOn)
+                .withHeader(escapeHtml(data.name))
+                .withParagraph(escapeHtml(data.text))
+                .withFooter(escapeHtml(data.createdOn))
                 .build();
 
             document.querySelector('.chat-body').append(message);

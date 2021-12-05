@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Category;
 
 namespace WeLearn.Data.Models
 {
-    public class Category : BaseDeletableModel<int> // SoftDeleteable, IMetadataHaveable
+    public class Category : BaseDeletableModel<int> // SoftDeletable, IMetadataHavable
     {
         public Category()
         {

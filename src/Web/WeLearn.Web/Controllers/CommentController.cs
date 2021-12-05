@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using System.Collections.Generic;
-using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.ViewModels.Comment;
 using WeLearn.Web.ViewModels.Lesson;
 
@@ -85,8 +85,8 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
-            IEnumerable<CommentByMeModel> myComments = await this.commentsService.GetCommentsMadeByMeAsync(GetUserId());
-            return View(myComments);
+            IEnumerable<CommentByMeModel> commentByMe = await this.commentsService.GetCommentsMadeByMeAsync(GetUserId());
+            return View(commentByMe);
         }
     }
 }

@@ -25,7 +25,6 @@ namespace WeLearn.Data.Seeding
 
             var seeders = new List<ISeeder>
             {
-                //todo: seed admins with a role
                 new RolesSeeder(),
                 new HeadAdminSeeder(),
                 new UsersSeeder(),

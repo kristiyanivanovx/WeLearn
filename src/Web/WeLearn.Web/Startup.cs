@@ -19,6 +19,8 @@ using WeLearn.Data.Repositories;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
+using WeLearn.Services.Messaging;
+using WeLearn.Services.Messaging.Interfaces;
 using WeLearn.Web.Infrastructure;
 using WeLearn.Web.ViewModels;
 
@@ -106,13 +108,6 @@ namespace WeLearn.Web
 
             app.MigrateDatabase();
             app.SeedData(userManager, roleManager);
-
-            // using (var serviceScope = app.ApplicationServices.CreateScope())
-            // {
-            //     ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            //     dbContext.Database.Migrate();
-            //     new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            // }
 
             if (env.IsDevelopment())
             {

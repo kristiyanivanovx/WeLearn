@@ -28,7 +28,6 @@ namespace WeLearn.Data
         // public ApplicationDbContext()
         // {
         // }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -63,7 +62,6 @@ namespace WeLearn.Data
         }
 
         // public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
-
         public virtual DbSet<Chat> Chats { get; set; }
 
         public virtual DbSet<Message> Messages { get; set; }
@@ -85,7 +83,6 @@ namespace WeLearn.Data
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         // public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
-
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

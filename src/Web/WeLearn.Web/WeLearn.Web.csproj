@@ -14,7 +14,7 @@
 	<ItemGroup>
 		<AdditionalFiles Include="..\..\stylecop.json" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="Hangfire" Version="1.7.23" />
 		<PackageReference Include="Hangfire.AspNetCore" Version="1.7.23" />
@@ -48,6 +48,7 @@
 		<ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
 		<ProjectReference Include="..\..\Services\WeLearn.Services.CronJobs\WeLearn.Services.CronJobs.csproj" />
 		<ProjectReference Include="..\..\Services\WeLearn.Services.Mapping\WeLearn.Services.Mapping.csproj" />
+		<ProjectReference Include="..\..\Services\WeLearn.Services.Messaging\WeLearn.Services.Messaging.csproj" />
 		<ProjectReference Include="..\..\Services\WeLearn.Services\WeLearn.Services.csproj" />
 	</ItemGroup>
 

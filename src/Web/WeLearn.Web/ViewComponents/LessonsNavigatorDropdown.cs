@@ -14,7 +14,7 @@ namespace WeLearn.Web.ViewComponents
         public IViewComponentResult Invoke()
         {
             LessonsNavigationDropdownModel lessonsNavigationDropdownModel = this.viewComponentsService.GenerateDropdownModel();
-            return View(lessonsNavigationDropdownModel);
+            return this.View(lessonsNavigationDropdownModel);
         }
     }
 }

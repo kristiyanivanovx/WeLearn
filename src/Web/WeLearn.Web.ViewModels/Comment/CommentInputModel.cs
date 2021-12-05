@@ -1,14 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Services.Mapping;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Comment
 {
     public class CommentInputModel : IMapTo<Data.Models.Comment>
     {
-        // public int CommentId { get; set; }
-
         public int LessonId { get; set; }
 
         [Display(Name = "Content")]
@@ -17,9 +16,6 @@ namespace WeLearn.Web.ViewModels.Comment
         public string Content { get; set; }
 
         // public string ApplicationUserUserName { get; set; }
-
-        // public DateTime CreatedOn { get; set; }
-
         public string ApplicationUserId { get; set; }
     }
 }

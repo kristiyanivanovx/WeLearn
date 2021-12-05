@@ -65,7 +65,7 @@ namespace WeLearn.Services
                 .Include(x => x.Messages)
                 .FirstOrDefault(x => x.Id == id);
 
-        public async Task<List<Chat>> GetAllChats()
+        public async Task<List<Chat>> GetAllChatsAsync()
             => await this.chatRepository
                 .All()
                 .ToListAsync();

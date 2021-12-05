@@ -11,7 +11,7 @@ namespace WeLearn.Services.Interfaces
 
         IEnumerable<Chat> GetChats(string userId);
 
-        Task<List<Chat>> GetAllChats();
+        Task<List<Chat>> GetAllChatsAsync();
 
         Task CreateRoomAsync(string name, string userId);
 

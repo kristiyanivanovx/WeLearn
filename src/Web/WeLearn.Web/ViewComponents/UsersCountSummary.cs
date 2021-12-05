@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.ViewComponents
@@ -13,7 +14,7 @@ namespace WeLearn.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            int userCount = await viewComponentsService.GetUsersCount();
+            int userCount = await this.viewComponentsService.GetUsersCount();
             return View(userCount);
         }
     }

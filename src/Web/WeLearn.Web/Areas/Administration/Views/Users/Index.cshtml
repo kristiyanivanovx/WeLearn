@@ -49,15 +49,19 @@
             <tr>
                 @{
                     var dbUser = await userManager.FindByIdAsync(item.Id);
-                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, "Admin");
-                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, "HeadAdmin");
-                    
+                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationAdministratorUsername);
+                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
                     var adminRoleButtonClassStyling = dbUserIsAdmin ?
                         "btn btn-sm btn-outline-warning mb-1" :
                         "btn btn-sm btn-outline-success mb-1";
 
-                    var disableIfUnauthorized = 
-                        User.IsInRole(ApplicationHeadAdministratorRoleName) ? "enabled" : "disabled";
+                    // current logged in Admin is Head Admin
+                    var currentAdminIsHeadAdmin = User.IsInRole(ApplicationHeadAdministratorRoleName);
+
+                    // demoting is available only if the current logged in Admin is Head Admin
+                    // and the db entity (user) is not Head Admin
+                    var disableIfUnauthorized = currentAdminIsHeadAdmin && !dbUserIsHeadAdmin ? "enabled" : "disabled";
                 }
                 
                 <td>
@@ -85,7 +89,7 @@
                 <td>
                     <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-id="@item.Id">
                         <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
-                            @if (dbUserIsHeadAdmin)
+                            @if (dbUserIsAdmin)
                             {
                                 <div>Demote</div>
                             }

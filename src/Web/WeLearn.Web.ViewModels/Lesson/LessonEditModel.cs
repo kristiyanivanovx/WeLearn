@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Interfaces;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
 namespace WeLearn.Web.ViewModels.Lesson
@@ -18,13 +20,15 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public int LessonId { get; set; }
 
-        [MaxLength(MaxNameLength)] public string Name { get; set; }
+        [MaxLength(MaxNameLength)]
+        public string Name { get; set; }
 
         [Display(Name = "Description")]
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
-        [Display(Name = "Category")] public int CategoryId { get; set; }
+        [Display(Name = "Category")]
+        public int CategoryId { get; set; }
 
         public Grade Grade { get; set; }
 
@@ -43,7 +47,8 @@ namespace WeLearn.Web.ViewModels.Lesson
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<LessonEditModel, Data.Models.Lesson>()
-                .ForMember(dest => dest.Id,
+                .ForMember(
+                    dest => dest.Id,
                     opt =>
                         opt.MapFrom(src => src.LessonId));
 

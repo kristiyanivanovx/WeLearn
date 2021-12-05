@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using WeLearn.Data.Models;
-using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.ViewModels.Admin.Lesson;
 using WeLearn.Web.ViewModels.Interfaces;
 using WeLearn.Web.ViewModels.Lesson;

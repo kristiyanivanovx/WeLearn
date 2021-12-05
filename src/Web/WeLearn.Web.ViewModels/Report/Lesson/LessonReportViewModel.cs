@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Lesson
@@ -53,7 +55,6 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
             configuration.CreateMap<Data.Models.Report, LessonReportViewModel>()
                 .ForMember(dest => dest.ReportId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description));
-
         }
     }
 }

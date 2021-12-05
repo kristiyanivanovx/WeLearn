@@ -1,5 +1,6 @@
 ﻿using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Home;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 

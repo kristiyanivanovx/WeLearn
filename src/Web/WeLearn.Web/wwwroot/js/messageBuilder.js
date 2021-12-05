@@ -30,7 +30,6 @@
             return this;
         },
         withFooter: function (text) {
-            console.log('text is ', text)
             let time = DateTime.fromISO(text, { zone: "utc", locale: "bg" });
             let localized = time.toLocal().toLocaleString(DateTime.DATETIME_MED);
             span3 = document.createElement("span")

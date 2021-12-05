@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using WeLearn.Web.ViewModels.HelperModels;
-using System.Linq;
 using WeLearn.Web.ViewModels.Admin.Comment;
+using WeLearn.Web.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -27,33 +28,34 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             AdminCommentEditModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<AdminCommentEditModel>(id);
-            return View(comment);
+            return this.View(comment);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, AdminCommentEditModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
             await this.commentsService.EditCommentByAdminAsync(model);
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             AdminCommentDeleteModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<AdminCommentDeleteModel>(id);
-            return View(comment);
+            return this.View(comment);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this.commentsService.HardDeleteCommentByIdAsync(id);
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

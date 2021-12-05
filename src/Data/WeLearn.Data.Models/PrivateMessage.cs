@@ -6,7 +6,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.PrivateMessage;
 
 namespace WeLearn.Data.Models
 {
-    public class PrivateMessage : BaseDeletableModel<int> //Identifiable, IMetadataHaveable
+    public class PrivateMessage : BaseDeletableModel<int> // Identifiable, IMetadataHavable
     {
         [Required]
         [MaxLength(MaxMessageLength)]

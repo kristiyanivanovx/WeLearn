@@ -15,6 +15,8 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
 
         public int ReportId { get; set; }
 
+        public int LikesCount { get; set; }
+
         public string LessonName { get; set; }
 
         public DateTime CreatedOn { get; set; }

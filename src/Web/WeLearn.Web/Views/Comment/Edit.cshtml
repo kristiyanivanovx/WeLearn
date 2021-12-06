@@ -9,17 +9,28 @@
             <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
             <a href="@Model.LessonVideoLink" download>Download</a>
         </video>
-        <div class="card-body">
+        <div class="card-body text-center">
             <h5 class="card-title">@Model.LessonName</h5>
             <hr />
             <p class="card-text mb-2">@Model.LessonDescription</p>
-            <p class="card-text">
-                @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
-                <small class="text-muted">Created by - @createdBy | </small>
-                <small class="text-muted">Category - @Model.LessonCategoryName | </small>
-                <small class="text-muted">Grade - @Model.LessonGrade | </small>
-                <small class="text-muted">Date created - <time datetime="@Model.LessonCreatedOn.ToString("O")">@Model.LessonCreatedOn.ToString("g")</time></small>
-            </p>
+            <div class="card-text">
+                @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
+                <div>
+                    <small class="text-muted">Likes - @Model.LessonLikesCount</small>
+                </div>
+                <div>
+                    <small class="text-muted">Created by - @createdBy</small>
+                </div>
+                <div>
+                    <small class="text-muted">Category - @Model.LessonCategoryName</small>
+                </div>
+                <div>
+                    <small class="text-muted">Grade - @Model.LessonGrade</small>
+                </div>
+                <div>
+                    <small class="text-muted">Date created - <time datetime="@Model.LessonCreatedOn.ToString("O")">@Model.LessonCreatedOn.ToString("g")</time></small>
+                </div>
+            </div>
             <div class="mt-3">
                 <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
                     <i class="fas fa-info"></i> Details

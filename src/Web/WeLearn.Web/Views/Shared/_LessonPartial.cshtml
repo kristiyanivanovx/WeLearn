@@ -6,33 +6,60 @@
 		<source src="@Model.VideoLink" type="@Model.VideoContentType" />
 		@*<a href="@Model.VideoLink" download>Download</a>*@
 	</video>
-	<div class="card-body ">
+	<div class="card-body text-center">
 		<h5 class="card-title">@Model.Name</h5>
 		<hr />
 		<p class="card-text mb-1">@Model.Description</p>
-		<p class="card-text mb-3">
-			@{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
-			<small class="text-muted">Created by - @createdBy | </small>
-			<small class="text-muted">Category - @Model.CategoryName | </small>
-			<small class="text-muted">Grade - @Model.Grade | </small>
-			<small class="text-muted">Date created - <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></small>
-		</p>
-		@if (User.Identity.Name == Model.ApplicationUserUserName)
+
+		<div class="card-text mb-3">
+			@{ var createdBy = Model.ApplicationUserUserName ?? "Deleted User"; }
+			<form id="likesForm" method="post"></form>
+			<div>
+				<small class="text-muted">Likes - <span id="likesCount">@Model.LikesCount</span></small>
+			</div>
+			<div class="text-muted">
+				<small>
+					Created by - @createdBy
+				</small>
+			</div>
+			<div class="text-muted">
+				<small>
+					Category - @Model.CategoryName
+				</small>
+			</div>
+			<div class="text-muted">
+				<small>
+					Grade - @Model.Grade
+				</small>
+			</div>
+			<div class="text-muted">
+				<small>
+					Date created - <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time>
+				</small>
+			</div>
+		</div>
+		
+		<a onclick="toggleLike(@Model.LessonId)" class="btn btn-sm btn-like mb-1">
+			<i class="far fa-heart"></i> Like
+		</a>
+		
+		@if (User.Identity?.Name == Model.ApplicationUserUserName)
 		{
-			<a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success">
+			<a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success mb-1">
 				<i class="fas fa-edit"></i> Edit
 			</a>
-			<a asp-controller="Lesson" asp-action="Delete" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-danger">
+			<a asp-controller="Lesson" asp-action="Delete" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-danger mb-1">
 				<i class="fas fa-trash-alt"></i> Delete
 			</a>
 		}
-		<a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info">
+	
+		<a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info mb-1">
 			<i class="fas fa-arrow-down"></i> Download Resources
 		</a>
 		<a asp-controller="Lesson" asp-action="Send" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-primary mb-1">
 			<i class="far fa-envelope-open"></i> Send to email
 		</a>
-		<a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning">
+		<a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning mb-1">
 			<i class="far fa-flag"></i> Report
 		</a>
 	</div>

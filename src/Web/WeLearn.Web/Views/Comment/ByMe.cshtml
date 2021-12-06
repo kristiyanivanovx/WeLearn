@@ -7,8 +7,8 @@
     <div class="row">
         @foreach (var comment in Model)
         {
-            <div class="col-lg-4">
-                <div class="card">
+            <div class="col-lg-4 pb-3">
+                <div class="card text-center">
                     <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@comment.LessonVideoName" data-poster="@comment.LessonVideoLink">
                         <source src="@comment.LessonVideoLink" type="@comment.LessonVideoContentType" />
                         <a href="@comment.LessonVideoLink" download>Download</a>
@@ -17,8 +17,11 @@
                         <h5 class="card-title">@comment.LessonName</h5>
                         <hr />
                         <p class="card-text mb-2">@comment.LessonDescription</p>
-                        <p class="card-text">
-                            @{ var createdBy = comment.LessonApplicationUserUserName == null ? "Deleted User" : comment.LessonApplicationUserUserName; }
+                        <div class="card-text">
+                            @{ var createdBy = comment.LessonApplicationUserUserName ?? "Deleted User"; }
+                            <div>
+                                <small class="text-muted">Likes - @comment.LessonLikesCount</small>
+                            </div>
                             <div>
                                 <small class="text-muted">Created by - @createdBy</small>
                             </div>
@@ -31,7 +34,7 @@
                             <div>
                                 <small class="text-muted">Date created - <time datetime="@comment.LessonCreatedOn.ToString("O")">@comment.LessonCreatedOn.ToString("g")</time></small>
                             </div>
-                        </p>
+                        </div>
 						<div class="mt-3">
 							<a asp-controller="Lesson" asp-action="Watch" asp-route-id="@comment.LessonId" class="btn btn-sm btn-outline-dark mb-1">
 								<i class="fas fa-info"></i> Details
@@ -64,9 +67,9 @@
             </div>
         }
     </div>
-    @if (Model.Count() == 0)
+    @if (!Model.Any())
     {
-        <h1 class="display-4 text-center">You don't have any comments yet.</h1>
+        <h3 class="text-center">You don't have any comments yet.</h3>
         <hr />
     }
 </div>

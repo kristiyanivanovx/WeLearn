@@ -32,6 +32,8 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public Grade Grade { get; set; }
 
+        public int LikesCount { get; set; }
+
         public string OldVideoLink { get; set; }
 
         public string OldVideoContentType { get; set; }

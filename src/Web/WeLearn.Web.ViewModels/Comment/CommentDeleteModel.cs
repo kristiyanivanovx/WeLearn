@@ -19,6 +19,8 @@ namespace WeLearn.Web.ViewModels.Comment
         [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         public string Content { get; set; }
 
+        public int LessonLikesCount { get; set; }
+
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }
 

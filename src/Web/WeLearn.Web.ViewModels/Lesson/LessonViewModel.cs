@@ -17,6 +17,8 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public Grade Grade { get; set; }
 
+        public int LikesCount { get; set; }
+
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }
 

@@ -60,6 +60,11 @@ namespace WeLearn.Web
                 })
                 .AddRazorRuntimeCompilation();
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
+
             services.AddSingleton(this.Configuration);
 
             // Data repositories
@@ -69,6 +74,7 @@ namespace WeLearn.Web
 
             // Application services
             services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IUsersService, ApplicationUsersService>();
             services.AddTransient<ILessonsService, LessonsService>();

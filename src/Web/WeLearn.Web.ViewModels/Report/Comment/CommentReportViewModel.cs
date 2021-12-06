@@ -16,6 +16,8 @@ namespace WeLearn.Web.ViewModels.Report.Comment
 
         public string CommentApplicationUserUserName { get; set; }
 
+        public int LessonLikesCount { get; set; }
+
         public string CommentContent { get; set; }
 
         public DateTime CommentCreatedOn { get; set; }

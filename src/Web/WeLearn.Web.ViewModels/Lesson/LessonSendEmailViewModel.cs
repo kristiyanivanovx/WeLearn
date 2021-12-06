@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
@@ -15,6 +16,8 @@ namespace WeLearn.Web.ViewModels.Lesson
         public string Description { get; set; }
 
         public Grade Grade { get; set; }
+
+        public int LikesCount { get; set; }
 
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }
@@ -40,7 +43,6 @@ namespace WeLearn.Web.ViewModels.Lesson
         {
             configuration.CreateMap<Data.Models.Lesson, LessonSendEmailViewModel>()
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id));
-
         }
     }
 }

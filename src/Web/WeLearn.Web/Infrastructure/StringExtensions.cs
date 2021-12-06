@@ -8,7 +8,7 @@
             {
                 return value;
             }
-            
+
             return value.Length <= maxLength ? value : value.Substring(0, maxLength) + "...";
         }
     }

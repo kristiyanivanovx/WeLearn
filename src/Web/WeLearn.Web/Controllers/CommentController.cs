@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using System.Collections.Generic;
-using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.ViewModels.Comment;
 using WeLearn.Web.ViewModels.Lesson;
 
@@ -38,7 +38,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            CommentEditModel comment = await this.commentsService.GetCommentByIdAsync<CommentEditModel>(id);
+            CommentEditModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentEditModel>(id);
             return View(comment);
         }
 
@@ -64,7 +64,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var commentModel = await this.commentsService.GetCommentByIdAsync<CommentDeleteModel>(id);
+            var commentModel = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentDeleteModel>(id);
             return View(commentModel);
         }
 
@@ -85,8 +85,8 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
-            IEnumerable<CommentByMeModel> myComments = await this.commentsService.GetCommentsMadeByMeAsync(GetUserId());
-            return View(myComments);
+            IEnumerable<CommentByMeModel> commentByMe = await this.commentsService.GetCommentsMadeByMeAsync(GetUserId());
+            return View(commentByMe);
         }
     }
 }

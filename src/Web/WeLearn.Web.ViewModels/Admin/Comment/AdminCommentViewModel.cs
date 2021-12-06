@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Admin.Comment

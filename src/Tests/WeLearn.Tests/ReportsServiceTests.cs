@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Repositories;
 using WeLearn.Services;
-using WeLearn.Services.Mapping;
-using WeLearn.Tests.HelperClasses;
 using WeLearn.Web.ViewModels.Admin.Report;
 using WeLearn.Web.ViewModels.Report.Comment;
 using WeLearn.Web.ViewModels.Report.Lesson;
@@ -21,335 +16,349 @@ namespace WeLearn.Tests
 {
     public class ReportsServiceTests
     {
-        private IMapper mapper;
-
-        public ReportsServiceTests()
-        {
-            this.mapper = AutoMapperConfig.MapperInstance;
-            // this.mapper = new MapperConfiguration(cfg => cfg.AddProfile(new MappingProfile())).CreateMapper();
-        }
-
         [Fact]
-        public async Task Should_Succeed_When_ReportIsCreated()
+        public async Task Should_Succeed_When_LessonReportIsCreated()
         {
-            // arrange 
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "customTestSubject";
+            var testDescription = "customDesc123";
+            var testAppUserId = "userId";
+            var testLessonId = 3;
+
+            var model = new LessonReportInputModel
             {
-                new Report
-                {
-                    Id = 1, Subject = "123", Description = "123", ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, this.mapper);
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
 
             // act
-            var model = new LessonReportInputModel()
-            {
-                Subject = "123",
-                ReportDescription = "123",
-                ApplicationUserId = "asd",
-                LessonId = 3
-            };
-            await service.CreateReportAsync(model);
+            await service.CreateLessonReportAsync(model);
+
+            var entity = reportRepository.All().FirstOrDefault(x => x.Subject == testSubject);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            Assert.NotNull(entity);
+            Assert.Equal(testSubject, entity.Subject);
+            Assert.Equal(testDescription, entity.Description);
+            Assert.Equal(testAppUserId, entity.ApplicationUserId);
+            Assert.Equal(testLessonId, entity.LessonId);
         }
 
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsEdited()
         {
-            // arrange 
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testReportDescription = "init";
+            var testAppUserId = "asd123";
+            var testReportId = 1;
+            var testLessonId = 3;
+
+            var model = new LessonReportInputModel()
             {
-                new Report
-                {
-                    Id = 1, Subject = "asd",
-                    Description = "123", 
-                    ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, this.mapper);
+                LessonId = testLessonId,
+                Subject = testSubject,
+                ReportDescription = testReportDescription,
+                ApplicationUserId = testAppUserId,
+            };
 
             // act
-            var model = new LessonReportEditModel()
+            await service.CreateLessonReportAsync(model);
+
+            var expectedSubject = "new";
+            var expectedDescription = "changed";
+
+            var changedModel = new LessonReportEditModel()
             {
-                ReportId = 1,
-                Subject = "dsa",
-                ReportDescription = "123",
-                ApplicationUserId = "asd",
-                LessonId = 3
+                ReportId = testReportId,
+                Subject = expectedSubject,
+                ReportDescription = expectedDescription,
+                LessonId = testLessonId,
             };
-            await service.EditLessonReportAsync(model);
+
+            await service.EditLessonReportAsync(changedModel);
+
+            var entity = reportRepository.All().FirstOrDefault(x => x.Subject == expectedSubject);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            Assert.NotNull(entity);
+            Assert.Equal(testLessonId, entity.LessonId);
+            Assert.Equal(expectedSubject, entity.Subject);
+            Assert.Equal(expectedDescription, entity.Description);
         }
 
         [Fact]
         public async Task Should_Succeed_When_CommentReportIsEdited()
         {
-            // arrange
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testDescription = "init123";
+            var testAppUserId = "asd123";
+            var testReportId = 1;
+            var testCommentId = 3;
+
+            var subjectChanged = "subjChanged123das";
+            var descriptionChanged = "descriptionChanged123das";
+
+            var model = new CommentReportInputModel
             {
-                new Report
-                {
-                    Id = 1, Subject = "dsa", Description = "123", ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, mapper);
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                CommentId = testCommentId
+            };
 
             // act
-            var model = new CommentReportEditModel()
+            await service.CreateCommentReportAsync(model);
+
+            var editModel = new CommentReportEditModel()
             {
                 ReportId = 1,
-                Subject = "dsa",
-                ReportDescription = "123",
-                ApplicationUserId = "asd"
+                Subject = subjectChanged,
+                ReportDescription = descriptionChanged,
+                ApplicationUserId = testAppUserId
             };
-            await service.EditCommentReportAsync(model);
+
+            await service.EditCommentReportAsync(editModel);
+
+            var editedEntity = reportRepository
+                .All()
+                .FirstOrDefault(x => x.Description == descriptionChanged);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            Assert.NotNull(editedEntity);
+            Assert.Equal(subjectChanged, editedEntity.Subject);
+            Assert.Equal(descriptionChanged, editedEntity.Description);
         }
 
         [Fact]
-        public async Task Should_Succeed_When_ReportIsEditedByAdmin()
+        public async Task Should_Succeed_When_LessonReportIsEditedByAdmin()
         {
-            // arrange 
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testDescription = "init123";
+            var testAppUserId = "asd123";
+            var testReportId = 1;
+            var testLessonId = 3;
+
+            var subjectChanged = "subjChanged444";
+            var descriptionChanged = "descriptionChanged555";
+
+            var model = new LessonReportInputModel
             {
-                new Report
-                {
-                    Id = 1,
-                    Subject = "dsa",
-                    Description = "123",
-                    ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, this.mapper);
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
 
             // act
-            var model = new AdminReportEditModel()
+            await service.CreateLessonReportAsync(model);
+
+            var entity = reportRepository.All().FirstOrDefault(x => x.Description == testDescription);
+
+            var editModel = new AdminReportEditModel
                 {
-                    Id = 1,
-                    Subject = "das",
-                    Description = "1223",
-                    ApplicationUserId = "1asd"
+                    Id = entity.Id,
+                    Subject = subjectChanged,
+                    Description = descriptionChanged,
+                    ApplicationUserId = "1asd",
                 };
-            await service.EditReportAdministrationAsync(model);
+
+            await service.EditReportAdministrationAsync(editModel);
+            var editedEntity = reportRepository.All().FirstOrDefault(x => x.Description == descriptionChanged);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            Assert.NotNull(entity);
+            Assert.Equal(descriptionChanged, editedEntity.Description);
+            Assert.Equal(subjectChanged, editedEntity.Subject);
         }
 
         [Fact]
-        public async Task Should_Succeed_When_ReportIsSoftDeletedById()
+        public async Task Should_Succeed_When_LessonReportIsSoftDeletedByAdmin()
         {
-            // arrange
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testDescription = "init123";
+            var testAppUserId = "asd123";
+            var testReportId = 1;
+            var testLessonId = 3;
+
+            var subjectChanged = "subjChanged444";
+            var descriptionChanged = "descriptionChanged555";
+
+            var model = new LessonReportInputModel
             {
-                new Report
-                {
-                    Id = 1, 
-                    Subject = "dsa", 
-                    Description = "123",
-                    ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, this.mapper);
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
 
             // act
-            await service.SoftDeleteReportByIdAsync(1);
+            await service.CreateLessonReportAsync(model);
+
+            var entity = reportRepository.All().FirstOrDefault(x => x.Description == testDescription);
+            var editModel = new AdminReportEditModel
+            {
+                Id = entity.Id,
+                Subject = subjectChanged,
+                Description = descriptionChanged,
+                ApplicationUserId = "1asd",
+                IsDeleted = true,
+            };
+
+            await service.EditReportAdministrationAsync(editModel);
+            var editedEntity = reportRepository.All().FirstOrDefault(x => x.Description == descriptionChanged);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            Assert.NotNull(entity);
+            Assert.Null(editedEntity);
         }
 
         [Fact]
-        public async Task Should_Succeed_When_ReportIsHardDeletedById()
+        public async Task Should_Succeed_When_LessonReportIsSoftDeletedById()
         {
-            // arrange 
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testDescription = "init1237";
+            var testAppUserId = "asd1238";
+            var testReportId = 1;
+            var testLessonId = 3;
+
+            var model = new LessonReportInputModel
             {
-                new Report
-                {
-                    Id = 1,
-                    Subject = "dsa",
-                    Description = "123",
-                    ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-            }.AsQueryable();
-
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, mapper);
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
 
             // act
-            await service.HardDeleteReportByIdAsync(1);
+            await service.CreateLessonReportAsync(model);
+            await service.SoftDeleteReportByIdAsync(testReportId);
+
+            var entities = reportRepository.All();
+            var entitiesWithSoftDeleted = reportRepository.AllWithDeleted();
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            Assert.Equal(0, entities.Count());
+            Assert.Single(entitiesWithSoftDeleted);
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_LessonReportIsHardDeletedById()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testDescription = "init123";
+            var testAppUserId = "asd1239";
+            var testReportId = 1;
+            var testLessonId = 3;
+
+            var model = new LessonReportInputModel
+            {
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
+
+            // act
+            await service.CreateLessonReportAsync(model);
+            await service.HardDeleteReportByIdAsync(testReportId);
+
+            var entities = reportRepository.All();
+            var entitiesWithSoftDeleted = reportRepository.AllWithDeleted();
+
+            // assert
+            Assert.Equal(0, entities.Count());
+            Assert.Equal(0, entitiesWithSoftDeleted.Count());
         }
 
         [Fact]
         public async Task Should_Succeed_When_AllReportsAreRetrieved()
         {
-            // arrange 
-            var data = new List<Report>
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            var service = new ReportsService(reportRepository);
+
+            var testSubject = "subjectOne";
+            var testDescription = "init1230";
+            var testAppUserId = "asd1230";
+            var testReportId = 1;
+            var testLessonId = 3;
+
+            var modelOne = new LessonReportInputModel
             {
-                new Report
-                {
-                    Id = 1,
-                    Subject = "asd",
-                    Description = "123",
-                    ApplicationUserId = "asd",
-                    LessonId = 3
-                },
-                new Report
-                {
-                    Id = 2, Subject = "asd",
-                    Description = "1233",
-                    ApplicationUserId = "as4d",
-                    LessonId = 3
-                },
-            }.AsQueryable();
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
 
-            Mock<DbSet<Report>> mockSet = new Mock<DbSet<Report>>();
-
-            mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Report>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Report>(data.Provider));
-
-            mockSet.As<IQueryable<Report>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Report>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Reports).Returns(mockSet.Object);
-
-            var service = new ReportsService(mockContext.Object, this.mapper);
+            var modelTwo = new LessonReportInputModel
+            {
+                Subject = testSubject,
+                ReportDescription = testDescription,
+                ApplicationUserId = testAppUserId,
+                LessonId = testLessonId
+            };
 
             // act
-            var reports = await service.GetAllReportsAsync<CommentReportViewModel>(null);
+            await service.CreateLessonReportAsync(modelOne);
+            await service.CreateLessonReportAsync(modelTwo);
 
             // assert
-            Assert.Equal(2, reports.Count());
+            var entities = reportRepository.All();
+            Assert.Equal(2, entities.Count());
         }
     }
 }

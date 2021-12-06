@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Comment;
 using WeLearn.Web.ViewModels.Lesson;
@@ -15,37 +17,40 @@ namespace WeLearn.Services
 {
     public class ViewComponentsService : IViewComponentsService
     {
-        private readonly ApplicationDbContext context;
-        private readonly IMapper mapper;
+        private readonly IRepository<Comment> commentRepository;
+        private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<Lesson> lessonRepository;
+        private readonly IRepository<ApplicationUser> appUserRepository;
 
-        public ViewComponentsService(ApplicationDbContext context, IMapper mapper)
+        public ViewComponentsService(
+            IRepository<Comment> commentRepository,
+            IRepository<Category> categoryRepository,
+            IRepository<Lesson> lessonRepository,
+            IRepository<ApplicationUser> appUserRepository)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.commentRepository = commentRepository;
+            this.categoryRepository = categoryRepository;
+            this.lessonRepository = lessonRepository;
+            this.appUserRepository = appUserRepository;
         }
 
         public async Task<IEnumerable<CommentViewModel>> GetCommentsAsync(int lessonId)
-        {
-            Comment[] comments = await this.context.Comments
+            => await this.commentRepository
+                .All()
                 .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
                 .Include(x => x.ApplicationUser)
                 .OrderByDescending(x => x.CreatedOn)
+                .To<CommentViewModel>()
                 .ToArrayAsync();
-
-            // .То<CommentViewModel>()
-
-            CommentViewModel[] commentViewModels = this.mapper.Map<CommentViewModel[]>(comments);
-            return commentViewModels;
-        }
 
         public LessonsNavigationDropdownModel GenerateDropdownModel()
             => new LessonsNavigationDropdownModel
                 {
-                    Categories = this.mapper.Map<CategoryViewModel[]>(this.context.Categories.ToArray()),
-                    Lessons = this.mapper.Map<LessonViewModel[]>(this.context.Lessons.ToArray()),
+                    Categories = this.categoryRepository.All().To<CategoryViewModel>().ToArray(),
+                    Lessons = this.lessonRepository.All().To<LessonViewModel>().ToArray(),
                 };
 
         public async Task<int> GetUsersCount()
-            => await this.context.Users.CountAsync();
+            => await this.appUserRepository.All().CountAsync();
     }
 }

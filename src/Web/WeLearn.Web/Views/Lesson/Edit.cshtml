@@ -21,8 +21,9 @@
             </div>
         </div>
         <div class="text-center">
-            <h3 class="mt-2">Editing lesson #@Model.LessonId</h3>
+            <h3 class="mt-3">Editing lesson #@Model.LessonId</h3>
             <hr />
+
             <form asp-controller="Lesson" asp-action="Edit" method="post" enctype="multipart/form-data">
                 <input type="hidden" value="@Model.LessonId" asp-for="@Model.LessonId" class="form-control" />
                 <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
@@ -38,7 +39,10 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="@Model.CategoryId" class="control-label"></label>
-                    <select asp-for="@Model.CategoryId" asp-items="@ViewBag.CategoryId" class="form-control"></select>
+                    <select asp-for="@Model.CategoryId"
+                        asp-items="Model.Categories.Select(x => new SelectListItem(x.Name, x.Id.ToString()))"
+                        class="form-control">
+                    </select>
                     <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">

@@ -17,7 +17,8 @@
                                 @*<h5 class="card-title">Light card title</h5>*@
                                 <p class="card-text mb-2">
                                     <a asp-controller="Message" asp-action="To" asp-route-correspondent="@privateMessage.OtherCorrespondent" class="no-underline">
-                                        @privateMessage.Text.Truncate(60)
+                                        @* @privateMessage.Text.Truncate(60) *@
+                                        @* todo: check how to include truncate method *@
                                     </a>
                                 </p>
                                 <small class="text-muted">

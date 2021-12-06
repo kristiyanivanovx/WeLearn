@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.Enums;
 
@@ -8,8 +10,12 @@ using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 namespace WeLearn.Data.Models
 {
     public class Lesson : BaseDeletableModel<int>
-        //SoftDeleteable, IMetadataHaveable
     {
+        public Lesson()
+        {
+            this.Likes = new HashSet<Like>();
+        }
+
         [Required]
         [MaxLength(MaxNameLength)]
         public string Name { get; set; }
@@ -27,6 +33,8 @@ namespace WeLearn.Data.Models
 
         public Grade Grade { get; set; }
 
+        public ICollection<Like> Likes { get; set; }
+
         public string ApplicationUserId { get; set; }
 
         [Display(Name = "User")]
@@ -39,8 +47,5 @@ namespace WeLearn.Data.Models
         public int MaterialId { get; set; }
 
         public Material Material { get; set; }
-
-        // [Display(Name = "Date created")]
-        // public DateTime DateCreated { get; set; }
     }
 }

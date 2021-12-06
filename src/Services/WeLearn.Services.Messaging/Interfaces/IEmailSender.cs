@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace WeLearn.Services.Interfaces
+namespace WeLearn.Services.Messaging.Interfaces
 {
     public interface IEmailSender
     {

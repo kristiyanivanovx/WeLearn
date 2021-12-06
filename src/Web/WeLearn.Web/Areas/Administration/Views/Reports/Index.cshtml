@@ -88,8 +88,8 @@
                         {
                             <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
                         }
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
+                        <a asp-area="Administration" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
+                        <a asp-area="Administration" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
                     </td>
                 </tr>
             }

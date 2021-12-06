@@ -1,5 +1,6 @@
 ﻿using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Home;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
@@ -29,7 +30,7 @@ namespace WeLearn.Services
                 };
 
         public IndexViewModel GenerateIndexViewModel()
-            => new IndexViewModel()
+            => new IndexViewModel
                 {
                     CategoriesCount = this.categoriesService.GetAllCategoriesCount(),
                     UsersCount = this.userService.GetAllUsersCount(),

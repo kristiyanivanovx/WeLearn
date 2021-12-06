@@ -3,18 +3,16 @@ using System.Threading.Tasks;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Messaging.Interfaces;
 
-namespace WeLearn.Services
+namespace WeLearn.Services.Messaging
 {
     public class SendGridEmailService : IEmailSender
     {
         private readonly SendGridClient client;
 
         public SendGridEmailService(string apiKey)
-        {
-            this.client = new SendGridClient(apiKey);
-        }
+            => this.client = new SendGridClient(apiKey);
 
         public async Task SendEmailAsync(string from, string to, string subject, string content, bool isContentHtml)
         {

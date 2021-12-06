@@ -1,79 +1,102 @@
 ﻿@model WeLearn.Web.ViewModels.Lesson.LessonSendEmailViewModel
 @{
-	ViewData["Title"] = $"Send lesson #{Model.LessonId} to email";
+    ViewData["Title"] = $"Send lesson #{Model.LessonId} to email";
 }
 
 <div class="container">
-	<div class="text-center">
-		<h3>Are you sure that you want to send this lesson to your email?</h3>
-		<hr />
-		<form asp-controller="Lesson" asp-action="Send" asp-route-id="@Model.LessonId" method="post" class="mb-3">
-			<div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center form-group">
-				<input asp-for="LessonId" type="hidden" />
-				<input asp-for="Name" type="hidden" />
-				<input asp-for="ApplicationUserUserName" type="hidden" />
-				<input asp-for="VideoName" type="hidden" />
-				<input asp-for="VideoLink" type="hidden" />
-				<input asp-for="MaterialLink" type="hidden" />
-				<input asp-for="VideoContentType" type="hidden" />
-				<input asp-for="CategoryName" type="hidden" />
-				<input asp-for="Grade" type="hidden" />
-				<input asp-for="CreatedOn" type="hidden" />
+    <div class="text-center">
+        <h3>Are you sure that you want to send this lesson to your email?</h3>
+        <hr/>
+        <form asp-controller="Lesson" asp-action="Send" asp-route-id="@Model.LessonId" method="post" class="mb-3">
+            <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center form-group">
+                <input asp-for="LessonId" type="hidden"/>
+                <input asp-for="Name" type="hidden"/>
+                <input asp-for="ApplicationUserUserName" type="hidden"/>
+                <input asp-for="VideoName" type="hidden"/>
+                <input asp-for="VideoLink" type="hidden"/>
+                <input asp-for="MaterialLink" type="hidden"/>
+                <input asp-for="VideoContentType" type="hidden"/>
+                <input asp-for="CategoryName" type="hidden"/>
+                <input asp-for="Grade" type="hidden"/>
+                <input asp-for="CreatedOn" type="hidden"/>
 
-				<input asp-for="Email" placeholder="Email" class="form-control" />
-				<span asp-validation-for="Email" class="text-danger"></span>
-			</div>
-			<input class="btn btn-sm btn-outline-primary" type="submit" value="Send" />
-			<a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
-				Cancel
-			</a>
-		</form>
-	</div>
-	<div class="card mb-3 card-style-80-rem">
-		<video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
-			<source src="@Model.VideoLink" type="@Model.VideoContentType" />
-			<a href="@Model.VideoLink" download>Download</a>
-		</video>
-		<div class="card-body ">
-			<h5 class="card-title">@Model.Name</h5>
-			<hr />
-			<p class="card-text mb-1">@Model.Description</p>
-			<p class="card-text mb-3">
-				@{ var createdBy = Model.ApplicationUserUserName == null ? "Deleted User" : Model.ApplicationUserUserName; }
-				<small class="text-muted">Created by - @createdBy | </small>
-				<small class="text-muted">Category - @Model.CategoryName | </small>
-				<small class="text-muted">Grade - @Model.Grade | </small>
-				<small class="text-muted">Date created - <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></small>
-			</p>
-			@if (User.Identity.Name == Model.ApplicationUserUserName)
-			{
-				<a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success">
-					<i class="fas fa-edit"></i> Edit
-				</a>
-				<a asp-controller="Lesson" asp-action="Delete" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-danger">
-					<i class="fas fa-trash-alt"></i> Delete
-				</a>
-			}
-			<a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info">
-				<i class="fas fa-arrow-down"></i> Download Resources
-			</a>
-			<a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning">
-				<i class="far fa-flag"></i> Report
-			</a>
-		</div>
-	</div>
-	@await Component.InvokeAsync("AllComments", new { lessonId = Model.LessonId })
+                <input asp-for="Email" placeholder="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <input class="btn btn-sm btn-outline-primary" type="submit" value="Send"/>
+            <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
+                Cancel
+            </a>
+        </form>
+    </div>
+    <div class="card mb-3 card-style-80-rem">
+        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
+            <source src="@Model.VideoLink" type="@Model.VideoContentType"/>
+            <a href="@Model.VideoLink" download>Download</a>
+        </video>
+  
+        <div class="card-body text-center ">
+            <h5 class="card-title">@Model.Name</h5>
+            <hr/>
+            <p class="card-text mb-1">@Model.Description</p>
+                    
+            @{ var createdBy = Model.ApplicationUserUserName ?? "Deleted User"; }
+            <form id="likesForm" method="post"></form>
+            <div class="text-muted">
+                <small>Likes - <span id="likesCount">@Model.LikesCount</span></small>
+            </div>
+            <div class="text-muted">
+                <small>
+                    Created by - @createdBy
+                </small>
+            </div>
+            <div class="text-muted">
+                <small>
+                    Category - @Model.CategoryName
+                </small>
+            </div>
+            <div class="text-muted">
+                <small>
+                    Grade - @Model.Grade
+                </small>
+            </div>
+            <div class="text-muted mb-3">
+                <small>
+                    Date created - <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time>
+                </small>
+            </div>
+            <a onclick="toggleLike(@Model.LessonId)" class="btn btn-sm btn-like mb-1">
+            	<i class="far fa-heart"></i> Like
+            </a>
+            @if (User.Identity?.Name == Model.ApplicationUserUserName)
+            {
+                <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success mb-1">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a asp-controller="Lesson" asp-action="Delete" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-danger mb-1">
+                    <i class="fas fa-trash-alt"></i> Delete
+                </a>
+            }
+            <a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info mb-1">
+                <i class="fas fa-arrow-down"></i> Download Resources
+            </a>
+            <a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning mb-1">
+                <i class="far fa-flag"></i> Report
+            </a>
+        </div>
+    </div>
+    @await Component.InvokeAsync("AllComments", new {lessonId = Model.LessonId})
 
-	<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
 </div>
 
 @* todo: find a way to add padding/margin *@
-<br />
+<br/>
 
 @section Scripts {
-	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
-	<script src="https://unpkg.com/plyr@3"></script>
-	<script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+    <script>
         const player = new Plyr('#player');
         window.player = player;
 	</script>

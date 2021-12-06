@@ -1,162 +1,159 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Microsoft.EntityFrameworkCore;
+using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
+using WeLearn.Data.Repositories;
 using WeLearn.Services;
-using WeLearn.Tests.HelperClasses;
 using Xunit;
 
 namespace WeLearn.Tests
 {
     public class ChatServiceTests
-	{
+    {
         [Fact]
         public async Task Should_Succeed_When_MessageIsCreated()
         {
-            // arrange 
-            var data = new List<Message>
-            {
-                new Message { Id = 1, Name = "Cdsa", Text = "123", ChatId = 1 },
-                new Message { Id = 2, Name = "Cdsa2", Text = "1233",  ChatId = 1 },
-            }.AsQueryable();
+            // arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            Mock<DbSet<Message>> mockSet = new Mock<DbSet<Message>>();
+            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
+            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
-            mockSet.As<IAsyncEnumerable<Message>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Message>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Message>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Message>(data.Provider));
-
-            mockSet.As<IQueryable<Message>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Message>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Message>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Messages).Returns(mockSet.Object);
-
-            var service = new ChatService(mockContext.Object);
+            var message = "asd";
+            var userName = "123";
 
             // act
-            await service.CreateMessageAsync(1, "asd", "123");
+            await service.CreateMessageAsync(1, message, userName);
+            var createdMessage = messageRepository.All().Where(x => x.Text == message && x.Name == userName);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Once());
+            Assert.Single(messageRepository.All());
+            Assert.NotNull(createdMessage);
         }
 
         [Fact]
         public async Task Should_Succeed_When_RoomIsCreated()
         {
-            // arrange 
-            var data = new List<Chat>
-            {
-                new Chat { Id = 1, Name = "Cdsa", CreatedOn = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", CreatedOn = DateTime.Now  },
-            }.AsQueryable();
+            // arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
+            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
+            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
-            mockSet.As<IAsyncEnumerable<Chat>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Chat>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Chat>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Chat>(data.Provider));
-
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Chats).Returns(mockSet.Object);
-
-            var service = new ChatService(mockContext.Object);
+            var roomName = "Room 1";
+            var userId = "123";
 
             // act
-            await service.CreateRoomAsync("asd", "123");
+            await service.CreateRoomAsync(roomName, userId);
+
+            var chats = await service.GetAllChatsAsync();
+            var chat = chats.FirstOrDefault(x => x.Name == roomName);
+            var userBelongsToChat = chat?.ChatApplicationUsers.Any(x => x.ApplicationUserId == userId);
 
             // assert
-            mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Once());
+            Assert.NotNull(chat);
+            Assert.True(userBelongsToChat);
         }
 
         [Fact]
-        public void Should_Succeed_When_ChatIsRetrieved()
+        public async Task Should_Succeed_When_ChatIsRetrieved()
         {
-            // arrange 
-            var data = new List<Chat>
-            {
-                new Chat { Id = 1, Name = "Cdsa", CreatedOn = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", CreatedOn = DateTime.Now  },
-            }.AsQueryable();
+            // arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
+            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
+            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
-            mockSet.As<IAsyncEnumerable<Chat>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Chat>(data.GetEnumerator()));
-
-            mockSet.As<IQueryable<Chat>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Chat>(data.Provider));
-
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Chats).Returns(mockSet.Object);
-
-            var service = new ChatService(mockContext.Object);
+            var roomName = "Room 1";
+            var userId = "123";
 
             // act
-            Chat chat = service.GetChat(2);
+            await service.CreateRoomAsync(roomName, userId);
+            var createdChats = await service.GetAllChatsAsync();
+            var createdChat = createdChats.FirstOrDefault(x => x.Name == roomName);
+
+            var chat = service.GetChat(createdChat.Id);
+
+            // assert
+            Assert.NotNull(chat);
+            Assert.Equal(roomName, chat.Name);
+            Assert.Empty(chat.Messages);
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_ChatsAreRetrievedByExcludingUserId()
+        {
+            // arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
+
+            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
+            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
+
+            var roomName = "Room 1";
+            var userId = "123";
+
+            var userIdTwo = "2";
+
+            // act
+            await service.CreateRoomAsync(roomName, userId);
+            var chat = service.GetChats(userIdTwo);
 
             // assert
             Assert.NotNull(chat);
         }
 
         [Fact]
-        public async Task Should_Succeed_When_ChatsAreRetrievedByType()
+        public async Task Should_Succeed_When_ChatIsJoined()
         {
-            // arrange 
-            var data = new List<Chat>
-            {
-                new Chat { Id = 1, Name = "Cdsa",  CreatedOn = DateTime.Now },
-                new Chat { Id = 2, Name = "Cdsa2", CreatedOn = DateTime.Now  },
-            }.AsQueryable();
+            // arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            Mock<DbSet<Chat>> mockSet = new Mock<DbSet<Chat>>();
+            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
+            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
-            mockSet.As<IAsyncEnumerable<Chat>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Chat>(data.GetEnumerator()));
+            var roomName = "Room 1";
+            var userId = "123";
 
-            mockSet.As<IQueryable<Chat>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Chat>(data.Provider));
-
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Chat>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Chats).Returns(mockSet.Object);
-
-            var service = new ChatService(mockContext.Object);
+            var userIdTwo = "2";
 
             // act
-            var chats = await service.GetAllChats();
+            await service.CreateRoomAsync(roomName, userId);
+            var chat = service.GetChats(userIdTwo).FirstOrDefault(x => x.Name == roomName);
+
+            await service.JoinRoomAsync(chat.Id, userIdTwo);
+
+            var userHasJoined = chatAppUserRepository
+                .All()
+                .Any(x => x.ApplicationUserId == userIdTwo && x.ChatId == chat.Id);
 
             // assert
-            Assert.Equal(2, chats.Count());
+            Assert.True(userHasJoined);
         }
     }
 }

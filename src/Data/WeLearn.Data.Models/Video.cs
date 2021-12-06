@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
 namespace WeLearn.Data.Models
 {
-    public class Video : BaseDeletableModel<int> // SoftDeleteable, IMetadataHaveable
+    public class Video : BaseDeletableModel<int>
     {
         [Required]
         [MaxLength(MaxNameLength)]

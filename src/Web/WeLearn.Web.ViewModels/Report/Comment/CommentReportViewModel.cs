@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Services.Mapping;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Comment
@@ -13,6 +15,8 @@ namespace WeLearn.Web.ViewModels.Report.Comment
         public int ReportId { get; set; }
 
         public string CommentApplicationUserUserName { get; set; }
+
+        public int LessonLikesCount { get; set; }
 
         public string CommentContent { get; set; }
 
@@ -42,7 +46,6 @@ namespace WeLearn.Web.ViewModels.Report.Comment
                 .ForMember(
                     dest => dest.ReportDescription,
                     opt => opt.MapFrom(src => src.Description));
-
         }
     }
 }

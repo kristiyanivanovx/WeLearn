@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
-using WeLearn.Services;
-using System.Collections.Generic;
-using WeLearn.Web.ViewModels.HelperModels;
+using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin.Report;
+using WeLearn.Web.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -21,7 +22,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             IEnumerable<AdminReportViewModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportViewModel>(searchString);
             var paginated = PaginatedList<AdminReportViewModel>.Create(reports.OrderByDescending(x => x.Id), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
-            return View(paginated);
+
+            return this.View(paginated);
         }
 
         [HttpGet]
@@ -29,19 +31,19 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             IEnumerable<AdminReportEditModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportEditModel>();
             AdminReportEditModel report = reports.FirstOrDefault(x => x.Id == id);
-            return View(report);
+            return this.View(report);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(AdminReportEditModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
             await this.reportsService.EditReportAdministrationAsync(model);
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]
@@ -49,14 +51,15 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             IEnumerable<AdminReportDeleteModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportDeleteModel>();
             AdminReportDeleteModel report = reports.FirstOrDefault(x => x.Id == id);
-            return View(report);
+            return this.View(report);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this.reportsService.HardDeleteReportByIdAsync(id);
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

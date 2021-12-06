@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using System.Collections.Generic;
 using WeLearn.Web.ViewModels.Comment;
 
 namespace WeLearn.Web.ViewComponents
@@ -16,7 +17,7 @@ namespace WeLearn.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync(int lessonId)
         {
             IEnumerable<CommentViewModel> commentViewModels = await this.viewComponentsService.GetCommentsAsync(lessonId);
-            return View(commentViewModels);
+            return this.View(commentViewModels);
         }
     }
 }

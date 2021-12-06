@@ -11,10 +11,11 @@
             <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
         </div>
     </form>
-    @if (Model.Count() == 0)
+    @if (!Model.Any())
     {
-        <h1 class="display-4 text-center">You don't have any lessons yet.</h1>
+        <h5 class="display-4 text-center">You don't have any lessons yet.</h5>
         <hr />
+        <h4 class="text-center">If you have recently submitted one, it needs to be approved by administrators first.</h4>
     }
     else
     {

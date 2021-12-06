@@ -12,12 +12,16 @@
                     <source src="@Model.LessonVideoLink" type="@Model.VideoContentType" />
                     <a href="@Model.LessonVideoLink" download>Download</a>
                 </video>
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h5 class="card-title">@Model.LessonName</h5>
                     <hr />
+                    
                     <p class="card-text mb-2">@Model.LessonDescription</p>
-                    <p class="card-text">
-                        @{ var createdBy = Model.LessonApplicationUserUserName == null ? "Deleted User" : Model.LessonApplicationUserUserName; }
+                    <div class="card-text">
+                        @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
+                        <div>
+                            <small class="text-muted">Likes - @Model.LessonLikesCount</small>
+                        </div>
                         <div>
                             <small class="text-muted">Created by - @createdBy</small>
                         </div>
@@ -32,7 +36,7 @@
                                 <time datetime="@Model.LessonCreatedOn.ToString("O")">@Model.LessonCreatedOn.ToString("g")</time>
                             </small>
                         </div>
-                    </p>
+                    </div>
                     <div class="mt-3">
                         <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
                             <i class="fas fa-info"></i> Details
@@ -42,7 +46,8 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-body">
+                
+                <div class="card-body text-center">
                     <h5>Report Details</h5>
                     <hr />
                     <form asp-controller="Report" asp-action="LessonEdit" method="post">

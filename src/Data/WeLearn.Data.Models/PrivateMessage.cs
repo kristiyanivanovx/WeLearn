@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 using static WeLearn.Data.Common.Validation.DataValidation.PrivateMessage;
 
 namespace WeLearn.Data.Models
 {
-    public class PrivateMessage : BaseDeletableModel<int> //Identifiable, IMetadataHaveable
+    public class PrivateMessage : BaseDeletableModel<int> // Identifiable, IMetadataHavable
     {
         [Required]
         [MaxLength(MaxMessageLength)]

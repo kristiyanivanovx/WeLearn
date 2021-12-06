@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using WeLearn.Data.Models;
 
 namespace WeLearn.Services.Interfaces
@@ -13,7 +14,7 @@ namespace WeLearn.Services.Interfaces
         Task<IEnumerable<T>> GetAllUsersAsync<T>(string searchString);
 
         Task ToggleAdminRoleAsync(string userId);
-        
+
         Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId);
 
         Task<T> GetUserByIdAsync<T>(string userId);

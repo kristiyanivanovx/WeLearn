@@ -1,4 +1,5 @@
 ﻿using System;
+
 using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Common.Models;
 
@@ -14,8 +15,9 @@ namespace WeLearn.Data.Models
         public ApplicationRole(string name)
             : base(name)
         {
+            this.Id = Guid.NewGuid().ToString();
         }
-        
+
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

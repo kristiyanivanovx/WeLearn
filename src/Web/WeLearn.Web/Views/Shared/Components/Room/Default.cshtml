@@ -10,7 +10,7 @@
             </a>
         </div>
     }
-    @if (Model.Count() == 0)
+    @if (!Model.Any())
     {
         <div>
             <h5>We don't have any chats yet.</h5>

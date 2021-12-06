@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 
 using WeLearn.Data.Models;
-using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.ViewModels.Admin.Lesson;
 using WeLearn.Web.ViewModels.Interfaces;
 using WeLearn.Web.ViewModels.Lesson;
@@ -15,11 +14,11 @@ namespace WeLearn.Services.Interfaces
 
         Task<T> GetLessonByIdAsync<T>(int id);
 
-        Task<T> GetLessonByIdAdministrationAsync<T>(int id);
+        Task<T> GetLessonByIdWithDeletedAsync<T>(int id);
 
         Task<IEnumerable<T>> GetAllLessonsAsync<T>(string categoryName = null);
 
-        Task<IEnumerable<T>> GetAllLessonsAdministrationAsync<T>(string categoryName = null);
+        Task<IEnumerable<T>> GetAllLessonsWithDeletedAsync<T>(string categoryName = null);
 
         Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
 
@@ -29,7 +30,7 @@ namespace WeLearn.Web.ViewModels.Admin.Lesson
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
-        
+
         [Display(Name = "Is approved")]
         public bool IsApproved { get; set; }
 

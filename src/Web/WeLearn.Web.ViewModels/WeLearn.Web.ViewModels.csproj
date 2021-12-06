@@ -5,6 +5,13 @@
         <RootNamespace>WeLearn.Web.ViewModels</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="..\..\stylecop.json" />
+    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.6" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
@@ -13,7 +20,7 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
-    
+ 
     <ItemGroup>
       <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
       <ProjectReference Include="..\..\Services\WeLearn.Services.Mapping\WeLearn.Services.Mapping.csproj" />

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WeLearn.Services;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
-using System.Collections.Generic;
 using WeLearn.Web.ViewModels.Report.Comment;
 using WeLearn.Web.ViewModels.Report.Lesson;
 
@@ -29,8 +29,8 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
-            IEnumerable<LessonReportViewModel> myReports = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
-            return View(myReports);
+            IEnumerable<LessonReportViewModel> lessonReportsByMe = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
+            return View(lessonReportsByMe);
         }
 
         [HttpGet]
@@ -45,15 +45,15 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(LessonReportInputModel lessonReportModel)
         {
-            lessonReportModel.ApplicationUserId = GetUserId();
+            lessonReportModel.ApplicationUserId = this.GetUserId();
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View();
+                return this.View();
             }
 
-            await this.reportsService.CreateReportAsync<LessonReportInputModel>(lessonReportModel);
-            return RedirectToAction(nameof(LessonsByMe));
+            await this.reportsService.CreateLessonReportAsync(lessonReportModel);
+            return this.RedirectToAction(nameof(this.LessonsByMe));
         }
 
         [HttpGet]
@@ -106,15 +106,15 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            IEnumerable<CommentReportViewModel> myReports = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
-            return View(myReports);
+            IEnumerable<CommentReportViewModel> commentReportsByMe = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
+            return View(commentReportsByMe);
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Comment(int id)
         {
-            CommentReportInputModel lessonToReport = await this.commentsService.GetCommentByIdAsync<CommentReportInputModel>(id);
+            CommentReportInputModel lessonToReport = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentReportInputModel>(id);
             return View(lessonToReport);
         }
 
@@ -124,12 +124,12 @@ namespace WeLearn.Web.Controllers
         {
             commentReportModel.ApplicationUserId = GetUserId();
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View();
+                return this.View();
             }
 
-            await this.reportsService.CreateReportAsync<CommentReportInputModel>(commentReportModel);
+            await this.reportsService.CreateCommentReportAsync(commentReportModel);
             return RedirectToAction(nameof(CommentsByMe));
         }
 

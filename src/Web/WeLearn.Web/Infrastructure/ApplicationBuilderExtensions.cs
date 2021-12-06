@@ -15,12 +15,12 @@ namespace WeLearn.Web.Infrastructure
     {
         public static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
             => app.UseEndpoints(endpoints =>
-                {
-                    endpoints.MapHub<ChatHub>("/chatHub");
-                    endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Manage}/{action=Index}/{id?}");
-                    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                    endpoints.MapRazorPages();
-                });
+            {
+                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Manage}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
 
         public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
         {
@@ -31,11 +31,20 @@ namespace WeLearn.Web.Infrastructure
             return app;
         }
 
-      
-
-        public static IApplicationBuilder SeedHangfireJobs(this IApplicationBuilder app, IRecurringJobManager recurringJobManager, ApplicationDbContext applicationDbContext)
+        public static IApplicationBuilder SeedData(
+            this IApplicationBuilder app,
+            UserManager<ApplicationUser> userManager,
+            RoleManager<ApplicationRole> roleManager)
         {
-            recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.WorkAsync(), Cron.Weekly());
+            ApplicationDbInitializer.SeedData(userManager, roleManager);
+            return app;
+        }
+
+        public static IApplicationBuilder SeedHangfireJobs(
+            this IApplicationBuilder app,
+            IRecurringJobManager recurringJobManager)
+        {
+            recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.WorkAsync(), Cron.Monthly());
             return app;
         }
 

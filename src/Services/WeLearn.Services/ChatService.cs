@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Services.Interfaces;
 
@@ -12,10 +12,19 @@ namespace WeLearn.Services
 {
     public class ChatService : IChatService
     {
-        private readonly ApplicationDbContext context;
+        private readonly IRepository<Chat> chatRepository;
+        private readonly IRepository<ChatApplicationUser> chatAppUserRepository;
+        private readonly IRepository<Message> messageRepository;
 
-        public ChatService(ApplicationDbContext context)
-            => this.context = context;
+        public ChatService(
+            IRepository<Chat> chatRepository,
+            IRepository<ChatApplicationUser> chatAppUserRepository,
+            IRepository<Message> messageRepository)
+        {
+            this.chatRepository = chatRepository;
+            this.chatAppUserRepository = chatAppUserRepository;
+            this.messageRepository = messageRepository;
+        }
 
         public async Task<Message> CreateMessageAsync(int chatId, string message, string userName)
         {
@@ -24,11 +33,11 @@ namespace WeLearn.Services
                 ChatId = chatId,
                 Text = message,
                 Name = userName,
-                
+                CreatedOn = DateTime.UtcNow,
             };
 
-            this.context.Messages.Add(messageModel);
-            await this.context.SaveChangesAsync();
+            await this.messageRepository.AddAsync(messageModel);
+            await this.messageRepository.SaveChangesAsync();
 
             return messageModel;
         }
@@ -46,21 +55,24 @@ namespace WeLearn.Services
                 ApplicationUserId = userId,
             });
 
-            this.context.Chats.Add(chat);
-            await this.context.SaveChangesAsync();
+            await this.chatRepository.AddAsync(chat);
+            await this.chatRepository.SaveChangesAsync();
         }
 
         public Chat GetChat(int id)
-            => this.context.Chats
+            => this.chatRepository
+                .All()
                 .Include(x => x.Messages)
                 .FirstOrDefault(x => x.Id == id);
 
-        public async Task<List<Chat>> GetAllChats()
-            => await this.context.Chats
+        public async Task<List<Chat>> GetAllChatsAsync()
+            => await this.chatRepository
+                .All()
                 .ToListAsync();
 
         public IEnumerable<Chat> GetChats(string userId)
-            => this.context.Chats
+            => this.chatRepository
+                .All()
                 .Include(x => x.ChatApplicationUsers)
                 .Where(x => x.ChatApplicationUsers.All(y => y.ApplicationUserId != userId))
                 .ToList();
@@ -73,8 +85,8 @@ namespace WeLearn.Services
                 ApplicationUserId = userId,
             };
 
-            this.context.ChatApplicationUsers.Add(chatUser);
-            await this.context.SaveChangesAsync();
+            await this.chatAppUserRepository.AddAsync(chatUser);
+            await this.chatAppUserRepository.SaveChangesAsync();
         }
     }
 }

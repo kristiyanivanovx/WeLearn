@@ -11,12 +11,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WeLearn.Data;
+using WeLearn.Data.Common;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
-using WeLearn.Data.Seeding;
 
+using WeLearn.Data.Repositories;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
+using WeLearn.Services.Messaging;
+using WeLearn.Services.Messaging.Interfaces;
 using WeLearn.Web.Infrastructure;
 using WeLearn.Web.ViewModels;
 
@@ -43,30 +47,36 @@ namespace WeLearn.Web
             services.AddSignalR();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                   options.UseNpgsql(
-                       this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
+                options.UseNpgsql(this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequiredLength = 6;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-            })
-            .AddRoles<ApplicationRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddRazorPages();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            })
-            .AddRazorRuntimeCompilation();
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                })
+                .AddRazorRuntimeCompilation();
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
+
+            services.AddSingleton(this.Configuration);
+
+            // Data repositories
+            services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped<IDbQueryRunner, DbQueryRunner>();
+
+            // Application services
             services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<IChatService, ChatService>();
-            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IUsersService, ApplicationUsersService>();
             services.AddTransient<ILessonsService, LessonsService>();
             services.AddTransient<IReportsService, ReportsService>();
             services.AddTransient<IInputOutputService, InputOutputService>();
@@ -81,7 +91,8 @@ namespace WeLearn.Web
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthenticationSection = this.Configuration.GetSection("Authentication:Google");
+                    IConfigurationSection googleAuthenticationSection =
+                        this.Configuration.GetSection("Authentication:Google");
                     options.ClientId = googleAuthenticationSection["ClientId"];
                     options.ClientSecret = googleAuthenticationSection["ClientSecret"];
                 });
@@ -101,15 +112,9 @@ namespace WeLearn.Web
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            // app.MigrateDatabase();
-            using (var serviceScope = app.ApplicationServices.CreateScope())
-            {
-                ApplicationDbContext dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                dbContext.Database.Migrate();
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            }
+            app.MigrateDatabase();
+            app.SeedData(userManager, roleManager);
 
-            // app.SeedData(userManager, roleManager);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -129,7 +134,7 @@ namespace WeLearn.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.SeedHangfireJobs(recurringJobManager, applicationDbContext);
+            app.SeedHangfireJobs(recurringJobManager);
             app.UseHangfire();
 
             app.UseEndpoints();

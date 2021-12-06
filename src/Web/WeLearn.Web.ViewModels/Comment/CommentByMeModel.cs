@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Comment
@@ -11,6 +13,8 @@ namespace WeLearn.Web.ViewModels.Comment
         public int Id { get; set; }
 
         public int LessonId { get; set; }
+
+        public int LessonLikesCount { get; set; }
 
         [Display(Name = "Content")]
         [Required(ErrorMessage = "Please, provide content between 0 and 1000 characters.")]

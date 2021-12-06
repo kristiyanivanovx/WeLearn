@@ -1,15 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Interfaces;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
-    public class LessonInputModel : ILessonModel, IMapTo<Data.Models.Lesson>, IHaveCustomMappings
+    public class LessonInputModel : IMapTo<Data.Models.Lesson>,
+
+        // IMapFrom not necessary
+        IMapFrom<Data.Models.Lesson>,
+        IHaveCustomMappings, ILessonModel
     {
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Please add name.")]
@@ -31,12 +38,13 @@ namespace WeLearn.Web.ViewModels.Lesson
         [Required(ErrorMessage = "Please provide a video.")]
         public IFormFile Video { get; set; }
 
-        [Required(ErrorMessage = "Please provide one or more files, related to the lesson.")]
+        [Required(ErrorMessage = "Please provide one or more files related to the lesson.")]
         public IEnumerable<IFormFile> Files { get; set; }
+
+        public IEnumerable<CategoryViewModel> Categories { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            // CreateMap<LessonInputModel, Lesson>()
             configuration.CreateMap<LessonInputModel, Data.Models.Lesson>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.LessonName))
                 .ForMember(dest => dest.ApplicationUserId, opt => opt.Ignore())

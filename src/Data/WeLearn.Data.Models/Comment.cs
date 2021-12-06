@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Data.Models
 {
-    public class Comment : BaseDeletableModel<int> //SoftDeleteable, IMetadataHaveable
+    public class Comment : BaseDeletableModel<int> // SoftDeletable, IMetadataHavable
     {
         [Required]
         [MaxLength(MaxContentLength)]

@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using WeLearn.Services.Interfaces;
-using WeLearn.Web.ViewModels.Category;
-using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Admin.Lesson;
+using WeLearn.Web.ViewModels.HelperModels;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
@@ -23,7 +22,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            var lessonsViewModels = await this.lessonsService.GetAllLessonsAdministrationAsync<AdminLessonViewModel>(searchString);
+            var lessonsViewModels = await this.lessonsService.GetAllLessonsWithDeletedAsync<AdminLessonViewModel>(searchString);
             var paginated = PaginatedList<AdminLessonViewModel>.Create(lessonsViewModels.OrderBy(x => x.IsApproved), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
             return View(paginated);
@@ -31,9 +30,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdminLessonEditModel>(id);
-            IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-            ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lesson.CategoryId);
+            AdminLessonEditModel lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
+            lesson.Categories = this.categoriesService.GetAllCategories();
             return View(lesson);
         }
 
@@ -42,8 +40,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                IEnumerable<CategoryViewModel> categories = this.categoriesService.GetAllCategories();
-                ViewData["CategoryId"] = new SelectList(categories, "CategoryId", "Name", lessonModel.CategoryId);
+                // lessonModel.Categories = this.categoriesService.GetAllCategories();
                 return View(lessonModel);
             }
 
@@ -53,11 +50,12 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var lesson = await this.lessonsService.GetLessonByIdAdministrationAsync<AdminLessonDeleteModel>(id);
+            var lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonDeleteModel>(id);
             return View(lesson);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this.lessonsService.HardDeleteLessonByIdAsync(id);

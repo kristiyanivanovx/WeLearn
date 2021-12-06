@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using AutoMapper;
 using AutoMapper.Configuration;
 
@@ -91,7 +92,7 @@ namespace WeLearn.Services.Mapping
                 where typeof(IHaveCustomMappings).GetTypeInfo().IsAssignableFrom(t) &&
                       !t.GetTypeInfo().IsAbstract &&
                       !t.GetTypeInfo().IsInterface
-                select (IHaveCustomMappings) Activator.CreateInstance(t);
+                select (IHaveCustomMappings)Activator.CreateInstance(t);
 
             return customMaps;
         }

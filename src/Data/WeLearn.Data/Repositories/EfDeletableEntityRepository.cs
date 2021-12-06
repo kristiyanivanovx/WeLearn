@@ -27,15 +27,15 @@ namespace WeLearn.Data.Repositories
 
         public void Undelete(TEntity entity)
         {
-            // entity.IsDeleted = false;
-            // entity.DeletedOn = null;
+            entity.IsDeleted = false;
+            entity.DeletedOn = null;
             this.Update(entity);
         }
 
         public override void Delete(TEntity entity)
         {
-            // entity.IsDeleted = true;
-            // entity.DeletedOn = DateTime.UtcNow;
+            entity.IsDeleted = true;
+            entity.DeletedOn = DateTime.UtcNow;
             this.Update(entity);
         }
     }

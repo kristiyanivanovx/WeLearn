@@ -17,6 +17,10 @@
                     <p class="card-text">@Model.LessonDescription</p>
                     <p class="card-text">
                         @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
+                        <form id="likesForm" method="post"></form>
+                        <div class="text-muted">
+                            <small>Likes - <span id="likesCount">@Model.LikesCount</span></small>
+                        </div>
                         <div>
                             <small class="text-muted">Created by - @createdBy</small>
                         </div>

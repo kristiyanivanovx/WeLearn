@@ -193,3 +193,19 @@ p {
 .admin-role-demote-color {
 	color: #FFC107;
 }
+
+.btn-like,
+.btn-like:hover,
+.btn-like:active,
+.btn-like:visited,
+.btn-like:focus {
+	border-color: #ff6699;
+	color: #ff6699;
+}
+
+.btn-like:hover,
+.btn-like:active {
+	background-color: #ff6699;
+	color: #ffffff;
+}
+

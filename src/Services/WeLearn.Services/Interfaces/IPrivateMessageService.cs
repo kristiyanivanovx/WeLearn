@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 
 using WeLearn.Web.ViewModels.Message;
-using WeLearn.Web.ViewModels.Message;
 
 namespace WeLearn.Services.Interfaces
 {

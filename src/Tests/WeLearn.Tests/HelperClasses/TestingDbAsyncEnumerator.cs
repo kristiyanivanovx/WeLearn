@@ -41,9 +41,6 @@ namespace WeLearn.Tests.HelperClasses
             return ValueTask.CompletedTask;
         }
 
-        public T Current
-        {
-            get { return this.inner.Current; }
-        }
+        public T Current => this.inner.Current;
     }
 }

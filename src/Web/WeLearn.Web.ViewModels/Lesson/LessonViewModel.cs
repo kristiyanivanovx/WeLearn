@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
@@ -15,6 +16,8 @@ namespace WeLearn.Web.ViewModels.Lesson
         public string Description { get; set; }
 
         public Grade Grade { get; set; }
+
+        public int LikesCount { get; set; }
 
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }
@@ -34,13 +37,12 @@ namespace WeLearn.Web.ViewModels.Lesson
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<LessonViewModel, Data.Models.Lesson>()
-                .ForMember(dest => dest.Id, opt => 
+                .ForMember(dest => dest.Id, opt =>
                         opt.MapFrom(src => src.LessonId));
 
             configuration.CreateMap<Data.Models.Lesson, LessonViewModel>()
                 .ForMember(dest => dest.LessonId, opt =>
                     opt.MapFrom(src => src.Id));
-
         }
     }
 }

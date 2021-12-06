@@ -116,7 +116,7 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<div class="mt-2 mb-2 text-center">
+<div class="mt-2 pb-2 text-center">
     <a asp-area="Administration"
        asp-controller="Lessons"
        asp-action="Index"
@@ -147,9 +147,6 @@
     </a>
 </div>
 @* pagination section end *@
-
-@* todo: find a way to add padding/margin *@
-<br />
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

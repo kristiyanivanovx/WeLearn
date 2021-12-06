@@ -12,7 +12,7 @@
                     <hr />
                     <p class="card-text">@Model.CommentContent</p>
                     <p class="card-text">
-                        @{ var createdBy = Model.CommentApplicationUserUserName == null ? "Deleted User" : Model.CommentApplicationUserUserName; }
+                        @{ var createdBy = Model.CommentApplicationUserUserName ?? "Deleted User"; }
                         <div>
                             <small class="text-muted">Created by - @createdBy </small>
                         </div>

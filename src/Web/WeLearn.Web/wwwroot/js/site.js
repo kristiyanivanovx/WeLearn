@@ -47,8 +47,7 @@ function toggleLike(lessonId) {
     })
         .then(response => response.json())
         .then(data => {
-            target.innerHTML = data.likesCount;
-            
+            target.innerHTML = data['likesCount'];
             return data;
         })
         .catch(err => console.error(err));

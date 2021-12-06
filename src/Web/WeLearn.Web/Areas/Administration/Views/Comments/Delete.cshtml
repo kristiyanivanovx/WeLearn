@@ -11,11 +11,8 @@
             <h2>Lesson</h2>
             <hr />
             <div class="card">
-                <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
-                    <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
-                    <a href="@Model.LessonVideoLink" download>Download</a>
-                </video>
-                
+                <partial name="_VideoPartial" model="@Model"/>
+
                 <div class="card-body">
                     <h5 class="card-title">@Model.LessonName</h5>
                     <hr />

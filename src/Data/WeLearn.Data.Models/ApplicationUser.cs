@@ -18,6 +18,7 @@ namespace WeLearn.Data.Models
 
             // this.SentPrivateMessages = new HashSet<PrivateMessage>();
             // this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            this.Likes = new HashSet<Like>();
             this.Lessons = new HashSet<Lesson>();
             this.Comments = new HashSet<Comment>();
             this.Reports = new HashSet<Report>();
@@ -37,6 +38,8 @@ namespace WeLearn.Data.Models
         // public ICollection<PrivateMessage> SentPrivateMessages { get; set; }
 
         // public ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
+        public ICollection<Like> Likes { get; set; }
+
         public ICollection<Lesson> Lessons { get; set; }
 
         public ICollection<Comment> Comments { get; set; }

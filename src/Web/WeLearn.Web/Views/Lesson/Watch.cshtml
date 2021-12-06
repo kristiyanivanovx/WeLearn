@@ -5,11 +5,10 @@
 
 <div class="container">
     <partial name="_LessonPartial" />
-    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark mb-3">
+        <i class="fas fa-arrow-left"></i> Back to all
+    </a>
 </div>
-
-@* todo: find a way to add padding/margin *@
-<br />
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

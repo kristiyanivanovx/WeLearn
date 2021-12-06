@@ -16,32 +16,32 @@
 <div class="text-center">
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                Content
-            </th>
-            <th>
-                Created by user
-            </th>
-            <th>
-                Lesson
-            </th>
-            <th>
-                Video
-            </th>
-            <th>
-                Material
-            </th>
-            <th>
-                Date created
-            </th>
-            <th>
-                Is deleted
-            </th>
-            <th>
-                Navigate
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    Content
+                </th>
+                <th>
+                    Created by user
+                </th>
+                <th>
+                    Lesson
+                </th>
+                <th>
+                    Video
+                </th>
+                <th>
+                    Material
+                </th>
+                <th>
+                    Date created
+                </th>
+                <th>
+                    Is deleted
+                </th>
+                <th>
+                    Navigate
+                </th>
+            </tr>
         </thead>
         <tbody>
         @foreach (var item in Model)
@@ -102,7 +102,7 @@
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     }
-    <div class="mt-2 mb-2 text-center">
+    <div class="mt-2 pb-2 text-center">
         <a asp-area="Administration"
            asp-controller="Users"
            asp-action="Index"
@@ -142,9 +142,6 @@
     </div>
     @* pagination section end *@
 </div>
-
-@* todo: find a way to add padding/margin *@
-<br/>
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

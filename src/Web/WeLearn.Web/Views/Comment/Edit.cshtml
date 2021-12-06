@@ -3,16 +3,15 @@
     ViewData["Title"] = "Editing comment #" + Model.Id;
 }
 
-<div class="container">
-    <div class="card mb-3 card-style-80-rem">
-        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.LessonVideoName" data-poster="@Model.LessonVideoLink">
-            <source src="@Model.LessonVideoLink" type="@Model.LessonVideoContentType" />
-            <a href="@Model.LessonVideoLink" download>Download</a>
-        </video>
+<div class="container pb-3">
+    <div class="card card-style-80-rem">
+        <partial name="_VideoPartial" model="@Model"/>
+        
         <div class="card-body text-center">
             <h5 class="card-title">@Model.LessonName</h5>
             <hr />
             <p class="card-text mb-2">@Model.LessonDescription</p>
+
             <div class="card-text">
                 @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
                 <div>
@@ -59,9 +58,6 @@
         </div>
     </div>
 </div>
-
-@* todo: find a way to add padding/margin *@
-<br />
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

@@ -3,7 +3,7 @@
     ViewData["Title"] = $"Send lesson #{Model.LessonId} to email";
 }
 
-<div class="container">
+<div class="container pb-3">
     <div class="text-center">
         <h3>Are you sure that you want to send this lesson to your email?</h3>
         <hr/>
@@ -89,9 +89,6 @@
 
     <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
 </div>
-
-@* todo: find a way to add padding/margin *@
-<br/>
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>

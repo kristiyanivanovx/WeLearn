@@ -18,6 +18,8 @@ namespace WeLearn.Web.ViewModels.Question
 
         public DateTime CreatedOn { get; set; }
 
+        public DateTime ModifiedOn { get; set; }
+
         public ICollection<AnswerViewModel> Answers { get; set; }
 
         public ICollection<QuizViewModel> Quizzes { get; set; }

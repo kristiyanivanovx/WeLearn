@@ -26,6 +26,9 @@
                 Date&nbsp;created
             </th>
             <th>
+                Date&nbsp;modified
+            </th>
+            <th>
                 Edit
             </th>
             <th>
@@ -50,7 +53,10 @@
                     @Html.DisplayFor(modelItem => answer.QuestionPoints)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => answer.CreatedOn)
+                    <time datetime="@answer.CreatedOn.ToString("O")">@answer.CreatedOn.ToString("g")</time>
+                </td>
+                <td>
+                    <time datetime="@answer.ModifiedOn.ToString("O")">@answer.ModifiedOn.ToString("g")</time>
                 </td>
                 <td>
                     <a asp-area="Administration" asp-controller="Answers" asp-action="Edit" asp-route-id="@answer.Id"

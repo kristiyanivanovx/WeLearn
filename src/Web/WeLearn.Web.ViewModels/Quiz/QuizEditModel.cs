@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq;
+using AutoMapper;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Web.ViewModels.Quiz
 {
-    public class QuizEditModel : IMapTo<Data.Models.Quiz>, IMapFrom<Data.Models.Quiz>
+    public class QuizEditModel : IMapTo<Data.Models.Quiz>, IMapFrom<Data.Models.Quiz>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -22,5 +23,15 @@ namespace WeLearn.Web.ViewModels.Quiz
         public IEnumerable<CategoryViewModel> Categories { get; set; }
 
         public ICollection<QuestionViewModel> Questions { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration
+                .CreateMap<Data.Models.Quiz, QuizEditModel>()
+                    .ForMember(
+                        dest => dest.QuestionIds,
+                        opt => opt.MapFrom(
+                            src => src.Questions.Select(x => x.Id)));
+        }
     }
 }

@@ -21,7 +21,10 @@
                 Max points
             </th>
             <th>
-                Created on
+                Date created
+            </th>
+            <th>
+                Date modified
             </th>
             <th>
                 Edit
@@ -46,6 +49,9 @@
                 </td>
                 <td>
                     <time datetime="@quiz.CreatedOn.ToString("O")">@quiz.CreatedOn.ToString("g")</time>
+                </td>
+                <td>
+                    <time datetime="@quiz.ModifiedOn.ToString("O")">@quiz.ModifiedOn.ToString("g")</time>
                 </td>
                 <td>
                     <a asp-area="Administration" asp-controller="Quizzes" asp-action="Edit" asp-route-id="@quiz.Id"

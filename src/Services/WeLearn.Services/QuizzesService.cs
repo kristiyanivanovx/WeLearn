@@ -69,6 +69,21 @@ namespace WeLearn.Services
             entity.Name = model.Name;
             entity.CategoryId = model.CategoryId;
 
+            var questions = this.questionRepository
+                .All()
+                .Where(x => model.QuestionIds != null && model.QuestionIds.Contains(x.Id))
+                .ToList();
+
+            entity.Questions
+                .Except(questions)
+                .ToList()
+                .ForEach(x => entity.Questions.Remove(x));
+
+            questions
+                .Except(entity.Questions)
+                .ToList()
+                .ForEach(x => entity.Questions.Add(x));
+
             this.quizRepository.Update(entity);
             await this.quizRepository.SaveChangesAsync();
         }

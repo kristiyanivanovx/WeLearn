@@ -1,6 +1,6 @@
 @model QuizEditModel
 @{
-    ViewData["Title"] = "Create a quiz";
+    ViewData["Title"] = "Edit a quiz";
 }
 
 @{ var points = "points"; }
@@ -28,10 +28,7 @@
             <div class="form-group">
                 <label asp-for="QuestionIds" class="control-label"></label>
                 <select asp-for="QuestionIds"
-                        asp-items="Model.Questions.Select(x => new SelectListItem(
-                            string.Concat(x.Content, ' ', '-', ' ', x.Points, ' ', points), 
-                            x.Id.ToString())
-                        )"
+                        asp-items="Model.Questions.Select(x => new SelectListItem(string.Concat(x.Content, ' ', '-', ' ', x.Points, ' ', points), x.Id.ToString()))"
                         multiple
                         class="form-control multiselect">
                 </select>
@@ -39,6 +36,9 @@
             </div>
 
             <input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Submit"/>
+            <a asp-controller="Questions" asp-action="Index" class="btn btn-sm btn-outline-dark">
+                Cancel
+            </a>
         </form>
     </div>
 </div>

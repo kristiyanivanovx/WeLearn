@@ -23,7 +23,10 @@
                 Quizzes
             </th>
             <th>
-                Created on
+                Date created
+            </th>
+            <th>
+                Date modified
             </th>
             <th>
                 Edit
@@ -49,7 +52,6 @@
                         var isCorrectStyle = answer.IsCorrect ? "correct" : "wrong";
                         <div class="@isCorrectStyle">
                             @Html.DisplayFor(modelItem => answer.Content) - @Html.DisplayFor(modelItem => answer.IsCorrect)
-
                         </div>
                     }
                 </td>
@@ -59,12 +61,14 @@
                         //todo: WIP
                         @Html.DisplayFor(modelItem => quiz.Name)
 
-
                         @Html.DisplayFor(modelItem => quiz.CategoryName)
                     }
                 </td>
                 <td>
                     <time datetime="@question.CreatedOn.ToString("O")">@question.CreatedOn.ToString("g")</time>
+                </td>
+                <td>
+                    <time datetime="@question.ModifiedOn.ToString("O")">@question.ModifiedOn.ToString("g")</time>
                 </td>
                 <td>
                     <a asp-area="Administration" asp-controller="Questions" asp-action="Edit" asp-route-id="@question.Id"

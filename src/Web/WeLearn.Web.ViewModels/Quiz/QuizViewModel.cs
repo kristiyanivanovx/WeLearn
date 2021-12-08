@@ -19,6 +19,8 @@ namespace WeLearn.Web.ViewModels.Quiz
 
         public DateTime CreatedOn { get; set; }
 
+        public DateTime ModifiedOn { get; set; }
+
         public ICollection<QuestionViewModel> Questions { get; set; }
 
         // public void CreateMappings(IProfileExpression configuration)

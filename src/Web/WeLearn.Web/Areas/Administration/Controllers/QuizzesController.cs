@@ -83,6 +83,13 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> Edit(QuizEditModel model)
+        {
+            await this.quizzesService.EditAsync(model);
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             var exists = this.quizzesService.Contains(id);

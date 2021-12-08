@@ -19,5 +19,7 @@ namespace WeLearn.Web.ViewModels.Answer
         public int QuestionPoints { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
     }
 }

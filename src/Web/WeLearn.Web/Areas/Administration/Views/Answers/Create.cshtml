@@ -1,0 +1,42 @@
+@model AnswerInputModel
+
+@{ ViewData["Title"] = "Create an answer"; }
+
+@{ var points = "points"; }
+
+<div class="container text-center">
+    <h2>@ViewData["Title"]</h2>
+    <hr/>
+
+    <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">
+        <form asp-area="Administration" asp-controller="Answers" asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="Content"></label>
+                <input asp-for="Content" class="form-control"/>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.QuestionId" class="control-label"></label>
+                <select asp-for="@Model.QuestionId"
+                        asp-items="Model.Questions.Select(x => new SelectListItem(
+                            string.Concat(x.Content, ' ', '-', ' ', x.Points.ToString(), ' ', points), 
+                            x.Id.ToString()))"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="@Model.QuestionId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsCorrect"></label>
+                <input asp-for="IsCorrect">
+                <span asp-validation-for="IsCorrect" class="text-danger"></span>
+            </div>
+
+            <input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Submit"/>
+            <a asp-controller="Answers" asp-action="Index" class="btn btn-sm btn-outline-dark">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>

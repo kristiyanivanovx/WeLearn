@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin.Lesson;
@@ -22,15 +20,23 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            var lessonsViewModels = await this.lessonsService.GetAllLessonsWithDeletedAsync<AdminLessonViewModel>(searchString);
-            var paginated = PaginatedList<AdminLessonViewModel>.Create(lessonsViewModels.OrderBy(x => x.IsApproved), pageNumber ?? 1, 6);
+            var lessonsViewModels =
+                await this.lessonsService.GetAllLessonsWithDeletedAsync<AdminLessonViewModel>(searchString);
+
+            var paginated =
+                PaginatedList<AdminLessonViewModel>.Create(
+                    lessonsViewModels.OrderBy(x => x.IsApproved),
+                    pageNumber ?? 1,
+                    6);
+
             paginated.SearchString = searchString;
             return View(paginated);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            AdminLessonEditModel lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
+            AdminLessonEditModel lesson =
+                await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
             lesson.Categories = this.categoriesService.GetAllCategories();
             return View(lesson);
         }

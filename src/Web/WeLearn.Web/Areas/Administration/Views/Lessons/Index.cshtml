@@ -3,7 +3,7 @@
     ViewData["Title"] = "Lessons administration";
 }
 
-<partial name="_AdminPartial" />
+@*<partial name="_AdminPartial" />*@
 <h3>Manage lessons</h3>
 <form asp-area="Administration" asp-controller="Lessons" asp-action="Index" method="get">
     <label>Find by name or description:</label>
@@ -12,6 +12,7 @@
         <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
     </div>
 </form>
+
 <div class="text-center">
     <table class="table">
         <thead>

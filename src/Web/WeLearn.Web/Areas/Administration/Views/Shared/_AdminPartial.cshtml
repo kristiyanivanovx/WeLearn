@@ -1,20 +1,94 @@
-﻿<div class="text-center container">
-    <h3 class="text-success">
-        <a class="text-success" asp-area="Administration" asp-controller="Manage" asp-action="Index">Administration</a>
-    </h3>
-    <hr/>
-    
-    <h5>
-        Panel for moderation
-    </h5>
-    <hr/>
+﻿@model IndexViewModel
 
-    <a class="btn btn-sm btn-outline-info mb-1" asp-area="Administration" asp-controller="Lessons" asp-action="Index">Manage lessons</a>
-    <a class="btn btn-sm btn-outline-danger mb-1" asp-area="Administration" asp-controller="Reports" asp-action="Index">Manage reports</a>
-    <a class="btn btn-sm btn-outline-warning mb-1" asp-area="Administration" asp-controller="Comments" asp-action="Index">Manage comments</a>
-    <a class="btn btn-sm btn-outline-success mb-1" asp-area="Administration" asp-controller="Users" asp-action="Index">Manage users</a>
-    
-    @* ReSharper disable once Mvc.ControllerNotResolved *@
-    <a class="btn btn-sm btn-outline-primary mb-1" asp-area="" asp-controller="Hangfire" asp-action="Index">Manage hangfire</a>
-    <hr/>
+<!-- Content Row -->
+<div class="row">
+
+    <!-- users -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total registered users
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            @Model.UsersCount users
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- categories -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Total categories count
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CategoriesCount categories</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-info fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <!--<div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Tasks
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar"
+                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                         aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!-- lessons count -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Total lessons count
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.LessonsCount lessons</div>
+                    </div>
+                    <div class="col-auto">
+                        @*<i class="fas fa-comments fa-2x text-gray-300"></i>*@
+                        <i class="fas fa-book fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

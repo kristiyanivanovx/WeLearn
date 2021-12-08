@@ -62,6 +62,14 @@ namespace WeLearn.Data
         }
 
         // public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
+        public virtual DbSet<Examination> Examination { get; set; }
+
+        public virtual DbSet<Quiz> Quizzes { get; set; }
+
+        public virtual DbSet<Question> Questions { get; set; }
+
+        public virtual DbSet<Answer> Answers { get; set; }
+
         public virtual DbSet<Like> Likes { get; set; }
 
         public virtual DbSet<Chat> Chats { get; set; }

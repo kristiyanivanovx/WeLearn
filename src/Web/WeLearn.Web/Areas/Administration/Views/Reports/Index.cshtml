@@ -3,12 +3,14 @@
     ViewData["Title"] = "Reports administration";
 }
 
-<partial name="_AdminPartial" />
 <h3>Manage reports</h3>
-<p class="text-muted">
+
+@*<p class="text-muted">*@
+<p>
     Note: if the column "Lesson" is present/filled that means the type of report is a lesson report and vice versa,
     if the column "Comment" is present/filled that means the type of report is a comment report.
 </p>
+
 <form asp-area="Administration" asp-controller="Reports" asp-action="Index" method="get">
     <label>Find by subject or description:</label>
     <div class="input-group input-group-sm mb-3">
@@ -16,6 +18,7 @@
         <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
     </div>
 </form>
+
 <div class="text-center ">
     <table class="table">
         <thead>

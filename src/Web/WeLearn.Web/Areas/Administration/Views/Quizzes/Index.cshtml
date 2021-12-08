@@ -1,0 +1,106 @@
+@model IEnumerable<QuizViewModel>
+@{
+    ViewData["Title"] = "Quizzes";
+}
+
+<div class="container text-center">
+    @*<div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">*@
+    <h3>Manage quizzes</h3>
+
+    @* <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center"> *@
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Max points
+            </th>
+            <th>
+                Created on
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var quiz in @Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => quiz.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => quiz.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => quiz.MaxPoints)
+                </td>
+                <td>
+                    <time datetime="@quiz.CreatedOn.ToString("O")">@quiz.CreatedOn.ToString("g")</time>
+                </td>
+                <td>
+                    <a asp-area="Administration" asp-controller="Quizzes" asp-action="Edit" asp-route-id="@quiz.Id"
+                       class="btn btn-sm btn-outline-success">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal-@quiz.Id">
+                        Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade text-center" id="deleteModal-@quiz.Id" tabindex="-1"
+                         role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete a quiz</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p>Are you sure that you want to delete the following quiz?</p>
+                                    <hr>
+                                    <p>
+                                        Name - @quiz.Name
+                                    </p>
+                                    <p>
+                                        Category - @quiz.CategoryName
+                                    </p>
+                                </div>
+
+                                <form asp-area="Administration" asp-controller="Quizzes" asp-action="Delete" asp-route-id="@quiz.Id" method="post">
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger"/>
+                                        <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal End -->
+
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <a asp-area="Administration" asp-controller="Quizzes" asp-action="Create" class="btn btn-sm btn-outline-success mb-1">
+        Create
+    </a>
+
+</div>

@@ -1,0 +1,101 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WeLearn.Data.Common.Repositories;
+using WeLearn.Data.Models;
+using WeLearn.Services.Mapping;
+using WeLearn.Web.ViewModels.Quiz;
+
+namespace WeLearn.Services
+{
+    public class QuizzesService
+    {
+        private readonly IDeletableEntityRepository<Question> questionRepository;
+        private readonly IDeletableEntityRepository<Quiz> quizRepository;
+
+        public QuizzesService(
+            IDeletableEntityRepository<Question> questionRepository,
+            IDeletableEntityRepository<Quiz> quizRepository)
+        {
+            this.questionRepository = questionRepository;
+            this.quizRepository = quizRepository;
+        }
+
+        public async Task CreateAsync(QuizInputModel model)
+        {
+            var quiz = new Quiz
+            {
+                Name = model.Name,
+                CategoryId = model.CategoryId,
+            };
+
+            await this.quizRepository.AddAsync(quiz);
+
+            // attach each question to the quiz
+            for (int idx = 0; idx < model.QuestionIds.Count(); idx++)
+            {
+                var questionId = model.QuestionIds.ElementAt(idx);
+                var question = this.questionRepository
+                    .All()
+                    .FirstOrDefault(x => x.Id == questionId);
+
+                quiz.Questions.Add(question);
+            }
+
+            await this.quizRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var quiz = this.quizRepository
+                .All()
+                .FirstOrDefault(x => x.Id == id);
+
+            if (quiz == null)
+            {
+                // todo: not found
+                return;
+            }
+
+            this.quizRepository.Delete(quiz);
+            await this.quizRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(QuizEditModel model)
+        {
+            var entity = this.GetQuizById(model.Id);
+
+            entity.Name = model.Name;
+            entity.CategoryId = model.CategoryId;
+
+            this.quizRepository.Update(entity);
+            await this.quizRepository.SaveChangesAsync();
+        }
+
+        public bool Contains(int id)
+            => this.quizRepository
+                .All()
+                .Any(x => x.Id == id);
+
+        public Quiz GetQuizById(int id)
+            => this.quizRepository
+                .All()
+                .Include(x => x.Questions)
+                .FirstOrDefault(x => x.Id == id);
+
+        public IEnumerable<T> GetById<T>(int id)
+            => this.quizRepository
+                .All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .ToList();
+
+        public IEnumerable<T> GetAll<T>()
+            => this.quizRepository
+                .All()
+                .Include(x => x.Questions)
+                .To<T>()
+                .ToList();
+    }
+}

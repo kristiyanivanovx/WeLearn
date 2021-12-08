@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,6 @@ using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin.User;
 using WeLearn.Web.ViewModels.HelperModels;
-
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
@@ -29,7 +27,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             var paginated = PaginatedList<AdminUserViewModel>.Create(allUsers.OrderBy(x => x.Id), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
 
-            return View(paginated);
+            return this.View(paginated);
         }
 
         [HttpPost]

@@ -73,15 +73,19 @@ namespace WeLearn.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
+            services.AddTransient<QuizzesService>();
+            services.AddTransient<AnswersService>();
+            services.AddTransient<QuestionsService>();
+
             services.AddTransient<IHomeService, HomeService>();
-            services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<IChatService, ChatService>();
-            services.AddTransient<IUsersService, ApplicationUsersService>();
+            services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<ILikesService, LikesService>();
             services.AddTransient<ILessonsService, LessonsService>();
             services.AddTransient<IReportsService, ReportsService>();
-            services.AddTransient<IInputOutputService, InputOutputService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<IInputOutputService, InputOutputService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
             services.AddTransient<IPrivateMessageService, PrivateMessageService>();
@@ -124,9 +128,10 @@ namespace WeLearn.Web
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+
+                app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

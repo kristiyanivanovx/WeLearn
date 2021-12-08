@@ -1,121 +1,112 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using static WeLearn.Common.GlobalConstants; 
+@using static WeLearn.Common.GlobalConstants;
+
 @inject UserManager<ApplicationUser> userManager
 
 @model PaginatedList<WeLearn.Web.ViewModels.Admin.User.AdminUserViewModel>
-@{
-    ViewData["Title"] = "Users administration";
-}
+@{ ViewData["Title"] = "Users administration"; }
 
-<partial name="_AdminPartial"/>
 <h3>Manage Users</h3>
 
 <form asp-area="Administration" asp-controller="Users" asp-action="Index" method="get">
     <label>Find by user's name or email:</label>
     <div class="input-group input-group-sm mb-3">
-        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString"/>
-        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1"/>
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
     </div>
 </form>
 
 <div class="text-center">
     <table class="table">
         <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Username
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Roles
-            </th>
-            <th>
-                Is Administrator
-            </th>
-            <th>
-                Manage
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Roles
+                </th>
+                <th>
+                    Is Administrator
+                </th>
+                <th>
+                    Manage
+                </th>
+            </tr>
         </thead>
         <tbody>
 
-        @foreach (var item in Model)
+            @foreach (var item in Model)
+            {
+<tr>
+    @{ var dbUser = await userManager.FindByIdAsync(item.Id);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationAdministratorUsername);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                        var adminRoleButtonClassStyling = dbUserIsAdmin ?
+                            "btn btn-sm btn-outline-warning mb-1" :
+                            "btn btn-sm btn-outline-success mb-1";
+
+                        // current logged in Admin is Head Admin
+                        var currentAdminIsHeadAdmin = User.IsInRole(ApplicationHeadAdministratorRoleName);
+
+                        // demoting is available only if the current logged in Admin is Head Admin
+                        // and the db entity (user) is not Head Admin
+                        var disableIfUnauthorized = currentAdminIsHeadAdmin && !dbUserIsHeadAdmin ? "enabled" : "disabled"; }
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @string.Join(", ", await userManager.GetRolesAsync(dbUser))
+    </td>
+    <td>
+        @if (dbUserIsAdmin || dbUserIsHeadAdmin)
         {
-            <tr>
-                @{
-                    var dbUser = await userManager.FindByIdAsync(item.Id);
-                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationAdministratorUsername);
-                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
-
-                    var adminRoleButtonClassStyling = dbUserIsAdmin ?
-                        "btn btn-sm btn-outline-warning mb-1" :
-                        "btn btn-sm btn-outline-success mb-1";
-
-                    // current logged in Admin is Head Admin
-                    var currentAdminIsHeadAdmin = User.IsInRole(ApplicationHeadAdministratorRoleName);
-
-                    // demoting is available only if the current logged in Admin is Head Admin
-                    // and the db entity (user) is not Head Admin
-                    var disableIfUnauthorized = currentAdminIsHeadAdmin && !dbUserIsHeadAdmin ? "enabled" : "disabled";
+<div class="admin-role-color">Yes</div> }
+                else
+                {
+<div>No</div>}
+    </td>
+    <td>
+        <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-userId="@item.Id">
+            <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
+                @if (dbUserIsAdmin)
+                {
+                    <div>Demote</div> 
                 }
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @string.Join(", ", await userManager.GetRolesAsync(dbUser))
-                </td>
-                <td>
-                    @if (dbUserIsAdmin || dbUserIsHeadAdmin)
-                    {
-                        <div class="admin-role-color">Yes</div>
-                    }
-                    else
-                    {
-                        <div>No</div>
-                    }
-                </td>
-                <td>
-                    <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-id="@item.Id">
-                        <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
-                            @if (dbUserIsAdmin)
-                            {
-                                <div>Demote</div>
-                            }
-                            else
-                            {
-                                <div>Promote</div>
-                            }
-                        </button>
+                else
+                {
+                    <div>Promote</div>
+                }
+            </button>
+        </form>
 
-                        <span asp-area="Administration" asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id">
-                            <button class="btn btn-sm btn-outline-danger mb-1" @disableIfUnauthorized>
-                                Hard delete (Irreversible)
-                            </button>
-                        </span>
-                    </form>
-                </td>
-            </tr>
-        }
+        <form asp-area="Administration" asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id">
+            <button class="btn btn-sm btn-outline-danger mb-1" @disableIfUnauthorized>
+                Hard delete (Irreversible)
+            </button>
+        </form>
+    </td>
+</tr>}
         </tbody>
     </table>
 
     @* pagination section *@
-    @{
-        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-    }
+    @{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
     <div class="mt-2 mb-2 text-center">
         <a asp-area="Administration"
            asp-controller="Users"
@@ -155,6 +146,24 @@
             Next <i class="fas fa-arrow-right"></i>
         </a>
     </div>
-    
+
     @* pagination section end *@
 </div>
+
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>

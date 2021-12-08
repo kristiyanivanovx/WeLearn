@@ -13,6 +13,7 @@ namespace WeLearn.Data.Models
         public Category()
         {
             this.Lessons = new HashSet<Lesson>();
+            this.Quizzes = new HashSet<Quiz>();
         }
 
         [Required]
@@ -21,7 +22,6 @@ namespace WeLearn.Data.Models
 
         public ICollection<Lesson> Lessons { get; set; }
 
-        // [Display(Name = "Date created")]
-        // public DateTime DateCreated { get; set; }
+        public ICollection<Quiz> Quizzes { get; set; }
     }
 }

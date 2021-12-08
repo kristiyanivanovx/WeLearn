@@ -1,0 +1,115 @@
+@model IEnumerable<AnswerViewModel>
+@{
+    ViewData["Title"] = "Manage answers";
+}
+
+<div class="container text-center">
+    @*<div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">*@
+    <h3>@ViewData["Title"]</h3>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Content
+            </th>
+            <th>
+                Is&nbsp;correct
+            </th>
+            <th>
+                Question&nbsp;content
+            </th>
+            <th>
+                Question&nbsp;points
+            </th>
+            <th>
+                Date&nbsp;created
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var answer in @Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => answer.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => answer.IsCorrect)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => answer.QuestionContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => answer.QuestionPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => answer.CreatedOn)
+                </td>
+                <td>
+                    <a asp-area="Administration" asp-controller="Answers" asp-action="Edit" asp-route-id="@answer.Id"
+                       class="btn btn-sm btn-outline-success">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal-@answer.Id">
+                        @*<span class="fas fa-trash"></span>*@
+                        Delete
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade text-center" id="deleteModal-@answer.Id" tabindex="-1"
+                         role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete a question</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <p>
+                                        Are you sure that you want to delete the following question?
+                                    </p>
+                                    <hr>
+
+                                    <p>
+                                        Content - @answer.Content
+                                    </p>
+                                    <p>
+                                        Is correct - @answer.IsCorrect
+                                    </p>
+                                </div>
+
+                                <form asp-area="Administration" asp-controller="Answers" asp-action="Delete" asp-route-id="@answer.Id" method="post">
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger"/>
+                                        <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal End -->
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    <a asp-area="Administration" asp-controller="Answers" asp-action="Create" class="btn btn-sm btn-outline-success mb-1">
+        Create
+    </a>
+    @*</div>*@
+</div>

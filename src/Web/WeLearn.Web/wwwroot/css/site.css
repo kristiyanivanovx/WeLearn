@@ -57,15 +57,16 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  /*margin-bottom: 60px;*/
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	white-space: nowrap;
+	/*line-height: 60px;*/ /* Vertically center the text there */
+	line-height: 30px; /* Vertically center the text there */
 }
 
 /* plyr */
@@ -209,3 +210,60 @@ p {
 	color: #ffffff;
 }
 
+/* override sb-admin 2*/
+p, label {
+	color: black;
+}
+
+input, 
+input[type=text], 
+input[type=text]:hover, 
+input[type=text]:active, 
+input[type=text]:focus {
+	color: black;
+}
+
+
+	input,
+	input[type=number],
+	input[type=number]:hover,
+	input[type=number]:active,
+	input[type=number]:focus {
+		color: black;
+	}
+
+td, th {
+	color: black;
+}
+
+h1, h2, h3, h4, h5 {
+	color: black;
+}
+
+textarea,
+textarea:hover,
+textarea:active,
+textarea:focus,
+textarea:default {
+	color: black !important;
+}
+
+select,
+select:hover,
+select:active,
+select:focus,
+select:default {
+	color: black !important;
+}
+
+.correct {
+	color: #1cc88a;
+}
+
+.wrong {
+	color: #e74a3b;
+}
+
+.multiselect {
+	min-height: 300px;
+}

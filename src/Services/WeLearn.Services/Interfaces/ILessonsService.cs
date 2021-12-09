@@ -10,7 +10,7 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ILessonsService
     {
-        int GetAllLessonsCount();
+        int GetCount();
 
         Task<T> GetLessonByIdAsync<T>(int id);
 

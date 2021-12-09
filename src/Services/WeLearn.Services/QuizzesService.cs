@@ -88,6 +88,11 @@ namespace WeLearn.Services
             await this.quizRepository.SaveChangesAsync();
         }
 
+        public int GetCount()
+            => this.quizRepository
+                .All()
+                .Count();
+
         public bool Contains(int id)
             => this.quizRepository
                 .All()

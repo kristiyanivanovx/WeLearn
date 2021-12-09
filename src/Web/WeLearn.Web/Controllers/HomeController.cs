@@ -9,20 +9,20 @@ namespace WeLearn.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHomeService homeService;
+        private readonly IInformationService _informationService;
 
-        public HomeController(IHomeService homeService)
-            => this.homeService = homeService;
+        public HomeController(IInformationService informationService)
+            => this._informationService = informationService;
 
         public IActionResult Index()
         {
-            IndexViewModel model = this.homeService.GenerateIndexViewModel();
+            IndexViewModel model = this._informationService.GenerateIndexViewModel();
             return this.View(model);
         }
 
         public IActionResult FAQ()
         {
-            FrequentQuestionsViewModel model = this.homeService.GenerateFrequentQuestionsViewModel();
+            FrequentQuestionsViewModel model = this._informationService.GenerateFrequentQuestionsViewModel();
             return this.View(model);
         }
 

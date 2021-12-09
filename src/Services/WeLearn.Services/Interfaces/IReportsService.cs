@@ -9,6 +9,8 @@ namespace WeLearn.Services.Interfaces
 {
     public interface IReportsService
     {
+        int GetCount();
+
         Task<T> GetReportByIdAsync<T>(int reportId);
 
         Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString = null);

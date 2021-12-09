@@ -77,7 +77,7 @@ namespace WeLearn.Web
             services.AddTransient<AnswersService>();
             services.AddTransient<QuestionsService>();
 
-            services.AddTransient<IHomeService, HomeService>();
+            services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ILikesService, LikesService>();

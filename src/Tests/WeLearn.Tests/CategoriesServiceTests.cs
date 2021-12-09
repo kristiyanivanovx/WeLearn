@@ -39,7 +39,7 @@ namespace WeLearn.Tests
             }
 
             // act
-            int categoriesCount = service.GetAllCategoriesCount();
+            int categoriesCount = service.GetCount();
 
             // assert
             Assert.Equal(3, categoriesCount);

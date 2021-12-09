@@ -5,17 +5,17 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 {
     public class ManageController : AdministrationController
     {
-        private readonly IHomeService homeService;
+        private readonly IInformationService informationService;
 
-        public ManageController(IHomeService homeService)
+        public ManageController(IInformationService informationService)
         {
-            this.homeService = homeService;
+            this.informationService = informationService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var model = this.homeService.GenerateIndexViewModel();
+            var model = this.informationService.GenerateAdministrationIndexViewModel();
             return this.View(model);
         }
     }

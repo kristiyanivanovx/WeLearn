@@ -26,7 +26,7 @@ namespace WeLearn.Services
             this.userManager = userManager;
         }
 
-        public int GetAllUsersCount()
+        public int GetCount()
             => this.appUserRepository.All().Count();
 
         public async Task<ApplicationUser> GetUserByUsernameAsync(string username)

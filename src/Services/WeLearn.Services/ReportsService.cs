@@ -20,6 +20,11 @@ namespace WeLearn.Services
         public ReportsService(IDeletableEntityRepository<Report> reportRepository)
             => this.reportRepository = reportRepository;
 
+        public int GetCount()
+            => this.reportRepository
+                .All()
+                .Count();
+
         public async Task<T> GetReportByIdAsync<T>(int reportId)
             => await this.reportRepository
                 .All()

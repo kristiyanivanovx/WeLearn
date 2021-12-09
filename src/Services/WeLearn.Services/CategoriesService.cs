@@ -19,7 +19,7 @@ namespace WeLearn.Services
         public IEnumerable<CategoryViewModel> GetAllCategories()
             => this.categoryRepository.All().To<CategoryViewModel>().ToArray();
 
-        public int GetAllCategoriesCount()
+        public int GetCount()
             => this.categoryRepository.All().Count();
     }
 }

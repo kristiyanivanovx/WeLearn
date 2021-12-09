@@ -6,7 +6,7 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ICategoriesService
     {
-        int GetAllCategoriesCount();
+        int GetCount();
 
         IEnumerable<CategoryViewModel> GetAllCategories();
     }

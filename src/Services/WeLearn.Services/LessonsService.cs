@@ -53,7 +53,7 @@ namespace WeLearn.Services
             this.inputOutputService = inputOutputService;
         }
 
-        public int GetAllLessonsCount() => this.lessonRepository.All().Count();
+        public int GetCount() => this.lessonRepository.All().Count();
 
         public async Task<T> GetLessonByIdAsync<T>(int id)
             => await this.lessonRepository

@@ -7,7 +7,7 @@ namespace WeLearn.Services.Interfaces
 {
     public interface IUsersService
     {
-        int GetAllUsersCount();
+        int GetCount();
 
         Task<ApplicationUser> GetUserByUsernameAsync(string username);
 

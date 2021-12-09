@@ -74,6 +74,10 @@ h1, h2, h3, h4, h5,
     box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
 }
 
+.wrap .img-register {
+    height: 180px;
+}
+
 .wrap .img {
     height: 200px;
 }

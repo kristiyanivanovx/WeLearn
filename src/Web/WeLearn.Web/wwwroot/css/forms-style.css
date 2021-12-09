@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5,
 }
 
 .wrap .img-register {
-    height: 180px;
+    height: 155px;
 }
 
 .wrap .img {
@@ -305,4 +305,8 @@ h1, h2, h3, h4, h5,
 
 .background-image-forms {
     background-image: url('/img/forms/bg-1.jpg');
+}
+
+.background-image-forms-register {
+    background-image: url('/img/forms/bg-2.jpg');
 }

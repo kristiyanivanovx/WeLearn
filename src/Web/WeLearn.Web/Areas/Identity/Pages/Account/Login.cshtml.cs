@@ -46,13 +46,13 @@ namespace WeLearn.Web.Areas.Identity.Pages.Account
             //[EmailAddress]
             //public string Email { get; set; }
 
-            [Required]
-            [Display(Name = "Username")]
+            [Display(Name = "username")]
+            [Required(ErrorMessage = "The username field is required.")]
             public string UserName { get; set; }
 
-
-            [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "password")]
+            [Required(ErrorMessage = "The password field is required.")]
             public string Password { get; set; }
 
             // [Display(Name = "Remember me?")]
@@ -107,11 +107,11 @@ namespace WeLearn.Web.Areas.Identity.Pages.Account
                     var user = await _userManager.FindByNameAsync(Input.UserName);
                     if (user == null)
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid UserName.");
+                        ModelState.AddModelError(string.Empty, "Invalid username.");
                     }
                     else if (!await _userManager.CheckPasswordAsync(user, Input.Password))
                     {
-                        ModelState.AddModelError(string.Empty, "Invalid Password.");
+                        ModelState.AddModelError(string.Empty, "Invalid password.");
                     }
                     else
                     {

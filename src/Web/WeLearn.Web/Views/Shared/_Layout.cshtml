@@ -99,8 +99,8 @@
     </footer>*@
 
     <footer class="border-top footer bg-white text-muted text-center ">
-        <div class="container ">
-            &copy; @DateTime.Now.Year - WeLearn - @await Component.InvokeAsync("UsersCountSummary") -
+        <div class="container">
+            @DateTime.Now.Year - WeLearn - @await Component.InvokeAsync("UsersCountSummary") -
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -
             <a asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a> -
             <a asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>

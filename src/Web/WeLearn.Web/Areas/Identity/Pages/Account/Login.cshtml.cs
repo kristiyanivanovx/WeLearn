@@ -17,12 +17,16 @@ namespace WeLearn.Web.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(
+            SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager,
             ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
         }
 
@@ -51,7 +55,8 @@ namespace WeLearn.Web.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            // [Display(Name = "Remember me?")]
+            [Display(Name = "Remember me")]
             public bool RememberMe { get; set; }
         }
 
@@ -99,7 +104,20 @@ namespace WeLearn.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    var user = await _userManager.FindByNameAsync(Input.UserName);
+                    if (user == null)
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid UserName.");
+                    }
+                    else if (!await _userManager.CheckPasswordAsync(user, Input.Password))
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid Password.");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    }
+                    
                     return Page();
                 }
             }

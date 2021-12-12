@@ -175,3 +175,8 @@ Some of the many resources used for creating this project:
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template
 - https://www.youtube.com/watch?v=hD6RI0J4mt0
+
+## Credits
+
+Videos, images from https://pexels.com and https://unsplash.com
+- Login, register forms/pages - https://colorlib.com/wp/template/login-form-15/

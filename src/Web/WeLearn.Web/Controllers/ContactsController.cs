@@ -17,17 +17,17 @@ namespace WeLearn.Web.Controllers
             => this.emailSender = emailSender;
 
         public IActionResult Sent()
-            => View();
+            => this.View();
 
         public IActionResult Index()
-            => View();
+            => this.View();
 
         [HttpPost]
         public async Task<IActionResult> Index(ContactsInputModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View();
+                return this.View();
             }
 
             string message = BuildMessage(model);
@@ -39,7 +39,7 @@ namespace WeLearn.Web.Controllers
                 message,
                 false);
 
-            return View(nameof(Sent));
+            return this.View(nameof(this.Sent));
         }
 
         private static string BuildMessage(ContactsInputModel model)

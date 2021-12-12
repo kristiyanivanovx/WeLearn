@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ using WeLearn.Web.Controllers;
 using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Lesson;
-
+using WeLearn.Web.ViewModels.Like;
 using static WeLearn.Common.GlobalConstants;
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
@@ -29,6 +30,7 @@ namespace WeLearn.Controllers
         private readonly int defaultPageNumber = 1;
         private readonly int defaultPageSize = 6;
 
+        private readonly ILikesService likesService;
         private readonly ICategoriesService categoriesService;
         private readonly ILessonsService lessonsService;
         private readonly IEmailSender emailSender;
@@ -36,12 +38,14 @@ namespace WeLearn.Controllers
         private readonly IWebHostEnvironment environment;
 
         public LessonController(
+            ILikesService likesService,
             ICategoriesService categoriesService,
             ILessonsService lessonsService,
             IEmailSender emailSender,
             IFileDownloadService fileDownloadService,
             IWebHostEnvironment environment)
         {
+            this.likesService = likesService;
             this.categoriesService = categoriesService;
             this.lessonsService = lessonsService;
             this.emailSender = emailSender;
@@ -51,6 +55,17 @@ namespace WeLearn.Controllers
 
         [HttpGet]
         public IActionResult EmailSent() => this.View();
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> LikedByMe()
+        {
+            // todo: finish up here, render liked by me
+            var userId = this.GetUserId();
+            var models = await this.likesService.GetByUserId<LikeViewModel>(userId);
+
+            return this.View(models);
+        }
 
         [HttpGet]
         public IActionResult Index() => this.RedirectToAction(nameof(this.All));
@@ -74,6 +89,7 @@ namespace WeLearn.Controllers
             LessonViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonViewModel>(id);
             if (model == null)
             {
+                this.Response.StatusCode = 404;
                 return this.NotFound();
             }
 
@@ -103,12 +119,11 @@ namespace WeLearn.Controllers
                 return this.View(model);
             }
 
-            var userId = this.GetUserId();
             await this.lessonsService.CreateLessonAsync(
                 model,
                 this.environment.WebRootPath,
                 this.environment.IsDevelopment(),
-                userId);
+                this.GetUserId());
 
             return this.RedirectToAction(nameof(this.ByMe));
         }
@@ -117,6 +132,12 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!this.lessonsService.Contains(id))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             LessonEditModel model = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
             model.Categories = this.categoriesService.GetAllCategories();
 
@@ -128,6 +149,12 @@ namespace WeLearn.Controllers
         [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
         public async Task<IActionResult> Edit(LessonEditModel model)
         {
+            if (!this.lessonsService.Contains(model.LessonId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -151,6 +178,12 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!this.lessonsService.Contains(id))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             LessonDeleteModel model = await this.lessonsService.GetLessonByIdAsync<LessonDeleteModel>(id);
             return this.View(model);
         }
@@ -159,13 +192,19 @@ namespace WeLearn.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(LessonDeleteModel model)
         {
+            if (!this.lessonsService.Contains(model.LessonId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             if (model.ApplicationUserUserName != this.GetUserName())
             {
                 return this.View("Unauthorized");
             }
 
             await this.lessonsService.SoftDeleteLessonByIdAsync(model.LessonId);
-            return RedirectToAction(nameof(ByMe));
+            return this.RedirectToAction(nameof(this.ByMe));
         }
 
         [HttpGet]
@@ -173,7 +212,7 @@ namespace WeLearn.Controllers
         public async Task<IActionResult> ByMe(string searchString, int? pageNumber)
         {
             IEnumerable<LessonViewModel> models =
-                await this.lessonsService.GetCreatedByMeAsync(GetUserId(), searchString);
+                await this.lessonsService.GetCreatedByMeAsync(this.GetUserId(), searchString);
 
             var paginated = PaginatedList<LessonViewModel>.Create(
                 models.OrderByDescending(x => x.LessonId),
@@ -216,6 +255,12 @@ namespace WeLearn.Controllers
         [HttpGet]
         public async Task<IActionResult> Send(int id)
         {
+            if (!this.lessonsService.Contains(id))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             LessonSendEmailViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonSendEmailViewModel>(id);
             return View(model);
         }
@@ -223,6 +268,12 @@ namespace WeLearn.Controllers
         [HttpPost]
         public async Task<IActionResult> Send(LessonSendEmailViewModel model)
         {
+            if (!this.lessonsService.Contains(model.LessonId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             StringBuilder stringBuilder = new StringBuilder();
             string subject = $"Lesson #{model.LessonId} - {model.Name}";
             string createdBy = model.ApplicationUserUserName ?? "Deleted User";

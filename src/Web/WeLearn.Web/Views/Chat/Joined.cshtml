@@ -1,63 +1,304 @@
-﻿@model Chat
+﻿@using Microsoft.AspNetCore.Http
+@model Chat
 @{
     ViewData["Title"] = $"Chat #{Model.Id} - {Model.Name}";
 }
 
-<div class="container text-center">
-    <div class="row">
-        <div class="col-md-6">
-            <h3 class="mt-4">Chat name: @Model.Name</h3>
-            <hr />
-            <div class="chat-body">
+<div class="container chat-container">
+    <div class="row no-gutters">
+        <div class="col-md-4 border-right all-chats-panel">
+            <div class="settings-tray">
+                @* <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/filip.jpg" alt="Profile img"> *@
+                Chats
+
+                <span class="settings-tray--right">
+                    @* <i class="material-icons">cached</i> *@
+                    @* <i class="material-icons">message</i> *@
+                    @* <i class="material-icons">menu</i> *@
+
+                    @* <i class="fas fa-plus"></i> *@
+                    <span type="button" id="create-room" data-toggle="modal" data-target="#chatModal">
+                        <i class="fas fa-plus"></i>
+                    </span>
+
+                    @* <i class="fas fa-sync"></i> *@
+                    <i class="far fa-comment-dots"></i>
+                    <i class="fas fa-bars"></i>
+
+                </span>
+            </div>
+
+            @* <div class="search-box"> *@
+            @*  <div class="input-wrapper"> *@
+            @*   $1$ <i class="material-icons">search</i> #1# *@
+            @*   <i class="fas fa-search"></i> *@
+            @*   <input placeholder="Search here" type="text"> *@
+            @*  </div> *@
+            @* </div> *@
+
+            
+            @* <div> *@
+            @*     <div class="friend-drawer friend-drawer--onhover"> *@
+            @*         <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg" alt=""> *@
+            @*         <div class="text"> *@
+            @*             <h6>Robo Cop</h6> *@
+            @*             <p class="text-muted">Hey, you're arrested!</p> *@
+            @*         </div> *@
+            @*         <span class="time text-muted small">13:21</span> *@
+            @*     </div> *@
+            @*     <hr> *@
+            @*     <div class="friend-drawer friend-drawer--onhover"> *@
+            @*         <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/optimus-prime.jpeg" alt=""> *@
+            @*         <div class="text"> *@
+            @*             <h6>Optimus</h6> *@
+            @*             <p class="text-muted">Wanna grab a beer?</p> *@
+            @*         </div> *@
+            @*         <span class="time text-muted small">00:32</span> *@
+            @*     </div> *@
+            @*     <hr> *@
+            @*     <div class="friend-drawer friend-drawer--onhover "> *@
+            @*         <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/real-terminator.png" alt=""> *@
+            @*         <div class="text"> *@
+            @*             <h6>Skynet</h6> *@
+            @*             <p class="text-muted">Seen that canned piece of s?</p> *@
+            @*         </div> *@
+            @*         <span class="time text-muted small">13:21</span> *@
+            @*     </div> *@
+            @*     <hr> *@
+            @*     <div class="friend-drawer friend-drawer--onhover"> *@
+            @*         <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/termy.jpg" alt=""> *@
+            @*         <div class="text"> *@
+            @*             <h6>Termy</h6> *@
+            @*             <p class="text-muted">Im studying spanish...</p> *@
+            @*         </div> *@
+            @*         <span class="time text-muted small">13:21</span> *@
+            @*     </div> *@
+            @*     <hr> *@
+            @*     <div class="friend-drawer friend-drawer--onhover"> *@
+            @*         <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/rick.jpg" alt=""> *@
+            @*         <div class="text"> *@
+            @*             <h6>Richard</h6> *@
+            @*             <p class="text-muted">I'm not sure...</p> *@
+            @*         </div> *@
+            @*         <span class="time text-muted small">13:21</span> *@
+            @*     </div> *@
+            @*     <hr> *@
+            @*     <div class="friend-drawer friend-drawer--onhover"> *@
+            @*         <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/rachel.jpeg" alt=""> *@
+            @*         <div class="text"> *@
+            @*             <h6>XXXXX</h6> *@
+            @*             <p class="text-muted">Hi, wanna see something?</p> *@
+            @*         </div> *@
+            @*         <span class="time text-muted small">13:21</span> *@
+            @*     </div> *@
+            @*     <hr> *@
+            @* </div> *@
+
+
+            @await Component.InvokeAsync("Room")
+        </div>
+        <div class="col-md-8 main-panel">
+            <div class="settings-tray">
+                <div class="friend-drawer no-gutters friend-drawer--grey">
+                    @* <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg" alt=""> *@
+                    @* <img class="profile-image" src="https://www.nicepng.com/png/detail/82-824233_class-group-chat-comments-group-chat-icon-free.png" alt=""> *@
+
+                    @* <div class="text"> *@
+                    @*     <h6>@Model.Name</h6> *@
+                    @*     $1$ <p class="text-muted">Layin' down the law since like before Christ...</p> #1# *@
+                    @* </div> *@
+
+                    @Model.Name
+
+                    <span class="settings-tray--right">
+                        @* <i class="material-icons">cached</i> *@
+                        @* <i class="material-icons">message</i> *@
+                        @* <i class="material-icons">menu</i> *@
+
+                        @* <i class="fas fa-plus"></i> *@
+                        @* <i class="fas fa-sync"></i> *@
+                        @* <i class="far fa-comment-dots"></i> *@
+                        @* <i class="fas fa-bars"></i> *@
+                    </span>
+                </div>
+            </div>
+            <div class="chat-panel">
                 @foreach (var message in Model.Messages)
                 {
-                    <div class="message mb-1">
-                        <span><b>@message.Name</b>:</span>
-                        <span>@message.Text</span>
-                        <span> | <time datetime="@message.CreatedOn.ToString("O")">@message.CreatedOn.ToString("g")</time></span>
+                    <div class="row no-gutters single-message">
+                        @if (message.Name == User?.Identity?.Name)
+                        {
+                            <div class="col-md-3 offset-md-9">
+                                <div class="chat-bubble chat-bubble--right">
+                                    <div><strong>@message.Name</strong>:</div>
+                                    <span>@message.Text</span>
+                                </div>
+
+                                <small class="text-muted pl-4">
+                                    <time datetime="@message.CreatedOn.ToString("O")">@message.CreatedOn.ToString("g")</time>
+                                </small>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-3">
+                                <div class="chat-bubble chat-bubble--left">
+                                    <div><strong>@message.Name</strong>:</div>
+                                    <span>@message.Text</span>
+                                </div>
+
+                                <small class="text-muted ml-5">
+                                    <time datetime="@message.CreatedOn.ToString("O")">@message.CreatedOn.ToString("g")</time>
+                                </small>
+                            </div>
+                        }
                     </div>
                 }
             </div>
-            <div class="offset-md-2 col-md-8 mt-3">
-                @* <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage" method="post"> *@
-                <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="SendMessage" method="post">
-                    <input type="hidden" name="roomId" value="@Model.Id" />
-                    <input type="text" name="message" id="message-input" class="form-control form-control-sm" />
-                    <input type="submit" value="Send" class="btn btn-sm btn-outline-success mt-3 mb-3" />
-                </form>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h3 class="mt-4">All chats</h3>
-            <hr />
-            @await Component.InvokeAsync("Room")
-            <a asp-controller="Chat" asp-action="Index" class="btn btn-sm btn-outline-dark mt-3 mb-3">
-                <i class="fas fa-arrow-left"></i> Back to home
-            </a>
+
+            <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="SendMessage" method="post">
+                <div class="row message-box">
+                    <div class="col-12">
+                        <div class="chat-box-tray hoverable">
+                            @* <i class="material-icons">sentiment_very_satisfied</i> *@
+                            @* <i class="far fa-grin-beam"></i> *@
+
+                            @* <i class="material-icons">mic</i> *@
+                            @* <i class="material-icons">send</i> *@
+
+                            @* <i class="fas fa-microphone"></i> *@
+
+                            @* <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="SendMessage" method="post"> *@
+                            @*     <input type="hidden" name="roomId" value="@Model.Id" /> *@
+                            @*     <input type="text" name="message" id="message-input"  /> *@
+                            @*     <input type="submit" value="Send"  /> *@
+                            @* </form> *@
+
+                            <input type="hidden" name="roomId" value="@Model.Id"/>
+                            <input type="text" name="message" id="message-input"
+                                   placeholder=" Type your message here...">
+                            @* <i class="fas fa-paper-plane"></i> *@
+
+                            <input type="submit" class="send-button" value="&#xf1d8;"/>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<!-- New Chat Modal -->
+<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chatModalLabel">Create new room</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form asp-area="" asp-controller="Chat" asp-action="CreateRoom" method="post">
+                <div class="modal-body container">
+                    <div>Provide name for the chat</div>
+                    <small class="text-muted">Must not be empty, a space or tab character</small>
+                </div>
+                <div class="container">
+                    <input type="text" name="name" value="" class="mb-3 form-control"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-outline-success" value="Create">Create</button>
+                    <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+@* <div class="chat-container text-cente        <h6>We don't have any group chats yet.</h6>
+        </div>
+    }r"> *@
+@*     <div class="row"> *@
+@*         <div class="col-md-6"> *@
+@*             <h3 class="mt-4">Chat name: @Model.Name</h3> *@
+@*             <hr /> *@
+@*             <div class="chat-body"> *@
+@*                 @foreach (var message in Model.Messages) *@
+@*                 { *@
+@*                     <div class="message mb-1"> *@
+@*                         <span><b>@message.Name</b>:</span> *@
+@*                         <span>@message.Text</span> *@
+@*                         <span> | <time datetime="@message.CreatedOn.ToString("O")">@message.CreatedOn.ToString("g")</time></span> *@
+@*                     </div> *@
+@*                 } *@
+@*             </div> *@
+@*             <div class="offset-md-2 col-md-8 mt-3"> *@
+@*                 $1$ <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage" method="post"> #1# *@
+@*                 <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="SendMessage" method="post"> *@
+@*                     <input type="hidden" name="roomId" value="@Model.Id" /> *@
+@*                     <input type="text" name="message" id="message-input" class="form-control form-control-sm" /> *@
+@*                     <input type="submit" value="Send" class="btn btn-sm btn-outline-success mt-3 mb-3" /> *@
+@*                 </form> *@
+@*             </div> *@
+@*         </div> *@
+@*         <div class="col-md-6"> *@
+@*             <h3 class="mt-4">All chats</h3> *@
+@*             <hr /> *@
+@*             @await Component.InvokeAsync("Room") *@
+@*             <a asp-controller="Chat" asp-action="Index" class="btn btn-sm btn-outline-dark mt-3 mb-3"> *@
+@*                 <i class="fas fa-arrow-left"></i> Back to home *@
+@*             </a> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+@* @await Component.InvokeAsync("Room")  *@
 
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/messageBuilder.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        var connection = new signalR.HubConnectionBuilder()
+        let mainChatPanel = $('.main-panel');
+                
+        let username = "@User?.Identity?.Name";
+    
+        let connection = new signalR.HubConnectionBuilder()
             .withUrl("/chatHub")
             .build();
 
-        var _connectionId = '';
+        let _connectionId = '';
 
+        
         connection.on("ReceiveMessage", function (data) {
-            var message = messageBuilder()
-                .createMessage()
-                .withHeader(escapeHtml(data.name))
-                .withParagraph(escapeHtml(data.text))
-                .withFooter(escapeHtml(data.createdOn))
+            let senderIsCurrentUser = data.name === username;
+            let containerClassList = senderIsCurrentUser ? 
+                ["col-md-3", "offset-md-9"] : 
+                ["col-md-3"];
+            
+            let bubbleStyles = senderIsCurrentUser ? 
+                ["chat-bubble", "chat-bubble--right"] :
+                ["chat-bubble", "chat-bubble--left"];
+            
+            let footerClassList = senderIsCurrentUser ?
+                ["text-muted", "pl-4"] :
+                ["text-muted", "ml-5"];
+            
+            let message = messageBuilder()
+                .createMessage(["row", "no-gutters"])
+                .withContainer("single-message", containerClassList)
+                .withBubbles(bubbleStyles)
+                .withHeader(data.name) // escapeHtml(data.name)
+                .withParagraph(data.text) // escapeHtml(data.text)
+                .withFooter(data.createdOn, footerClassList) // escapeHtml(data.createdOn), footerClassList
                 .build();
 
-            document.querySelector('.chat-body').append(message);
+            document.querySelector('.chat-panel').append(message);
+            
+            scrollToBottom();
         })
 
         connection.start()
@@ -72,14 +313,14 @@
             connection.invoke('leaveRoom', '@Model.Id');
         });
 
-        var sendMessage = function (event) {
+        let sendMessage = function (event) {
             event.preventDefault();
 
-            var data = new FormData(event.target);
+            let data = new FormData(event.target);
             document.getElementById('message-input').value = '';
             
             // if (typeof data.text === "undefined") return;
-
+                        
             axios.post('/Chat/SendMessage', data)
                 .then(res => {
                     console.log("Message sent!");
@@ -88,5 +329,20 @@
                     console.log("Failed to send a message!", err);
                 })
         }
+        
+        scrollToBottom();
+		
+        function scrollToBottom() {
+            mainChatPanel.scrollTop(mainChatPanel[0].scrollHeight);
+        }
+        
+		// live-chat scripts 
+		$( '.friend-drawer--onhover' ).on('click',  function() {
+          $( '.chat-bubble' ).hide('slow').show('slow');
+        });
     </script>
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/chat-style.css")" rel="stylesheet" type="text/css"/>
 }

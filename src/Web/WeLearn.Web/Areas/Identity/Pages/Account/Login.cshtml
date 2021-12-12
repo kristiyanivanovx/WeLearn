@@ -5,139 +5,135 @@
     ViewData["Title"] = "Login";
 }
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @* <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet"> *@
-    @* <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> *@
-    <link rel="stylesheet" href="~/css/forms-style.css">
-</head>
+<section class="ftco-section pt-5">
+    <div class="container">
+        @* <div class="row justify-content-center"> *@
+        @*     <div class="col-md-6 text-center mb-5"> *@
+        @*         <h2 class="heading-section">Login #05</h2> *@
+        @*     </div> *@
+        @* </div> *@
 
-<body>
-    <section class="ftco-section pt-5">
-        <div class="container">
-            @* <div class="row justify-content-center"> *@
-            @*     <div class="col-md-6 text-center mb-5"> *@
-            @*         <h2 class="heading-section">Login #05</h2> *@
-            @*     </div> *@
-            @* </div> *@
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-5">
+                <div class="wrap">
+                    <div class="img background-image-forms"></div>
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="w-100 mb-3">
+                                <h3 class="">@ViewData["Title"]</h3>
+                                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+                            </div>
 
-            <div class="row justify-content-center">
-                <div class="col-md-7 col-lg-5">
-                    <div class="wrap">
-                        <div class="img background-image-forms"></div>
-                        <div class="login-wrap p-4 p-md-5">
-                            <div class="d-flex">
-                                <div class="w-100 mb-3">
-                                    <h3 class="">@ViewData["Title"]</h3>                                
-                                    <div asp-validation-summary="All" class="text-danger mb-3"></div>
-                                </div>
-                                
-                                <div class="w-100">
-                                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                                        <div>
-                                            @*@foreach (var provider in Model.ExternalLogins)
+                            <div class="w-100">
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                    <div>
+                                        @*@foreach (var provider in Model.ExternalLogins)
                                     	    {
                                     		    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                                     	    }*@
 
-                                            <div class="social-media d-flex justify-content-end">
-                                                @foreach (var provider in Model.ExternalLogins)
+                                        <div class="social-media d-flex justify-content-end">
+                                            @foreach (var provider in Model.ExternalLogins)
+                                            {
+                                                if (provider.Name == "Google")
                                                 {
-                                                    if (provider.Name == "Google")
-                                                    {
                                                         @*
                                                         <button type="submit" class="btn btn-sm btn-outline-dark img-center" name="provider" value="@provider.Name">
                                                             <img width="20" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
                                                             &nbsp;Google
                                                         </button>
                                                         *@
-                                                        // was a tag
-                                                        <button href="#" class="social-icon d-flex align-items-center justify-content-center"
-                                                                name="provider" value="@provider.Name"
-                                                                type="submit">
-                                                            <span class="fa fa-google"></span>
-                                                        </button>
-                                                    }
-                                                    else
-                                                    {
-                                                        <button type="submit" class="btn btn-sm btn-primary" name="provider" 
-                                                                value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                                    }
+                                                    // was a tag
+                                                    <button href="#" class="social-icon d-flex align-items-center justify-content-center"
+                                                            name="provider" value="@provider.Name"
+                                                            type="submit">
+                                                        <span class="fa fa-google"></span>
+                                                    </button>
                                                 }
-                                            </div>
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-sm btn-primary" name="provider"
+                                                            value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                                        @provider.DisplayName
+                                                    </button>
+                                                }
+                                            }
                                         </div>
-                                    </form>
-                                    
-                                    @* <a href="#" class="social-icon d-flex align-items-center justify-content-center"> *@
-                                    @*     <span class="fa fa-twitter"></span> *@
-                                    @* </a> *@
-                                </div>
+                                    </div>
+                                </form>
+
+                                @* <a href="#" class="social-icon d-flex align-items-center justify-content-center"> *@
+                                @*     <span class="fa fa-twitter"></span> *@
+                                @* </a> *@
+                            </div>
+                        </div>
+
+                        <form id="account" method="post" class="signin-form">
+                            <div class="form-group">
+                                <input asp-for="Input.UserName" class="form-control mb-2" required/>
+                                <label asp-for="Input.UserName" class="form-control-placeholder">Username</label>
+                                <span asp-validation-for="Input.UserName" class="text-danger mt-2"></span>
                             </div>
 
-                            <form id="account" method="post" class="signin-form">
-                                <div class="form-group">
-                                    <input asp-for="Input.UserName" class="form-control mb-2" required/>
-                                    <label asp-for="Input.UserName" class="form-control-placeholder">Username</label>
-                                    <span asp-validation-for="Input.UserName" class="text-danger mt-2"></span>
+                            <div class="form-group mt-3">
+                                <input asp-for="Input.Password" class="form-control mb-2" required type="password"/>
+                                <label asp-for="Input.Password" class="form-control-placeholder">Password</label>
+                                <span asp-validation-for="Input.Password" class="text-danger mt-2"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Log in</button>
+                            </div>
+
+                            <div class="form-group d-md-flex">
+                                <div class="w-50 text-left">
+                                    <label class="checkbox-wrap checkbox-primary mb-0" asp-for="Input.RememberMe">
+                                        <input asp-for="Input.RememberMe">
+                                        <span class="checkmark"></span>
+                                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    </label>
                                 </div>
 
-                                <div class="form-group mt-3">
-                                    <input asp-for="Input.Password" class="form-control mb-2" required type="password"/>
-                                    <label asp-for="Input.Password" class="form-control-placeholder">Password</label>
-                                    <span asp-validation-for="Input.Password" class="text-danger mt-2"></span>
-                                </div>
-
-                                <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Log in</button>
-                                </div>
-
-                                <div class="form-group d-md-flex">
-                                    <div class="w-50 text-left">
-                                        <label class="checkbox-wrap checkbox-primary mb-0" asp-for="Input.RememberMe">
-                                            <input asp-for="Input.RememberMe">
-                                            <span class="checkmark"></span>
-                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                        </label>
-                                    </div>
-                                    
-                                    @* commented out links are not implemented *@
-                                    @*<p>
+                                @* commented out links are not implemented *@
+                                @*<p>
                                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                                     </p>
                                     <p>
                                         <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
                                     </p>*@
-                                    
-                                    @*  <div class="w-50 text-md-right"> *@
-                                    @*     <a href="#">Forgot Password</a> *@
-                                    @* </div> *@
-                                </div>
-                            </form>
 
-                            <p class="text-center">
-                                Not a member? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user.</a>
-                            </p>
-                        </div>
+                                @*  <div class="w-50 text-md-right"> *@
+                                @*     <a href="#">Forgot Password</a> *@
+                                @* </div> *@
+                            </div>
+                        </form>
+
+                        <p class="text-center">
+                            Not a member? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user.</a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    @* <script src="~/js/jquery.min.js"></script> *@
-    @* <script src="~/js/popper.js"></script> *@
-    @* <script src="~/js/bootstrap.min.js"></script> *@
-    @* <script src="~/js/main.js"></script> *@
+@* <script src="~/js/jquery.min.js"></script> *@
+@* <script src="~/js/popper.js"></script> *@
+@* <script src="~/js/bootstrap.min.js"></script> *@
+@* <script src="~/js/main.js"></script> *@
 
-    @* <script src="~/vendor/jquery/jquery.min.js"></script> *@
-    @* <script src="~/vendor/bootstrap/js/popper.min.js"></script> *@
-    @* <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script> *@
+@* <script src="~/vendor/jquery/jquery.min.js"></script> *@
+@* <script src="~/vendor/bootstrap/js/popper.min.js"></script> *@
+@* <script src="~/vendor/bootstrap/js/bootstrap.min.js"></script> *@
 
-    @* <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> *@
-</body>
-    
+@* <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> *@
+
 @section Scripts {
     <script src="~/js/forms-main.js"></script>
     <partial name="_ValidationScriptsPartial"/>
+}
+
+@section Styles {
+    <link href="@Url.Content("~/css/forms-style.css")" rel="stylesheet" type="text/css"/>
 }

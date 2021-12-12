@@ -53,6 +53,8 @@ namespace WeLearn.Services
             this.inputOutputService = inputOutputService;
         }
 
+        public bool Contains(int id) => this.lessonRepository.All().Any(x => x.Id == id);
+
         public int GetCount() => this.lessonRepository.All().Count();
 
         public async Task<T> GetLessonByIdAsync<T>(int id)

@@ -2,9 +2,16 @@
     ViewBag.Title = "Not Found";
 }
 
-<h1>@ViewBag.ErrorMessage</h1>
+<div class="error">
+</div>
 
-<a  asp-controller="Home" asp-action="Index">
-    Click here for home page.
-</a>
-
+<div class="container bg-text text-center">
+    <h3>@ViewData["ErrorMessage"]</h3>
+    <hr>
+    
+    <a asp-controller="Home" asp-action="Index">
+        Click here to return to the home page.
+    </a>
+    
+    @* <img src="~/img/errors/404.png" class="img-fluid" alt="Page Not Found Image"> *@
+</div>

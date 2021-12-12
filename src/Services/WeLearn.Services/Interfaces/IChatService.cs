@@ -13,7 +13,7 @@ namespace WeLearn.Services.Interfaces
 
         Task<List<Chat>> GetAllChatsAsync();
 
-        Task CreateRoomAsync(string name, string userId);
+        Task<int> CreateRoomAsync(string name, string userId);
 
         Task JoinRoomAsync(int chatId, string userId);
 

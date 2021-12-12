@@ -42,12 +42,11 @@ namespace WeLearn.Services
             return messageModel;
         }
 
-        public async Task CreateRoomAsync(string name, string userId)
+        public async Task<int> CreateRoomAsync(string name, string userId)
         {
             Chat chat = new Chat
             {
                 Name = name,
-                CreatedOn = DateTime.UtcNow,
             };
 
             chat.ChatApplicationUsers.Add(new ChatApplicationUser
@@ -57,6 +56,16 @@ namespace WeLearn.Services
 
             await this.chatRepository.AddAsync(chat);
             await this.chatRepository.SaveChangesAsync();
+
+            int chatId = this.chatRepository
+                .All()
+                .ToList()
+                .First(c =>
+                    c.Name == name &&
+                    c.ChatApplicationUsers.Any(chatAppUser => chatAppUser.ApplicationUserId == userId))
+                .Id;
+
+            return chatId;
         }
 
         public Chat GetChat(int id)

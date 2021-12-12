@@ -1,10 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
+using WeLearn.Services.Mapping;
 
 namespace WeLearn.Services
 {
@@ -16,6 +19,13 @@ namespace WeLearn.Services
         {
             this.likesRepository = likesRepository;
         }
+
+        public async Task<IEnumerable<T>> GetByUserId<T>(string userId)
+            => await this.likesRepository
+                .All()
+                .Where(x => x.ApplicationUserId == userId)
+                .To<T>()
+                .ToListAsync();
 
         public int GetLikesCount(int lessonId)
             => this.likesRepository

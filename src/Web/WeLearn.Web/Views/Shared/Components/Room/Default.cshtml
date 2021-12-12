@@ -1,18 +1,53 @@
 ﻿@model IEnumerable<Chat>
 
-<div class="container">
+@* <div class="container"> *@
+@*     @foreach (Chat chat in Model) *@
+@*     { *@
+@*         <div> *@
+@*             <a class="room-button" asp-controller="Chat" asp-action="Joined" asp-route-id="@chat.Id"> *@
+@*                 @chat.Name *@
+@*             </a> *@
+@*         </div> *@
+@*     } *@
+@*     @if (!Model.Any()) *@
+@*     { *@
+@*         <div> *@
+@*             <h5>We don't have any chats yet.</h5> *@
+@*         </div> *@
+@*     } *@
+@* </div> *@
+<div>
     @foreach (Chat chat in Model)
     {
-        <div>
-            <a class="room-button" asp-controller="Chat" asp-action="Joined" asp-route-id="@chat.Id">
-                @chat.Name
-            </a>
-        </div>
+        <a class="room-button" asp-controller="Chat" asp-action="Joined" asp-route-id="@chat.Id">
+            <div class="friend-drawer friend-drawer--onhover">
+                <img class="profile-image" src="https://www.nicepng.com/png/detail/82-824233_class-group-chat-comments-group-chat-icon-free.png" alt="">
+
+                <div class="text">
+                    <h6 class="room-button-title">@chat.Name</h6>
+                </div>
+            </div>
+        </a>
+
+        <hr>
     }
     @if (!Model.Any())
     {
-        <div>
-            <h5>We don't have any chats yet.</h5>
+        <div class="friend-drawer friend-drawer--onhover">
+            <h6>We don't have any group chats yet.</h6>
         </div>
     }
 </div>
+
+@section Styles {
+    <link href="@Url.Content("~/css/chat-style.css")" rel="stylesheet" type="text/css"/>
+}
+
+@* <div class="friend-drawer friend-drawer--onhover"> *@
+@*     <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg" alt=""> *@
+@*     <div class="text"> *@
+@*         <h6>Robo Cop</h6> *@
+@*         <p class="text-muted">Hey, you're arrested!</p> *@
+@*     </div> *@
+@*     <span class="time text-muted small">13:21</span> *@
+@* </div> *@

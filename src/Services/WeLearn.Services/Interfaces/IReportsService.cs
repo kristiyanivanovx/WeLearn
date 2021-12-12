@@ -11,6 +11,8 @@ namespace WeLearn.Services.Interfaces
     {
         int GetCount();
 
+        bool Contains(int id);
+
         Task<T> GetReportByIdAsync<T>(int reportId);
 
         Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString = null);

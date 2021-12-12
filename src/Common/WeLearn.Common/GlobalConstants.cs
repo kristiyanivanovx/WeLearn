@@ -2,6 +2,8 @@
 {
     public static class GlobalConstants
     {
+        public const string SystemName = "WeLearn";
+
         public const string ApplicationAdministratorEmail = "welearnbg@gmail.com";
 
         public const string ApplicationAdministratorUsername = "Admin";

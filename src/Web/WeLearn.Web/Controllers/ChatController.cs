@@ -32,7 +32,7 @@ namespace WeLearn.Web.Controllers
         public IActionResult Index()
         {
             IEnumerable<Chat> chats = this.chatService.GetChats(this.GetUserId());
-            return View(chats);
+            return this.View(chats);
         }
 
         public IActionResult Joined(int id)
@@ -40,22 +40,23 @@ namespace WeLearn.Web.Controllers
             Chat chat = this.chatService.GetChat(id);
 
             // todo: implement 404 not found
-            // if (chat == null)
-            // {
-            //     Response.StatusCode = 404;
-            //     return View("PageNotFound");
-            // }
-            return View(chat);
+            if (chat == null)
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            return this.View(chat);
         }
 
         public async Task<IActionResult> SendMessage(int roomId, string message)
         {
             if (message == null)
             {
-                return BadRequest(message);
+                return this.BadRequest(message);
             }
 
-            Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, GetUserName());
+            Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, this.GetUserName());
 
             await this.chatHub.Clients.Group(roomId.ToString())
                 .SendAsync("ReceiveMessage", new
@@ -65,25 +66,26 @@ namespace WeLearn.Web.Controllers
                     CreatedOn = messageModel.CreatedOn,
                 });
 
-            return Ok();
+            return this.Ok();
         }
 
         public async Task<IActionResult> CreateRoom(string name)
         {
-            if (name == null)
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(name))
             {
-                return RedirectToAction(nameof(Index));
+                return this.RedirectToAction(nameof(this.Joined), new { id = 1 });
             }
 
-            await this.chatService.CreateRoomAsync(name, GetUserId());
-            return RedirectToAction(nameof(Index));
+            int id = await this.chatService.CreateRoomAsync(name, this.GetUserId());
+
+            return this.RedirectToAction(nameof(this.Joined), new { id });
         }
 
         [HttpGet]
         public async Task<IActionResult> JoinRoom(int id)
         {
             await this.chatService.JoinRoomAsync(id, GetUserId());
-            return RedirectToAction(nameof(Joined), new { id });
+            return this.RedirectToAction(nameof(this.Joined), new { id });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model IndexViewModel
+﻿@using WeLearn.Common
+@model IndexViewModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -8,7 +9,7 @@
 
 <div class="container text-center bg-text mb-3 mt-3">
     @* <h1 class="pt-3">Welcome to WeLearn!</h1> *@
-    <h1>Welcome to WeLearn!</h1>
+    <h1>Welcome to @GlobalConstants.SystemName!</h1>
     <hr/>
 
     <h5 class="">The purpose of the web application is to be a place for sharing all kinds of knowledge, but mainly information related to the subjects taught in school.</h5>
@@ -19,11 +20,11 @@
     <h5>@Model.LessonsCount lessons</h5>
 </div>
 
-    @* <div class="text-center"> *@
-    @*     <img src="https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg" *@
-    @*          class="background-image" *@
-    @*          alt="books"/> *@
-    @* </div> *@
+@* <div class="text-center"> *@
+@*     <img src="https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg" *@
+@*          class="background-image" *@
+@*          alt="books"/> *@
+@* </div> *@
 
 @section Scripts
 {

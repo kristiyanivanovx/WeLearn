@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WeLearn.Web.ViewModels.Like.LikeViewModel>
+@{
+    ViewData["Title"] = "Lessons created by me";
+}
+
+<div class="container">
+    @if (!Model.Any())
+    {
+        <h3 class="text-center">You don't haven't liked any lessons yet.</h3>
+        <hr/>
+    }
+    else
+    {
+       
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
+    <script src="https://unpkg.com/plyr@3"></script>
+
+    <script>
+        const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
+        window.player = player;
+    </script>
+}

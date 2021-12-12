@@ -1,4 +1,4 @@
-namespace WeLearn.Web.ViewModels.Likes
+namespace WeLearn.Web.ViewModels.Like
 {
     public class LikeResponseModel
     {

@@ -20,6 +20,11 @@ namespace WeLearn.Services
         public ReportsService(IDeletableEntityRepository<Report> reportRepository)
             => this.reportRepository = reportRepository;
 
+        public bool Contains(int id)
+            => this.reportRepository
+                .All()
+                .Any(x => x.Id == id);
+
         public int GetCount()
             => this.reportRepository
                 .All()

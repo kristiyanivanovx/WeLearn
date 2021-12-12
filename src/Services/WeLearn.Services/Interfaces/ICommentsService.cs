@@ -8,6 +8,8 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ICommentsService
     {
+        bool Contains(int id);
+
         Task<T> GetCommentByIdWithDeletedAsync<T>(int id);
 
         Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString);

@@ -23,6 +23,11 @@ namespace WeLearn.Services
         public CommentsService(IDeletableEntityRepository<Comment> commentRepository)
             => this.commentRepository = commentRepository;
 
+        public bool Contains(int id)
+            => this.commentRepository
+                .All()
+                .Any(x => x.Id == id);
+
         public async Task CreateCommentAsync(CommentInputModel commentInputModel)
         {
             Comment comment = new Comment

@@ -7,48 +7,53 @@
     <form asp-area="" asp-controller="Lesson" asp-action="ByMe" method="get">
         <label>Find by name or description:</label>
         <div class="input-group input-group-sm mb-3">
-            <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
-            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+            <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString"/>
+            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1"/>
         </div>
     </form>
     @if (!Model.Any())
     {
-<h3 class="text-center">You don't have any reports to comments yet.</h3>
-                <hr />
-                <h4 class="text-center">If you have recently submitted one, it needs to be approved by administrators first.</h4> }
-                                            else
-                                            {
-                                <div class="text-center">
-                                    <partial name="_MultipleLessonsPartial" />
-                                    @{ var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                                                        var nextDisabled = !Model.HasNextPage ? "disabled" : ""; }
+        <h3 class="text-center">You don't have any reports to comments yet.</h3>
+        <hr/>
+        <h4 class="text-center">If you have recently submitted one, it needs to be approved by administrators first.</h4>
+    }
+    else
+    {
+        <div class="text-center">
+            <partial name="_MultipleLessonsPartial"/>
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
 
-                                    <div class="mt-2 mb-2">
-                                        <a asp-controller="Lesson"
-                                           asp-action="ByMe"
-                                           asp-route-pageNumber="@(Model.PageIndex - 1)"
-                                           asp-route-searchString="@Model.SearchString"
-                                           class="btn btn-sm btn-outline-dark @prevDisabled">
-                                            <i class="fas fa-arrow-left"></i> Previous
-                                        </a>
-                                        @for (int i = 1; i <= Model.TotalPages; i++)
-                                        {
-                        <a asp-controller="Lesson"
-                           asp-action="ByMe"
-                           asp-route-pageNumber="@i"
-                           asp-route-searchString="@@Model.SearchString"
-                           class="btn btn-sm btn-outline-dark ">
-                            @i
-                        </a>                }
-                                        <a asp-controller="Lesson"
-                                           asp-action="ByMe"
-                                           asp-route-pageNumber="@(Model.PageIndex + 1)"
-                                           asp-route-searchString="@Model.SearchString"
-                                           class="btn btn-sm btn-outline-dark @nextDisabled">
-                                            Next <i class="fas fa-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                </div>}
+            <div class="mt-2 mb-2">
+                <a asp-controller="Lesson"
+                   asp-action="ByMe"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-searchString="@Model.SearchString"
+                   class="btn btn-sm btn-outline-dark @prevDisabled">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </a>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <a asp-controller="Lesson"
+                       asp-action="ByMe"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchString="@@Model.SearchString"
+                       class="btn btn-sm btn-outline-dark ">
+                        @i
+                    </a>
+                }
+                <a asp-controller="Lesson"
+                   asp-action="ByMe"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-searchString="@Model.SearchString"
+                   class="btn btn-sm btn-outline-dark @nextDisabled">
+                    Next <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    }
 </div>
 
 @section Scripts {

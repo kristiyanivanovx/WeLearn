@@ -176,6 +176,12 @@ namespace WeLearn.Data.Infrastructure
                 new Material { Id = 14, LessonId = 14, CreatedOn = DateTime.UtcNow, Name = "Music", Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
                 new Material { Id = 15, LessonId = 15, CreatedOn = DateTime.UtcNow, Name = "Painting", Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" },
                 new Material { Id = 16, LessonId = 16, CreatedOn = DateTime.UtcNow, Name = "Entrepreneurship", Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip" });
+
+            modelBuilder.Entity<Chat>().HasData(
+                new Chat { Id = 1, Name = "Main", CreatedOn = DateTime.UtcNow });
+
+            modelBuilder.Entity<ChatApplicationUser>().HasData(
+                new ChatApplicationUser { ApplicationUserId = userId, ChatId = 1 });
         }
     }
 }

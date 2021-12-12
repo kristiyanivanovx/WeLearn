@@ -17,7 +17,7 @@ namespace WeLearn.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             List<Chat> chats = await this.chatService.GetAllChatsAsync();
-            return View(chats);
+            return this.View(chats);
         }
     }
 }

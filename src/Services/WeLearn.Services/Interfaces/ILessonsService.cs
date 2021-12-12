@@ -10,6 +10,8 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ILessonsService
     {
+        bool Contains(int id);
+
         int GetCount();
 
         Task<T> GetLessonByIdAsync<T>(int id);

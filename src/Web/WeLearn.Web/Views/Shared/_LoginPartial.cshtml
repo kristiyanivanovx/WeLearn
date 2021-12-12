@@ -7,7 +7,7 @@
     {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                @User.Identity?.Name.Truncate(32)
+                @User.Identity?.Name.Truncate(10)
             </a>
         </li>
         <li class="nav-item">

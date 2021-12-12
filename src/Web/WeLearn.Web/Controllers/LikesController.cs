@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
@@ -5,7 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
-using WeLearn.Web.ViewModels.Likes;
+using WeLearn.Web.ViewModels.Lesson;
+using WeLearn.Web.ViewModels.Like;
 
 namespace WeLearn.Web.Controllers
 {
@@ -32,6 +36,7 @@ namespace WeLearn.Web.Controllers
         public async Task<ActionResult<LikeResponseModel>> ToggleLike(LikeInputModel model)
         {
             var userId = this.userManager.GetUserId(this.User);
+
             await this.likesService.ToggleLikeAsync(model.LessonId, userId);
 
             var likesCount = this.likesService.GetLikesCount(model.LessonId);

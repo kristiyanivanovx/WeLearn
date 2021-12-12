@@ -29,30 +29,36 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
-            IEnumerable<LessonReportViewModel> lessonReportsByMe = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
-            return View(lessonReportsByMe);
+            IEnumerable<LessonReportViewModel> models = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
+            return this.View(models);
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Lesson(int id)
         {
+            if (!this.lessonsService.Contains(id))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             LessonReportInputModel lessonToReport = await this.lessonsService.GetLessonByIdAsync<LessonReportInputModel>(id);
-            return View(lessonToReport);
+            return this.View(lessonToReport);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Lesson(LessonReportInputModel lessonReportModel)
+        public async Task<IActionResult> Lesson(LessonReportInputModel model)
         {
-            lessonReportModel.ApplicationUserId = this.GetUserId();
+            model.ApplicationUserId = this.GetUserId();
 
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            await this.reportsService.CreateLessonReportAsync(lessonReportModel);
+            await this.reportsService.CreateLessonReportAsync(model);
             return this.RedirectToAction(nameof(this.LessonsByMe));
         }
 
@@ -60,76 +66,106 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonEdit(int reportId)
         {
-            LessonReportEditModel lessonToEdit = await this.reportsService.GetReportByIdAsync<LessonReportEditModel>(reportId);
-            return View(lessonToEdit);
+            if (!this.reportsService.Contains(reportId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            LessonReportEditModel model = await this.reportsService.GetReportByIdAsync<LessonReportEditModel>(reportId);
+            return this.View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> LessonEdit(LessonReportEditModel lessonReportModel)
+        public async Task<IActionResult> LessonEdit(LessonReportEditModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.reportsService.Contains(model.ReportId))
             {
-                return View(lessonReportModel);
+                this.Response.StatusCode = 404;
+                return this.NotFound();
             }
 
-            if (lessonReportModel.ApplicationUserId != GetUserId())
+            if (!this.ModelState.IsValid)
             {
-                return View("Unauthorized");
+                return this.View(model);
             }
 
-            await this.reportsService.EditLessonReportAsync(lessonReportModel);
-            return RedirectToAction(nameof(LessonsByMe));
+            if (model.ApplicationUserId != this.GetUserId())
+            {
+                return this.View("Unauthorized");
+            }
+
+            await this.reportsService.EditLessonReportAsync(model);
+            return this.RedirectToAction(nameof(this.LessonsByMe));
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> LessonDelete(int reportId)
         {
-            LessonReportDeleteModel lessonReportModel = await this.reportsService.GetReportByIdAsync<LessonReportDeleteModel>(reportId);
-            return View(lessonReportModel);
+            if (!this.reportsService.Contains(reportId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            LessonReportDeleteModel model = await this.reportsService.GetReportByIdAsync<LessonReportDeleteModel>(reportId);
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> LessonDelete(LessonReportDeleteModel lessonReportModel)
+        public async Task<IActionResult> LessonDelete(LessonReportDeleteModel model)
         {
-            if (lessonReportModel.ApplicationUserId != GetUserId())
+            if (!this.reportsService.Contains(model.ReportId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            if (model.ApplicationUserId != GetUserId())
             {
                 return View("Unauthorized");
             }
 
-            await this.reportsService.SoftDeleteReportByIdAsync(lessonReportModel.ReportId);
+            await this.reportsService.SoftDeleteReportByIdAsync(model.ReportId);
             return RedirectToAction(nameof(LessonsByMe));
         }
 
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            IEnumerable<CommentReportViewModel> commentReportsByMe = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
-            return View(commentReportsByMe);
+            IEnumerable<CommentReportViewModel> models = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
+            return View(models);
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Comment(int id)
         {
-            CommentReportInputModel lessonToReport = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentReportInputModel>(id);
-            return View(lessonToReport);
+            if (!this.commentsService.Contains(id))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            CommentReportInputModel model = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentReportInputModel>(id);
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Comment(CommentReportInputModel commentReportModel)
+        public async Task<IActionResult> Comment(CommentReportInputModel model)
         {
-            commentReportModel.ApplicationUserId = GetUserId();
+            model.ApplicationUserId = GetUserId();
 
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            await this.reportsService.CreateCommentReportAsync(commentReportModel);
+            await this.reportsService.CreateCommentReportAsync(model);
             return RedirectToAction(nameof(CommentsByMe));
         }
 
@@ -137,25 +173,37 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentEdit(int reportId)
         {
-            CommentReportEditModel editCommentReport = await this.reportsService.GetReportByIdAsync<CommentReportEditModel>(reportId);
-            return View(editCommentReport);
+            if (!this.reportsService.Contains(reportId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            CommentReportEditModel model = await this.reportsService.GetReportByIdAsync<CommentReportEditModel>(reportId);
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CommentEdit(CommentReportEditModel commentReportModel)
+        public async Task<IActionResult> CommentEdit(CommentReportEditModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.reportsService.Contains(model.ReportId))
             {
-                return View(commentReportModel);
+                this.Response.StatusCode = 404;
+                return this.NotFound();
             }
 
-            if (commentReportModel.ApplicationUserId != GetUserId())
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (model.ApplicationUserId != GetUserId())
             {
                 return View("Unauthorized");
             }
 
-            await this.reportsService.EditCommentReportAsync(commentReportModel);
+            await this.reportsService.EditCommentReportAsync(model);
             return RedirectToAction(nameof(CommentsByMe));
         }
 
@@ -163,20 +211,32 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> CommentDelete(int reportId)
         {
-            CommentReportDeleteModel commentReportModel = await this.reportsService.GetReportByIdAsync<CommentReportDeleteModel>(reportId);
-            return View(commentReportModel);
+            if (!this.reportsService.Contains(reportId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            CommentReportDeleteModel model = await this.reportsService.GetReportByIdAsync<CommentReportDeleteModel>(reportId);
+            return View(model);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> CommentDelete(CommentReportDeleteModel commentReportModel)
+        public async Task<IActionResult> CommentDelete(CommentReportDeleteModel model)
         {
-            if (commentReportModel.ApplicationUserId != GetUserId())
+            if (!this.reportsService.Contains(model.ReportId))
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            if (model.ApplicationUserId != GetUserId())
             {
                 return View(nameof(Unauthorized));
             }
 
-            await this.reportsService.SoftDeleteReportByIdAsync(commentReportModel.ReportId);
+            await this.reportsService.SoftDeleteReportByIdAsync(model.ReportId);
             return RedirectToAction(nameof(CommentsByMe));
         }
     }

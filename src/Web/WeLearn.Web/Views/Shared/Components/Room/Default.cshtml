@@ -21,7 +21,10 @@
     {
         <a class="room-button" asp-controller="Chat" asp-action="Joined" asp-route-id="@chat.Id">
             <div class="friend-drawer friend-drawer--onhover">
-                <img class="profile-image" src="https://www.nicepng.com/png/detail/82-824233_class-group-chat-comments-group-chat-icon-free.png" alt="">
+                @* <img class="profile-image" src="https://www.nicepng.com/png/detail/82-824233_class-group-chat-comments-group-chat-icon-free.png" alt=""> *@
+                <img class="profile-image" 
+                     src="https://images-na.ssl-images-amazon.com/images/I/51nY87iE6hL.png" 
+                     alt="chat-image">
 
                 <div class="text">
                     <h6 class="room-button-title">@chat.Name</h6>

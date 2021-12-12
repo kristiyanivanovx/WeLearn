@@ -180,3 +180,4 @@ Structure influenced by:
 
 Videos, images from https://pexels.com and https://unsplash.com
 - Login, register forms/pages - https://colorlib.com/wp/template/login-form-15/
+- Chat design - https://codepen.io/FilipRastovic/pen/pXgqKK | https://youtu.be/fCpw5i_2IYU

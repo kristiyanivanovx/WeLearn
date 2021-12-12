@@ -22,9 +22,10 @@
                     </span>
 
                     @* <i class="fas fa-sync"></i> *@
-                    <i class="far fa-comment-dots"></i>
-                    <i class="fas fa-bars"></i>
-
+                    
+                    @* <i class="far fa-comment-dots"></i> *@
+                    @* <i class="fas fa-bars"></i> *@
+                    <i class="fas fa-filter"></i>
                 </span>
             </div>
 
@@ -218,9 +219,10 @@
 </div>
 <!-- Modal End -->
 
-@* <div class="chat-container text-cente        <h6>We don't have any group chats yet.</h6>
+@* <div class="chat-container text-center">
+            <h6>We don't have any group chats yet.</h6>
         </div>
-    }r"> *@
+*@
 @*     <div class="row"> *@
 @*         <div class="col-md-6"> *@
 @*             <h3 class="mt-4">Chat name: @Model.Name</h3> *@
@@ -272,7 +274,6 @@
 
         let _connectionId = '';
 
-        
         connection.on("ReceiveMessage", function (data) {
             let senderIsCurrentUser = data.name === username;
             let containerClassList = senderIsCurrentUser ? 
@@ -337,12 +338,14 @@
         }
         
 		// live-chat scripts 
-		$( '.friend-drawer--onhover' ).on('click',  function() {
-          $( '.chat-bubble' ).hide('slow').show('slow');
+		$( '.friend-drawer--onhover' ).on('click', function() {
+          $( '.chat-bubble' ).hide('slow');
+          // $( '.chat-bubble' ).hide('slow').show('slow');
         });
     </script>
 }
 
 @section Styles {
     <link href="@Url.Content("~/css/chat-style.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/css/background.css")" rel="stylesheet" type="text/css"/>
 }

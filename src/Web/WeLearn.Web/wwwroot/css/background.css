@@ -1,0 +1,6 @@
+body {
+    background: url('/img/background-landing.jpg') no-repeat scroll 0px 100% / cover transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}

@@ -20,29 +20,6 @@
     <h5>@Model.LessonsCount lessons</h5>
 </div>
 
-@* <div class="text-center"> *@
-@*     <img src="https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg" *@
-@*          class="background-image" *@
-@*          alt="books"/> *@
-@* </div> *@
-
-@section Scripts
-{
-    @* document body *@
-    <script type="text/javascript">
-        window.onload = function getBody() {
-            let imgSrc1 = "http://www.google.com/intl/en_com/images/logo_plain.png";
-            let imgSrc2 = "https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg";
-            
-            let body = document.getElementsByTagName('body')[0];
-            let img = document.createElement("img");
-            img.src = imgSrc2;
-
-            // var src = document.getElementById("header");
-            // body.appendChild(img);
-            // body.style.background = "url('https://res.cloudinary.com/dgvfqp9zu/image/upload/v1622922269/welearn-asp-net-core-app/images/pexels-katerina-holmes-5905443-background_bjqdh7.jpg') no-repeat scroll 0px 100% / cover transparent";
-            // body.style.background = "url('/img/background-landing.jpg') no-repeat scroll 0px 100% / cover transparent";
-        }
-        // console.log('asdasd')
-    </script>
+@section Styles {
+    <link href="@Url.Content("~/css/background.css")" rel="stylesheet" type="text/css"/>
 }

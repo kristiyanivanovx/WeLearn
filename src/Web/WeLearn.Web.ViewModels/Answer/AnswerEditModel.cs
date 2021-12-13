@@ -6,7 +6,7 @@ using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Web.ViewModels.Answer
 {
-    public class AnswerEditModel : IMapTo<Data.Models.Answer>, IMapFrom<Data.Models.Answer>
+    public class AnswerEditModel : IMapTo<Data.Models.Quiz.Answer>, IMapFrom<Data.Models.Quiz.Answer>
     {
         public int Id { get; set; }
 

@@ -1,17 +1,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 using WeLearn.Data.Common.Models;
-using WeLearn.Services.Mapping;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.Quiz
 {
     public class Question : BaseDeletableModel<int>
     {
         public Question()
         {
             this.Answers = new HashSet<Answer>();
-            this.Quizzes = new HashSet<Quiz>();
+            this.Quizzes = new HashSet<Models.Quiz.Quiz>();
         }
 
         [Required]
@@ -22,6 +20,6 @@ namespace WeLearn.Data.Models
 
         public ICollection<Answer> Answers { get; set; }
 
-        public ICollection<Quiz> Quizzes { get; set; }
+        public ICollection<Models.Quiz.Quiz> Quizzes { get; set; }
     }
 }

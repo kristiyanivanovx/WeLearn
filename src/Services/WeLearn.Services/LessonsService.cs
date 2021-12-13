@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.Enums;
+using WeLearn.Data.Models.LessonModule;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Lesson;
@@ -20,6 +21,7 @@ using WeLearn.Web.ViewModels.Lesson;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
+using Video = WeLearn.Data.Models.LessonModule.Video;
 
 namespace WeLearn.Services
 {
@@ -36,15 +38,15 @@ namespace WeLearn.Services
 
         private const string CloudinaryVideosFolder = "welearn-asp-net-core-app/videos/";
 
-        private readonly IDeletableEntityRepository<Data.Models.Video> videoRepository;
-        private readonly IDeletableEntityRepository<Data.Models.Material> materialRepository;
-        private readonly IDeletableEntityRepository<Data.Models.Lesson> lessonRepository;
+        private readonly IDeletableEntityRepository<Data.Models.LessonModule.Video> videoRepository;
+        private readonly IDeletableEntityRepository<Material> materialRepository;
+        private readonly IDeletableEntityRepository<Lesson> lessonRepository;
         private readonly IInputOutputService inputOutputService;
 
         public LessonsService(
-            IDeletableEntityRepository<Data.Models.Video> videoRepository,
-            IDeletableEntityRepository<Data.Models.Material> materialRepository,
-            IDeletableEntityRepository<Data.Models.Lesson> lessonRepository,
+            IDeletableEntityRepository<Data.Models.LessonModule.Video> videoRepository,
+            IDeletableEntityRepository<Material> materialRepository,
+            IDeletableEntityRepository<Lesson> lessonRepository,
             IInputOutputService inputOutputService)
         {
             this.videoRepository = videoRepository;
@@ -278,7 +280,7 @@ namespace WeLearn.Services
             await this.lessonRepository.SaveChangesAsync();
         }
 
-        public async Task<Data.Models.Video> UploadVideoAsync(
+        public async Task<Data.Models.LessonModule.Video> UploadVideoAsync(
             Lesson lesson,
             ILessonModel lessonInputModel,
             string environmentWebRootPath)
@@ -307,7 +309,7 @@ namespace WeLearn.Services
                 await video.CopyToAsync(stream);
             }
 
-            Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
+            Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
 
             await this.videoRepository.AddAsync(videoEntity);
             await this.videoRepository.SaveChangesAsync();
@@ -338,13 +340,13 @@ namespace WeLearn.Services
             files.CopyTo(fileStream);
         }
 
-        private static Data.Models.Video CreateVideoEntity(
+        private static Video CreateVideoEntity(
             Lesson lesson,
             IFormFile video,
             string path,
             string publicId = null)
         {
-            return new Data.Models.Video
+            return new Video
             {
                 Name = video.FileName,
                 ContentType = video.ContentType,
@@ -419,13 +421,13 @@ namespace WeLearn.Services
             if (lessonEditModel.Video != null)
             {
                 Cloudinary cloudinary = new Cloudinary();
-                Data.Models.Video previousVideoEntity = lesson.Video;
+                Video previousVideoEntity = lesson.Video;
 
                 DelResResult result = await cloudinary.DeleteResourcesAsync(previousVideoEntity.PublicId);
                 this.videoRepository.HardDelete(previousVideoEntity);
                 await this.videoRepository.SaveChangesAsync();
 
-                Data.Models.Video newVideoEntity = await this.UploadVideoCloudinaryAsync(lesson, lessonEditModel);
+                Video newVideoEntity = await this.UploadVideoCloudinaryAsync(lesson, lessonEditModel);
 
                 await this.videoRepository.SaveChangesAsync();
                 lesson.VideoId = newVideoEntity.Id;
@@ -475,7 +477,7 @@ namespace WeLearn.Services
             bool isDevelopment,
             Lesson lesson)
         {
-            Data.Models.Video videoEntity;
+            Video videoEntity;
             Material materialEntity;
 
             if (isDevelopment)
@@ -529,7 +531,7 @@ namespace WeLearn.Services
         {
             if (lessonEditModel.Video != null)
             {
-                Data.Models.Video videoEntity = await this.UploadVideoAsync(lesson, lessonEditModel, environmentWebRootPath);
+                Video videoEntity = await this.UploadVideoAsync(lesson, lessonEditModel, environmentWebRootPath);
                 lesson.VideoId = videoEntity.Id;
                 await this.lessonRepository.SaveChangesAsync();
             }
@@ -570,7 +572,7 @@ namespace WeLearn.Services
             return uploadResult;
         }
 
-        private async Task<Data.Models.Video> UploadVideoCloudinaryAsync(Lesson lesson, ILessonModel lessonInputModel)
+        private async Task<Video> UploadVideoCloudinaryAsync(Lesson lesson, ILessonModel lessonInputModel)
         {
             Cloudinary cloudinary = new Cloudinary();
             IFormFile video = lessonInputModel.Video;
@@ -593,7 +595,7 @@ namespace WeLearn.Services
 
             string path = uploadResult.SecureUrl.AbsoluteUri;
             string publicId = uploadParams.PublicId;
-            Data.Models.Video videoEntity = CreateVideoEntity(lesson, video, path, publicId);
+            Video videoEntity = CreateVideoEntity(lesson, video, path, publicId);
 
             await this.videoRepository.AddAsync(videoEntity);
 

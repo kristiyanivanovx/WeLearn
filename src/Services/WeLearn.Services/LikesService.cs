@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.LessonModule;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 

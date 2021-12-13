@@ -9,7 +9,9 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Lesson
 {
-    public class LessonReportViewModel : IMapFrom<Data.Models.Report>, IHaveCustomMappings
+    public class LessonReportViewModel : 
+        IMapFrom<Data.Models.LessonModule.Report>, 
+        IHaveCustomMappings
     {
         public int LessonId { get; set; }
 
@@ -54,7 +56,7 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Data.Models.Report, LessonReportViewModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Report, LessonReportViewModel>()
                 .ForMember(dest => dest.ReportId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description));
         }

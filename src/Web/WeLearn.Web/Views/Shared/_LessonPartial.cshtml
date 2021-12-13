@@ -40,9 +40,12 @@
 			</div>
 		</div>
 		
-		<a onclick="toggleLike(@Model.LessonId)" class="btn btn-sm btn-like mb-1">
-			<i class="far fa-heart"></i> Like
-		</a>
+		@if (User.Identity.IsAuthenticated)
+		{
+			<a onclick="toggleLike(@Model.LessonId)" class="btn btn-sm btn-like mb-1">
+				<i class="far fa-heart"></i> Like
+			</a>
+		}
 		
 		@if (User.Identity?.Name == Model.ApplicationUserUserName)
 		{

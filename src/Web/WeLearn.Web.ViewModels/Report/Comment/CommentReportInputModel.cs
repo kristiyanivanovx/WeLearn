@@ -8,7 +8,10 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Comment
 {
-    public class CommentReportInputModel : IMapFrom<Data.Models.Comment>, IMapTo<Data.Models.Report>, IHaveCustomMappings
+    public class CommentReportInputModel : 
+        IMapFrom<Data.Models.LessonModule.Comment>, 
+        IMapTo<Data.Models.LessonModule.Report>, 
+        IHaveCustomMappings
     {
         public int CommentId { get; set; }
 
@@ -35,7 +38,7 @@ namespace WeLearn.Web.ViewModels.Report.Comment
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Data.Models.Comment, CommentReportInputModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Comment, CommentReportInputModel>()
                 .ForMember(dest => dest.CommentId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CommentContent, opt => opt.MapFrom(src => src.Content))
                 .ForMember(dest => dest.CommentCreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
@@ -43,7 +46,7 @@ namespace WeLearn.Web.ViewModels.Report.Comment
                     dest => dest.CommentApplicationUserUserName,
                     opt => opt.MapFrom(src => src.ApplicationUser.UserName));
 
-            configuration.CreateMap<CommentReportInputModel, Data.Models.Report>()
+            configuration.CreateMap<CommentReportInputModel, Data.Models.LessonModule.Report>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.ReportDescription));
         }

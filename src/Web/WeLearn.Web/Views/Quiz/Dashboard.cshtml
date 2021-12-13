@@ -1,0 +1,135 @@
+@model WeLearn.Web.ViewModels.Quiz.QuizDashboardModel
+@{
+    ViewData["Title"] = "Quizzes";
+}
+
+<div class="container-fluid pl-5 pr-5 text-center">
+    <h3>Quizzes</h3>
+    <hr/>
+
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="mb-3">Available for taking</h5>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Category
+                        </th>
+                        <th>
+                            Max points
+                        </th>
+                        <th>
+                            Date created
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                        @* <th> *@
+                        @*     Date modified *@
+                        @* </th> *@
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var availableQuiz in @Model.AllQuizzesViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => availableQuiz.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => availableQuiz.CategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => availableQuiz.MaxPoints)
+                            </td>
+                            <td>
+                                <time datetime="@availableQuiz.CreatedOn.ToString("O")">
+                                    @availableQuiz.CreatedOn.ToString("g")
+                                </time>
+                            </td>
+                            <td>
+                                <a asp-area="" asp-controller="Quiz" asp-action="Take" asp-route-id="@availableQuiz.Id"
+                                   class="btn btn-sm btn-outline-success">
+                                    Take
+                                </a>
+
+                            </td>
+
+                            @* <td> *@
+                            @*     <time datetime="@quiz.ModifiedOn.ToString("O")">@quiz.ModifiedOn.ToString("g")</time> *@
+                            @* </td> *@
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h5 class="mb-3">Taken before</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Quiz name
+                            </th>
+                            <th>
+                                Quiz category
+                            </th>
+                            <th>
+                                Your points
+                            </th>
+                            <th>
+                                Quiz max points
+                            </th>
+                            <th>
+                                Date created
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var examinationViewModel in @Model.ExaminationViewModels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => examinationViewModel.QuizName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => examinationViewModel.QuizCategoryName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => examinationViewModel.Points)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => examinationViewModel.QuizMaxPoints)
+                            </td>
+                            <td>
+                                <time datetime="@examinationViewModel.CreatedOn.ToString("O")">
+                                    @examinationViewModel.CreatedOn.ToString("g")
+                                </time>
+                            </td>
+                            <td>
+                                <a asp-area="" asp-controller="Quiz" asp-action="View" asp-route-id="@examinationViewModel.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    View
+                                </a>
+                            </td>
+
+                            @* <td> *@
+                            @*     <time datetime="@quiz.ModifiedOn.ToString("O")">@quiz.ModifiedOn.ToString("g")</time> *@
+                            @* </td> *@
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

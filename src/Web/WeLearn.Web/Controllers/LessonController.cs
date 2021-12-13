@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,14 +9,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using WeLearn.Data.Models.Enums;
-using WeLearn.Services.HelperModels;
+using WeLearn.Data.Models.InputOutput;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Messaging.Interfaces;
 using WeLearn.Web.Controllers;
-using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Lesson;
 using WeLearn.Web.ViewModels.Like;
+
 using static WeLearn.Common.GlobalConstants;
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;

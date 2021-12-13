@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 using WeLearn.Data.Common.Models;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.Quiz
 {
     public class Answer : BaseDeletableModel<int>
     {

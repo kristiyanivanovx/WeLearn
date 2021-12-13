@@ -4,7 +4,7 @@ using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.Question
 {
-    public class QuestionEditModel : IMapTo<Data.Models.Question>, IMapFrom<Data.Models.Question>
+    public class QuestionEditModel : IMapTo<Data.Models.Quiz.Question>, IMapFrom<Data.Models.Quiz.Question>
     {
         [Required]
         public int Id { get; set; }

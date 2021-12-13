@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.ChatApp;
+using WeLearn.Data.Models.LessonModule;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.Identity
 {
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {

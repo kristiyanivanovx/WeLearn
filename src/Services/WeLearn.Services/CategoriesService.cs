@@ -3,6 +3,7 @@ using System.Linq;
 
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Shared;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Category;

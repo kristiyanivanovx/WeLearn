@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using WeLearn.Data.Models;
+using WeLearn.Data.Models.LessonModule;
 
 using static WeLearn.Common.GlobalConstants;
 
@@ -18,13 +18,19 @@ namespace WeLearn.Data.Seeding
                 await dbContext.Reports.AddRangeAsync(
                         new Report
                         {
-                            Id = 1, ApplicationUserId = ApplicationAdministratorId, LessonId = 5,
-                            Subject = "The language used in title", Description = "Bad language in lesson's title."
+                            Id = 1,
+                            ApplicationUserId = ApplicationAdministratorId,
+                            LessonId = 5,
+                            Subject = "The language used in title",
+                            Description = "Bad language in lesson's title.",
                         },
                         new Report
                         {
-                            Id = 3, ApplicationUserId = ApplicationAdministratorId, CommentId = 1,
-                            Subject = "Unacceptable behaviour", Description = "Bad language in comment."
+                            Id = 3,
+                            ApplicationUserId = ApplicationAdministratorId,
+                            CommentId = 1,
+                            Subject = "Unacceptable behaviour",
+                            Description = "Bad language in comment.",
                         });
             }
         }

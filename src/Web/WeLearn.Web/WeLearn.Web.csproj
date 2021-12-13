@@ -1867,4 +1867,10 @@
 	  <None Include="wwwroot\vendor\jquery\jquery.slim.min.map" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Views\Message\Create.cshtml" />
+	  <_ContentIncludedByDefault Remove="Views\Message\Index.cshtml" />
+	  <_ContentIncludedByDefault Remove="Views\Message\To.cshtml" />
+	</ItemGroup>
+
 </Project>

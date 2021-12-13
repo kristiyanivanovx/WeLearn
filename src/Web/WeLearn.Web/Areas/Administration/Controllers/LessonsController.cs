@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin.Lesson;
@@ -23,41 +24,43 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             var lessonsViewModels =
                 await this.lessonsService.GetAllLessonsWithDeletedAsync<AdminLessonViewModel>(searchString);
 
-            var paginated =
-                PaginatedList<AdminLessonViewModel>.Create(
+            var paginated = PaginatedList<AdminLessonViewModel>.Create(
                     lessonsViewModels.OrderBy(x => x.IsApproved),
                     pageNumber ?? 1,
                     6);
 
             paginated.SearchString = searchString;
-            return View(paginated);
+
+            return this.View(paginated);
         }
 
         public async Task<IActionResult> Edit(int id)
         {
             AdminLessonEditModel lesson =
                 await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
+
             lesson.Categories = this.categoriesService.GetAllCategories();
-            return View(lesson);
+
+            return this.View(lesson);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(AdminLessonEditModel lessonModel)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 // lessonModel.Categories = this.categoriesService.GetAllCategories();
-                return View(lessonModel);
+                return this.View(lessonModel);
             }
 
             await this.lessonsService.EditLessonAdministrationAsync(lessonModel);
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             var lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonDeleteModel>(id);
-            return View(lesson);
+            return this.View(lesson);
         }
 
         [HttpPost]
@@ -65,7 +68,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await this.lessonsService.HardDeleteLessonByIdAsync(id);
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Common.Models;
+using WeLearn.Data.Models.Identity;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.Quiz
 {
     public class Examination : BaseDeletableModel<int>
     {
@@ -14,7 +15,7 @@ namespace WeLearn.Data.Models
         public Quiz Quiz { get; set; }
 
         [Required]
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
     }

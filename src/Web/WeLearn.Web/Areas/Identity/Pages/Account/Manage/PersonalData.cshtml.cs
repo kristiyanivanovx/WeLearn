@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Identity;
 
 namespace WeLearn.Web.Areas.Identity.Pages.Account.Manage
 {

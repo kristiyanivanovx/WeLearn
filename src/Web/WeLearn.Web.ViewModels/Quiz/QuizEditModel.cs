@@ -8,7 +8,7 @@ using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Web.ViewModels.Quiz
 {
-    public class QuizEditModel : IMapTo<Data.Models.Quiz>, IMapFrom<Data.Models.Quiz>, IHaveCustomMappings
+    public class QuizEditModel : IMapTo<Data.Models.Quiz.Quiz>, IMapFrom<Data.Models.Quiz.Quiz>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -27,7 +27,7 @@ namespace WeLearn.Web.ViewModels.Quiz
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration
-                .CreateMap<Data.Models.Quiz, QuizEditModel>()
+                .CreateMap<Data.Models.Quiz.Quiz, QuizEditModel>()
                     .ForMember(
                         dest => dest.QuestionIds,
                         opt => opt.MapFrom(

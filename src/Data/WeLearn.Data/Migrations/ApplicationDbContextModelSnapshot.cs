@@ -153,45 +153,91 @@ namespace WeLearn.Data.Migrations
                     b.ToTable("QuestionQuiz");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Answer", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.Chat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("integer");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
+                    b.ToTable("Chats");
 
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("Answers");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(2938),
+                            Name = "Main"
+                        });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.ApplicationRole", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.ChatApplicationUser", b =>
+                {
+                    b.Property<int>("ChatId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("ChatId", "ApplicationUserId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("ChatApplicationUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            ChatId = 1,
+                            ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a"
+                        });
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ChatId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasMaxLength(1500)
+                        .HasColumnType("character varying(1500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -231,7 +277,7 @@ namespace WeLearn.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -313,7 +359,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0b05a821-c999-44be-bf5c-dfe9d0f431fa",
+                            ConcurrencyStamp = "28d17058-ae65-49a4-a134-4cb4d6f709ef",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "default@gmail.com",
                             EmailConfirmed = false,
@@ -321,251 +367,15 @@ namespace WeLearn.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DEFAULT@GMAIL.COM",
                             NormalizedUserName = "USERNAME",
-                            PasswordHash = "AQAAAAEAACcQAAAAED+gnpa8oOFcbVQ+7Gbe25Fb9XvDOTlT1I/KZltPhRDFArPe3B7j0DhBwQdqA5F9UA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHvPn67OB+QK+826nyXyDy4Z8CeT7JInGCDiGeaUHZPTS7Rh6MP5EsGVPijduTF+3g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e769a656-4100-4515-b0e6-017287542d1d",
+                            SecurityStamp = "e3970513-70f8-435e-8b26-3c7fabdf988b",
                             TwoFactorEnabled = false,
                             UserName = "Username"
                         });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5142),
-                            IsDeleted = false,
-                            Name = "Bulgarian Language"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5377),
-                            IsDeleted = false,
-                            Name = "Mathematics"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5378),
-                            IsDeleted = false,
-                            Name = "Informatics"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5380),
-                            IsDeleted = false,
-                            Name = "IT"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5381),
-                            IsDeleted = false,
-                            Name = "Geography"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5382),
-                            IsDeleted = false,
-                            Name = "Physical Education and Sport"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5383),
-                            IsDeleted = false,
-                            Name = "Literature"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5384),
-                            IsDeleted = false,
-                            Name = "Civic Education"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5386),
-                            IsDeleted = false,
-                            Name = "English Language"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5387),
-                            IsDeleted = false,
-                            Name = "Russian Language"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5389),
-                            IsDeleted = false,
-                            Name = "History"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5390),
-                            IsDeleted = false,
-                            Name = "Biology"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5391),
-                            IsDeleted = false,
-                            Name = "Chemistry"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5392),
-                            IsDeleted = false,
-                            Name = "Music"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5417),
-                            IsDeleted = false,
-                            Name = "Art"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5418),
-                            IsDeleted = false,
-                            Name = "Technologies and Entrepreneurship"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(5419),
-                            IsDeleted = false,
-                            Name = "Others"
-                        });
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.Chat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Chats");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(2775),
-                            Name = "Main"
-                        });
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.ChatApplicationUser", b =>
-                {
-                    b.Property<int>("ChatId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("ChatId", "ApplicationUserId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("ChatApplicationUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            ChatId = 1,
-                            ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a"
-                        });
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ChatId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasMaxLength(1500)
-                        .HasColumnType("character varying(1500)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
-
-                    b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Comment", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -611,7 +421,7 @@ namespace WeLearn.Data.Migrations
                             Id = 1,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             Content = "I like it!",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(672),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 911, DateTimeKind.Utc).AddTicks(2972),
                             IsDeleted = false,
                             LessonId = 1
                         },
@@ -620,7 +430,7 @@ namespace WeLearn.Data.Migrations
                             Id = 2,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             Content = "The teacher is awesome.",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(1791),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 911, DateTimeKind.Utc).AddTicks(4757),
                             IsDeleted = false,
                             LessonId = 2
                         },
@@ -629,55 +439,13 @@ namespace WeLearn.Data.Migrations
                             Id = 3,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             Content = "This is just great.",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(1793),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 911, DateTimeKind.Utc).AddTicks(4760),
                             IsDeleted = false,
                             LessonId = 3
                         });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Examination", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ApplicationUserId1")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QuizId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId1");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("QuizId");
-
-                    b.ToTable("Examination");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Lesson", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Lesson", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -740,7 +508,7 @@ namespace WeLearn.Data.Migrations
                             Id = 1,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 1,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(8328),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(6708),
                             Description = "A lecture about pronouns and when to use them.",
                             Grade = 1,
                             IsApproved = true,
@@ -754,7 +522,7 @@ namespace WeLearn.Data.Migrations
                             Id = 2,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 2,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9595),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8640),
                             Description = "A natural number greater than 1 that is not a product of two smaller natural numbers.",
                             Grade = 2,
                             IsApproved = true,
@@ -768,7 +536,7 @@ namespace WeLearn.Data.Migrations
                             Id = 3,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 3,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9598),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8644),
                             Description = "About the C# language and the .NET development Platform. First steps.",
                             Grade = 3,
                             IsApproved = true,
@@ -782,7 +550,7 @@ namespace WeLearn.Data.Migrations
                             Id = 4,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 4,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9600),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8649),
                             Description = "Data analysis.",
                             Grade = 4,
                             IsApproved = true,
@@ -796,7 +564,7 @@ namespace WeLearn.Data.Migrations
                             Id = 5,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 5,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9601),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8651),
                             Description = "Eastern European Countries. Their economic growth and political stances. Ukraine.",
                             Grade = 5,
                             IsApproved = true,
@@ -810,7 +578,7 @@ namespace WeLearn.Data.Migrations
                             Id = 6,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 6,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9603),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8654),
                             Description = "Kicking a ball on the field.",
                             Grade = 6,
                             IsApproved = true,
@@ -824,7 +592,7 @@ namespace WeLearn.Data.Migrations
                             Id = 7,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 7,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9604),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8655),
                             Description = "A peek into Shakespeare's art.",
                             Grade = 7,
                             IsApproved = true,
@@ -838,7 +606,7 @@ namespace WeLearn.Data.Migrations
                             Id = 8,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 8,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9605),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8658),
                             Description = "A lecture about rights of the people.",
                             Grade = 8,
                             IsApproved = true,
@@ -852,7 +620,7 @@ namespace WeLearn.Data.Migrations
                             Id = 9,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 9,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9606),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8660),
                             Description = "We use modals to show if we believe something is certain, possible or impossible.",
                             Grade = 9,
                             IsApproved = true,
@@ -866,7 +634,7 @@ namespace WeLearn.Data.Migrations
                             Id = 10,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 10,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9608),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8662),
                             Description = "A lecture about the verbs of motion and when to use them.",
                             Grade = 10,
                             IsApproved = true,
@@ -880,7 +648,7 @@ namespace WeLearn.Data.Migrations
                             Id = 11,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 11,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9609),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8663),
                             Description = "A brief peek into our ancestors' life.",
                             Grade = 11,
                             IsApproved = true,
@@ -894,7 +662,7 @@ namespace WeLearn.Data.Migrations
                             Id = 12,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 12,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9610),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8665),
                             Description = "A lesson about the different types of cells and their differences.",
                             Grade = 12,
                             IsApproved = true,
@@ -908,7 +676,7 @@ namespace WeLearn.Data.Migrations
                             Id = 13,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 13,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9611),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8667),
                             Description = "A lesson about acids, they effects on the environment and usage cases.",
                             Grade = 0,
                             IsApproved = true,
@@ -922,7 +690,7 @@ namespace WeLearn.Data.Migrations
                             Id = 14,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 14,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9613),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8669),
                             Description = "Genres, instruments and notation.",
                             Grade = 5,
                             IsApproved = true,
@@ -936,7 +704,7 @@ namespace WeLearn.Data.Migrations
                             Id = 15,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 15,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9614),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8671),
                             Description = "Pigments, brushes, bases, matrices.",
                             Grade = 1,
                             IsApproved = true,
@@ -950,7 +718,7 @@ namespace WeLearn.Data.Migrations
                             Id = 16,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CategoryId = 16,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(9615),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(8673),
                             Description = "Creating a new business, bearing most of the risks and enjoying most of the rewards.",
                             Grade = 2,
                             IsApproved = true,
@@ -961,7 +729,7 @@ namespace WeLearn.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Like", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Like", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -998,7 +766,7 @@ namespace WeLearn.Data.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Material", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1046,7 +814,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(296),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(9740),
                             IsDeleted = false,
                             LessonId = 1,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1055,7 +823,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(748),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(287),
                             IsDeleted = false,
                             LessonId = 2,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1064,7 +832,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(749),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(289),
                             IsDeleted = false,
                             LessonId = 3,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1073,7 +841,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(750),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(416),
                             IsDeleted = false,
                             LessonId = 4,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1082,7 +850,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(751),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(418),
                             IsDeleted = false,
                             LessonId = 5,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1091,7 +859,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(752),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(420),
                             IsDeleted = false,
                             LessonId = 6,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1100,7 +868,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(753),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(421),
                             IsDeleted = false,
                             LessonId = 7,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1109,7 +877,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(753),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(422),
                             IsDeleted = false,
                             LessonId = 8,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1118,7 +886,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(754),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(423),
                             IsDeleted = false,
                             LessonId = 9,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1127,7 +895,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(755),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(424),
                             IsDeleted = false,
                             LessonId = 10,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1136,7 +904,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(756),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(426),
                             IsDeleted = false,
                             LessonId = 11,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1145,7 +913,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(757),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(427),
                             IsDeleted = false,
                             LessonId = 12,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1154,7 +922,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(757),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(428),
                             IsDeleted = false,
                             LessonId = 13,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1163,7 +931,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(758),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(429),
                             IsDeleted = false,
                             LessonId = 14,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1172,7 +940,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(759),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(430),
                             IsDeleted = false,
                             LessonId = 15,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1181,7 +949,7 @@ namespace WeLearn.Data.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 826, DateTimeKind.Utc).AddTicks(760),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 913, DateTimeKind.Utc).AddTicks(431),
                             IsDeleted = false,
                             LessonId = 16,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip",
@@ -1189,75 +957,7 @@ namespace WeLearn.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Question", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Quiz", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Quizzes");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Report", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Report", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1312,7 +1012,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 1,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(2530),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 911, DateTimeKind.Utc).AddTicks(6053),
                             Description = "Bad language in lesson's title.",
                             IsDeleted = false,
                             LessonId = 5,
@@ -1323,14 +1023,14 @@ namespace WeLearn.Data.Migrations
                             Id = 3,
                             ApplicationUserId = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             CommentId = 1,
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(3295),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 911, DateTimeKind.Utc).AddTicks(7114),
                             Description = "Bad language in comment.",
                             IsDeleted = false,
                             Subject = "Unacceptable behaviour"
                         });
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Video", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Video", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1383,7 +1083,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 1,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6118),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(3720),
                             IsDeleted = false,
                             LessonId = 1,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622056204/welearn-asp-net-core-app/videos/seed/teacher-presenting.mp4",
@@ -1393,7 +1093,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 2,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6793),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4536),
                             IsDeleted = false,
                             LessonId = 2,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053205/welearn-asp-net-core-app/videos/seed/man-teaching_miueor.mp4",
@@ -1403,7 +1103,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 3,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6795),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4539),
                             IsDeleted = false,
                             LessonId = 3,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053215/welearn-asp-net-core-app/videos/seed/coding_bbc9sv.mp4",
@@ -1413,7 +1113,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 4,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6796),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4541),
                             IsDeleted = false,
                             LessonId = 4,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053172/welearn-asp-net-core-app/videos/seed/office-suite_lugjnz.mp4",
@@ -1423,7 +1123,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 5,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6797),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4542),
                             IsDeleted = false,
                             LessonId = 5,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053238/welearn-asp-net-core-app/videos/seed/eastern-europe_a7ljx0.mp4",
@@ -1433,7 +1133,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 6,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6798),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4543),
                             IsDeleted = false,
                             LessonId = 6,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053255/welearn-asp-net-core-app/videos/seed/football_basmoc.mp4",
@@ -1443,7 +1143,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 7,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6799),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4544),
                             IsDeleted = false,
                             LessonId = 7,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053256/welearn-asp-net-core-app/videos/seed/literature_u1mriv.mp4",
@@ -1453,7 +1153,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 8,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6799),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4545),
                             IsDeleted = false,
                             LessonId = 8,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053261/welearn-asp-net-core-app/videos/seed/human-rights_vbojip.mp4",
@@ -1463,7 +1163,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 9,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6800),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4546),
                             IsDeleted = false,
                             LessonId = 9,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053183/welearn-asp-net-core-app/videos/seed/modal-verbs_jjnya3.mp4",
@@ -1473,7 +1173,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 10,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6801),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4547),
                             IsDeleted = false,
                             LessonId = 10,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053192/welearn-asp-net-core-app/videos/seed/russian-language_uaydhx.mp4",
@@ -1483,7 +1183,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 11,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6802),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4548),
                             IsDeleted = false,
                             LessonId = 11,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053246/welearn-asp-net-core-app/videos/seed/history_sll9r9.mp4",
@@ -1493,7 +1193,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 12,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6803),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4550),
                             IsDeleted = false,
                             LessonId = 12,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053200/welearn-asp-net-core-app/videos/seed/biology_veyt5f.mp4",
@@ -1503,7 +1203,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 13,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6804),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4550),
                             IsDeleted = false,
                             LessonId = 13,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053225/welearn-asp-net-core-app/videos/seed/chemistry_zpdwl9.mp4",
@@ -1513,7 +1213,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 14,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6805),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4551),
                             IsDeleted = false,
                             LessonId = 14,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053175/welearn-asp-net-core-app/videos/seed/music_x6vt4y.mp4",
@@ -1523,7 +1223,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 15,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6806),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4552),
                             IsDeleted = false,
                             LessonId = 15,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053181/welearn-asp-net-core-app/videos/seed/painting_glxyu0.mp4",
@@ -1533,7 +1233,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = 16,
                             ContentType = "video/mp4",
-                            CreatedOn = new DateTime(2021, 12, 12, 23, 32, 31, 825, DateTimeKind.Utc).AddTicks(6807),
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(4554),
                             IsDeleted = false,
                             LessonId = 16,
                             Link = "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053249/welearn-asp-net-core-app/videos/seed/entrepreneurship_ulreso.mp4",
@@ -1541,9 +1241,307 @@ namespace WeLearn.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Examination", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QuizId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("QuizId");
+
+                    b.ToTable("Examinations");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Question", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Points")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Questions");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Quiz", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Quizzes");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Shared.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(189),
+                            IsDeleted = false,
+                            Name = "Bulgarian Language"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(480),
+                            IsDeleted = false,
+                            Name = "Mathematics"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(482),
+                            IsDeleted = false,
+                            Name = "Informatics"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(483),
+                            IsDeleted = false,
+                            Name = "IT"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(485),
+                            IsDeleted = false,
+                            Name = "Geography"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(486),
+                            IsDeleted = false,
+                            Name = "Physical Education and Sport"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(487),
+                            IsDeleted = false,
+                            Name = "Literature"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(489),
+                            IsDeleted = false,
+                            Name = "Civic Education"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(491),
+                            IsDeleted = false,
+                            Name = "English Language"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(492),
+                            IsDeleted = false,
+                            Name = "Russian Language"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(493),
+                            IsDeleted = false,
+                            Name = "History"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(494),
+                            IsDeleted = false,
+                            Name = "Biology"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(495),
+                            IsDeleted = false,
+                            Name = "Chemistry"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(496),
+                            IsDeleted = false,
+                            Name = "Music"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(497),
+                            IsDeleted = false,
+                            Name = "Art"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(498),
+                            IsDeleted = false,
+                            Name = "Technologies and Entrepreneurship"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedOn = new DateTime(2021, 12, 13, 10, 7, 35, 912, DateTimeKind.Utc).AddTicks(499),
+                            IsDeleted = false,
+                            Name = "Others"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationRole", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1552,11 +1550,11 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany("Claims")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1565,11 +1563,11 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany("Logins")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1578,17 +1576,17 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany("Roles")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("WeLearn.Data.Models.ApplicationRole", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1597,7 +1595,7 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", null)
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1606,33 +1604,22 @@ namespace WeLearn.Data.Migrations
 
             modelBuilder.Entity("QuestionQuiz", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.Question", null)
+                    b.HasOne("WeLearn.Data.Models.Quiz.Question", null)
                         .WithMany()
                         .HasForeignKey("QuestionsId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WeLearn.Data.Models.Quiz", null)
+                    b.HasOne("WeLearn.Data.Models.Quiz.Quiz", null)
                         .WithMany()
                         .HasForeignKey("QuizzesId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Answer", b =>
-                {
-                    b.HasOne("WeLearn.Data.Models.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
             modelBuilder.Entity("WeLearn.Data.Models.ChatApp.ChatApplicationUser", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("Chats")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1660,14 +1647,14 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Chat");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Comment", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Comment", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("Comments")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                    b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithMany()
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1678,31 +1665,14 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Examination", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Lesson", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
-
-                    b.HasOne("WeLearn.Data.Models.Quiz", "Quiz")
-                        .WithMany()
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Quiz");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Lesson", b =>
-                {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("Lessons")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("WeLearn.Data.Models.Category", "Category")
+                    b.HasOne("WeLearn.Data.Models.Shared.Category", "Category")
                         .WithMany("Lessons")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1713,15 +1683,15 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Like", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Like", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("Likes")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                    b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithMany("Likes")
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1732,41 +1702,30 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Material", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Material", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                    b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithOne("Material")
-                        .HasForeignKey("WeLearn.Data.Models.Material", "LessonId")
+                        .HasForeignKey("WeLearn.Data.Models.LessonModule.Material", "LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Quiz", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Report", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.Category", "Category")
-                        .WithMany("Quizzes")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Report", b =>
-                {
-                    b.HasOne("WeLearn.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany("Reports")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("WeLearn.Data.Models.Comment", "Comment")
+                    b.HasOne("WeLearn.Data.Models.LessonModule.Comment", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                    b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithMany()
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -1778,18 +1737,66 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Video", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Video", b =>
                 {
-                    b.HasOne("WeLearn.Data.Models.Lesson", "Lesson")
+                    b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithOne("Video")
-                        .HasForeignKey("WeLearn.Data.Models.Video", "LessonId")
+                        .HasForeignKey("WeLearn.Data.Models.LessonModule.Video", "LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Lesson");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Answer", b =>
+                {
+                    b.HasOne("WeLearn.Data.Models.Quiz.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Examination", b =>
+                {
+                    b.HasOne("WeLearn.Data.Models.Identity.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("WeLearn.Data.Models.Quiz.Quiz", "Quiz")
+                        .WithMany()
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Quiz");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Quiz", b =>
+                {
+                    b.HasOne("WeLearn.Data.Models.Shared.Category", "Category")
+                        .WithMany("Quizzes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.Chat", b =>
+                {
+                    b.Navigation("ChatApplicationUsers");
+
+                    b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Identity.ApplicationUser", b =>
                 {
                     b.Navigation("Chats");
 
@@ -1808,21 +1815,7 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Roles");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Category", b =>
-                {
-                    b.Navigation("Lessons");
-
-                    b.Navigation("Quizzes");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.ChatApp.Chat", b =>
-                {
-                    b.Navigation("ChatApplicationUsers");
-
-                    b.Navigation("Messages");
-                });
-
-            modelBuilder.Entity("WeLearn.Data.Models.Lesson", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.LessonModule.Lesson", b =>
                 {
                     b.Navigation("Likes");
 
@@ -1831,9 +1824,16 @@ namespace WeLearn.Data.Migrations
                     b.Navigation("Video");
                 });
 
-            modelBuilder.Entity("WeLearn.Data.Models.Question", b =>
+            modelBuilder.Entity("WeLearn.Data.Models.Quiz.Question", b =>
                 {
                     b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("WeLearn.Data.Models.Shared.Category", b =>
+                {
+                    b.Navigation("Lessons");
+
+                    b.Navigation("Quizzes");
                 });
 #pragma warning restore 612, 618
         }

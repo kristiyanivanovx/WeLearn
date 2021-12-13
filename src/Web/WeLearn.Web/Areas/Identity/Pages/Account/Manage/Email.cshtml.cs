@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Identity;
 
 namespace WeLearn.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -30,6 +31,7 @@ namespace WeLearn.Web.Areas.Identity.Pages.Account.Manage
 
         public string Username { get; set; }
 
+        [Display(Name = "Current email")]
         public string Email { get; set; }
 
         public bool IsEmailConfirmed { get; set; }

@@ -28,4 +28,8 @@
     <ProjectReference Include="..\..\Web\WeLearn.Web.ViewModels\WeLearn.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="PrivateMessageService.cs" />
+  </ItemGroup>
+
 </Project>

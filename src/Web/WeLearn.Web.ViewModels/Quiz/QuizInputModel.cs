@@ -7,7 +7,7 @@ using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Web.ViewModels.Quiz
 {
-    public class QuizInputModel : IMapTo<Data.Models.Quiz>
+    public class QuizInputModel : IMapTo<Data.Models.Quiz.Quiz>
     {
         [Required(ErrorMessage = "Please choose a name.")]
         public string Name { get; set; }

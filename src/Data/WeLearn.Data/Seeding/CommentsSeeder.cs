@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WeLearn.Data.Models;
-
+using WeLearn.Data.Models.LessonModule;
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Data.Seeding

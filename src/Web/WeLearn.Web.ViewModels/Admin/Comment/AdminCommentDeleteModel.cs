@@ -8,7 +8,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Admin.Comment
 {
-    public class AdminCommentDeleteModel : IMapFrom<Data.Models.Comment>
+    public class AdminCommentDeleteModel : IMapFrom<Data.Models.LessonModule.Comment>
     {
         public int Id { get; set; }
 

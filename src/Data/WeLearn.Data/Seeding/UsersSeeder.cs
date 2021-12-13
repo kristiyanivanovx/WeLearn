@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
-using WeLearn.Data.Models;
+using WeLearn.Data.Models.Identity;
 
 using static WeLearn.Common.GlobalConstants;
 

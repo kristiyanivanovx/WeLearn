@@ -8,6 +8,7 @@ using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
 using WeLearn.Data.Common.Repositories;
+using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;

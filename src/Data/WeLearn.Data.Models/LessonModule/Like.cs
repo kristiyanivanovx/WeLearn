@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-
 using WeLearn.Data.Common.Models;
+using WeLearn.Data.Models.Identity;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.LessonModule
 {
     public class Like : BaseDeletableModel<int>
     {

@@ -8,7 +8,7 @@ using WeLearn.Web.ViewModels.Category;
 
 namespace WeLearn.Web.ViewModels.Admin.Lesson
 {
-    public class AdminLessonEditModel : IMapFrom<Data.Models.Lesson>
+    public class AdminLessonEditModel : IMapFrom<Data.Models.LessonModule.Lesson>
     {
         public int Id { get; set; }
 

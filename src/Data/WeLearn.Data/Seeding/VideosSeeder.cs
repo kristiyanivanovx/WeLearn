@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-using WeLearn.Data.Models;
+using WeLearn.Data.Models.LessonModule;
 
 namespace WeLearn.Data.Seeding
 {

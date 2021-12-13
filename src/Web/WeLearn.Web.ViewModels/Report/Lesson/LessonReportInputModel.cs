@@ -9,7 +9,10 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Lesson
 {
-    public class LessonReportInputModel : IMapFrom<Data.Models.Lesson>, IMapTo<Data.Models.Report>, IHaveCustomMappings
+    public class LessonReportInputModel : 
+        IMapFrom<Data.Models.LessonModule.Lesson>, 
+        IMapTo<Data.Models.LessonModule.Report>, 
+        IHaveCustomMappings
     {
         public int LessonId { get; set; }
 
@@ -54,12 +57,12 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<LessonReportInputModel, Data.Models.Report>()
+            configuration.CreateMap<LessonReportInputModel, Data.Models.LessonModule.Report>()
                 .ForMember(
                     dest => dest.Description,
                     opt => opt.MapFrom(src => src.ReportDescription));
 
-            configuration.CreateMap<Data.Models.Lesson, LessonReportInputModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Lesson, LessonReportInputModel>()
                 .ForMember(
                     dest => dest.LessonId,
                     opt => opt.MapFrom(src => src.Id))

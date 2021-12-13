@@ -6,7 +6,7 @@ using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.Admin.Lesson
 {
-    public class AdminLessonViewModel : IMapFrom<Data.Models.Lesson>
+    public class AdminLessonViewModel : IMapFrom<Data.Models.LessonModule.Lesson>
     {
         public int Id { get; set; }
 

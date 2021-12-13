@@ -35,7 +35,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             // var randomQuiz = this.quizzesService.GetQuizById(4)
             //     .Questions.Sum(q => q.Answers.Where(a => a.IsCorrect && a.QuestionId == q.Id)
             //         .Sum(a => a.Question.Points));
-
             var quizzes = this.quizzesService.GetAll<QuizViewModel>();
             return this.View(quizzes);
         }

@@ -1,9 +1,8 @@
 ﻿using System;
-
 using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Common.Models;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.Identity
 {
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

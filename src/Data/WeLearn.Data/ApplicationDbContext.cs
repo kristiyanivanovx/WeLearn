@@ -10,6 +10,10 @@ using WeLearn.Data.Common.Models;
 using WeLearn.Data.Infrastructure;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.ChatApp;
+using WeLearn.Data.Models.Identity;
+using WeLearn.Data.Models.LessonModule;
+using WeLearn.Data.Models.Quiz;
+using WeLearn.Data.Models.Shared;
 
 namespace WeLearn.Data
 {
@@ -62,7 +66,7 @@ namespace WeLearn.Data
         }
 
         // public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
-        public virtual DbSet<Examination> Examination { get; set; }
+        public virtual DbSet<Examination> Examinations { get; set; }
 
         public virtual DbSet<Quiz> Quizzes { get; set; }
 

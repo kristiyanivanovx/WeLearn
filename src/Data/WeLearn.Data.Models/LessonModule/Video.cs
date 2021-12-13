@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 using WeLearn.Data.Common.Models;
-
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.LessonModule
 {
     public class Video : BaseDeletableModel<int>
     {

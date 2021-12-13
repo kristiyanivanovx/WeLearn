@@ -1,4 +1,4 @@
-﻿using WeLearn.Services.HelperModels;
+﻿using WeLearn.Data.Models.InputOutput;
 
 namespace WeLearn.Services.Interfaces
 {

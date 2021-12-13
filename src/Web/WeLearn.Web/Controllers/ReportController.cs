@@ -29,7 +29,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> LessonsByMe()
         {
-            IEnumerable<LessonReportViewModel> models = await this.reportsService.GetLessonReportsCreatedByMeAsync(GetUserId());
+            IEnumerable<LessonReportViewModel> models = await this.reportsService.GetLessonReportsCreatedByMeAsync(this.GetUserId());
             return this.View(models);
         }
 
@@ -111,7 +111,7 @@ namespace WeLearn.Web.Controllers
             }
 
             LessonReportDeleteModel model = await this.reportsService.GetReportByIdAsync<LessonReportDeleteModel>(reportId);
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -124,20 +124,20 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            if (model.ApplicationUserId != GetUserId())
+            if (model.ApplicationUserId != this.GetUserId())
             {
-                return View("Unauthorized");
+                return this.View("Unauthorized");
             }
 
             await this.reportsService.SoftDeleteReportByIdAsync(model.ReportId);
-            return RedirectToAction(nameof(LessonsByMe));
+            return this.RedirectToAction(nameof(this.LessonsByMe));
         }
 
         [Authorize]
         public async Task<IActionResult> CommentsByMe()
         {
-            IEnumerable<CommentReportViewModel> models = await this.reportsService.GetCommentReportsCreatedByMeAsync(GetUserId());
-            return View(models);
+            IEnumerable<CommentReportViewModel> models = await this.reportsService.GetCommentReportsCreatedByMeAsync(this.GetUserId());
+            return this.View(models);
         }
 
         [HttpGet]
@@ -151,14 +151,14 @@ namespace WeLearn.Web.Controllers
             }
 
             CommentReportInputModel model = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentReportInputModel>(id);
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Comment(CommentReportInputModel model)
         {
-            model.ApplicationUserId = GetUserId();
+            model.ApplicationUserId = this.GetUserId();
 
             if (!this.ModelState.IsValid)
             {
@@ -166,7 +166,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await this.reportsService.CreateCommentReportAsync(model);
-            return RedirectToAction(nameof(CommentsByMe));
+            return this.RedirectToAction(nameof(this.CommentsByMe));
         }
 
         [HttpGet]
@@ -180,7 +180,7 @@ namespace WeLearn.Web.Controllers
             }
 
             CommentReportEditModel model = await this.reportsService.GetReportByIdAsync<CommentReportEditModel>(reportId);
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -193,18 +193,18 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
-            if (model.ApplicationUserId != GetUserId())
+            if (model.ApplicationUserId != this.GetUserId())
             {
-                return View("Unauthorized");
+                return this.View("Unauthorized");
             }
 
             await this.reportsService.EditCommentReportAsync(model);
-            return RedirectToAction(nameof(CommentsByMe));
+            return this.RedirectToAction(nameof(this.CommentsByMe));
         }
 
         [HttpGet]
@@ -218,7 +218,7 @@ namespace WeLearn.Web.Controllers
             }
 
             CommentReportDeleteModel model = await this.reportsService.GetReportByIdAsync<CommentReportDeleteModel>(reportId);
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -231,13 +231,13 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            if (model.ApplicationUserId != GetUserId())
+            if (model.ApplicationUserId != this.GetUserId())
             {
-                return View(nameof(Unauthorized));
+                return this.View(nameof(this.Unauthorized));
             }
 
             await this.reportsService.SoftDeleteReportByIdAsync(model.ReportId);
-            return RedirectToAction(nameof(CommentsByMe));
+            return this.RedirectToAction(nameof(this.CommentsByMe));
         }
     }
 }

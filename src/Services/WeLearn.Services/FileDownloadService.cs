@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Net;
-
-using WeLearn.Services.HelperModels;
+using WeLearn.Data.Models.InputOutput;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Services

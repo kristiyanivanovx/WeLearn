@@ -1,4 +1,6 @@
-﻿namespace WeLearn.Data.Models.ChatApp
+﻿using WeLearn.Data.Models.Identity;
+
+namespace WeLearn.Data.Models.ChatApp
 {
     public class ChatApplicationUser
     {

@@ -14,7 +14,7 @@ using WeLearn.Data;
 using WeLearn.Data.Common;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
-
+using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
@@ -76,6 +76,7 @@ namespace WeLearn.Web
             services.AddTransient<QuizzesService>();
             services.AddTransient<AnswersService>();
             services.AddTransient<QuestionsService>();
+            services.AddTransient<ExaminationsService>();
 
             services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IChatService, ChatService>();
@@ -88,7 +89,6 @@ namespace WeLearn.Web
             services.AddTransient<IInputOutputService, InputOutputService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
-            services.AddTransient<IPrivateMessageService, PrivateMessageService>();
             services.AddTransient<IEmailSender>(serviceProvider =>
                 new SendGridEmailService(this.Configuration["SendGrid:ApiKey"]));
 

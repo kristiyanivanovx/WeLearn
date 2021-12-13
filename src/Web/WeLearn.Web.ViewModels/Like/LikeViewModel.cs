@@ -7,7 +7,10 @@ using WeLearn.Web.ViewModels.Lesson;
 
 namespace WeLearn.Web.ViewModels.Like
 {
-    public class LikeViewModel : IMapFrom<Data.Models.Lesson>, IMapTo<Data.Models.Lesson>, IHaveCustomMappings
+    public class LikeViewModel : 
+        IMapFrom<Data.Models.LessonModule.Lesson>, 
+        IMapTo<Data.Models.LessonModule.Lesson>, 
+        IHaveCustomMappings
     {
         public int LessonId { get; set; }
 
@@ -36,11 +39,11 @@ namespace WeLearn.Web.ViewModels.Like
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<LessonViewModel, Data.Models.Lesson>()
+            configuration.CreateMap<LessonViewModel, Data.Models.LessonModule.Lesson>()
                 .ForMember(dest => dest.Id, opt =>
                     opt.MapFrom(src => src.LessonId));
 
-            configuration.CreateMap<Data.Models.Lesson, LessonViewModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Lesson, LessonViewModel>()
                 .ForMember(dest => dest.LessonId, opt =>
                     opt.MapFrom(src => src.Id));
         }

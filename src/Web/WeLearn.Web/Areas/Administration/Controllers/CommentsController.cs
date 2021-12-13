@@ -21,7 +21,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             var allComments = await this.commentsService.GetAllCommentsAsync(searchString);
             var paginated = PaginatedList<AdminCommentViewModel>.Create(allComments.OrderBy(x => x.IsDeleted), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
-            return View(paginated);
+            return this.View(paginated);
         }
 
         [HttpGet]

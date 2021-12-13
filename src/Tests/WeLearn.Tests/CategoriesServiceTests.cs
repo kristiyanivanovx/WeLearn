@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Shared;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
 using Xunit;

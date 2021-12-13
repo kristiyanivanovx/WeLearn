@@ -8,7 +8,7 @@ using WeLearn.Web.ViewModels.Quiz;
 
 namespace WeLearn.Web.ViewModels.Question
 {
-    public class QuestionViewModel : IMapFrom<Data.Models.Question>
+    public class QuestionViewModel : IMapFrom<Data.Models.Quiz.Question>
     {
         public int Id { get; set; }
 

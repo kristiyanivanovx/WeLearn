@@ -8,7 +8,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Comment
 {
-    public class CommentReportEditModel : IMapFrom<Data.Models.Report>, IHaveCustomMappings
+    public class CommentReportEditModel : IMapFrom<Data.Models.LessonModule.Report>, IHaveCustomMappings
     {
         public int CommentId { get; set; }
 
@@ -37,7 +37,7 @@ namespace WeLearn.Web.ViewModels.Report.Comment
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Data.Models.Report, CommentReportEditModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Report, CommentReportEditModel>()
                 .ForMember(dest => dest.ReportId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ReportDescription, opt => opt.MapFrom(src => src.Description));
         }

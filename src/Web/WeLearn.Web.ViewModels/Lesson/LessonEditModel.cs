@@ -13,7 +13,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 namespace WeLearn.Web.ViewModels.Lesson
 {
     public class LessonEditModel : ILessonModel,
-        IMapFrom<Data.Models.Lesson>,
+        IMapFrom<Data.Models.LessonModule.Lesson>,
         IHaveCustomMappings
     {
         public string UserId { get; set; }
@@ -48,14 +48,14 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<LessonEditModel, Data.Models.Lesson>()
+            configuration.CreateMap<LessonEditModel, Data.Models.LessonModule.Lesson>()
                 .ForMember(
                     dest => dest.Id,
                     opt =>
                         opt.MapFrom(src => src.LessonId));
 
             // CreateMap<Lesson, LessonEditModel>()
-            configuration.CreateMap<Data.Models.Lesson, LessonEditModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Lesson, LessonEditModel>()
                 .ForMember(
                     dest => dest.UserId, opt =>
                         opt.MapFrom(src => src.ApplicationUserId))

@@ -6,7 +6,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Comment
 {
-    public class CommentInputModel : IMapTo<Data.Models.Comment>
+    public class CommentInputModel : IMapTo<Data.Models.LessonModule.Comment>
     {
         public int LessonId { get; set; }
 

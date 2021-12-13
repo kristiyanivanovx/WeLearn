@@ -1,0 +1,57 @@
+@model WeLearn.Web.ViewModels.Examination.ExaminationViewModel
+@{
+    ViewData["Title"] = "Reviewing quiz #" + @Model.Id;
+}
+
+<div class="container">
+    <h5 class="mb-3">@ViewData["Title"]</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Quiz name
+                </th>
+                <th>
+                    Quiz category
+                </th>
+                <th>
+                    Your points
+                </th>
+                <th>
+                    Quiz max points
+                </th>
+                <th>
+                    Date created
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.QuizName
+                </td>
+                <td>
+                    @Model.QuizCategoryName
+                </td>
+                <td>
+                    @Model.Points
+                </td>
+                <td>
+                    @Model.QuizMaxPoints
+                </td>
+                <td>
+                    <time datetime="@Model.CreatedOn.ToString("O")">
+                        @Model.CreatedOn.ToString("g")
+                    </time>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <a asp-area="" asp-controller="Quiz" asp-action="Dashboard" class="btn btn-sm btn-outline-dark">
+        Back to dashboard
+    </a>
+</div>

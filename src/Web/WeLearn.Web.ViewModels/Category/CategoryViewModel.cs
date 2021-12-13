@@ -7,7 +7,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Category;
 
 namespace WeLearn.Web.ViewModels.Category
 {
-    public class CategoryViewModel : IMapFrom<Data.Models.Category>, IMapTo<Data.Models.Category>
+    public class CategoryViewModel : IMapFrom<Data.Models.Shared.Category>, IMapTo<Data.Models.Shared.Category>
     {
         public int CategoryId { get; set; }
 

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Quiz;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Question;
 
@@ -61,6 +62,12 @@ namespace WeLearn.Services
             => this.questionRepository
                 .All()
                 .Any(x => x.Id == id);
+
+        public IEnumerable<Question> GetAllQuestions()
+            => this.questionRepository
+                .All()
+                .Include(q => q.Answers)
+                .ToList();
 
         public IEnumerable<T> GetAll<T>()
             => this.questionRepository

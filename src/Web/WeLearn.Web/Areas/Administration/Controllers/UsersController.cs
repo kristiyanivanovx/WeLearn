@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WeLearn.Data.Models;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin.User;
 using WeLearn.Web.ViewModels.HelperModels;
+
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
@@ -36,7 +36,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             await this.usersService.ToggleAdminRoleAsync(userId);
 
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         [HttpGet]
@@ -45,7 +45,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             var user = await this.usersService.GetUserByIdAsync<AdminUserDeleteModel>(id);
 
-            return View(user);
+            return this.View(user);
         }
 
         [HttpPost]
@@ -55,7 +55,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             await this.usersService.HardDeleteUserByIdAsync(id);
 
-            return RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Identity;
 
 namespace WeLearn.Web.Areas.Identity.Pages.Account
 {

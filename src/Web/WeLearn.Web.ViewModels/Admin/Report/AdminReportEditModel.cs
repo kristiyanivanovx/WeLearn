@@ -7,7 +7,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Admin.Report
 {
-    public class AdminReportEditModel : IMapFrom<Data.Models.Report>
+    public class AdminReportEditModel : IMapFrom<Data.Models.LessonModule.Report>
     {
         public int Id { get; set; }
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WeLearn.Data;
 using WeLearn.Data.Infrastructure;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.Identity;
 using WeLearn.Services.CronJobs;
 using WeLearn.Web.ChatApp;
 

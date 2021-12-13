@@ -9,7 +9,7 @@ using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Admin.Comment
 {
-    public class AdminCommentViewModel : IMapFrom<Data.Models.Comment>, IHaveCustomMappings
+    public class AdminCommentViewModel : IMapFrom<Data.Models.LessonModule.Comment>, IHaveCustomMappings
     {
         public string ApplicationUserUserName { get; set; }
 
@@ -54,7 +54,7 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Data.Models.Comment, AdminCommentViewModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Comment, AdminCommentViewModel>()
                 .ForMember(
                     dest => dest.CommentId,
                     opt =>

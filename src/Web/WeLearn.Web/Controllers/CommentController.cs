@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Comment;
-using WeLearn.Web.ViewModels.Lesson;
 
 namespace WeLearn.Web.Controllers
 {
@@ -17,21 +16,23 @@ namespace WeLearn.Web.Controllers
             => this.commentsService = commentsService;
 
         [HttpGet]
-        public IActionResult Create() => RedirectToAction("All", "Lesson");
+        public IActionResult Create() => this.RedirectToAction("All", "Lesson");
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Create(CommentInputModel commentViewModel)
         {
-            commentViewModel.ApplicationUserId = GetUserId();
+            commentViewModel.ApplicationUserId = this.GetUserId();
+            var id = new { id = commentViewModel.LessonId };
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View("~/Views/Lesson/Watch.cshtml", new LessonViewModel { LessonId = commentViewModel.LessonId });
+                // var changedModel = new LessonViewModel { LessonId = commentViewModel.LessonId };
+                return this.RedirectToAction("Watch", "Lesson", id);
             }
 
             await this.commentsService.CreateCommentAsync(commentViewModel);
-            return RedirectToAction(nameof(ByMe));
+            return this.RedirectToAction("Watch", "Lesson", id);
         }
 
         [HttpGet]
@@ -39,25 +40,25 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             CommentEditModel comment = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentEditModel>(id);
-            return View(comment);
+            return this.View(comment);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Edit(CommentEditModel model)
         {
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
-            if (model.ApplicationUserId != GetUserId())
+            if (model.ApplicationUserId != this.GetUserId())
             {
-                return View(nameof(Unauthorized));
+                return this.View(nameof(this.Unauthorized));
             }
 
             await this.commentsService.EditCommentAsync(model);
-            return RedirectToAction(nameof(ByMe));
+            return this.RedirectToAction(nameof(this.ByMe));
         }
 
         [HttpGet]
@@ -65,28 +66,28 @@ namespace WeLearn.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var commentModel = await this.commentsService.GetCommentByIdWithDeletedAsync<CommentDeleteModel>(id);
-            return View(commentModel);
+            return this.View(commentModel);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> Delete(CommentDeleteModel model)
         {
-            if (model.ApplicationUserId != GetUserId())
+            if (model.ApplicationUserId != this.GetUserId())
             {
-                return View("Unauthorized");
+                return this.View("Unauthorized");
             }
 
             await this.commentsService.SoftDeleteCommentByIdAsync(model.Id);
-            return RedirectToAction(nameof(ByMe));
+            return this.RedirectToAction(nameof(this.ByMe));
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> ByMe()
         {
-            IEnumerable<CommentByMeModel> commentByMe = await this.commentsService.GetCommentsMadeByMeAsync(GetUserId());
-            return View(commentByMe);
+            IEnumerable<CommentByMeModel> commentByMe = await this.commentsService.GetCommentsMadeByMeAsync(this.GetUserId());
+            return this.View(commentByMe);
         }
     }
 }

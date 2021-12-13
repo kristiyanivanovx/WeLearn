@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace WeLearn.Services.HelperModels
+namespace WeLearn.Data.Models.InputOutput
 {
     public class FileDownload
     {

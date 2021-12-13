@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.LessonModule;
 using WeLearn.Services;
 using WeLearn.Services.Mapping;
 using WeLearn.Tests.HelperClasses;

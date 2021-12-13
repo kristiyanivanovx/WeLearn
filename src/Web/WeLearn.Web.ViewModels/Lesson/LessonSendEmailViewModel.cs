@@ -7,7 +7,7 @@ using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
-    public class LessonSendEmailViewModel : IMapFrom<Data.Models.Lesson>, IHaveCustomMappings
+    public class LessonSendEmailViewModel : IMapFrom<Data.Models.LessonModule.Lesson>, IHaveCustomMappings
     {
         public int LessonId { get; set; }
 
@@ -41,7 +41,7 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Data.Models.Lesson, LessonSendEmailViewModel>()
+            configuration.CreateMap<Data.Models.LessonModule.Lesson, LessonSendEmailViewModel>()
                 .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Id));
         }
     }

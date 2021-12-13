@@ -12,11 +12,11 @@ using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
-    public class LessonInputModel : IMapTo<Data.Models.Lesson>,
-
-        // IMapFrom not necessary
-        IMapFrom<Data.Models.Lesson>,
-        IHaveCustomMappings, ILessonModel
+    public class LessonInputModel : 
+        IMapTo<Data.Models.LessonModule.Lesson>, 
+        IMapFrom<Data.Models.LessonModule.Lesson>,
+        IHaveCustomMappings, 
+        ILessonModel
     {
         [Display(Name = "Name")]
         [Required(ErrorMessage = "Please add name.")]
@@ -45,7 +45,7 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<LessonInputModel, Data.Models.Lesson>()
+            configuration.CreateMap<LessonInputModel, Data.Models.LessonModule.Lesson>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.LessonName))
                 .ForMember(dest => dest.ApplicationUserId, opt => opt.Ignore())
                 .ForMember(dest => dest.Video, opt => opt.Ignore())

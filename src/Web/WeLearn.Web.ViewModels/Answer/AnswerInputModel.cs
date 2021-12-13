@@ -6,7 +6,7 @@ using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Web.ViewModels.Answer
 {
-    public class AnswerInputModel : IMapTo<Data.Models.Answer>
+    public class AnswerInputModel : IMapTo<Data.Models.Quiz.Answer>
     {
         [Required]
         [Display(Name = "Is correct")]

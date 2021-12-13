@@ -1,0 +1,103 @@
+@using System.Linq
+@model WeLearn.Web.ViewModels.Quiz.QuizTakingInputModel
+@{
+    ViewData["Title"] = "Taking quiz #" + @Model.Id;
+}
+
+@*
+todo: give credit
+https://social.msdn.microsoft.com/Forums/en-US/b9f51306-b5f7-4fbb-a543-a6df1c05d9bb/aspnet-core-tag-helper-for-multiple-choice?forum=aspdotnetcore
+https://www.youtube.com/watch?v=msRJdf5AfoI
+*@
+
+<div class="container text-center">
+    <h3>@ViewData["Title"]</h3>
+    <hr class="mb-4"/>
+
+    <div>
+        <div class="row">
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => Model.Name)</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => Model.CategoryName)</h6>
+
+                        <div class="mt-3">
+                            @Html.DisplayFor(modelItem => Model.MaxPoints) maximum points.
+                        </div>
+
+                        <div>
+                            <time datetime="@Model.CreatedOn.ToString("O")">
+                                @Model.CreatedOn.ToString("g")
+                            </time>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4"></div>
+
+            <div class="col-md-12 mt-4">
+                <form method="post" asp-area="" asp-controller="Quiz" asp-action="Take">
+                    <input name="quizId" value="@Model.Id" type="hidden" />
+
+                    @* @foreach (var question in @Model.Questions) *@
+                    @for (var i = 0; i < @Model.Questions.Count; i++)
+                    {
+                        var question = @Model.Questions.ElementAt(i);
+
+                        <div class="text-center mb-5">
+                            <input name="questionId" value="@question.Id" type="hidden" />
+                            
+                            <h4>
+                                @question.Content - @question.Points points
+                            </h4>
+
+                            <hr class="mr-5 ml-5">
+                    
+                            @* @foreach (var answer in question.Answers)*@
+                            @for (var j = 0; j < question.Answers.Count; j++)
+                            {
+                                var answer = question.Answers.ElementAt(j);
+
+                                <div>
+                                    <input type="radio" name="question_@question.Id" value="@answer.Id" />
+                                    @answer.Content
+                                </div>
+                            }
+                        </div>
+                    }
+                    <input type="submit" value="Submit" class="btn btn-sm btn-success" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* <input type="radio" asp-for="SelectedAnswers"  value="@answer.Id" />  *@
+@* <label asp-for="@answer.Id">@answer.Content</label>  *@
+@* <input type="hidden" asp-for="@answer.Id" />  *@
+
+@* <input type="radio" asp-for="@answer.Id" name="@answer.QuestionId" value="b" /> @answer.Content *@
+
+@* @Html.RadioButtonFor(m => question.Id, answer.Id) @answer.Content *@
+
+@* @Html.RadioButtonFor(x => answer.QuestionContent, answer.Id) @answer.Content *@
+
+@* <input type="radio" asp-for="@answer.Id" name="@answer.QuestionId" value="@answer.Id" /> @answer.Content *@
+@* <input type="radio" asp-for="@answer.Id" name="MyRadioField[]" value="@answer.Id" /> @answer.Content *@
+
+@* <input asp-for="@question.Id" hidden /> *@
+@* <input type="radio" asp-for="@answer.IsCorrect" value="@answer.Id" /> *@
+@* @answer.Content *@
+
+@* @Html.RadioButtonFor(x => question.QuestionId, answer.Id) *@
+@* @answer.Content *@
+
+@* <input type="hidden" value="@answer.QuestionId" asp-for="@answer.QuestionId" /> *@
+@* *@
+@* <input type="radio" asp-for="@Model.Choices" *@
+@*        value="@answer"/> @answer.Content *@

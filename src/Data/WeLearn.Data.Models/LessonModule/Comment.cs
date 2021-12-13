@@ -1,13 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
+﻿using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Common.Models;
-
+using WeLearn.Data.Models.Identity;
 using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
-namespace WeLearn.Data.Models
+namespace WeLearn.Data.Models.LessonModule
 {
-    public class Comment : BaseDeletableModel<int> // SoftDeletable, IMetadataHavable
+    public class Comment : BaseDeletableModel<int>
     {
         [Required]
         [MaxLength(MaxContentLength)]
@@ -20,8 +18,5 @@ namespace WeLearn.Data.Models
         public int LessonId { get; set; }
 
         public Lesson Lesson { get; set; }
-
-        // [Display(Name = "Date created")]
-        // public DateTime DateCreated { get; set; }
     }
 }

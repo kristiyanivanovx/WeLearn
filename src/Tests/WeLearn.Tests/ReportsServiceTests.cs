@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
 using WeLearn.Data.Models;
+using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
 using WeLearn.Web.ViewModels.Admin.Report;

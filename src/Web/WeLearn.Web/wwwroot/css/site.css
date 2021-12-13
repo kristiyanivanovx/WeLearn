@@ -116,7 +116,9 @@ body {
     /*white-space: nowrap;*/
     /*line-height: 60px;*/ /* Vertically center the text there */
     line-height: 30px; /* Vertically center the text there */
-}message-box
+}
+
+/*message-box*/
 
 /* plyr */
 .plyr-container {
@@ -140,6 +142,7 @@ p {
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;
+    
     /*max-height: 0;*/
     /*display: block;
       overflow: hidden;
@@ -310,21 +313,49 @@ a.navbar-brand {
     text-align: left;
 }
 
-
-
+.navbar {
+    z-index: 3;
+}
 
 /* custom rule for a special case, regarding the logo */
 /* No greater than 1199px, no less than 991px */
 @media (max-width: 1199px) and (min-width: 991px) {
-	/*@media (max-width:1199px) and (min-width:1px) {*/
-	/*.logo {*/
-	/*    display: none;*/
-	/*}*/
-
 	.navbar-brand-text {
 		font-size: 90%;
 	}
 }
+
+@media (max-device-width: 370px) {
+    .navbar-toggler {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+        padding-right: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* responsive footer */
+@media (max-device-width: 457px) {
+    .footer > .container {
+        font-size: .95rem;
+    }
+}
+
+@media (max-device-width: 436px) {
+    .footer > .container {
+        font-size: .9rem;
+    }
+}
+
+/*@media (max-device-width: 415px) {*/
+/*    .footer > .container {*/
+/*        font-size: .89rem;*/
+/*    }*/
+/*}*/
 
 /*.footer-custom-wrap {*/
 /*	overflow-wrap: break-word !important;*/

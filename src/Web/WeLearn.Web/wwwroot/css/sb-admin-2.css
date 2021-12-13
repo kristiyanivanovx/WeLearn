@@ -5641,8 +5641,9 @@ a.close.disabled {
   overflow: hidden;
 }
 
+/*overflow-x: hidden;*/
 .modal-open .modal {
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
 }
 
@@ -9796,10 +9797,12 @@ a:focus {
   display: flex;
 }
 
+/* overflow-x: hidden; */
+/*overflow-x: scroll;*/
+
 #wrapper #content-wrapper {
   background-color: #f8f9fc;
   width: 100%;
-  overflow-x: hidden;
 }
 
 #wrapper #content-wrapper #content {

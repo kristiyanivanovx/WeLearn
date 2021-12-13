@@ -1,6 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using static WeLearn.Data.Common.Validation.DataValidation.Message;
 
+using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Common.Models;
 
 namespace WeLearn.Data.Models.ChatApp
@@ -10,10 +10,9 @@ namespace WeLearn.Data.Models.ChatApp
         public string Name { get; set; }
 
         [Required]
-        [MaxLength(250)]
+        [MaxLength(MaxMessageLength)]
         public string Text { get; set; }
 
-        // public DateTime CreatedOn { get; set; }
         public int ChatId { get; set; }
 
         public Chat Chat { get; set; }

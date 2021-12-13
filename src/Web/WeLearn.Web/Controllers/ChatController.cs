@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using SendGrid.Helpers.Mail.Model;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ChatApp;
@@ -30,16 +27,12 @@ namespace WeLearn.Web.Controllers
         }
 
         public IActionResult Index()
-        {
-            IEnumerable<Chat> chats = this.chatService.GetChats(this.GetUserId());
-            return this.View(chats);
-        }
+            => this.RedirectToAction(nameof(this.Joined), new { id = 1 });
 
         public IActionResult Joined(int id)
         {
             Chat chat = this.chatService.GetChat(id);
 
-            // todo: implement 404 not found
             if (chat == null)
             {
                 this.Response.StatusCode = 404;
@@ -53,7 +46,7 @@ namespace WeLearn.Web.Controllers
         {
             if (message == null)
             {
-                return this.BadRequest(message);
+                return this.BadRequest();
             }
 
             Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, this.GetUserName());
@@ -84,7 +77,7 @@ namespace WeLearn.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> JoinRoom(int id)
         {
-            await this.chatService.JoinRoomAsync(id, GetUserId());
+            await this.chatService.JoinRoomAsync(id, this.GetUserId());
             return this.RedirectToAction(nameof(this.Joined), new { id });
         }
     }

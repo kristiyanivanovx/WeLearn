@@ -8,11 +8,11 @@ namespace WeLearn.Web.ChatApp
     public class ChatHub : Hub
     {
         [HttpPost]
-        public Task JoinRoom(string roomId) => Groups.AddToGroupAsync(GetConnectionId(), roomId);
+        public Task JoinRoom(string roomId) => this.Groups.AddToGroupAsync(this.GetConnectionId(), roomId);
 
         [HttpPost]
-        public Task LeaveRoom(string roomId) => Groups.RemoveFromGroupAsync(GetConnectionId(), roomId);
+        public Task LeaveRoom(string roomId) => this.Groups.RemoveFromGroupAsync(this.GetConnectionId(), roomId);
 
-        private string GetConnectionId() => Context.ConnectionId;
+        private string GetConnectionId() => this.Context.ConnectionId;
     }
 }

@@ -8,14 +8,17 @@ namespace WeLearn.Web.ViewModels.Quiz
 {
     public class QuizTakingInputModel : IMapFrom<Data.Models.Quiz.Quiz>
     {
+        public QuizTakingInputModel()
+        {
+            this.QuestionsAnswered = new HashSet<QuestionTakingInputModel>();
+        }
+        
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public int CategoryId { get; set; }
-        
-        public int[] SelectedAnswers { get; set; }
-        
+
         public int MaxPoints { get; set; }
 
         public string CategoryName { get; set; }
@@ -23,6 +26,8 @@ namespace WeLearn.Web.ViewModels.Quiz
         public DateTime CreatedOn { get; set; }
 
         public DateTime ModifiedOn { get; set; }
+
+        public ICollection<QuestionTakingInputModel> QuestionsAnswered { get; set; }
 
         public ICollection<QuestionTakingInputModel> Questions { get; set; }
 

@@ -483,34 +483,36 @@
     </div>
 </div>
 
-<!-- Bootstrap core JavaScript-->
-<script src="~/vendor/jquery/jquery.min.js"></script>
-<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Core plugin JavaScript-->
-<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- Custom scripts for all pages-->
-<script src="~/js/sb-admin-2.min.js"></script>
-<!-- Page level plugins -->
-<script src="~/vendor/chart.js/Chart.min.js"></script>
-<!-- Page level custom scripts -->
-<script src="~/js/demo/chart-area-demo.js"></script>
-<script src="~/js/demo/chart-pie-demo.js"></script>
-
-@* initial ones *@
-
-@*<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>*@
-@* bootstrap 4.3.1 *@
-@* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
-@* bootstrap 4.6.0 *@
-@*<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>*@
-@* unobtrusive client-side validation *@
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-
-<script src="~/lib/luxon/luxon.min.js" asp-append-version="true"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 
 </body>
-
 </html>
+
+@section Scripts {
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="~/vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script src="~/js/demo/chart-area-demo.js"></script>
+    <script src="~/js/demo/chart-pie-demo.js"></script>
+    
+    @* initial ones *@
+    
+    @*<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>*@
+    @* bootstrap 4.3.1 *@
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    @* bootstrap 4.6.0 *@
+    @*<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>*@
+    @* unobtrusive client-side validation *@
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+    
+    <script src="~/lib/luxon/luxon.min.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}

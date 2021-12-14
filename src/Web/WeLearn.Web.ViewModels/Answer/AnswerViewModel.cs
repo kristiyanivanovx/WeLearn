@@ -16,7 +16,7 @@ namespace WeLearn.Web.ViewModels.Answer
 
         public int QuestionId { get; set; }
 
-        // public Data.Models.Question Question { get; set; }
+        public Data.Models.Quiz.Question Question { get; set; }
 
         public string QuestionContent { get; set; }
 

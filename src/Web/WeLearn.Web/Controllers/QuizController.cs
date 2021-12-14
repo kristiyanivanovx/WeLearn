@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -93,44 +94,60 @@ namespace WeLearn.Web.Controllers
             return this.View(quiz);
         }
 
+        // Take(IFormCollection formCollection)
         // public IActionResult Take(QuizTakingInputModel model)
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Take(IFormCollection formCollection)
+        public async Task<IActionResult> Take(QuizTakingInputModel model, string question_Id, int name, int id)
         {
+            ;
+
+            // var formCollection = new FormCollection();
+            // todo credit https://www.youtube.com/watch?v=msRJdf5AfoI | https://www.xsprogram.com/content/multiple-radio-button-groups-in-mvc-4-razor.html
             int points = 0;
+
+            // int quizId = int.Parse(formCollection["quizId"]);
             string userId = this.GetUserId();
-            int quizId = int.Parse(formCollection["quizId"]);
 
-            // todo credit
-            // https://www.youtube.com/watch?v=msRJdf5AfoI
-            string[] questionIds = formCollection["questionId"];
+            // string[] questionIds = formCollection["questionId"];
 
-            foreach (var questionId in questionIds)
-            {
-                int questionIdParsed = int.Parse(questionId);
+            var notValid = false;
 
-                int? answerIdCorrect = this.questionsService
-                    .GetAllQuestions()
-                    .FirstOrDefault(q => q.Id == questionIdParsed)
-                    ?.Answers
-                        .FirstOrDefault(a => a.IsCorrect)
-                        ?.Id;
+            // questionIds.ToList().ForEach(id =>
+            // {
+            //     if (!int.TryParse(formCollection["question_" + id], out _) && !notValid) { notValid = true;  }
+            // });
 
-                if (answerIdCorrect == int.Parse(formCollection["question_" + questionId]))
-                {
-                    var questionPoints = this.questionsService
-                        .GetAllQuestions()
-                        .First(q => q.Id == questionIdParsed)
-                        .Points;
+            // if (notValid)
+            // {
+            //     return this.RedirectToAction(nameof(this.Take), new { id = quizId });
+            // }
 
-                    points += questionPoints;
-                }
-            }
+            // foreach (var questionId in questionIds)
+            // {
+            //     int questionIdParsed = int.Parse(questionId);
+            //
+            //     int? answerIdCorrect = this.questionsService
+            //         .GetAllQuestions()
+            //         .FirstOrDefault(q => q.Id == questionIdParsed)
+            //         ?.Answers
+            //             .FirstOrDefault(a => a.IsCorrect)
+            //             ?.Id;
+            //
+            //     if (answerIdCorrect == int.Parse(formCollection["question_" + questionId]))
+            //     {
+            //         var questionPoints = this.questionsService
+            //             .GetAllQuestions()
+            //             .First(q => q.Id == questionIdParsed)
+            //             .Points;
+            //
+            //         points += questionPoints;
+            //     }
+            // }
 
             var examination = new Examination
             {
-                QuizId = quizId,
+                // QuizId = quizId,
                 Points = points,
                 ApplicationUserId = userId,
             };

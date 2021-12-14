@@ -220,7 +220,7 @@ namespace WeLearn.Controllers
 
             paginated.SearchString = searchString;
 
-            return View(paginated);
+            return this.View(paginated);
         }
 
         [HttpGet]
@@ -241,14 +241,15 @@ namespace WeLearn.Controllers
             paginated.Grade = Enum.Parse<Grade>(grade.ToString());
             paginated.CategoryName = categoryName;
             paginated.SearchString = searchString;
-            return View(paginated);
+
+            return this.View(paginated);
         }
 
         [HttpGet]
         public IActionResult Download([FromQuery] string link)
         {
             FileDownload fileParsed = this.fileDownloadService.DownloadFile(link);
-            return File(fileParsed.Content, fileParsed.ContentType, fileParsed.FileName);
+            return this.File(fileParsed.Content, fileParsed.ContentType, fileParsed.FileName);
         }
 
         [HttpGet]
@@ -261,7 +262,7 @@ namespace WeLearn.Controllers
             }
 
             LessonSendEmailViewModel model = await this.lessonsService.GetLessonByIdAsync<LessonSendEmailViewModel>(id);
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]

@@ -41,35 +41,68 @@ https://www.youtube.com/watch?v=msRJdf5AfoI
 
             <div class="col-md-12 mt-4">
                 <form method="post" asp-area="" asp-controller="Quiz" asp-action="Take">
-                    <input name="quizId" value="@Model.Id" type="hidden" />
+                    <input name="quizId" value="@Model.Id" type="hidden"/>
 
-                    @* @foreach (var question in @Model.Questions) *@
+                    @*@foreach (var question in @Model.Questions)*@
                     @for (var i = 0; i < @Model.Questions.Count; i++)
                     {
                         var question = @Model.Questions.ElementAt(i);
 
                         <div class="text-center mb-5">
-                            <input name="questionId" value="@question.Id" type="hidden" />
+                            @* <input name="questionId" value="@question.Id" type="hidden"/> *@
+                            @* @{var name = String.Format("Question_{0}.Index", question.Id);} *@
+                            @* <input type="hidden" name="@name" value="@question.Id" /> *@
                             
                             <h4>
                                 @question.Content - @question.Points points
                             </h4>
 
                             <hr class="mr-5 ml-5">
-                    
+
+                            @* @{ *@
+                            @*     Console.WriteLine(i); *@
+                            @*     Console.WriteLine( question.Id); *@
+                            @*     Model.SelectedAnswers.Insert(i, question.Id); *@
+                            @* } *@
+                            
                             @* @foreach (var answer in question.Answers)*@
                             @for (var j = 0; j < question.Answers.Count; j++)
                             {
                                 var answer = question.Answers.ElementAt(j);
-
+                                // Console.WriteLine("question.Id");
+                                // Console.Write(question.Id);
+                                // Console.Write(" ");
+                                // Console.Write(question.Id.ToString());
+                                
                                 <div>
-                                    <input type="radio" name="question_@question.Id" value="@answer.Id" />
-                                    @answer.Content
+                                    <input type="radio" asp-for="@question.Id" value="@answer.Id" name="@question.Id" /> @answer.Content
+                                    
+                                    @* @Html.RadioButton(string.Concat(, "_", question.Id), answer.Id) @answer.Content *@
+                                    @* @Html.RadioButtonFor(x => string.Concat(Model.SelectedAnswers, "_", question.Id), answer.Id) @answer.Content *@
+
+                                    @* @Html.RadioButtonFor(x => answer.Question, new { @class = "form-control dot", @Name = answer.Question, @Value = "2" }) *@
+                                    @* <h5 style="padding-top:3px;padding-right:8px;">@answer.Content</h5> *@
+
+                                    @* <input type="radio" name="@name.Replace(".Index", "")" id="@answer.Id"/> <span>@answer.Content</span><br /> *@
+
+                                    @* <input asp-for="@Model.Questions.ElementAt(i).Answers.ElementAt(j).Id" hidden /> *@
+                                    @* <input type="radio"  *@
+                                    @*         asp-for="@Model.Questions.ElementAt(i).Answers.ElementAt(j).Id  "  *@
+                                    @*         value="@Model.Questions.ElementAt(i).Answers.ElementAt(j).Content"  *@
+                                    @*         /> *@
+                                    @* @Model.Questions.ElementAt(i).Answers.ElementAt(j).Content *@
+
+                                    @* @Html.RadioButtonFor(x => Model.Questions, j.ToString()) @(answer.Content) *@
                                 </div>
+                                @*<div>
+                                    <input type="radio" name="question_@question.Id" value="@answer.Id" />
+                                        @answer.Content
+                                </div>*@
                             }
                         </div>
                     }
-                    <input type="submit" value="Submit" class="btn btn-sm btn-success" />
+
+                    <input type="submit" value="Submit" class="btn btn-sm btn-success"/>
                 </form>
             </div>
         </div>

@@ -9,9 +9,9 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Lesson
 {
-    public class LessonReportInputModel : 
-        IMapFrom<Data.Models.LessonModule.Lesson>, 
-        IMapTo<Data.Models.LessonModule.Report>, 
+    public class LessonReportInputModel :
+        IMapFrom<Data.Models.LessonModule.Lesson>,
+        IMapTo<Data.Models.LessonModule.Report>,
         IHaveCustomMappings
     {
         public int LessonId { get; set; }

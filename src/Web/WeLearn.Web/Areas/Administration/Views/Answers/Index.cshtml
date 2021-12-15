@@ -56,7 +56,14 @@
                     <time datetime="@answer.CreatedOn.ToString("O")">@answer.CreatedOn.ToString("g")</time>
                 </td>
                 <td>
-                    <time datetime="@answer.ModifiedOn.ToString("O")">@answer.ModifiedOn.ToString("g")</time>
+                    @if (answer.ModifiedOn != default)
+                    {
+                        <time datetime="@answer.ModifiedOn.ToString("O")">@answer.ModifiedOn.ToString("g")</time>
+                    }                    
+                    else
+                    {
+                        <span>not yet modified</span>
+                    }
                 </td>
                 <td>
                     <a asp-area="Administration" asp-controller="Answers" asp-action="Edit" asp-route-id="@answer.Id"

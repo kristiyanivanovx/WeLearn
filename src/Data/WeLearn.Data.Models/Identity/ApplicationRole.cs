@@ -1,5 +1,7 @@
 ﻿using System;
+
 using Microsoft.AspNetCore.Identity;
+
 using WeLearn.Data.Common.Models;
 
 namespace WeLearn.Data.Models.Identity

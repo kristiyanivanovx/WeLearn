@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.LessonModule;
 
 namespace WeLearn.Tests.HelperClasses

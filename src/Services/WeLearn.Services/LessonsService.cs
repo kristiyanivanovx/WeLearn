@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Services.Interfaces;
@@ -21,6 +20,7 @@ using WeLearn.Web.ViewModels.Lesson;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
+
 using Video = WeLearn.Data.Models.LessonModule.Video;
 
 namespace WeLearn.Services
@@ -44,7 +44,7 @@ namespace WeLearn.Services
         private readonly IInputOutputService inputOutputService;
 
         public LessonsService(
-            IDeletableEntityRepository<Data.Models.LessonModule.Video> videoRepository,
+            IDeletableEntityRepository<Video> videoRepository,
             IDeletableEntityRepository<Material> materialRepository,
             IDeletableEntityRepository<Lesson> lessonRepository,
             IInputOutputService inputOutputService)

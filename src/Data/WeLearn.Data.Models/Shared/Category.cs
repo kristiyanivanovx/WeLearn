@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.LessonModule;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Category;
 
 namespace WeLearn.Data.Models.Shared

@@ -51,7 +51,14 @@
                     <time datetime="@quiz.CreatedOn.ToString("O")">@quiz.CreatedOn.ToString("g")</time>
                 </td>
                 <td>
-                    <time datetime="@quiz.ModifiedOn.ToString("O")">@quiz.ModifiedOn.ToString("g")</time>
+                    @if (quiz.ModifiedOn != default)
+                    {
+                        <time datetime="@quiz.ModifiedOn.ToString("O")">@quiz.ModifiedOn.ToString("g")</time>
+                    }
+                    else
+                    {
+                        <span>not yet modified</span>
+                    }
                 </td>
                 <td>
                     <a asp-area="Administration" asp-controller="Quizzes" asp-action="Edit" asp-route-id="@quiz.Id"

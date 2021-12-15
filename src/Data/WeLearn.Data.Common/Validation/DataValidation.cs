@@ -67,7 +67,7 @@ namespace WeLearn.Data.Common.Validation
             public const int MaxSubjectLength = 250;
             public const int MaxDescriptionLength = 2000;
         }
-        
+
         public static class Message
         {
             public const int MaxMessageLength = 1500;

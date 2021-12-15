@@ -171,6 +171,8 @@ Some of the many resources used for creating this project:
 - https://alexcodetuts.com/2019/05/22/how-to-seed-users-and-roles-in-asp-net-core/
 - https://stackoverflow.com/a/57440303/13146140
 - https://www.softwaredeveloper.blog/multi-project-dotnet-core-solution-in-docker-image
+- https://www.youtube.com/watch?v=msRJdf5AfoI
+- https://www.xsprogram.com/content/multiple-radio-button-groups-in-mvc-4-razor.html
 
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template

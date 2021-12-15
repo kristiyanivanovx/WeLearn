@@ -1,7 +1,8 @@
-﻿using static WeLearn.Data.Common.Validation.DataValidation.Message;
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
 using WeLearn.Data.Common.Models;
+
+using static WeLearn.Data.Common.Validation.DataValidation.Message;
 
 namespace WeLearn.Data.Models.ChatApp
 {

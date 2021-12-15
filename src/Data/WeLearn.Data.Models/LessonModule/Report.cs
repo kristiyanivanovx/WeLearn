@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.Identity;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Data.Models.LessonModule

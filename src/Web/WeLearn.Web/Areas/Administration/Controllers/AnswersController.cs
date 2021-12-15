@@ -53,8 +53,13 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            // todo: not found
             var model = this.answersService.GetById<AnswerEditModel>(id).FirstOrDefault();
+            if (model == null)
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             model.Questions = this.questionsService.GetAll<QuestionViewModel>();
             return this.View(model);
         }
@@ -63,7 +68,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(AnswerEditModel model)
         {
             var exists = this.answersService.Contains(model.Id);
-
             if (!this.ModelState.IsValid || !exists)
             {
                 return this.View(model);
@@ -77,7 +81,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var exists = this.answersService.Contains(id);
-
             if (!exists)
             {
                 return this.RedirectToAction(nameof(this.Index));

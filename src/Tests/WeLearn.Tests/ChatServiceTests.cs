@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Repositories;
@@ -90,7 +87,7 @@ namespace WeLearn.Tests
             var createdChats = await service.GetAllChatsAsync();
             var createdChat = createdChats.FirstOrDefault(x => x.Name == roomName);
 
-            var chat = service.GetChat(createdChat.Id);
+            var chat = service.GetChat(createdChat!.Id);
 
             // assert
             Assert.NotNull(chat);

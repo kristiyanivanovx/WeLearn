@@ -17,7 +17,7 @@ namespace WeLearn.Services.CronJobs
         public async Task WorkAsync()
         {
             int mainChatId = 1;
-            
+
             // remove all messages
             DbSet<Message> messages = this.context.Messages;
             this.context.Messages.RemoveRange(messages);
@@ -26,7 +26,7 @@ namespace WeLearn.Services.CronJobs
             // remove all chat users where the chat id is not 1
             var chatApplicationUsers = this.context.ChatApplicationUsers
                 .Where(x => x.Chat.Id != mainChatId);
-            
+
             this.context.ChatApplicationUsers.RemoveRange(chatApplicationUsers);
             await this.context.SaveChangesAsync();
 

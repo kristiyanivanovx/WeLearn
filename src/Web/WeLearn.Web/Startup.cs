@@ -77,6 +77,7 @@ namespace WeLearn.Web
             services.AddTransient<AnswersService>();
             services.AddTransient<QuestionsService>();
             services.AddTransient<ExaminationsService>();
+            services.AddTransient<ChoicesService>();
 
             services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IChatService, ChatService>();

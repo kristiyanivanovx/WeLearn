@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
@@ -7,9 +8,9 @@ using WeLearn.Web.ViewModels.Lesson;
 
 namespace WeLearn.Web.ViewModels.Like
 {
-    public class LikeViewModel : 
-        IMapFrom<Data.Models.LessonModule.Lesson>, 
-        IMapTo<Data.Models.LessonModule.Lesson>, 
+    public class LikeViewModel :
+        IMapFrom<Data.Models.LessonModule.Lesson>,
+        IMapTo<Data.Models.LessonModule.Lesson>,
         IHaveCustomMappings
     {
         public int LessonId { get; set; }

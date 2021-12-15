@@ -7,9 +7,9 @@ using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
-    public class LessonViewModel : 
-        IMapFrom<Data.Models.LessonModule.Lesson>, 
-        IMapTo<Data.Models.LessonModule.Lesson>, 
+    public class LessonViewModel :
+        IMapFrom<Data.Models.LessonModule.Lesson>,
+        IMapTo<Data.Models.LessonModule.Lesson>,
         IHaveCustomMappings
     {
         public int LessonId { get; set; }

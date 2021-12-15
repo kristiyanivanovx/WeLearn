@@ -43,11 +43,11 @@ namespace WeLearn.Tests
                 appUserRepository);
 
             // todo: fix not mapping models
-            // // act
-            // var navigationDropdownModel = viewComponentsService.GenerateDropdownModel();
-            //
-            // // assert
-            // Assert.NotNull(navigationDropdownModel);
+            // act
+            var navigationDropdownModel = viewComponentsService.GenerateDropdownModel();
+
+            // assert
+            Assert.NotNull(navigationDropdownModel);
         }
     }
 }

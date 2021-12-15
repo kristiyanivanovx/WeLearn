@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
 namespace WeLearn.Data.Models.LessonModule
@@ -22,8 +24,5 @@ namespace WeLearn.Data.Models.LessonModule
         public int LessonId { get; set; }
 
         public Lesson Lesson { get; set; }
-
-        // [Display(Name = "Date created")]
-        // public DateTime DateCreated { get; set; }
     }
 }

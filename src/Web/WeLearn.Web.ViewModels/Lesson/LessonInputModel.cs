@@ -12,10 +12,10 @@ using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
-    public class LessonInputModel : 
-        IMapTo<Data.Models.LessonModule.Lesson>, 
+    public class LessonInputModel :
+        IMapTo<Data.Models.LessonModule.Lesson>,
         IMapFrom<Data.Models.LessonModule.Lesson>,
-        IHaveCustomMappings, 
+        IHaveCustomMappings,
         ILessonModel
     {
         [Display(Name = "Name")]

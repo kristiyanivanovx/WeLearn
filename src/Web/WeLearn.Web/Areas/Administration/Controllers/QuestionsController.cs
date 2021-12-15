@@ -53,10 +53,10 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 .GetById<QuestionEditModel>(id)
                 .FirstOrDefault();
 
-            // todo
             if (model == null)
             {
-                return null;
+                this.Response.StatusCode = 404;
+                return this.NotFound();
             }
 
             return this.View(model);
@@ -66,11 +66,10 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(QuestionEditModel model)
         {
             var exists = this.questionsService.Contains(model.Id);
-
-            // todo
             if (!exists)
             {
-                return null;
+                this.Response.StatusCode = 404;
+                return this.NotFound();
             }
 
             await this.questionsService.EditAsync(model);
@@ -81,17 +80,15 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
+            var exists = this.questionsService.Contains(id);
+            if (!exists)
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
             await this.questionsService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }
-
-        // [HttpGet]
-        // public IActionResult Index()
-        // {
-        //     // IEnumerable<AdminReportViewModel> reports = await this.quizzesService.GetAllReportsAsync<AdminReportViewModel>(searchString);
-        //     // paginated.SearchString = searchString;
-        //
-        //     return View();
-        // }
     }
 }

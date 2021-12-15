@@ -165,7 +165,6 @@ namespace WeLearn.Tests
             var testSubject = "subjectOne";
             var testDescription = "init123";
             var testAppUserId = "asd123";
-            var testReportId = 1;
             var testLessonId = 3;
 
             var subjectChanged = "subjChanged444";
@@ -185,19 +184,19 @@ namespace WeLearn.Tests
             var entity = reportRepository.All().FirstOrDefault(x => x.Description == testDescription);
 
             var editModel = new AdminReportEditModel
-                {
-                    Id = entity.Id,
-                    Subject = subjectChanged,
-                    Description = descriptionChanged,
-                    ApplicationUserId = "1asd",
-                };
+            {
+                Id = entity!.Id,
+                Subject = subjectChanged,
+                Description = descriptionChanged,
+                ApplicationUserId = "1asd",
+            };
 
             await service.EditReportAdministrationAsync(editModel);
             var editedEntity = reportRepository.All().FirstOrDefault(x => x.Description == descriptionChanged);
 
             // assert
             Assert.NotNull(entity);
-            Assert.Equal(descriptionChanged, editedEntity.Description);
+            Assert.Equal(descriptionChanged, editedEntity!.Description);
             Assert.Equal(subjectChanged, editedEntity.Subject);
         }
 
@@ -214,7 +213,6 @@ namespace WeLearn.Tests
             var testSubject = "subjectOne";
             var testDescription = "init123";
             var testAppUserId = "asd123";
-            var testReportId = 1;
             var testLessonId = 3;
 
             var subjectChanged = "subjChanged444";
@@ -234,7 +232,7 @@ namespace WeLearn.Tests
             var entity = reportRepository.All().FirstOrDefault(x => x.Description == testDescription);
             var editModel = new AdminReportEditModel
             {
-                Id = entity.Id,
+                Id = entity!.Id,
                 Subject = subjectChanged,
                 Description = descriptionChanged,
                 ApplicationUserId = "1asd",
@@ -334,7 +332,6 @@ namespace WeLearn.Tests
             var testSubject = "subjectOne";
             var testDescription = "init1230";
             var testAppUserId = "asd1230";
-            var testReportId = 1;
             var testLessonId = 3;
 
             var modelOne = new LessonReportInputModel

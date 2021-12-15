@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Models.Shared;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Lesson;
 
 namespace WeLearn.Data.Models.LessonModule

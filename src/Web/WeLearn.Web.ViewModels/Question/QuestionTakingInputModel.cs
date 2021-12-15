@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Answer;
 using WeLearn.Web.ViewModels.Quiz;
@@ -17,26 +18,9 @@ namespace WeLearn.Web.ViewModels.Question
         public DateTime CreatedOn { get; set; }
 
         public DateTime ModifiedOn { get; set; }
-        
-        // public ICollection<AnswerTakingInputModel> AnswerTakingInputModels { get; set; }
 
         public ICollection<AnswerViewModel> Answers { get; set; }
 
         public ICollection<QuizViewModel> Quizzes { get; set; }
-    }
-    
-    // todo: extract
-    public class AnswerTakingInputModel
-    {
-        public int Id { get; set; }
-            
-        public string Name { get; set; }
-        public string Content { get; set; }
-
-        public bool IsCorrect { get; set; }
-
-        public int QuestionId { get; set; }
-        public Data.Models.Quiz.Question Question { get; set; }
-
     }
 }

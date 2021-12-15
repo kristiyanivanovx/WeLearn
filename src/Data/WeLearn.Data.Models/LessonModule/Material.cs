@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
+
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 
 namespace WeLearn.Data.Models.LessonModule

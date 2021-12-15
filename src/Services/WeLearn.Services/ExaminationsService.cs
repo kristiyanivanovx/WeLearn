@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
@@ -35,6 +37,10 @@ namespace WeLearn.Services
             => this.examinationRepository
                 .All()
                 .Where(x => x.Id == id)
+                .Include(x => x.Quiz)
+                    .ThenInclude(x => x.Questions)
+                        .ThenInclude(x => x.Answers)
+                .AsSingleQuery()
                 .To<T>()
                 .ToList();
 
@@ -42,7 +48,24 @@ namespace WeLearn.Services
             => this.examinationRepository
                 .All()
                 .Include(x => x.Quiz)
+                    .ThenInclude(x => x.Questions)
+                        .ThenInclude(x => x.Answers)
+                .AsSingleQuery()
                 .To<T>()
                 .ToList();
+
+        public async Task CreateAsync(int quizId, int points, string userId, List<Choice> choices)
+        {
+            var examination = new Examination
+            {
+                Choices = choices,
+                QuizId = quizId,
+                Points = points,
+                ApplicationUserId = userId,
+            };
+
+            await this.examinationRepository.AddAsync(examination);
+            await this.examinationRepository.SaveChangesAsync();
+        }
     }
 }

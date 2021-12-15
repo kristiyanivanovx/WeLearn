@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
+
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Quiz;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Quiz;
@@ -92,23 +93,29 @@ namespace WeLearn.Services
         public int GetCount()
             => this.quizRepository
                 .All()
+                .AsSingleQuery()
                 .Count();
 
         public bool Contains(int id)
             => this.quizRepository
                 .All()
+                .AsSingleQuery()
                 .Any(x => x.Id == id);
 
         public Quiz GetQuizById(int id)
             => this.quizRepository
                 .All()
                 .Include(x => x.Questions)
+                .AsSingleQuery()
                 .FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<T> GetById<T>(int id)
             => this.quizRepository
                 .All()
                 .Where(x => x.Id == id)
+                .Include(x => x.Questions)
+                    .ThenInclude(x => x.Answers)
+                .AsSingleQuery()
                 .To<T>()
                 .ToList();
 
@@ -116,6 +123,8 @@ namespace WeLearn.Services
             => this.quizRepository
                 .All()
                 .Include(x => x.Questions)
+                    .ThenInclude(x => x.Answers)
+                .AsSingleQuery()
                 .To<T>()
                 .ToList();
     }

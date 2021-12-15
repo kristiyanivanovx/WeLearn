@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 namespace WeLearn.Data.Models.Quiz

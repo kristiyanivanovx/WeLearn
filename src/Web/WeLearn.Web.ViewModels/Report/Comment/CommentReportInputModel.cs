@@ -8,9 +8,9 @@ using static WeLearn.Data.Common.Validation.DataValidation.Report;
 
 namespace WeLearn.Web.ViewModels.Report.Comment
 {
-    public class CommentReportInputModel : 
-        IMapFrom<Data.Models.LessonModule.Comment>, 
-        IMapTo<Data.Models.LessonModule.Report>, 
+    public class CommentReportInputModel :
+        IMapFrom<Data.Models.LessonModule.Comment>,
+        IMapTo<Data.Models.LessonModule.Report>,
         IHaveCustomMappings
     {
         public int CommentId { get; set; }

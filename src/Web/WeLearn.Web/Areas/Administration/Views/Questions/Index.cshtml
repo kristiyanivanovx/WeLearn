@@ -58,17 +58,28 @@
                 <td>
                     @foreach (var quiz in @question.Quizzes)
                     {
-                        //todo: WIP
-                        @Html.DisplayFor(modelItem => quiz.Name)
-
-                        @Html.DisplayFor(modelItem => quiz.CategoryName)
+                        <div class="mb-3">
+                            <div>
+                                <span>Name -</span> @Html.DisplayFor(modelItem => quiz.Name)
+                            </div>
+                            <div>
+                                <span>Category -</span> @Html.DisplayFor(modelItem => quiz.CategoryName)
+                            </div>
+                        </div>
                     }
                 </td>
                 <td>
                     <time datetime="@question.CreatedOn.ToString("O")">@question.CreatedOn.ToString("g")</time>
                 </td>
                 <td>
-                    <time datetime="@question.ModifiedOn.ToString("O")">@question.ModifiedOn.ToString("g")</time>
+                    @if (question.ModifiedOn != default)
+                    {
+                        <time datetime="@question.ModifiedOn.ToString("O")">@question.ModifiedOn.ToString("g")</time>
+                    }                   
+                    else
+                    {
+                        <span>not yet modified</span>
+                    }
                 </td>
                 <td>
                     <a asp-area="Administration" asp-controller="Questions" asp-action="Edit" asp-route-id="@question.Id"

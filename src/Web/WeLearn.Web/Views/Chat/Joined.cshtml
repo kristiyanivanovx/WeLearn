@@ -160,44 +160,9 @@
 <!-- Modal End -->
 
 @* <div class="chat-container text-center">
-            <h6>We don't have any group chats yet.</h6>
-        </div>
+        <h6>We don't have any group chats yet.</h6>
+    </div>
 *@
-@*     <div class="row"> *@
-@*         <div class="col-md-6"> *@
-@*             <h3 class="mt-4">Chat name: @Model.Name</h3> *@
-@*             <hr /> *@
-@*             <div class="chat-body"> *@
-@*                 @foreach (var message in Model.Messages) *@
-@*                 { *@
-@*                     <div class="message mb-1"> *@
-@*                         <span><b>@message.Name</b>:</span> *@
-@*                         <span>@message.Text</span> *@
-@*                         <span> | <time datetime="@message.CreatedOn.ToString("O")">@message.CreatedOn.ToString("g")</time></span> *@
-@*                     </div> *@
-@*                 } *@
-@*             </div> *@
-@*             <div class="offset-md-2 col-md-8 mt-3"> *@
-@*                 $1$ <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="CreateMessage" method="post"> #1# *@
-@*                 <form onsubmit="sendMessage(event)" asp-controller="Chat" asp-action="SendMessage" method="post"> *@
-@*                     <input type="hidden" name="roomId" value="@Model.Id" /> *@
-@*                     <input type="text" name="message" id="message-input" class="form-control form-control-sm" /> *@
-@*                     <input type="submit" value="Send" class="btn btn-sm btn-outline-success mt-3 mb-3" /> *@
-@*                 </form> *@
-@*             </div> *@
-@*         </div> *@
-@*         <div class="col-md-6"> *@
-@*             <h3 class="mt-4">All chats</h3> *@
-@*             <hr /> *@
-@*             @await Component.InvokeAsync("Room") *@
-@*             <a asp-controller="Chat" asp-action="Index" class="btn btn-sm btn-outline-dark mt-3 mb-3"> *@
-@*                 <i class="fas fa-arrow-left"></i> Back to home *@
-@*             </a> *@
-@*         </div> *@
-@*     </div> *@
-@* </div> *@
-
-@* @await Component.InvokeAsync("Room")  *@
 
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
@@ -239,6 +204,7 @@
 
             document.querySelector('.chat-panel').append(message);
             
+            // on every message received, scroll to bottom
             scrollToBottom();
         })
 
@@ -275,11 +241,12 @@
             mainChatPanel.scrollTop(mainChatPanel[0].scrollHeight);
         }
         
+        // initially, scroll to bottom of the chat
         scrollToBottom();
         
-		// live-chat scripts 
-		$( '.friend-drawer--onhover' ).on('click', function() {
-          $( '.chat-bubble' ).hide('slow');
+		// live-chat animation scripts 
+		$('.friend-drawer--onhover').on('click', function() {
+          $('.chat-bubble').hide('slow');
           // $( '.chat-bubble' ).hide('slow').show('slow');
         });
     </script>

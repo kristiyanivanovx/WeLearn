@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 using WeLearn.Data.Common.Models;
 
 namespace WeLearn.Data.Models.Quiz
@@ -9,7 +10,7 @@ namespace WeLearn.Data.Models.Quiz
         public Question()
         {
             this.Answers = new HashSet<Answer>();
-            this.Quizzes = new HashSet<Models.Quiz.Quiz>();
+            this.Quizzes = new HashSet<Quiz>();
         }
 
         [Required]
@@ -20,6 +21,6 @@ namespace WeLearn.Data.Models.Quiz
 
         public ICollection<Answer> Answers { get; set; }
 
-        public ICollection<Models.Quiz.Quiz> Quizzes { get; set; }
+        public ICollection<Quiz> Quizzes { get; set; }
     }
 }

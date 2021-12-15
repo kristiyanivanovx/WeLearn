@@ -32,6 +32,57 @@ namespace WeLearn.Data
         // public ApplicationDbContext()
         // {
         // }
+        public virtual DbSet<Choice> Choices { get; set; }
+
+        public virtual DbSet<Examination> Examinations { get; set; }
+
+        public virtual DbSet<Quiz> Quizzes { get; set; }
+
+        public virtual DbSet<Question> Questions { get; set; }
+
+        public virtual DbSet<Answer> Answers { get; set; }
+
+        public virtual DbSet<Like> Likes { get; set; }
+
+        public virtual DbSet<Chat> Chats { get; set; }
+
+        public virtual DbSet<Message> Messages { get; set; }
+
+        public virtual DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
+
+        public virtual DbSet<Category> Categories { get; set; }
+
+        public virtual DbSet<Comment> Comments { get; set; }
+
+        public virtual DbSet<Material> Materials { get; set; }
+
+        public virtual DbSet<Lesson> Lessons { get; set; }
+
+        public virtual DbSet<Video> Videos { get; set; }
+
+        public virtual DbSet<Report> Reports { get; set; }
+
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public override int SaveChanges() => this.SaveChanges(true);
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
+            this.SaveChangesAsync(true, cancellationToken);
+
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
+        {
+            this.ApplyAuditInfoRules();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -65,57 +116,7 @@ namespace WeLearn.Data
             modelBuilder.ConfigureRelations();
         }
 
-        // public virtual DbSet<PrivateMessage> PrivateMessages { get; set; }
-        public virtual DbSet<Examination> Examinations { get; set; }
-
-        public virtual DbSet<Quiz> Quizzes { get; set; }
-
-        public virtual DbSet<Question> Questions { get; set; }
-
-        public virtual DbSet<Answer> Answers { get; set; }
-
-        public virtual DbSet<Like> Likes { get; set; }
-
-        public virtual DbSet<Chat> Chats { get; set; }
-
-        public virtual DbSet<Message> Messages { get; set; }
-
-        public virtual DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
-
-        public virtual DbSet<Category> Categories { get; set; }
-
-        public virtual DbSet<Comment> Comments { get; set; }
-
-        public virtual DbSet<Material> Materials { get; set; }
-
-        public virtual DbSet<Lesson> Lessons { get; set; }
-
-        public virtual DbSet<Video> Videos { get; set; }
-
-        public virtual DbSet<Report> Reports { get; set; }
-
-        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
         // public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
-        public override int SaveChanges() => this.SaveChanges(true);
-
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            this.ApplyAuditInfoRules();
-            return base.SaveChanges(acceptAllChangesOnSuccess);
-        }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
-            this.SaveChangesAsync(true, cancellationToken);
-
-        public override Task<int> SaveChangesAsync(
-            bool acceptAllChangesOnSuccess,
-            CancellationToken cancellationToken = default)
-        {
-            this.ApplyAuditInfoRules();
-            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        }
-
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
             where T : class, IDeletableEntity
         {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+
 using WeLearn.Services.Mapping;
-using WeLearn.Web.ViewModels.Answer;
 using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Web.ViewModels.Quiz
@@ -10,9 +10,9 @@ namespace WeLearn.Web.ViewModels.Quiz
     {
         public QuizTakingInputModel()
         {
-            this.QuestionsAnswered = new HashSet<QuestionTakingInputModel>();
+            this.Questions = new HashSet<QuestionTakingInputModel>();
         }
-        
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -27,22 +27,6 @@ namespace WeLearn.Web.ViewModels.Quiz
 
         public DateTime ModifiedOn { get; set; }
 
-        public ICollection<QuestionTakingInputModel> QuestionsAnswered { get; set; }
-
         public ICollection<QuestionTakingInputModel> Questions { get; set; }
-
-        // public void CreateMappings(IProfileExpression configuration)
-        // {
-        //     configuration.CreateMap<Data.Models.Quiz, QuizViewModel>()
-        //         .ForMember(
-        //             dest => dest.MaxPoints,
-        //             opt => opt.MapFrom(
-        //                 src => src.Questions
-        //                     .ToList()
-        //                     .Sum(q => q.Answers.Where(a => a.IsCorrect && a.QuestionId == q.Id)
-        //                         .Sum(a => a.Question.Points))));
-        // }
-        
-        
     }
 }

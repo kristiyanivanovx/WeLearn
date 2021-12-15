@@ -1,10 +1,11 @@
 @model WeLearn.Web.ViewModels.Examination.ExaminationViewModel
 @{
-    ViewData["Title"] = "Reviewing quiz #" + @Model.Id;
+    ViewData["Title"] = "Reviewing results for quiz #" + @Model.Id;
 }
 
-<div class="container">
-    <h5 class="mb-3">@ViewData["Title"]</h5>
+<div class="container text-center">
+    <h3 class="mb-3 mt-4">@ViewData["Title"]</h3>
+
     <table class="table">
         <thead>
             <tr>
@@ -21,10 +22,7 @@
                     Quiz max points
                 </th>
                 <th>
-                    Date created
-                </th>
-                <th>
-                    Actions
+                    Date taken
                 </th>
             </tr>
         </thead>
@@ -50,8 +48,41 @@
             </tr>
         </tbody>
     </table>
-    
+
+    <table>
+        @foreach (var question in @Model.Questions)
+        {
+            <div class="text-center mb-5">
+                <h4>
+                    @question.Content - @question.Points points
+                </h4>
+
+                <hr class="mr-5 ml-5">
+
+                @foreach (var answer in @question.Answers)
+                {
+                    var isCorrectStyle = answer.IsCorrect ? "correct" : "wrong";
+
+                    <div>
+                        <span class="@isCorrectStyle">
+                            @Html.DisplayFor(modelItem => answer.Content)
+                        </span>
+
+                        @{
+                            var chosenByUser = @Model.Choices.Any(x => x.QuestionId == question.Id && x.UserAnswerId == answer.Id);
+                        }
+
+                        @if (chosenByUser)
+                        {
+                            <span>- Your choice.</span>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </table>
+
     <a asp-area="" asp-controller="Quiz" asp-action="Dashboard" class="btn btn-sm btn-outline-dark">
-        Back to dashboard
+        <i class="fas fa-arrow-left"></i> Back to dashboard
     </a>
 </div>

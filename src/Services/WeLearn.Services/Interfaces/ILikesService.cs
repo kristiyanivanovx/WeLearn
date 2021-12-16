@@ -9,8 +9,6 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ILikesService
     {
-        Task<IEnumerable<T>> GetByUserId<T>(string userId);
-
         Task ToggleLikeAsync(int lessonId, string userId);
 
         Task AddLikeAsync(int lessonId, string userId);

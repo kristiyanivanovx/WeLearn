@@ -57,13 +57,19 @@ namespace WeLearn.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> LikedByMe()
+        public async Task<IActionResult> LikedByMe(string searchString, int? pageNumber)
         {
-            // todo: finish up here, render liked by me
             var userId = this.GetUserId();
-            var models = await this.likesService.GetByUserId<LikeViewModel>(userId);
+            var models = await this.lessonsService.GetLikedByUserId<LessonViewModel>(userId, searchString);
 
-            return this.View(models);
+            var paginated = PaginatedList<LessonViewModel>.Create(
+                models.OrderByDescending(x => x.LessonId),
+                pageNumber ?? this.defaultPageNumber,
+                this.defaultPageSize);
+
+            paginated.SearchString = searchString;
+
+            return this.View(paginated);
         }
 
         [HttpGet]
@@ -79,6 +85,7 @@ namespace WeLearn.Controllers
                 this.defaultPageSize);
 
             paginated.SearchString = searchString;
+
             return this.View(paginated);
         }
 

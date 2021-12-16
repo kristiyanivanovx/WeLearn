@@ -1,24 +1,67 @@
-﻿@model IEnumerable<WeLearn.Web.ViewModels.Like.LikeViewModel>
+﻿@model PaginatedList<LessonViewModel>
 @{
-    ViewData["Title"] = "Lessons created by me";
+    ViewData["Title"] = "All lessons";
 }
 
 <div class="container">
+    <form asp-area="" asp-controller="Lesson" asp-action="LikedByMe" method="get">
+        <label>Find by name or description:</label>
+        <div class="input-group input-group-sm mb-3">
+            <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
+            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+        </div>
+    </form>
+    
     @if (!Model.Any())
     {
-        <h3 class="text-center">You don't haven't liked any lessons yet.</h3>
-        <hr/>
+        <h3 class="text-center">We don't have any lessons matching your query.</h3>
+        <hr />
     }
     else
     {
-       
+        <div class="text-center">
+            <partial name="_MultipleLessonsPartial" />
+            
+            @* pagination start *@
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+            
+            <div class="mt-2 pb-2">
+                <a asp-controller="Lesson"
+                   asp-action="LikedByMe"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-searchString="@Model.SearchString"
+                   class="btn btn-sm btn-outline-dark @prevDisabled">
+                    <i class="fas fa-arrow-left"></i> Previous
+                </a>
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <a asp-controller="Lesson"
+                       asp-action="LikedByMe"
+                       asp-route-pageNumber="@i"
+                       asp-route-searchString="@Model.SearchString"
+                       class="btn btn-sm btn-outline-dark ">
+                        @i
+                    </a>
+                }
+                <a asp-controller="Lesson"
+                   asp-action="LikedByMe"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-searchString="@Model.SearchString"
+                   class="btn btn-sm btn-outline-dark @nextDisabled">
+                    Next <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            @* pagination end *@
+        </div>
     }
 </div>
 
 @section Scripts {
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script>
     <script src="https://unpkg.com/plyr@3"></script>
-
     <script>
         const players = Array.from(document.querySelectorAll('.js-player')).map(p => new Plyr(p));
         window.player = player;

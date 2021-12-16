@@ -19,13 +19,6 @@ namespace WeLearn.Services
             this.likesRepository = likesRepository;
         }
 
-        public async Task<IEnumerable<T>> GetByUserId<T>(string userId)
-            => await this.likesRepository
-                .All()
-                .Where(x => x.ApplicationUserId == userId)
-                .To<T>()
-                .ToListAsync();
-
         public int GetLikesCount(int lessonId)
             => this.likesRepository
                 .All()

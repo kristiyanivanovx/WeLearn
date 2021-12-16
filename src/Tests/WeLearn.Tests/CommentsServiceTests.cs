@@ -177,7 +177,7 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_CommentIsEditedByAdmin()
         {
-            // arrange 
+            // arrange
             var data = new List<Comment>
             {
                 new Comment

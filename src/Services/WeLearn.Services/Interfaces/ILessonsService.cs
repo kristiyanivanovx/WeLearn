@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Web.ViewModels.Admin.Lesson;
 using WeLearn.Web.ViewModels.Interfaces;
@@ -11,6 +10,8 @@ namespace WeLearn.Services.Interfaces
 {
     public interface ILessonsService
     {
+        Task<IEnumerable<T>> GetLikedByUserId<T>(string userId, string searchString);
+
         bool Contains(int id);
 
         int GetCount();
@@ -25,11 +26,22 @@ namespace WeLearn.Services.Interfaces
 
         Task<IEnumerable<LessonViewModel>> GetCreatedByMeAsync(string userId, string searchString);
 
-        Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndGradeAsync(string categoryName, string searchString, int grade);
+        Task<IEnumerable<LessonViewModel>> GetLessonsByCategoryAndGradeAsync(
+            string categoryName,
+            string searchString,
+            int grade);
 
-        Task CreateLessonAsync(LessonInputModel lessonInputModel, string environmentWebRootPath, bool isDevelopment, string userId);
+        Task CreateLessonAsync(
+            LessonInputModel lessonInputModel,
+            string environmentWebRootPath,
+            bool isDevelopment,
+            string userId);
 
-        Task EditLessonAsync(LessonEditModel lessonEditModel, string environmentWebRootPath, bool isDevelopment, string userId);
+        Task EditLessonAsync(
+            LessonEditModel lessonEditModel,
+            string environmentWebRootPath,
+            bool isDevelopment,
+            string userId);
 
         Task EditLessonAdministrationAsync(AdminLessonEditModel model);
 

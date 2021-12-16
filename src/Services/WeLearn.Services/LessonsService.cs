@@ -38,7 +38,7 @@ namespace WeLearn.Services
 
         private const string CloudinaryVideosFolder = "welearn-asp-net-core-app/videos/";
 
-        private readonly IDeletableEntityRepository<Data.Models.LessonModule.Video> videoRepository;
+        private readonly IDeletableEntityRepository<Video> videoRepository;
         private readonly IDeletableEntityRepository<Material> materialRepository;
         private readonly IDeletableEntityRepository<Lesson> lessonRepository;
         private readonly IInputOutputService inputOutputService;
@@ -58,6 +58,29 @@ namespace WeLearn.Services
         public bool Contains(int id) => this.lessonRepository.All().Any(x => x.Id == id);
 
         public int GetCount() => this.lessonRepository.All().Count();
+
+        public async Task<IEnumerable<T>> GetLikedByUserId<T>(string userId, string searchString = null)
+        {
+            var lessons = this.lessonRepository
+                .All()
+                .Where(x => x.Likes.Any(like => like.ApplicationUserId == userId));
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                lessons = lessons.Where(x => x.Name.ToLower().Contains(searchString.ToLower()) ||
+                                             x.Description.ToLower().Contains(searchString.ToLower()));
+            }
+
+            var allWithRelated = await lessons
+                .Include(x => x.Category)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Video)
+                .Include(x => x.Material)
+                .To<T>()
+                .ToListAsync();
+
+            return allWithRelated;
+        }
 
         public async Task<T> GetLessonByIdAsync<T>(int id)
             => await this.lessonRepository

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// <auto-generaed />
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WeLearn.Data.Migrations

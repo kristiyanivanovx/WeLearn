@@ -22,8 +22,8 @@
     </ItemGroup>
  
     <ItemGroup>
-      <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
-      <ProjectReference Include="..\..\Services\WeLearn.Services.Mapping\WeLearn.Services.Mapping.csproj" />
+        <ProjectReference Include="..\..\Data\WeLearn.Data.Models\WeLearn.Data.Models.csproj" />
+        <ProjectReference Include="..\..\Services\WeLearn.Services.Mapping\WeLearn.Services.Mapping.csproj" />
     </ItemGroup>
 
 </Project>

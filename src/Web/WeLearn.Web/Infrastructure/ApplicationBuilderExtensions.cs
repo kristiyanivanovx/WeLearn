@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,9 +44,19 @@ namespace WeLearn.Web.Infrastructure
 
         public static IApplicationBuilder SeedHangfireJobs(
             this IApplicationBuilder app,
-            IRecurringJobManager recurringJobManager)
+            IRecurringJobManager recurringJobManager,
+            IWebHostEnvironment webHostEnvironment)
         {
-            recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.WorkAsync(), Cron.Monthly());
+            recurringJobManager.AddOrUpdate<DbCleanupJob>(
+                "DbCleanupJob",
+                x => x.WorkAsync(),
+                Cron.Monthly());
+
+            recurringJobManager.AddOrUpdate<TrainRecommendationModelJob>(
+                "TrainModelJob",
+                x => x.Work(webHostEnvironment.ContentRootPath),
+                Cron.Daily);
+
             return app;
         }
 

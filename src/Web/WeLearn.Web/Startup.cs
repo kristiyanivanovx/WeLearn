@@ -144,7 +144,7 @@ namespace WeLearn.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.SeedHangfireJobs(recurringJobManager);
+            app.SeedHangfireJobs(recurringJobManager, this.WebHostEnvironment);
             app.UseHangfire();
 
             app.UseEndpoints();

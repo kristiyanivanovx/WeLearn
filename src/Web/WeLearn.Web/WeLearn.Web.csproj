@@ -67,6 +67,9 @@
 
 	<ItemGroup>
 	  <None Remove="..\.dockerignore" />
+	  <None Update="data\.keep">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>

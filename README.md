@@ -173,6 +173,8 @@ Some of the many resources used for creating this project:
 - https://www.softwaredeveloper.blog/multi-project-dotnet-core-solution-in-docker-image
 - https://www.youtube.com/watch?v=msRJdf5AfoI
 - https://www.xsprogram.com/content/multiple-radio-button-groups-in-mvc-4-razor.html
+- https://www.youtube.com/watch?v=dluB5VE1m1k
+- https://github.com/NikolayIT/ArtificialIntelligencePlayground/tree/master/ML.NET/Recommendation/SoftUniCoursesRecommendation
 
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template

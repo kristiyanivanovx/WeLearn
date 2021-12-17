@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>WeLearn.Services.ML</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    </PropertyGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="..\..\stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.ML" Version="1.7.0" />
+        <PackageReference Include="Microsoft.ML.Recommender" Version="0.19.0" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.376">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Data\WeLearn.Data.Models\WeLearn.Data.Models.csproj" />
+        <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
+        <ProjectReference Include="..\..\Web\WeLearn.Web.ViewModels\WeLearn.Web.ViewModels.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Interfaces" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="data\.keep">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

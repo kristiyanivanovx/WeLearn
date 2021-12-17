@@ -5,7 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
+        <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
+        <ProjectReference Include="..\WeLearn.Services.ML\WeLearn.Services.ML.csproj" />
     </ItemGroup>
 
     <PropertyGroup>
@@ -16,10 +17,13 @@
     </ItemGroup>
     
     <ItemGroup>
-      <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+        <PackageReference Include="Hangfire.Core" Version="1.7.23" />
+        <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="5.0.13" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

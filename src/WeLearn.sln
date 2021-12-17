@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Data.Models", "Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Services.Messaging", "Services\WeLearn.Services.Messaging\WeLearn.Services.Messaging.csproj", "{BADD3B13-4DA5-42B1-A3A5-4C1413152492}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Services.ML", "Services\WeLearn.Services.ML\WeLearn.Services.ML.csproj", "{BD3FE412-68C9-4DBA-845C-1FEC630F5A07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeLearn.Services.Data", "Services\WeLearn.Services.Data\WeLearn.Services.Data.csproj", "{001740BB-58C7-4258-A8FC-8A014CB8AB78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +89,14 @@ Global
 		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BADD3B13-4DA5-42B1-A3A5-4C1413152492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3FE412-68C9-4DBA-845C-1FEC630F5A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3FE412-68C9-4DBA-845C-1FEC630F5A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3FE412-68C9-4DBA-845C-1FEC630F5A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3FE412-68C9-4DBA-845C-1FEC630F5A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001740BB-58C7-4258-A8FC-8A014CB8AB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001740BB-58C7-4258-A8FC-8A014CB8AB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001740BB-58C7-4258-A8FC-8A014CB8AB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001740BB-58C7-4258-A8FC-8A014CB8AB78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,5 +116,7 @@ Global
 		{C6B39E99-2307-4F97-9BD8-603E55309B96} = {DE18CB4D-E931-472C-AA71-D34846EB2F42}
 		{FE22C1C2-41D1-4649-8B52-AEF35C0CA6CF} = {DE18CB4D-E931-472C-AA71-D34846EB2F42}
 		{BADD3B13-4DA5-42B1-A3A5-4C1413152492} = {5A7BD9C0-3F58-4E9C-8697-9710EA306333}
+		{BD3FE412-68C9-4DBA-845C-1FEC630F5A07} = {5A7BD9C0-3F58-4E9C-8697-9710EA306333}
+		{001740BB-58C7-4258-A8FC-8A014CB8AB78} = {5A7BD9C0-3F58-4E9C-8697-9710EA306333}
 	EndGlobalSection
 EndGlobal

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+
 using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Shared;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
+
 using Xunit;
 
 namespace WeLearn.Tests
@@ -24,14 +24,14 @@ namespace WeLearn.Tests
                 new Category { Id = 1, Name = "Category 1" },
                 new Category { Id = 2, Name = "Category 2" },
                 new Category { Id = 3, Name = "Category 3" },
-            }.AsQueryable();
+            };
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
             var categoryRepository = new EfDeletableEntityRepository<Category>(new ApplicationDbContext(options));
-            var service = new CategoriesService(categoryRepository);
+            var categoriesService = new CategoriesService(categoryRepository);
 
             foreach (var category in data)
             {
@@ -40,7 +40,7 @@ namespace WeLearn.Tests
             }
 
             // act
-            int categoriesCount = service.GetCount();
+            int categoriesCount = categoriesService.GetCount();
 
             // assert
             Assert.Equal(3, categoriesCount);

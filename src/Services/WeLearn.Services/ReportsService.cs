@@ -93,8 +93,6 @@ namespace WeLearn.Services
                 LessonId = model.LessonId,
                 Subject = model.Subject,
                 Description = model.ReportDescription,
-
-                // todo: validate
                 ApplicationUserId = model.ApplicationUserId,
             };
 
@@ -109,8 +107,6 @@ namespace WeLearn.Services
                 CommentId = model.CommentId,
                 Subject = model.Subject,
                 Description = model.ReportDescription,
-
-                // todo: validate
                 ApplicationUserId = model.ApplicationUserId,
             };
 

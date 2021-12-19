@@ -110,7 +110,6 @@ namespace WeLearn.Tests
 
             var roomName = "Room 1";
             var userId = "123";
-
             var userIdTwo = "2";
 
             // act
@@ -143,7 +142,7 @@ namespace WeLearn.Tests
             await service.CreateRoomAsync(roomName, userId);
             var chat = service.GetChats(userIdTwo).FirstOrDefault(x => x.Name == roomName);
 
-            await service.JoinRoomAsync(chat.Id, userIdTwo);
+            await service.JoinRoomAsync(chat!.Id, userIdTwo);
 
             var userHasJoined = chatAppUserRepository
                 .All()

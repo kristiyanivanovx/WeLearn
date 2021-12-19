@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
+
 using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
@@ -44,8 +44,12 @@ namespace WeLearn.Tests
             await service.CreateLessonReportAsync(model);
 
             var entity = reportRepository.All().FirstOrDefault(x => x.Subject == testSubject);
+            var entityExists = service.Contains(entity!.Id);
+            var entitiesCount = service.GetCount();
 
             // assert
+            Assert.True(entityExists);
+            Assert.Equal(1, entitiesCount);
             Assert.NotNull(entity);
             Assert.Equal(testSubject, entity.Subject);
             Assert.Equal(testDescription, entity.Description);
@@ -115,7 +119,6 @@ namespace WeLearn.Tests
             var testSubject = "subjectOne";
             var testDescription = "init123";
             var testAppUserId = "asd123";
-            var testReportId = 1;
             var testCommentId = 3;
 
             var subjectChanged = "subjChanged123das";
@@ -353,9 +356,9 @@ namespace WeLearn.Tests
             // act
             await service.CreateLessonReportAsync(modelOne);
             await service.CreateLessonReportAsync(modelTwo);
+            var entities = reportRepository.All();
 
             // assert
-            var entities = reportRepository.All();
             Assert.Equal(2, entities.Count());
         }
     }

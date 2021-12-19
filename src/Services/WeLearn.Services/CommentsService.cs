@@ -29,6 +29,11 @@ namespace WeLearn.Services
                 .All()
                 .Any(x => x.Id == id);
 
+        public int GetAllCommentsCount()
+            => this.commentRepository
+                .All()
+                .Count();
+
         public async Task CreateCommentAsync(CommentInputModel commentInputModel)
         {
             Comment comment = new Comment

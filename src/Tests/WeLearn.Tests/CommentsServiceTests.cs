@@ -1,17 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.LessonModule;
+using WeLearn.Data.Repositories;
 using WeLearn.Services;
-using WeLearn.Services.Mapping;
-using WeLearn.Tests.HelperClasses;
+
 using WeLearn.Web.ViewModels.Admin.Comment;
 using WeLearn.Web.ViewModels.Comment;
 using Xunit;
@@ -21,41 +18,41 @@ namespace WeLearn.Tests
     public class CommentsServiceTests
     {
         [Fact]
-        public async Task Should_ReturnAllComments_When_ParameterIsNull()
+        public async Task Should_ReturnAllCommentsCount_When_Valid()
         {
             // arrange
             var data = new List<Comment>
             {
-                new Comment { Content = "x-content" },
-                new Comment { Content = "y-content" },
-                new Comment { Content = "z-content" },
-            }.AsQueryable();
+                new Comment { Content = "x-Category" },
+                new Comment { Content = "y-Category" },
+                new Comment { Content = "z-Category" },
+            };
 
-            Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            mockSet.As<IAsyncEnumerable<Comment>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            var commentsService = new CommentsService(commentRepository);
 
-            mockSet.As<IQueryable<Comment>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+            foreach (var comment in data)
+            {
+                var inputModel = new CommentInputModel
+                {
+                    LessonId = 1,
+                    Content = comment.Content,
+                    ApplicationUserId = "123",
+                };
 
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+                await commentsService.CreateCommentAsync(inputModel);
+                await commentRepository.SaveChangesAsync();
+            }
 
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            // act
+            int commentsCount = commentsService.GetAllCommentsCount();
 
-            // mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
-            //
-            // var service = new CommentsService(mockContext.Object);
-            //
-            // // act
-            // var result = await service.GetAllCommentsAsync(null);
-            //
-            // // assert
-            // Assert.Equal(3, result.Count());
+            // assert
+            Assert.Equal(3, commentsCount);
         }
 
         [Fact]
@@ -67,34 +64,35 @@ namespace WeLearn.Tests
                 new Comment { Id = 1, Content = "C" },
                 new Comment { Id = 2, Content = "Ca" },
                 new Comment { Id = 3, Content = "Cab" },
-            }.AsQueryable();
+            };
 
-            Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            mockSet.As<IAsyncEnumerable<Comment>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            var commentsService = new CommentsService(commentRepository);
 
-            mockSet.As<IQueryable<Comment>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+            foreach (var comment in data)
+            {
+                var inputModel = new CommentInputModel
+                {
+                    LessonId = 1,
+                    Content = comment.Content,
+                    ApplicationUserId = "123",
+                };
 
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+                await commentsService.CreateCommentAsync(inputModel);
+                await commentRepository.SaveChangesAsync();
+            }
 
-            // Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            // mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
-            //
-            // var service = new CommentsService(mockContext.Object);
-            //
-            // // act
-            // await service.HardDeleteCommentByIdAsync(1);
-            // await service.HardDeleteCommentByIdAsync(2);
-            // var result = await service.GetAllCommentsAsync(null);
-            //
-            // // assert
-            // mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(2));
+            // act
+            await commentsService.HardDeleteCommentByIdAsync(1);
+            await commentsService.HardDeleteCommentByIdAsync(2);
+            var commentsCount = commentsService.GetAllCommentsCount();
+
+            // assert
+            Assert.Equal(1, commentsCount);
         }
 
         [Fact]
@@ -103,36 +101,42 @@ namespace WeLearn.Tests
             // arrange
             var data = new List<Comment>
             {
-                new Comment { Id = 1, Content = "c" },
-                new Comment { Id = 2, Content = "a" },
-            }.AsQueryable();
+                new Comment { Id = 1, Content = "C" },
+                new Comment { Id = 2, Content = "Ca" },
+                new Comment { Id = 3, Content = "Cab" },
+            };
 
-            Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            mockSet.As<IAsyncEnumerable<Comment>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            var commentsService = new CommentsService(commentRepository);
 
-            mockSet.As<IQueryable<Comment>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+            foreach (var comment in data)
+            {
+                var inputModel = new CommentInputModel
+                {
+                    LessonId = 1,
+                    Content = comment.Content,
+                    ApplicationUserId = "123",
+                };
 
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+                await commentsService.CreateCommentAsync(inputModel);
+                await commentRepository.SaveChangesAsync();
+            }
 
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+            var commentId = commentRepository.All().First(x => x.Content == "Cab").Id;
 
-            // var service = new CommentsService(mockContext.Object);
-            //
-            // // act
-            // await service.SoftDeleteCommentByIdAsync(1);
-            // await service.SoftDeleteCommentByIdAsync(2);
-            // var result = await service.GetAllCommentsAsync(null);
-            //
-            // // assert
-            // mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(2));
+            // act
+            await commentsService.SoftDeleteCommentByIdAsync(1);
+            await commentsService.SoftDeleteCommentByIdAsync(2);
+            var commentsCount = commentsService.GetAllCommentsCount();
+            var commentFromDbExists = commentsService.Contains(commentId);
+
+            // assert
+            Assert.Equal(1, commentsCount);
+            Assert.True(commentFromDbExists);
         }
 
         [Fact]
@@ -145,33 +149,35 @@ namespace WeLearn.Tests
                 {
                     Id = 1, Content = "C", ApplicationUserId = "asd", LessonId = 3,
                 },
-            }.AsQueryable();
+            };
 
-            Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            mockSet.As<IAsyncEnumerable<Comment>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            var commentsService = new CommentsService(commentRepository);
 
-            mockSet.As<IQueryable<Comment>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+            foreach (var comment in data)
+            {
+                var inputModel = new CommentInputModel
+                {
+                    LessonId = 1,
+                    Content = comment.Content,
+                    ApplicationUserId = "123",
+                };
 
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+                await commentsService.CreateCommentAsync(inputModel);
+                await commentRepository.SaveChangesAsync();
+            }
 
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+            // act
+            var model = new CommentEditModel { Id = 1, Content = "redacted" };
+            await commentsService.EditCommentAsync(model);
+            var editedComment = commentRepository.All().First(x => x.Content == "redacted");
 
-            // var service = new CommentsService(mockContext.Object);
-            //
-            // // act
-            // var model = new CommentEditModel { Id = 1, Content = "asd" };
-            // await service.EditCommentAsync(model);
-            //
-            // // assert
-            // mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            // assert
+            Assert.NotNull(editedComment);
         }
 
         [Fact]
@@ -186,31 +192,33 @@ namespace WeLearn.Tests
                 },
             }.AsQueryable();
 
-            Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            mockSet.As<IAsyncEnumerable<Comment>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            var commentsService = new CommentsService(commentRepository);
 
-            mockSet.As<IQueryable<Comment>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+            foreach (var comment in data)
+            {
+                var inputModel = new CommentInputModel
+                {
+                    LessonId = 1,
+                    Content = comment.Content,
+                    ApplicationUserId = "123",
+                };
 
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+                await commentsService.CreateCommentAsync(inputModel);
+                await commentRepository.SaveChangesAsync();
+            }
 
-            // Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            // mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
-            //
-            // var service = new CommentsService(mockContext.Object);
-            //
-            // // act
-            // var model = new AdminCommentEditModel() { Id = 1, Content = "asd1" };
-            // await service.EditCommentByAdminAsync(model);
-            //
-            // // assert
-            // mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            // act
+            var model = new AdminCommentEditModel { Id = 1, Content = "redacted-by-admin" };
+            await commentsService.EditCommentByAdminAsync(model);
+            var editedComment = commentRepository.All().First(x => x.Content == "redacted-by-admin");
+
+            // assert
+            Assert.NotNull(editedComment);
         }
 
         [Fact]
@@ -223,33 +231,35 @@ namespace WeLearn.Tests
                 {
                     Id = 1, Content = "Test Content", ApplicationUserId = "asd", LessonId = 3,
                 },
-            }.AsQueryable();
+            };
 
-            Mock<DbSet<Comment>> mockSet = new Mock<DbSet<Comment>>();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options;
 
-            mockSet.As<IAsyncEnumerable<Comment>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
-                .Returns(new TestingDbAsyncEnumerator<Comment>(data.GetEnumerator()));
+            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            var commentsService = new CommentsService(commentRepository);
 
-            mockSet.As<IQueryable<Comment>>()
-                .Setup(m => m.Provider)
-                .Returns(new TestingDbAsyncQueryProvider<Comment>(data.Provider));
+            foreach (var comment in data)
+            {
+                var inputModel = new CommentInputModel
+                {
+                    LessonId = 1,
+                    Content = comment.Content,
+                    ApplicationUserId = "123",
+                };
 
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Comment>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+                await commentsService.CreateCommentAsync(inputModel);
+                await commentRepository.SaveChangesAsync();
+            }
 
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
+            // act
+            var model = new CommentInputModel { Content = "asd-new" };
+            await commentsService.CreateCommentAsync(model);
+            var commentFromDb = commentRepository.All().First(x => x.Content == "asd-new");
 
-            // var service = new CommentsService(mockContext.Object);
-            //
-            // // act
-            // var model = new CommentInputModel() {Content = "asd" };
-            // await service.CreateCommentAsync(model);
-            //
-            // // assert
-            // mockContext.Verify(x => x.SaveChangesAsync(new CancellationToken()), Times.Exactly(1));
+            // assert
+            Assert.NotNull(commentFromDb);
         }
     }
 }

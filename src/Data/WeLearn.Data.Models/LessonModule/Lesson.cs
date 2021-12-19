@@ -15,6 +15,7 @@ namespace WeLearn.Data.Models.LessonModule
         public Lesson()
         {
             this.Likes = new HashSet<Like>();
+            this.Recommendations = new HashSet<Recommendation>();
         }
 
         [Required]
@@ -35,6 +36,8 @@ namespace WeLearn.Data.Models.LessonModule
         public Grade Grade { get; set; }
 
         public ICollection<Like> Likes { get; set; }
+
+        public ICollection<Recommendation> Recommendations { get; set; }
 
         public string ApplicationUserId { get; set; }
 

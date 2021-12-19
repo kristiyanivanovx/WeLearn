@@ -5,7 +5,7 @@ using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels;
 using WeLearn.Web.ViewModels.Home;
 
-namespace WeLearn.Controllers
+namespace WeLearn.Web.Controllers
 {
     public class HomeController : Controller
     {

@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.ML;
 using Npgsql;
-using WeLearn.Common;
+
 using WeLearn.Data.Models.Recommendation;
 
 using static WeLearn.Common.GlobalConstants;
+using static WeLearn.Services.ML.RecommendationsService;
 
 namespace WeLearn.Services.Data
 {
     public class ExportDataService
     {
-        public static void Main()
+        public static async Task Main()
         {
             /*
             * users-in-lessons.csv
@@ -25,9 +26,15 @@ namespace WeLearn.Services.Data
 
             Console.OutputEncoding = Encoding.UTF8;
 
-            ExportDataToCsv();
-            // TrainModel(path, modelFile);
-            
+            // 1. Export existing data to csv file
+            await ExportDataToCsv();
+
+            // 2. Train ML model
+            string exportPathLocation = Path.Combine(ExportDirectory, ExportFileName);
+            string exportModelPathLocation = Path.Combine(ExportDirectory, ModelFile);
+            TrainModel(exportPathLocation, exportModelPathLocation);
+
+            // 3. Change the values here with your data - user ids and lesson ids
             var testModelData = new List<UserInLesson>
                 {
                     new UserInLesson { UserId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6", LessonId = 13 },
@@ -37,24 +44,11 @@ namespace WeLearn.Services.Data
                     new UserInLesson { UserId = "d91316c6-8823-4614-a3c5-6228f06c746a", LessonId = 25 },
                     new UserInLesson { UserId = "d91316c6-8823-4614-a3c5-6228f06c746a", LessonId = 15 },
                 };
-            
-            //TestModel(ModelFile, testModelData);
+
+            // 4. Test model - recommendations
+            TestRecommendationsModel(exportModelPathLocation, testModelData);
         }
 
-        private static void TestModel(string outputFile, IEnumerable<UserInLesson> testModelData)
-        {
-            var context = new MLContext();
-            var model = context.Model.Load(outputFile, out _);
-            var predictionEngine = context.Model.CreatePredictionEngine<UserInLesson, UserInLessonScore>(model);
-
-            foreach (var testInput in testModelData)
-            {
-                var prediction = predictionEngine.Predict(testInput);
-                Console.WriteLine($"User: {testInput.UserId}, Lesson: {testInput.LessonId}, Score: {prediction.Score}");
-            }
-        }
-
-        // todo: extract method to Data Manipulation Service
         private static string Escape(string value)
         {
             if (string.IsNullOrEmpty(value))
@@ -75,14 +69,16 @@ namespace WeLearn.Services.Data
             return value;
         }
 
-        private static void ExportDataToCsv()
+        private static async Task ExportDataToCsv()
         {
-            // Stream writer for CSV file.  
+            string exportPathLocation = Path.Combine(ExportDirectory, ExportFileName);
+
+            // Stream writer for CSV file.
             StreamWriter csvFile = null;
             NpgsqlDataReader reader = null;
 
-            // Check to see if the file path exists.  
-            if (Directory.Exists(ExportPathServices))
+            // Check to see if the file path exists.
+            if (Directory.Exists(ExportDirectory))
             {
                 try
                 {
@@ -93,49 +89,50 @@ namespace WeLearn.Services.Data
 
                     var connectionString = configuration.GetConnectionString("DefaultConnectionPostgreSQL");
 
-                    using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+                    await using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
                     {
                         NpgsqlCommand command = new NpgsqlCommand(
                             "SELECT \"ApplicationUserId\", \"LessonId\" FROM \"Likes\";",
                             connection);
 
                         command.CommandType = CommandType.Text;
-                        connection.Open();
+                        await connection.OpenAsync();
 
-                        reader = command.ExecuteReader();
+                        reader = await command.ExecuteReaderAsync();
+                        csvFile = new StreamWriter(exportPathLocation);
+
                         string[] outline = new string[reader.FieldCount];
 
-                        csvFile = new StreamWriter(ExportPathServices);
-                        csvFile.WriteLine(string.Join(",", "UserId", "LessonId"));
+                        await csvFile.WriteLineAsync(string.Join(",", "UserId", "LessonId"));
 
-                        while (reader.Read())
+                        while (await reader.ReadAsync())
                         {
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
                                 outline[i] = Escape(reader.GetValue(i).ToString());
                             }
 
-                            csvFile.WriteLine(string.Join(",", outline));
+                            await csvFile.WriteLineAsync(string.Join(",", outline));
                         }
 
-                        // reader.Close();
-                        // csvFile.Close();
+                        await reader.CloseAsync();
+                        csvFile.Close();
 
-                        // Message stating export successful.
                         Console.WriteLine("Data export successful.");
                     }
                 }
                 finally
                 {
-                    reader?.Close();
-                    csvFile?.Close();
+                    if (reader != null)
+                    {
+                        await reader.CloseAsync();
+                    }
 
-                    //File.Copy(GlobalConstants.Path, ExportCsvPath, true);
+                    csvFile?.Close();
                 }
             }
             else
             {
-                // Display a message stating file path does not exist.  
                 Console.WriteLine("File path does not exist.");
             }
         }

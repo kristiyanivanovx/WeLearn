@@ -8,52 +8,90 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Data.Models.InputOutput;
+using WeLearn.Data.Models.LessonModule;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Messaging.Interfaces;
-using WeLearn.Web.Controllers;
+
 using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Lesson;
-using WeLearn.Web.ViewModels.Like;
 
 using static WeLearn.Common.GlobalConstants;
 using static WeLearn.Data.Common.Validation.DataValidation.Material;
 using static WeLearn.Data.Common.Validation.DataValidation.Video;
 
-// todo: change namespace
-namespace WeLearn.Controllers
+namespace WeLearn.Web.Controllers
 {
     public class LessonController : BaseController
     {
         private readonly int defaultPageNumber = 1;
         private readonly int defaultPageSize = 6;
 
-        private readonly ILikesService likesService;
         private readonly ICategoriesService categoriesService;
         private readonly ILessonsService lessonsService;
         private readonly IEmailSender emailSender;
         private readonly IFileDownloadService fileDownloadService;
         private readonly IWebHostEnvironment environment;
+        private readonly IDeletableEntityRepository<Recommendation> recommendationsRepository;
 
         public LessonController(
-            ILikesService likesService,
             ICategoriesService categoriesService,
             ILessonsService lessonsService,
             IEmailSender emailSender,
             IFileDownloadService fileDownloadService,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            IDeletableEntityRepository<Recommendation> recommendationsRepository)
         {
-            this.likesService = likesService;
             this.categoriesService = categoriesService;
             this.lessonsService = lessonsService;
             this.emailSender = emailSender;
             this.fileDownloadService = fileDownloadService;
             this.environment = environment;
+            this.recommendationsRepository = recommendationsRepository;
         }
 
         [HttpGet]
         public IActionResult EmailSent() => this.View();
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Recommended(string searchString, int? pageNumber)
+        {
+            var userId = this.GetUserId();
+            var allLessons = await this.lessonsService
+                .GetAllLessonsAsync<LessonRecommendedViewModel>(searchString);
+
+            var recommendations = this.recommendationsRepository
+                .All()
+                .ToList();
+
+            // get only the models that are recommended - lesson id and user id have to match
+            var models = allLessons
+                .Where(model => recommendations
+                    .Any(rec => rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId)));
+
+            models.All(model =>
+            {
+                model.RecommendationScore = MathF.Round(
+                    recommendations
+                        .FirstOrDefault(rec => rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId))
+                        ?.Score ?? 0,
+                    2) * 100;
+
+                return true;
+            });
+
+            var paginated = PaginatedList<LessonRecommendedViewModel>.Create(
+                models.OrderByDescending(x => x.RecommendationScore),
+                pageNumber ?? this.defaultPageNumber,
+                this.defaultPageSize);
+
+            paginated.SearchString = searchString;
+
+            return this.View(paginated);
+        }
 
         [HttpGet]
         [Authorize]
@@ -314,7 +352,8 @@ namespace WeLearn.Controllers
                     <p>Created by - {createdBy}</p>
 				    <p>Category - {model.CategoryName}</p>
 				    <p>Grade - {model.Grade}</p>
-				    <p>Date created - {model.CreatedOn.ToLocalTime():d/MM/yyyy, HH:mm}</p>
+				    <p>Likes - {model.LikesCount}</p>
+                    <p>Date created - {model.CreatedOn.ToLocalTime():d/MM/yyyy, HH:mm}</p>
 				    <p>Link - <a href=""https://{ApplicationHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
                 </div>")
                 .ToString()

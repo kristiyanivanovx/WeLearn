@@ -24,6 +24,7 @@
         <ProjectReference Include="..\..\Data\WeLearn.Data.Models\WeLearn.Data.Models.csproj" />
         <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
         <ProjectReference Include="..\..\Web\WeLearn.Web.ViewModels\WeLearn.Web.ViewModels.csproj" />
+        <ProjectReference Include="..\WeLearn.Services.ML\WeLearn.Services.ML.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -32,12 +33,6 @@
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Update="data\.keep">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
     </ItemGroup>
     
 </Project>

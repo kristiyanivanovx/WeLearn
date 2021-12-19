@@ -1,10 +1,10 @@
-using System.IO;
+using System;
+using System.Collections.Generic;
 
 using Microsoft.ML;
 using Microsoft.ML.Trainers;
 
 using WeLearn.Data.Models.Recommendation;
-using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Services.ML
 {
@@ -47,7 +47,21 @@ namespace WeLearn.Services.ML
 
             // Save model
             context.Model.Save(model, trainingDataView.Schema, outputFile);
-            File.Copy(outputFile, OutputFileAbove, true);
+        }
+
+        public static void TestRecommendationsModel(string modelFile, IEnumerable<UserInLesson> testModelData)
+        {
+            var context = new MLContext();
+            var model = context.Model.Load(modelFile, out _);
+            var predictionEngine = context.Model.CreatePredictionEngine<UserInLesson, UserInLessonScore>(model);
+
+            foreach (var testInput in testModelData)
+            {
+                var prediction = predictionEngine.Predict(testInput);
+
+                Console.WriteLine(
+                    $"User: {testInput.UserId}, Lesson: {testInput.LessonId}, Score: {prediction.Score}");
+            }
         }
     }
 }

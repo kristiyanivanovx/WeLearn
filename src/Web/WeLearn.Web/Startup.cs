@@ -13,7 +13,6 @@ using Microsoft.Extensions.Hosting;
 using WeLearn.Data;
 using WeLearn.Data.Common;
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
@@ -23,6 +22,8 @@ using WeLearn.Services.Messaging;
 using WeLearn.Services.Messaging.Interfaces;
 using WeLearn.Web.Infrastructure;
 using WeLearn.Web.ViewModels;
+
+using RecommendationsService = WeLearn.Services.RecommendationsService;
 
 namespace WeLearn.Web
 {
@@ -78,6 +79,7 @@ namespace WeLearn.Web
             services.AddTransient<QuestionsService>();
             services.AddTransient<ExaminationsService>();
             services.AddTransient<ChoicesService>();
+            services.AddTransient<RecommendationsService>();
 
             services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IChatService, ChatService>();

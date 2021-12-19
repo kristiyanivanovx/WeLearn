@@ -54,29 +54,35 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="Create">
-                            Create
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Lesson" asp-action="All">
-                            Lessons
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Quiz" asp-action="All">
                             Quizzes
                         </a>
                     </li>
                     
-                    @await Component.InvokeAsync("LessonsNavigatorDropdown")
+                    <li class="nav-item dropdown">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="lessonDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Lessons
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="lessonDropdownMenuButton">
+                                <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="All">
+                                    All
+                                </a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="Create">
+                                    Create
+                                </a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Lesson" asp-action="Recommended">
+                                    Recommended
+                                </a>
+                            </div>
+                        </div>
+                    </li>
                     
+                    @await Component.InvokeAsync("LessonsNavigatorDropdown")
+                   
                     <li class="nav-item dropdown">
                         <div class="dropdown">
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @* My activity *@
                                 Activity
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

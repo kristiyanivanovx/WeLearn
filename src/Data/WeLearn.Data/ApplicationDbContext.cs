@@ -50,6 +50,8 @@ namespace WeLearn.Data
 
         public virtual DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
 
+        public virtual DbSet<Recommendation> Recommendations { get; set; }
+
         public virtual DbSet<Category> Categories { get; set; }
 
         public virtual DbSet<Comment> Comments { get; set; }

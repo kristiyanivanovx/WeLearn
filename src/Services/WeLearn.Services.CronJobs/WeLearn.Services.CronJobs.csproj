@@ -7,6 +7,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
         <ProjectReference Include="..\WeLearn.Services.ML\WeLearn.Services.ML.csproj" />
+        <ProjectReference Include="..\WeLearn.Services\WeLearn.Services.csproj" />
     </ItemGroup>
 
     <PropertyGroup>
@@ -17,6 +18,8 @@
     </ItemGroup>
     
     <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="CsvHelper" Version="27.2.1" />
         <PackageReference Include="Hangfire.Core" Version="1.7.23" />
         <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="5.0.13" />
         <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />

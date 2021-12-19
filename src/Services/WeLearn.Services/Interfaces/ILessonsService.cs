@@ -20,7 +20,7 @@ namespace WeLearn.Services.Interfaces
 
         Task<T> GetLessonByIdWithDeletedAsync<T>(int id);
 
-        Task<IEnumerable<T>> GetAllLessonsAsync<T>(string categoryName = null);
+        Task<IEnumerable<T>> GetAllLessonsAsync<T>(string searchString = null);
 
         Task<IEnumerable<T>> GetAllLessonsWithDeletedAsync<T>(string categoryName = null);
 

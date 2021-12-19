@@ -18,9 +18,11 @@ namespace WeLearn.Web.Infrastructure
         public static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
             => app.UseEndpoints(endpoints =>
             {
+                // endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Manage}/{action=Index}/{id?}");
+                // endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/chatHub");
-                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Manage}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Manage}/{action=Index}/{id?}/{slug?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}/{slug?}");
                 endpoints.MapRazorPages();
             });
 
@@ -53,9 +55,19 @@ namespace WeLearn.Web.Infrastructure
                 Cron.Monthly());
 
             recurringJobManager.AddOrUpdate<TrainRecommendationModelJob>(
-                "TrainModelJob",
+                "TrainRecommendationModelJob",
                 x => x.Work(webHostEnvironment.ContentRootPath),
                 Cron.Daily);
+
+            recurringJobManager.AddOrUpdate<GetLikesInformationJob>(
+                "GetLikesInformationJob",
+                x => x.Work(webHostEnvironment.ContentRootPath),
+                Cron.Hourly);
+
+            recurringJobManager.AddOrUpdate<GetPersonalRecommendationsJob>(
+                "GetPersonalRecommendationsJob",
+                x => x.WorkAsync(webHostEnvironment.ContentRootPath),
+                Cron.Hourly);
 
             return app;
         }

@@ -13,14 +13,14 @@ Primary focus is on students in primary/secondary school and respectively, their
 - Contact us page with email sending functionality realized using SendGrid.
 
 ## Technologies used
-- .NET - C#, ASP.NET Core MVC, Entity Framework Core, SignalR
+- .NET - C#, ASP.NET Core MVC, Entity Framework Core, SignalR, ML.NET
 - PostgreSQL (Microsoft SQL Server in earlier development)
 - AutoMapper
 - Hangfire
 - SendGrid
 - Cloudinary
 - Plyr 
-- HTML5, CSS3, Bootstrap 4
+- HTML5, CSS3, Bootstrap 4, SB Admin 2
 - JavaScript, jQuery, luxon
 - Git, GitHub
 - Heroku
@@ -78,9 +78,9 @@ Change the ```ApplicationAdministratorEmail``` value in ```WeLearn.Common/Consta
 
 From ```Settings``` select ```API Keys```, then ```Create API Key```
 
-|API Key Name|API Key Permissions|
-|:---------------:|:---------------:|
-|Your Key's name|Full Access|
+|  API Key Name   | API Key Permissions |
+|:---------------:|:-------------------:|
+| Your Key's Name |     Full Access     |
 
 Copy your key and paste it in SendGrid:ApiKey section of the ```/src/WeLearn.Web/appsettings.json``` file.
 
@@ -149,10 +149,38 @@ export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
 
+### Training your own recommendations model with ML.NET
+1. Make sure you have some users and these users have liked moderate amount of lessons with one or more users.
+2. Open the ```/src/Services/WeLearn.Services.Data/ExportDataService.cs``` class. Change the test data (step ```3.```) to reflect your version of the data. ```(UserId <=> LessonId)```
+3. In a terminal, change your directory to ```/src/Services/WeLearn.Services.Data/``` and type ```dotnet run```. Couple of things happen:
+   - The data is exported to an ```csv``` file (step ```1```) in the ```/src/Services/WeLearn.Services.Data/Data/``` directory. 
+   - The Machine Learning model for recommendations is trained and exported (step ```2```). 
+   - Some test data is set up to test what recommendations would the model give (step ```3```).
+   - The model is being tested. It shows what recommendations it would give based on past likings of lessons (step ```4```).
+
+The results I've got on my development machine. Score is the likeliness for that user to find the lesson interesting.
+With more data, the predictions will be better, more certain.
+
+<img src="./documents/ML-Generated-Recommendations.png">
+
+Now you've exported some data, trained a Machine Learning model and got some data. Great!
+For training models using the web application's user interface, something a bit different is done.
+Using HangFire, every day the data is exported to an csv file, and then the model is trained over that data. 
+
+### Training your own recommendations model with ML.NET - User interface version with HangFire
+1. Run the application - the ```WeLearn.Web``` project.
+2. After it has started up, log in with the administrator account and visit the ```http://localhost:5000/hangfire/recurring``` page.
+3. Run/trigger the ```GetLikesInformationJob``` job. In the ```/WeLearn.Web/Data/``` directory, a new file is created - ```UsersInLessons.csv```.
+4. Run/trigger the ```TrainRecommendationModelJob``` job. In the ```/WeLearn.Web/Data/``` directory, a new file is created - ```WeLearnLessonsModel.zip```.
+
+Now, every time you check your recommendations you will see the lessons that are most likely to pique your interest.
+By default he data is collected every hour, and the model is trained once a day.
+
 ### Notes
 - You can run with ```ASPNETCORE_ENVIRONMENT=Production``` too, but you will need to configure Cloudinary for this one.
-- CLOUDINARY_URL is the value we saved earlier (optional).
-- For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
+- ```CLOUDINARY_URL``` is the value we saved earlier (optional).
+- ```CLOUDINARY_URL``` is the value we saved earlier (optional).
+- For security measures, Cloudinary will not allow us to download the zip files that are getting uploaded, unless the account is permitted to. Contacting support service is required. - https://cloudinary.com/documentation/image_delivery_options#blocked_delivery_formats_for_security/.
 
 The application should be running on the address shown in the terminal's output.
 
@@ -184,4 +212,4 @@ Structure influenced by:
 
 Videos, images from https://pexels.com and https://unsplash.com
 - Login, register forms/pages - https://colorlib.com/wp/template/login-form-15/
-- Chat design - https://codepen.io/FilipRastovic/pen/pXgqKK | https://youtu.be/fCpw5i_2IYU
+- Chat design - https://codepen.io/FilipRastovic/pen/pXgqKK & https://youtu.be/fCpw5i_2IYU

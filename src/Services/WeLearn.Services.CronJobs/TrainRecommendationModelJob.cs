@@ -1,8 +1,9 @@
+using System.IO;
+
 using Hangfire;
 
-using static WeLearn.Services.ML.RecommendationsService;
 using static WeLearn.Common.GlobalConstants;
-using System.IO;
+using static WeLearn.Services.ML.RecommendationsService;
 
 namespace WeLearn.Services.CronJobs
 {
@@ -11,8 +12,8 @@ namespace WeLearn.Services.CronJobs
         [AutomaticRetry(Attempts = 2)]
         public void Work(string path)
         {
-            var trainedRecommendationsModelFile = System.IO.Path.Combine(path, "data", ModelFile);
-            var dataModel = System.IO.Path.Combine(path, "data", "UsersInLessons.csv");
+            string trainedRecommendationsModelFile = Path.Combine(path, ExportDirectory, ModelFile);
+            string dataModel = Path.Combine(path, ExportDirectory, ExportFileName);
 
             TrainModel(dataModel, trainedRecommendationsModelFile);
         }

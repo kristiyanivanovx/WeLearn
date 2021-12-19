@@ -19,6 +19,7 @@ namespace WeLearn.Data.Models.Identity
 
             // this.SentPrivateMessages = new HashSet<PrivateMessage>();
             // this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            this.Recommendations = new HashSet<LessonModule.Recommendation>();
             this.Likes = new HashSet<Like>();
             this.Lessons = new HashSet<Lesson>();
             this.Comments = new HashSet<Comment>();
@@ -48,6 +49,8 @@ namespace WeLearn.Data.Models.Identity
         public ICollection<Report> Reports { get; set; }
 
         public ICollection<ChatApplicationUser> Chats { get; set; }
+
+        public ICollection<LessonModule.Recommendation> Recommendations { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 

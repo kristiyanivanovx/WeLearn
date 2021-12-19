@@ -151,6 +151,7 @@ namespace WeLearn.Services
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
+                .Include(x => x.Recommendations)
                 .To<T>()
                 .ToListAsync();
 

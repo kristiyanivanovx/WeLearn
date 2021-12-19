@@ -376,3 +376,6 @@ FodyWeavers.xsd
 .idea
 *.bat
 seed.txt
+src/Services/UsersInLessons.csv
+src/Services/WeLearn.Services.Data/Data/UsersInLessons.csv
+src/Services/WeLearn.Services.Data/Data/WeLearnLessonsModel.zip

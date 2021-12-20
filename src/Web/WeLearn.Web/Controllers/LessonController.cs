@@ -84,7 +84,9 @@ namespace WeLearn.Web.Controllers
             });
 
             var paginated = PaginatedList<LessonRecommendedViewModel>.Create(
-                models.OrderByDescending(x => x.RecommendationScore),
+                models
+                    .Where(x => x.RecommendationScore >= 10f)
+                    .OrderByDescending(x => x.RecommendationScore),
                 pageNumber ?? this.defaultPageNumber,
                 this.defaultPageSize);
 

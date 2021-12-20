@@ -17,11 +17,11 @@ namespace WeLearn.Tests.HelperClasses
         {
         }
 
+        IQueryProvider IQueryable.Provider => new TestingDbAsyncQueryProvider<T>(this);
+
         public IAsyncEnumerator<T> GetAsyncEnumerator(CancellationToken cancellationToken = default)
         {
             return new TestingDbAsyncEnumerator<T>(this.AsEnumerable().GetEnumerator());
         }
-
-        IQueryProvider IQueryable.Provider => new TestingDbAsyncQueryProvider<T>(this);
     }
 }

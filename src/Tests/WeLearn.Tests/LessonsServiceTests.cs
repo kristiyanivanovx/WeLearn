@@ -73,7 +73,7 @@ namespace WeLearn.Tests
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
 
             mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Setup(m => m.GetAsyncEnumerator(CancellationToken.None))
                 .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
 
             mockSet.As<IQueryable<Report>>()
@@ -120,7 +120,7 @@ namespace WeLearn.Tests
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
 
             mockSet.As<IAsyncEnumerable<Report>>()
-                .Setup(m => m.GetAsyncEnumerator(new CancellationToken()))
+                .Setup(m => m.GetAsyncEnumerator(CancellationToken.None))
                 .Returns(new TestingDbAsyncEnumerator<Report>(data.GetEnumerator()));
 
             mockSet.As<IQueryable<Report>>()

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using WeLearn.Data.Models.LessonModule;
 
 namespace WeLearn.Tests.HelperClasses
@@ -19,6 +20,8 @@ namespace WeLearn.Tests.HelperClasses
         {
             this.enumerator = enumerator;
         }
+
+        public T Current => this.inner.Current;
 
         public void Dispose()
         {
@@ -40,7 +43,5 @@ namespace WeLearn.Tests.HelperClasses
             this.Dispose();
             return ValueTask.CompletedTask;
         }
-
-        public T Current => this.inner.Current;
     }
 }

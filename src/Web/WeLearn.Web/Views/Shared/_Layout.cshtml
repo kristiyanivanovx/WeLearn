@@ -3,27 +3,30 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="google-signin-client_id" content="683158115512-kek44cn4mtvhl1mr00uq9t3mv613sofr.apps.googleusercontent.com">
     <title>@ViewData["Title"] - @GlobalConstants.SystemName</title>
 
-    <!-- Custom fonts-->
-    @* <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> *@
+    @* SB Admin 2 *@
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <script src="https://kit.fontawesome.com/c952ac5cde.js" crossorigin="anonymous"></script>
+    @* Site CSS *@
+    <link rel="stylesheet" href="~/css/site.css"/>
+        
+    @* Plyr *@
+    <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"/>
+
+    @* <script src="https://kit.fontawesome.com/c952ac5cde.js" crossorigin="anonymous"></script> *@
     @* bootstrap 4.3.1 *@
     @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     @* bootstrap 4.6.0 *@
-    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css"/>
-
-    @* site css *@
-    <link rel="stylesheet" href="~/css/site.css"/>
+    @* <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css"/> *@
+    
     @await RenderSectionAsync("Styles", false)
-
-    @* plyr *@
-    <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"/>
 </head>
 <body>
 <header>
@@ -61,7 +64,7 @@
                     
                     <li class="nav-item dropdown">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="lessonDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn dropdown-toggle text-dark" type="button" id="lessonDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Lessons
                             </button>
                             <div class="dropdown-menu" aria-labelledby="lessonDropdownMenuButton">
@@ -82,7 +85,7 @@
                    
                     <li class="nav-item dropdown">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn dropdown-toggle text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Activity
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -137,23 +140,29 @@
     </div>
 </footer>
 
-<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="~/vendor/jquery/jquery.min.js" asp-append-version="true"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+<!-- Core plugin JavaScript-->
+<script src="~/vendor/jquery-easing/jquery.easing.min.js" asp-append-version="true"></script>
+<!-- Custom scripts for all pages-->
+<script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
+<!-- Page level plugins -->
+<script src="~/vendor/chart.js/Chart.min.js" asp-append-version="true"></script>
+<!-- Page level custom scripts -->
+<script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script>
+<script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script>
 
-@* Bootstrap core JavaScript *@
-@* <script src="~/vendor/jquery/jquery.min.js"></script> *@
-@* <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> *@
-
-@*<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>*@
-
+@* <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script> *@
 @* bootstrap 4.3.1 *@
 @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
 @* bootstrap 4.6.0 *@
-<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+@* <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script> *@
 
 @* unobtrusive client-side validation *@
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-@*  *@
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js" asp-append-version="true"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
+
 <script src="~/lib/luxon/luxon.min.js" asp-append-version="true"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 

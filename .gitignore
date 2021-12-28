@@ -380,3 +380,4 @@ src/Services/UsersInLessons.csv
 src/Services/WeLearn.Services.Data/Data/UsersInLessons.csv
 src/Services/WeLearn.Services.Data/Data/WeLearnLessonsModel.zip
 src/Web/WeLearn.Web/Data/WeLearnLessonsModel.zip
+src/Web/WeLearn.Web/Data/UsersInLessons.csv

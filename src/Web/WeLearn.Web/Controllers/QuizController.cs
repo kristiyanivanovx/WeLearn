@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using AutoMapper.Internal;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,8 +38,11 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public IActionResult All()
         {
-            var models = this.quizzesService.GetAll<QuizViewModel>();
+            var models = this.quizzesService
+                .GetAll<QuizViewModel>()
+                .ToArray();
 
+            // todo: pagination
             return this.View(models);
         }
 
@@ -52,6 +56,7 @@ namespace WeLearn.Web.Controllers
                 .GetAll<ExaminationViewModel>()
                 .Where(x => x.ApplicationUserId == userId);
 
+            // todo: pagination
             return this.View(models);
         }
 
@@ -87,6 +92,17 @@ namespace WeLearn.Web.Controllers
             {
                 this.Response.StatusCode = 404;
                 return this.NotFound();
+            }
+
+            quiz.Questions = quiz.Questions
+                .OrderBy(_ => Guid.NewGuid())
+                .ToList();
+
+            foreach (var questionModel in quiz.Questions)
+            {
+                questionModel.Answers = questionModel.Answers
+                    .OrderBy(_ => Guid.NewGuid())
+                    .ToList();
             }
 
             return this.View(quiz);

@@ -1,21 +1,42 @@
+@using WeLearn.Common
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>WeLearn - Administration Dashboard</title>
+    <meta name="google-signin-client_id" content="683158115512-kek44cn4mtvhl1mr00uq9t3mv613sofr.apps.googleusercontent.com">
+    <title>Administration Dashboard - @GlobalConstants.SystemName</title>
+    
     @* SB Admin 2 *@
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    
     @* Site CSS *@
     <link rel="stylesheet" href="~/css/site.css"/>
+    
+    @* @if (this.User.IsInRole("HeadAdmin")) { *@
+    @*     <style> *@
+    @*         .bg-gradient-primary { *@
+    @*             background-color: #4e73df; *@
+    @*             background-image: linear-gradient(180deg,#4e73df 10%,#224abe 100%); *@
+    @*             background-size: cover; *@
+    @*         } *@
+    @*         /*.bg-gradient-primary {*/ *@
+    @*         /*    background-color: #1F8B4C;*/ *@
+    @*         /*    background-image: linear-gradient(180deg,#299B59 10%,#1F8B4C 100%);*/ *@
+    @*         /*    background-size: cover;*/ *@
+    @*         /*}*/ *@
+    @*     </style> *@
+    @* } *@
+
     @* Plyr *@
     <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"/>
+    
+    @* <meta name="description" content=""> *@
+    @* <meta name="author" content=""> *@
 </head>
 
 <body id="page-top">
@@ -23,173 +44,181 @@
 <!-- Page Wrapper -->
 <div id="wrapper">
 
+@{
+    // todo: different color if admin ...
+    
+    var gradientStyle = this.User.IsInRole("HeadAdmin") ?
+        "bg-gradient-primary" :
+        "bg-gradient-success"; // bg-gradient-admin or bg-gradient-success
+}
+
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav @gradientStyle sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="" asp-controller="Home" asp-action="Index">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-book"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">WeLearn</div>
-    </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-
-        <a class="nav-link" asp-area="Administration" asp-controller="Manage" asp-action="Index">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Administration</span>
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="" asp-controller="Home" asp-action="Index">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">WeLearn</div>
         </a>
-    </li>
 
-    @* <!-- Divider --> *@
-    @* <hr class="sidebar-divider"> *@
-    @* *@
-    @* <!-- Heading --> *@
-    @* <div class="sidebar-heading"> *@
-    @*     Addons *@
-    @* </div> *@
-    @* *@
-    @* <!-- Nav Item - Pages Collapse Menu --> *@
-    @* <li class="nav-item"> *@
-    @*     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" *@
-    @*        aria-expanded="true" aria-controls="collapsePages"> *@
-    @*         <i class="fas fa-fw fa-folder"></i> *@
-    @*         <span>Pages</span> *@
-    @*     </a> *@
-    @*     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar"> *@
-    @*         <div class="bg-white py-2 collapse-inner rounded"> *@
-    @*             <h6 class="collapse-header">Login Screens:</h6> *@
-    @*             <a class="collapse-item" href="login.html">Login</a> *@
-    @*             <a class="collapse-item" href="register.html">Register</a> *@
-    @*             <a class="collapse-item" href="forgot-password.html">Forgot Password</a> *@
-    @*             <div class="collapse-divider"></div> *@
-    @*             <h6 class="collapse-header">Other Pages:</h6> *@
-    @*             <a class="collapse-item" href="404.html">404 Page</a> *@
-    @*             <a class="collapse-item" href="blank.html">Blank Page</a> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* </li> *@
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Charts -->
-    @*<li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span>
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+
+            <a class="nav-link" asp-area="Administration" asp-controller="Manage" asp-action="Index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Administration</span>
             </a>
-        </li>*@
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        @* <!-- Divider --> *@
+        @* <hr class="sidebar-divider"> *@
+        @* *@
+        @* <!-- Heading --> *@
+        @* <div class="sidebar-heading"> *@
+        @*     Addons *@
+        @* </div> *@
+        @* *@
+        @* <!-- Nav Item - Pages Collapse Menu --> *@
+        @* <li class="nav-item"> *@
+        @*     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" *@
+        @*        aria-expanded="true" aria-controls="collapsePages"> *@
+        @*         <i class="fas fa-fw fa-folder"></i> *@
+        @*         <span>Pages</span> *@
+        @*     </a> *@
+        @*     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar"> *@
+        @*         <div class="bg-white py-2 collapse-inner rounded"> *@
+        @*             <h6 class="collapse-header">Login Screens:</h6> *@
+        @*             <a class="collapse-item" href="login.html">Login</a> *@
+        @*             <a class="collapse-item" href="register.html">Register</a> *@
+        @*             <a class="collapse-item" href="forgot-password.html">Forgot Password</a> *@
+        @*             <div class="collapse-divider"></div> *@
+        @*             <h6 class="collapse-header">Other Pages:</h6> *@
+        @*             <a class="collapse-item" href="404.html">404 Page</a> *@
+        @*             <a class="collapse-item" href="blank.html">Blank Page</a> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* </li> *@
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Learning system
-    </div>
+        <!-- Nav Item - Charts -->
+        @*<li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span>
+                </a>
+            </li>*@
 
-    <!-- Nav Items -->
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Lessons" asp-action="Index">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Lessons</span>
-        </a>
-    </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Reports" asp-action="Index">
-            <i class="fas fa-fw fa-file"></i>
-            <span>Reports</span>
-        </a>
-    </li>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Learning system
+        </div>
 
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Comments" asp-action="Index">
-            <i class="fas fa-fw fa-comments"></i>
-            <span>Comments</span>
-        </a>
-    </li>
+        <!-- Nav Items -->
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Lessons" asp-action="Index">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Lessons</span>
+            </a>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Reports" asp-action="Index">
+                <i class="fas fa-fw fa-file"></i>
+                <span>Reports</span>
+            </a>
+        </li>
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Quiz system
-    </div>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Comments" asp-action="Index">
+                <i class="fas fa-fw fa-comments"></i>
+                <span>Comments</span>
+            </a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Questions" asp-action="Index">
-            <i class="fas fa-fw fa-question"></i>
-            <span>Questions</span>
-        </a>
-    </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Answers" asp-action="Index">
-            <i class="fas fa-fw fa-comment"></i>
-            <span>Answers</span>
-        </a>
-    </li>
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Quiz system
+        </div>
 
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Quizzes" asp-action="Index">
-            <i class="fas fa-fw fa-align-justify"></i>
-            <span>Quizzes</span>
-        </a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Questions" asp-action="Index">
+                <i class="fas fa-fw fa-question"></i>
+                <span>Questions</span>
+            </a>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Answers" asp-action="Index">
+                <i class="fas fa-fw fa-comment"></i>
+                <span>Answers</span>
+            </a>
+        </li>
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        User management
-    </div>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Quizzes" asp-action="Index">
+                <i class="fas fa-fw fa-align-justify"></i>
+                <span>Quizzes</span>
+            </a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Administration" asp-controller="Users" asp-action="Index">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Users</span>
-        </a>
-    </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            User management
+        </div>
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Cron jobs management
-    </div>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Users" asp-action="Index">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Users</span>
+            </a>
+        </li>
 
-    <li class="nav-item">
-        @* ReSharper disable once Mvc.ControllerNotResolved *@
-        <a class="nav-link" asp-area="" asp-controller="Hangfire" asp-action="Index">
-            <i class="fas fa-fw fa-fire"></i>
-            <span>Hangfire</span>
-        </a>
-    </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Cron jobs management
+        </div>
+
+        <li class="nav-item">
+            @* ReSharper disable once Mvc.ControllerNotResolved *@
+            <a class="nav-link" asp-area="" asp-controller="Hangfire" asp-action="Index">
+                <i class="fas fa-fw fa-fire"></i>
+                <span>Hangfire</span>
+            </a>
+        </li>
 
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
 
-    @* <!-- Sidebar Message --> *@
-    @* <div class="sidebar-card d-none d-lg-flex"> *@
-    @*     <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> *@
-    @*     <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> *@
-    @*     <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> *@
-    @* </div> *@
+        @* <!-- Sidebar Message --> *@
+        @* <div class="sidebar-card d-none d-lg-flex"> *@
+        @*     <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..."> *@
+        @*     <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> *@
+        @*     <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> *@
+        @* </div> *@
 
-</ul>
+    </ul>
 <!-- End of Sidebar -->
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
@@ -502,28 +531,27 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="~/vendor/jquery/jquery.min.js"></script>
-<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/vendor/jquery/jquery.min.js" asp-append-version="true"></script>
+<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
 <!-- Core plugin JavaScript-->
-<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="~/vendor/jquery-easing/jquery.easing.min.js" asp-append-version="true"></script>
 <!-- Custom scripts for all pages-->
-<script src="~/js/sb-admin-2.min.js"></script>
+<script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
 <!-- Page level plugins -->
-<script src="~/vendor/chart.js/Chart.min.js"></script>
+<script src="~/vendor/chart.js/Chart.min.js" asp-append-version="true"></script>
 <!-- Page level custom scripts -->
-<script src="~/js/demo/chart-area-demo.js"></script>
-<script src="~/js/demo/chart-pie-demo.js"></script>
-
-@* initial ones *@
+<script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script>
+<script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script>
 
 @*<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>*@
 @* bootstrap 4.3.1 *@
 @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
 @* bootstrap 4.6.0 *@
 @*<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js" asp-append-version="true"></script>*@
+
 @* unobtrusive client-side validation *@
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js" asp-append-version="true"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
 
 <script src="~/lib/luxon/luxon.min.js" asp-append-version="true"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

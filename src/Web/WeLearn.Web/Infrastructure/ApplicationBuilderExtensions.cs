@@ -1,12 +1,14 @@
 ﻿using Hangfire;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+
 using WeLearn.Data;
 using WeLearn.Data.Infrastructure;
-using WeLearn.Data.Models;
+
 using WeLearn.Data.Models.Identity;
 using WeLearn.Services.CronJobs;
 using WeLearn.Web.ChatApp;
@@ -54,20 +56,23 @@ namespace WeLearn.Web.Infrastructure
                 x => x.WorkAsync(),
                 Cron.Monthly());
 
+            // Cron job every day - 24 hours
             recurringJobManager.AddOrUpdate<TrainRecommendationModelJob>(
                 "TrainRecommendationModelJob",
                 x => x.Work(webHostEnvironment.ContentRootPath),
                 Cron.Daily);
 
-            recurringJobManager.AddOrUpdate<GetLikesInformationJob>(
-                "GetLikesInformationJob",
-                x => x.Work(webHostEnvironment.ContentRootPath),
-                Cron.Hourly);
-
+            // Cron job every 12 hours
             recurringJobManager.AddOrUpdate<GetPersonalRecommendationsJob>(
                 "GetPersonalRecommendationsJob",
                 x => x.WorkAsync(webHostEnvironment.ContentRootPath),
-                Cron.Hourly);
+                "0 */12 * * *");
+
+            // Cron job every 11 hours
+            recurringJobManager.AddOrUpdate<GetLikesInformationJob>(
+                "GetLikesInformationJob",
+                x => x.Work(webHostEnvironment.ContentRootPath),
+                "0 */11 * * *");
 
             return app;
         }

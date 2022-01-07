@@ -203,6 +203,7 @@ Some of the many resources used for creating this project:
 - https://www.xsprogram.com/content/multiple-radio-button-groups-in-mvc-4-razor.html
 - https://www.youtube.com/watch?v=dluB5VE1m1k
 - https://github.com/NikolayIT/ArtificialIntelligencePlayground/tree/master/ML.NET/Recommendation/SoftUniCoursesRecommendation
+- https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
 
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template

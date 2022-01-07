@@ -49,9 +49,15 @@
             
                             @foreach (var answer in question.Answers)
                             {
-                                <div>
-                                    <input type="radio" name="question_@question.Id" value="@answer.Id" />
-                                    @answer.Content
+                                <div class="radio-button-container">
+                                    <label>
+                                        <input type="radio" 
+                                               class="radio-button-style" 
+                                               name="question_@question.Id" 
+                                               value="@answer.Id"/>
+                                        <span class="checkmark"></span>
+                                        @answer.Content
+                                    </label>
                                 </div> 
                             }
                         </div>

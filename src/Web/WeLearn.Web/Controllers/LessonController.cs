@@ -68,15 +68,19 @@ namespace WeLearn.Web.Controllers
                 .ToList();
 
             // get only the models that are recommended - lesson id and user id have to match
+            // and that have RecommendationScore greater than or equal to 15
             var models = allLessons
+                .Where(model => model.RecommendationScore >= 0.15f)
                 .Where(model => recommendations
-                    .Any(rec => rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId)));
+                    .Any(rec =>
+                        rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId)));
 
             models.All(model =>
             {
                 model.RecommendationScore = MathF.Round(
                     recommendations
-                        .FirstOrDefault(rec => rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId))
+                        .FirstOrDefault(rec =>
+                            rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId))
                         ?.Score ?? 0,
                     2) * 100;
 

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Models.LessonModule;
+using WeLearn.Data.Models.User;
+using WeLearn.Services.Mapping;
 
 namespace WeLearn.Data.Models.Identity
 {
@@ -25,6 +27,7 @@ namespace WeLearn.Data.Models.Identity
             this.Comments = new HashSet<Comment>();
             this.Reports = new HashSet<Report>();
             this.Chats = new HashSet<ChatApplicationUser>();
+            this.Organizations = new HashSet<Organization>();
         }
 
         // Audit info
@@ -37,14 +40,14 @@ namespace WeLearn.Data.Models.Identity
 
         public DateTime? DeletedOn { get; set; }
 
-        // public ICollection<PrivateMessage> SentPrivateMessages { get; set; }
+        public IEnumerable<Organization> Organizations { get; set; }
 
-        // public ICollection<PrivateMessage> ReceivedPrivateMessages { get; set; }
         public ICollection<Like> Likes { get; set; }
 
         public ICollection<Lesson> Lessons { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
+
 
         public ICollection<Report> Reports { get; set; }
 

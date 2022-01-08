@@ -3,6 +3,7 @@
     ViewData["Title"] = "Create a quiz";
 }
 @{var points = "points"; }
+
 <div class="container text-center">
     <h2>@ViewData["Title"]</h2>
     <hr/>
@@ -35,14 +36,6 @@
                 </select>
                 <span asp-validation-for="QuestionIds" class="text-danger"></span>
             </div>
-
-            @* <div class="form-group"> *@
-            @*     <label >Example multiple select</label> *@
-            @*     <select multiple class="form-control multiselect"> *@
-            @*         <option>4</option> *@
-            @*         <option>5</option> *@
-            @*     </select> *@
-            @* </div> *@
 
             <input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Submit"/>
         </form>

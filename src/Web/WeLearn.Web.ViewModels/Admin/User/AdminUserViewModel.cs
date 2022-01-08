@@ -7,7 +7,7 @@ using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.Admin.User
 {
-    public class AdminUserViewModel : IMapFrom<ApplicationUser>
+    public class AdminUserViewModel : IMapFrom<Data.Models.Identity.ApplicationUser>
     {
         public string Id { get; set; }
 

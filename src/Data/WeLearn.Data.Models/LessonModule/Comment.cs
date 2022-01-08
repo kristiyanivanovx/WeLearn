@@ -15,7 +15,7 @@ namespace WeLearn.Data.Models.LessonModule
 
         public string ApplicationUserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public Identity.ApplicationUser ApplicationUser { get; set; }
 
         public int LessonId { get; set; }
 

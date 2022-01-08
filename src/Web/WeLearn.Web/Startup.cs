@@ -80,6 +80,7 @@ namespace WeLearn.Web
             services.AddTransient<ExaminationsService>();
             services.AddTransient<ChoicesService>();
             services.AddTransient<RecommendationsService>();
+            services.AddTransient<OrganizationsService>();
 
             services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IChatService, ChatService>();
@@ -133,8 +134,6 @@ namespace WeLearn.Web
                 app.UseHsts();
 
                 app.UseHttpsRedirection();
-
-                // app.UseStatusCodePagesWithRedirects("/Error/{0}");
             }
 
             app.UseStatusCodePagesWithReExecute("/Error/{0}");

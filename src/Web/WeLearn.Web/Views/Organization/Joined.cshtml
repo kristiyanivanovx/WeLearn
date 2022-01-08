@@ -1,0 +1,84 @@
+@using WeLearn.Web.ViewModels.Organization
+@model IEnumerable<OrganizationViewModel>
+@{
+    ViewData["Title"] = "Joined organizations";
+}
+
+<div class="container-fluid pl-5 pr-5 text-center">
+    <h3 class="mt-4 mb-4">@ViewData["Title"]</h3>
+
+    <div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Member count
+                            </th>
+                            <th>
+                                Date Created
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var organization in @Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => organization.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => organization.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => organization.ApplicationUsersCount)
+                            </td>
+                            <td>
+                                <time datetime="@organization.CreatedOn.ToString("O")">
+                                    @organization.CreatedOn.ToString("g")
+                                </time>
+                            </td>
+                            <td>
+
+                                @{
+                                    string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                                    var isMember = organization.ApplicationUsers
+                                        .Any(x => x.Id == userId);
+                                }
+                                @if (isMember)
+                                {
+                                    <a asp-controller="Organization" asp-action="Leave" asp-route-id="@organization.Id"
+                                       class="btn btn-sm btn-outline-danger">
+                                        Leave
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Organization" asp-action="Join" asp-route-id="@organization.Id"
+                                       class="btn btn-sm btn-outline-success">
+                                        Join
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
@@ -13,9 +16,11 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = this.informationService.GenerateAdministrationIndexViewModel();
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var model = await this.informationService.GenerateAdministrationIndexViewModel(userId);
+
             return this.View(model);
         }
     }

@@ -43,7 +43,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await this.usersService.GetUserByIdAsync<AdminUserDeleteModel>(id);
+            var user = await this.usersService.GetUserByIdToModelAsync<AdminUserDeleteModel>(id);
 
             return this.View(user);
         }

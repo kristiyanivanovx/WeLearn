@@ -50,7 +50,7 @@
             <tr>
                 @{
                     var dbUser = await userManager.FindByIdAsync(item.Id);
-                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationAdministratorUsername);
+                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorUsername);
                     var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
 
                     var adminRoleButtonClassStyling = dbUserIsAdmin ?

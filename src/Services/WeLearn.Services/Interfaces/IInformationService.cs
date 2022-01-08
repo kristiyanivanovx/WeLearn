@@ -1,4 +1,6 @@
-﻿using WeLearn.Web.ViewModels.Admin;
+﻿using System.Threading.Tasks;
+
+using WeLearn.Web.ViewModels.Admin;
 using WeLearn.Web.ViewModels.Home;
 
 namespace WeLearn.Services.Interfaces
@@ -7,7 +9,7 @@ namespace WeLearn.Services.Interfaces
     {
         IndexViewModel GenerateIndexViewModel();
 
-        AdministrationIndexViewModel GenerateAdministrationIndexViewModel();
+        Task<AdministrationIndexViewModel> GenerateAdministrationIndexViewModel(string userId);
 
         FrequentQuestionsViewModel GenerateFrequentQuestionsViewModel();
     }

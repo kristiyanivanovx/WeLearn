@@ -228,6 +228,10 @@ p {
     /*text-decoration: none;*/
 }
 
+.black-text {
+    color: black;
+}
+
 .admin-role-color {
     color: #28a745;
 }

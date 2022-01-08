@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models;
 using WeLearn.Data.Models.Identity;
@@ -30,6 +32,23 @@ namespace WeLearn.Services
         public int GetCount()
             => this.appUserRepository.All().Count();
 
+        public async Task<IEnumerable<string>> GetRoleNamesByUserId(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            var roles = this.userManager
+                .GetRolesAsync(user)
+                .Result
+                .OrderBy(x => x.Length)
+                .ToArray();
+
+            return roles.ToList();
+        }
+
+        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+            => await this.appUserRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
         public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
             => await this.appUserRepository
                 .All()
@@ -42,8 +61,9 @@ namespace WeLearn.Services
             if (!string.IsNullOrEmpty(searchString))
             {
                 var searchStringLowerCase = searchString.ToLower();
-                users = users.Where(x => x.UserName.ToLower().Contains(searchStringLowerCase) ||
-                                         x.Email.ToLower().Contains(searchStringLowerCase));
+                users = users.Where(x =>
+                    x.UserName.ToLower().Contains(searchStringLowerCase) ||
+                    x.Email.ToLower().Contains(searchStringLowerCase));
             }
 
             T[] usersViewModels = await users.To<T>().ToArrayAsync();
@@ -57,7 +77,7 @@ namespace WeLearn.Services
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
-            var isAdmin = await this.userManager.IsInRoleAsync(user, ApplicationAdministratorRoleName);
+            var isAdmin = await this.userManager.IsInRoleAsync(user, ApplicationRegularAdministratorRoleName);
             var isHeadAdmin = await this.userManager.IsInRoleAsync(user, ApplicationHeadAdministratorRoleName);
 
             // if HeadAdmin is trying to remove his Admin role, restrict him
@@ -69,11 +89,11 @@ namespace WeLearn.Services
             // if HeadAdmin is trying to toggle Admin role on an User
             if (isAdmin)
             {
-                await this.userManager.RemoveFromRoleAsync(user, ApplicationAdministratorRoleName);
+                await this.userManager.RemoveFromRoleAsync(user, ApplicationRegularAdministratorRoleName);
             }
             else
             {
-                await this.userManager.AddToRoleAsync(user, ApplicationAdministratorRoleName);
+                await this.userManager.AddToRoleAsync(user, ApplicationRegularAdministratorRoleName);
             }
 
             await this.appUserRepository.SaveChangesAsync();
@@ -85,7 +105,7 @@ namespace WeLearn.Services
                 .Where(x => x.Id != userId)
                 .ToListAsync();
 
-        public async Task<T> GetUserByIdAsync<T>(string userId)
+        public async Task<T> GetUserByIdToModelAsync<T>(string userId)
             => await this.appUserRepository
                 .All()
                 .Where(x => x.Id == userId)

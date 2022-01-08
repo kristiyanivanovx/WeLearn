@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using WeLearn.Data.Models;
@@ -10,6 +11,8 @@ namespace WeLearn.Services.Interfaces
     {
         int GetCount();
 
+        Task<IEnumerable<string>> GetRoleNamesByUserId(string userId);
+
         Task<ApplicationUser> GetUserByUsernameAsync(string username);
 
         Task<IEnumerable<T>> GetAllUsersAsync<T>(string searchString);
@@ -18,7 +21,9 @@ namespace WeLearn.Services.Interfaces
 
         Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId);
 
-        Task<T> GetUserByIdAsync<T>(string userId);
+        Task<ApplicationUser> GetUserByIdAsync(string userId);
+
+        Task<T> GetUserByIdToModelAsync<T>(string userId);
 
         Task SoftDeleteUserByIdAsync(string userId);
 

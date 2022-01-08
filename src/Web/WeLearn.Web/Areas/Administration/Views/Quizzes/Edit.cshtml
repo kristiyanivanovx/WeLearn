@@ -27,10 +27,12 @@
 
             <div class="form-group">
                 <label asp-for="QuestionIds" class="control-label"></label>
-                <select asp-for="QuestionIds"
-                        asp-items="Model.Questions.Select(x => new SelectListItem(string.Concat(x.Content, ' ', '-', ' ', x.Points, ' ', points), x.Id.ToString()))"
-                        multiple
-                        class="form-control multiselect">
+                <select 
+                    asp-for="QuestionIds"
+                    asp-items="Model.Questions.Select(x => 
+                        new SelectListItem(string.Concat(x.Content, ' ', '-', ' ', x.Points, ' ', points), x.Id.ToString()))"
+                    multiple
+                    class="form-control multiselect">
                 </select>
                 <span asp-validation-for="QuestionIds" class="text-danger"></span>
             </div>

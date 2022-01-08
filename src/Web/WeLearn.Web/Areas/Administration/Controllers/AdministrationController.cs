@@ -6,7 +6,7 @@ using static WeLearn.Common.GlobalConstants;
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
     [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationAdministratorRoleName)]
+    [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
     public class AdministrationController : Controller
     {
     }

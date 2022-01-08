@@ -17,7 +17,7 @@
     @* Site CSS *@
     <link rel="stylesheet" href="~/css/site.css"/>
     
-    @* @if (this.User.IsInRole("HeadAdmin")) { *@
+    @* @if (this.User.IsInRole(WeLearn.CommonGlobalConstants.ApplicationHeadAdministratorRoleName)) { *@
     @*     <style> *@
     @*         .bg-gradient-primary { *@
     @*             background-color: #4e73df; *@
@@ -47,7 +47,7 @@
 @{
     // todo: different color if admin ...
     
-    var gradientStyle = this.User.IsInRole("HeadAdmin") ?
+    var gradientStyle = this.User.IsInRole(GlobalConstants.ApplicationHeadAdministratorRoleName) ?
         "bg-gradient-primary" :
         "bg-gradient-success"; // bg-gradient-admin or bg-gradient-success
 }
@@ -176,13 +176,20 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            User management
+            Management
         </div>
 
         <li class="nav-item">
             <a class="nav-link" asp-area="Administration" asp-controller="Users" asp-action="Index">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Users</span>
+            </a>
+        </li>
+    
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Administration" asp-controller="Organizations" asp-action="Index">
+                <i class="fas fa-fw fa-building"></i>
+                <span>Organizations</span>
             </a>
         </li>
 

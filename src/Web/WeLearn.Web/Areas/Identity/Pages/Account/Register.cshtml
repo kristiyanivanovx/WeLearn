@@ -73,7 +73,6 @@
                             <div class="form-group">
                                 <input asp-for="Input.UserName" class="form-control" required/>
                                 <label asp-for="Input.UserName" class="form-control-placeholder">Username</label>
-                                <span class="text-muted small">Cannot be changed later.</span>
                                 <div>
                                     <span asp-validation-for="Input.UserName" class="text-danger mt-3"></span>
                                 </div>
@@ -82,7 +81,6 @@
                             <div class="form-group mt-3">
                                 <input asp-for="Input.Email" class="form-control" required/>
                                 <label asp-for="Input.Email" class="form-control-placeholder">Email</label>
-                                <span class="text-muted small">Cannot be changed later.</span>
                                 <div>
                                     <span asp-validation-for="Input.Email" class="text-danger mt-3"></span>
                                 </div>
@@ -91,7 +89,6 @@
                             <div class="form-group mt-3">
                                 <input asp-for="Input.Password" class="form-control" required type="password"/>
                                 <label asp-for="Input.Password" class="form-control-placeholder">Password</label>
-                                <span class="text-muted small">Can be changed later.</span>
                                 <div>
                                     <span asp-validation-for="Input.Password" class="text-danger mt-3"></span>
                                 </div>

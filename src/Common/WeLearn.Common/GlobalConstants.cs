@@ -4,19 +4,28 @@
     {
         public const string SystemName = "WeLearn";
 
-        public const string ApplicationAdministratorEmail = "welearnbg@gmail.com";
+        public const string ApplicationAdministrationAreaName = "Administration";
 
-        public const string ApplicationAdministratorUsername = "Admin";
+        // Head Administrator
+        public const string ApplicationHeadAdministratorEmail = "welearnbg@gmail.com";
 
-        public const string ApplicationAdministratorRoleName = "Admin";
+        public const string ApplicationHeadAdministratorUsername = "HeadAdmin";
 
         public const string ApplicationHeadAdministratorRoleName = "HeadAdmin";
 
-        public const string ApplicationAdministrationAreaName = "Administration";
+        public const string ApplicationHeadAdministratorId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6";
 
+        // Regular Administrator
+        public const string ApplicationRegularAdministratorEmail = "default@gmail.com";
+
+        public const string ApplicationRegularAdministratorUsername = "RegularAdmin";
+
+        public const string ApplicationRegularAdministratorRoleName = "Admin";
+
+        public const string ApplicationRegularAdministratorId = "d91316c6-8823-4614-a3c5-6228f06c746a";
+
+        // Other
         public const string ApplicationHostName = "welearn-bg.herokuapp.com";
-
-        public const string ApplicationAdministratorId = "96f2bde2-eafb-4fe6-b5e9-fe36f009b8e6";
 
         public const string ModelFile = "WeLearnLessonsModel.zip";
 

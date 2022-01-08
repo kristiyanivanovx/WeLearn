@@ -64,6 +64,26 @@
                     
                     <li class="nav-item dropdown">
                         <div class="dropdown">
+                            <button class="btn dropdown-toggle text-dark" type="button" id="organizationDropdownMenuButton" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Organizations
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="organizationDropdownMenuButton">
+                                <a class="dropdown-item" asp-area="" asp-controller="Organization" asp-action="All">
+                                    All
+                                </a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Organization" asp-action="Create">
+                                    Create
+                                </a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Organization" asp-action="Joined">
+                                    Joined
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <div class="dropdown">
                             <button class="btn dropdown-toggle text-dark" type="button" id="lessonDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Lessons
                             </button>

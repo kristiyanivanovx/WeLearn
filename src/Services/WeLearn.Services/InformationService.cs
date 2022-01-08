@@ -1,4 +1,5 @@
-﻿using WeLearn.Services.Interfaces;
+﻿using System.Threading.Tasks;
+using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin;
 using WeLearn.Web.ViewModels.Home;
 
@@ -44,14 +45,15 @@ namespace WeLearn.Services
                     LessonsCount = this.lessonsService.GetCount(),
                 };
 
-        public AdministrationIndexViewModel GenerateAdministrationIndexViewModel()
+        public async Task<AdministrationIndexViewModel> GenerateAdministrationIndexViewModel(string userId)
             => new AdministrationIndexViewModel
-            {
-                CategoriesCount = this.categoriesService.GetCount(),
-                UsersCount = this.userService.GetCount(),
-                LessonsCount = this.lessonsService.GetCount(),
-                ReportsCount = this.reportsService.GetCount(),
-                QuizzesCount = this.quizzesService.GetCount(),
-            };
+                {
+                    CategoriesCount = this.categoriesService.GetCount(),
+                    UsersCount = this.userService.GetCount(),
+                    LessonsCount = this.lessonsService.GetCount(),
+                    ReportsCount = this.reportsService.GetCount(),
+                    QuizzesCount = this.quizzesService.GetCount(),
+                    RoleNames = await this.userService.GetRoleNamesByUserId(userId),
+                };
     }
 }

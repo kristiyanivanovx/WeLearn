@@ -1,5 +1,18 @@
 ﻿@model AdministrationIndexViewModel
 
+<h4 class="m-0 font-weight-bold text-primary">
+    Welcome, @(User.Identity?.Name)!
+</h4>
+<hr class=" mt-2">
+
+<h6 class="text-gray-800">Your roles are: </h6>
+<ul>
+    @foreach (var roleName in @Model.RoleNames)
+    {
+        <li class="text-gray-800">@roleName</li>
+    }
+</ul>
+
 <!-- Content Row -->
 <div class="row">
 

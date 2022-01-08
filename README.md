@@ -41,15 +41,20 @@ Primary focus is on students in primary/secondary school and respectively, their
 - An user cannot edit and delete another one's comments, reports and lessons.
 - The application has live chat functionality, realized with SignalR and websockets. Using Hangfire, every month the messages and chats are getting deleted/cleaned - the reason being that we can accumulate a lot of them and they are not that important.
 
-### User credentials: Administrator
-- Username: welearnbg@gmail.com
+### User credentials: Head Admin role
+- Username: HeadAdmin
 - Password: admin_Pass123%
 - Email: welearnbg@gmail.com
 
-### User credentials: Regular user
-- Username: Username
+### User credentials: Admin role
+- Username: RegularAdmin
 - Password: User_qwerty_1234%
 - Email: default@gmail.com
+
+### User credentials: User
+- Username: #todo
+- Password: #todo
+- Email: #todo
 
 ## Installation instructions
 

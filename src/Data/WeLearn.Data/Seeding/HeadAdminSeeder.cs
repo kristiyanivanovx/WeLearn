@@ -14,18 +14,18 @@ namespace WeLearn.Data.Seeding
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var user = await userManager.FindByEmailAsync(ApplicationAdministratorEmail);
+            var user = await userManager.FindByEmailAsync(ApplicationHeadAdministratorEmail);
 
             if (user == null)
             {
                 ApplicationUser applicationUser = new ApplicationUser
                 {
-                    Id = ApplicationAdministratorId,
-                    Email = ApplicationAdministratorEmail,
+                    Id = ApplicationHeadAdministratorId,
+                    Email = ApplicationHeadAdministratorEmail,
                     EmailConfirmed = false,
-                    UserName = ApplicationAdministratorUsername,
-                    NormalizedEmail = ApplicationAdministratorEmail.ToUpper(),
-                    NormalizedUserName = ApplicationAdministratorUsername.ToUpper(),
+                    UserName = ApplicationHeadAdministratorUsername,
+                    NormalizedEmail = ApplicationHeadAdministratorEmail.ToUpper(),
+                    NormalizedUserName = ApplicationHeadAdministratorUsername.ToUpper(),
                 };
 
                 PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
@@ -34,7 +34,7 @@ namespace WeLearn.Data.Seeding
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(applicationUser, ApplicationAdministratorRoleName);
+                    await userManager.AddToRoleAsync(applicationUser, ApplicationRegularAdministratorRoleName);
                     await userManager.AddToRoleAsync(applicationUser, ApplicationHeadAdministratorRoleName);
                 }
             }

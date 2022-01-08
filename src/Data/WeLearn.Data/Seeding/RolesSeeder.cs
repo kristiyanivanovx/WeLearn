@@ -16,7 +16,7 @@ namespace WeLearn.Data.Seeding
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            await SeedRoleAsync(roleManager, ApplicationAdministratorRoleName);
+            await SeedRoleAsync(roleManager, ApplicationRegularAdministratorRoleName);
             await SeedRoleAsync(roleManager, ApplicationHeadAdministratorRoleName);
         }
 

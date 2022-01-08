@@ -19,7 +19,7 @@ namespace WeLearn.Data.Seeding
                         new Report
                         {
                             Id = 1,
-                            ApplicationUserId = ApplicationAdministratorId,
+                            ApplicationUserId = ApplicationHeadAdministratorId,
                             LessonId = 5,
                             Subject = "The language used in title",
                             Description = "Bad language in lesson's title.",
@@ -27,7 +27,7 @@ namespace WeLearn.Data.Seeding
                         new Report
                         {
                             Id = 3,
-                            ApplicationUserId = ApplicationAdministratorId,
+                            ApplicationUserId = ApplicationHeadAdministratorId,
                             CommentId = 1,
                             Subject = "Unacceptable behaviour",
                             Description = "Bad language in comment.",

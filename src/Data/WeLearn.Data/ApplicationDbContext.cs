@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Infrastructure;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Quiz;
 using WeLearn.Data.Models.Shared;
+using WeLearn.Data.Models.User;
 
 namespace WeLearn.Data
 {
@@ -32,6 +32,8 @@ namespace WeLearn.Data
         // public ApplicationDbContext()
         // {
         // }
+        public virtual DbSet<Organization> Organizations { get; set; }
+
         public virtual DbSet<Choice> Choices { get; set; }
 
         public virtual DbSet<Examination> Examinations { get; set; }

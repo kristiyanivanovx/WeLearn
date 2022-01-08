@@ -19,9 +19,9 @@ namespace WeLearn.Data.Infrastructure
 
         private static void SeedRoles(RoleManager<ApplicationRole> roleManager)
         {
-            if (!roleManager.RoleExistsAsync(ApplicationAdministratorRoleName).Result)
+            if (!roleManager.RoleExistsAsync(ApplicationRegularAdministratorRoleName).Result)
             {
-                ApplicationRole role = new ApplicationRole(ApplicationAdministratorRoleName);
+                ApplicationRole role = new ApplicationRole(ApplicationRegularAdministratorRoleName);
                 role.CreatedOn = DateTime.UtcNow;
                 _ = roleManager.CreateAsync(role).Result;
             }
@@ -36,19 +36,19 @@ namespace WeLearn.Data.Infrastructure
 
         private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
-            var headAdmin = userManager.FindByEmailAsync(ApplicationAdministratorEmail).Result;
+            var headAdmin = userManager.FindByEmailAsync(ApplicationHeadAdministratorEmail).Result;
 
             // Head Admin doesn't exist, create him and add him to HeadAdmin and Admin roles
             if (headAdmin == null)
             {
                 ApplicationUser user = new ApplicationUser
                 {
-                    Id = ApplicationAdministratorId,
-                    Email = ApplicationAdministratorEmail,
+                    Id = ApplicationHeadAdministratorId,
+                    Email = ApplicationHeadAdministratorEmail,
                     EmailConfirmed = false,
-                    UserName = ApplicationAdministratorUsername,
-                    NormalizedEmail = ApplicationAdministratorEmail.ToUpper(),
-                    NormalizedUserName = ApplicationAdministratorUsername.ToUpper(),
+                    UserName = ApplicationHeadAdministratorUsername,
+                    NormalizedEmail = ApplicationHeadAdministratorEmail.ToUpper(),
+                    NormalizedUserName = ApplicationHeadAdministratorUsername.ToUpper(),
                     CreatedOn = DateTime.UtcNow,
                 };
 
@@ -56,19 +56,19 @@ namespace WeLearn.Data.Infrastructure
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, ApplicationAdministratorRoleName).Wait();
+                    userManager.AddToRoleAsync(user, ApplicationRegularAdministratorRoleName).Wait();
                     userManager.AddToRoleAsync(user, ApplicationHeadAdministratorRoleName).Wait();
                 }
             }
             else
             {
                 // Head Admin does exist, ensure he is in HeadAdmin and Admin roles
-                var isInAdminRole = userManager.IsInRoleAsync(headAdmin, ApplicationAdministratorRoleName).GetAwaiter().GetResult();
+                var isInAdminRole = userManager.IsInRoleAsync(headAdmin, ApplicationRegularAdministratorRoleName).GetAwaiter().GetResult();
                 var isInHeadAdminRole = userManager.IsInRoleAsync(headAdmin, ApplicationHeadAdministratorRoleName).GetAwaiter().GetResult();
 
                 if (!isInAdminRole)
                 {
-                    userManager.AddToRoleAsync(headAdmin, ApplicationAdministratorRoleName).GetAwaiter().GetResult();
+                    userManager.AddToRoleAsync(headAdmin, ApplicationRegularAdministratorRoleName).GetAwaiter().GetResult();
                 }
 
                 if (!isInHeadAdminRole)

@@ -8,14 +8,13 @@
         <div class="col-md-4 border-right all-chats-panel">
             <div class="settings-tray">
                 @* <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/filip.jpg" alt="Profile img"> *@
-                Chats
+                <span class="black-text">Chats</span>
 
                 <span class="settings-tray--right">
                     @* <i class="material-icons">cached</i> *@
                     @* <i class="material-icons">message</i> *@
                     @* <i class="material-icons">menu</i> *@
-
-
+                    
                     <span type="button" id="create-room" data-toggle="modal" data-target="#chatModal">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -43,12 +42,9 @@
                     @* <img class="profile-image" src="https://www.clarity-enhanced.net/wp-content/uploads/2020/06/robocop.jpg" alt=""> *@
                     @* <img class="profile-image" src="https://www.nicepng.com/png/detail/82-824233_class-group-chat-comments-group-chat-icon-free.png" alt=""> *@
 
-                    @* <div class="text"> *@
-                    @*     <h6>@Model.Name</h6> *@
-                    @*     $1$ <p class="text-muted">Layin' down the law since like before Christ...</p> #1# *@
-                    @* </div> *@
-
-                    @Model.Name
+                    <span class="black-text">
+                        @Model.Name
+                    </span>
 
                     <span class="settings-tray--right">
                         @* <i class="material-icons">cached</i> *@
@@ -142,8 +138,12 @@
 
             <form asp-area="" asp-controller="Chat" asp-action="CreateRoom" method="post">
                 <div class="modal-body container">
-                    <div>Provide name for the chat</div>
-                    <small class="text-muted">Must not be empty, a space or tab character</small>
+                    <div class="black-text">
+                        <div>
+                            Provide name for the chat.
+                        </div>
+                        <small class="text-muted">Must not be empty, a space or tab character.</small>
+                    </div>
                 </div>
                 <div class="container">
                     <input type="text" name="name" value="" class="mb-3 form-control"/>

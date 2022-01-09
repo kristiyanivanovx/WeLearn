@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.ApplicationUser

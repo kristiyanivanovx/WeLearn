@@ -2,11 +2,11 @@
 @using System.Security.Claims
 @model IEnumerable<OrganizationViewModel>
 @{
-    ViewData["Title"] = "All organizations";
+    ViewData["Title"] = "Organizations administration";
 }
 
 <div class="container-fluid pl-5 pr-5 text-center">
-    <h3 class="mt-4 mb-4">@ViewData["Title"]</h3>
+    <h3 class="mt-4 mb-4">Manage organizations</h3>
 
     <div>
         <div class="row">
@@ -27,6 +27,9 @@
                             </th>
                             <th>
                                 Date created
+                            </th>
+                            <th>  
+                                Is deleted
                             </th>
                             <th>
                                 Actions
@@ -55,32 +58,43 @@
                                 </time>
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => organization.IsDeleted)
+                            </td>
+                            <td>
                                 @{
                                     string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                                     var isMember = organization.ApplicationUsers
                                         .Any(x => x.Id == userId);
+
+                                    var disabledStyle = organization.IsDeleted ?
+                                        "disabled" :
+                                        null;
                                 }
                                 @if (isMember)
                                 {
                                     <a asp-area="" asp-controller="Organization" asp-action="Leave" asp-route-id="@organization.Id"
-                                       class="btn btn-sm btn-outline-danger">
+                                       class="btn btn-sm btn-outline-danger @disabledStyle">
                                         Leave
-                                    </a>
+                                    </a>   
                                 }
                                 else
                                 {
                                     <a asp-area="" asp-controller="Organization" asp-action="Join" asp-route-id="@organization.Id"
-                                       class="btn btn-sm btn-outline-success">
+                                       class="btn btn-sm btn-outline-success @disabledStyle">
                                         Join
                                     </a>
                                 }
                                 <a asp-area="" asp-controller="Organization" asp-action="View" asp-route-id="@organization.Id"
-                                   class="btn btn-sm btn-outline-primary mt-1 mb-1">
+                                   class="btn btn-sm btn-outline-primary mt-1 mb-1 @disabledStyle" >
                                     View
                                 </a>
                             </td>
                             <td>
-                                
+                                <a asp-controller="Organizations"  asp-action="Edit" asp-route-id="@organization.Id" 
+                                   class="btn btn-sm btn-outline-success mb-1">
+                                    Edit / Soft delete
+                                </a>
+
                                 <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
                                     Hard delete (Irreversible)
                                 </button>

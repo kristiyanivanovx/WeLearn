@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Quiz;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Answer;

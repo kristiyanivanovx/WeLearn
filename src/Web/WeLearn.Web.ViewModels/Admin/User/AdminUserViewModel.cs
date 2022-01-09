@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-using WeLearn.Data.Models;
-using WeLearn.Data.Models.Identity;
 using WeLearn.Services.Mapping;
 
 namespace WeLearn.Web.ViewModels.Admin.User

@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WeLearn.Common;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Data.Models.LessonModule;
 

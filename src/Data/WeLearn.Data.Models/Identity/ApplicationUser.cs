@@ -6,11 +6,10 @@ using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.User;
-using WeLearn.Services.Mapping;
 
 namespace WeLearn.Data.Models.Identity
 {
-    public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
+    public sealed class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
         public ApplicationUser()
         {
@@ -28,6 +27,7 @@ namespace WeLearn.Data.Models.Identity
             this.Reports = new HashSet<Report>();
             this.Chats = new HashSet<ChatApplicationUser>();
             this.Organizations = new HashSet<Organization>();
+            this.CreatedOrganizations = new HashSet<Organization>();
         }
 
         // Audit info
@@ -39,6 +39,8 @@ namespace WeLearn.Data.Models.Identity
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public IEnumerable<Organization> CreatedOrganizations { get; set; }
 
         public IEnumerable<Organization> Organizations { get; set; }
 
@@ -55,10 +57,10 @@ namespace WeLearn.Data.Models.Identity
 
         public ICollection<LessonModule.Recommendation> Recommendations { get; set; }
 
-        public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
+        public ICollection<IdentityUserRole<string>> Roles { get; set; }
 
-        public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
+        public ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
-        public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+        public ICollection<IdentityUserLogin<string>> Logins { get; set; }
     }
 }

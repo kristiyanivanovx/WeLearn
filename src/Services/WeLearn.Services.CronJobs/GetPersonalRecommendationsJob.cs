@@ -42,7 +42,6 @@ namespace WeLearn.Services.CronJobs
             IEnumerable<string> userIds = latestLikesModels.Select(x => x.UserId);
             IEnumerable<int> lessonIds = latestLikesModels.Select(x => x.LessonId);
 
-            // todo: think about shortening out
             IEnumerable<UserInLesson> allCombinations = userIds
                 .SelectMany(userId => lessonIds
                     .Where(lessonId => !latestLikesModels

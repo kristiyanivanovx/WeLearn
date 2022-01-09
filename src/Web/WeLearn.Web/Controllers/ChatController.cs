@@ -13,16 +13,13 @@ namespace WeLearn.Web.Controllers
     public class ChatController : BaseController
     {
         private readonly IHubContext<ChatHub> chatHub;
-        private readonly IUsersService usersService;
         private readonly IChatService chatService;
 
         public ChatController(
             IHubContext<ChatHub> chatHub,
-            IUsersService usersService,
             IChatService chatService)
         {
             this.chatHub = chatHub;
-            this.usersService = usersService;
             this.chatService = chatService;
         }
 
@@ -49,7 +46,8 @@ namespace WeLearn.Web.Controllers
                 return this.BadRequest();
             }
 
-            Message messageModel = await this.chatService.CreateMessageAsync(roomId, message, this.GetUserName());
+            Message messageModel = await this.chatService
+                .CreateMessageAsync(roomId, message, this.GetUserName());
 
             await this.chatHub.Clients.Group(roomId.ToString())
                 .SendAsync("ReceiveMessage", new

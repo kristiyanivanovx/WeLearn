@@ -13,6 +13,7 @@ using WeLearn.Web.ViewModels.Organization;
 
 namespace WeLearn.Services
 {
+    // todo: interface
     public class OrganizationsService
     {
         private readonly IUsersService usersService;
@@ -29,11 +30,16 @@ namespace WeLearn.Services
             this.appUserRepository = appUserRepository;
         }
 
-        public IEnumerable<T> GetAllToModelAsync<T>()
-            => this.organizationRepository
-                .All()
+        public IEnumerable<T> GetAllToModelAsync<T>(bool includeDeleted = false)
+        {
+            var query = includeDeleted ?
+                this.organizationRepository.AllWithDeleted() :
+                this.organizationRepository.All();
+
+            return query
                 .To<T>()
                 .ToList();
+        }
 
         public IEnumerable<T> GetByMemberIdToModel<T>(string memberId)
             => this.organizationRepository
@@ -43,12 +49,17 @@ namespace WeLearn.Services
                 .To<T>()
                 .ToList();
 
-        public T GetByIdToModelAsync<T>(int id)
-            => this.organizationRepository
-                .All()
+        public T GetByIdToModelAsync<T>(int id, bool includeDeleted = false)
+        {
+            var query = includeDeleted ?
+                this.organizationRepository.AllWithDeleted() :
+                this.organizationRepository.All();
+
+            return query
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
+        }
 
         public async Task AddUserToOrganization(int orgId, string userId)
         {
@@ -70,11 +81,34 @@ namespace WeLearn.Services
             await this.appUserRepository.SaveChangesAsync();
         }
 
-        public Organization GetById(int id)
-            => this.organizationRepository
-                .All()
+        public Organization GetById(int id, bool includeDeleted = false)
+        {
+            var query = includeDeleted ?
+                this.organizationRepository.AllWithDeleted() :
+                this.organizationRepository.All();
+
+            return query
                 .Include(x => x.ApplicationUsers)
                 .FirstOrDefault(x => x.Id == id);
+        }
+
+        public async Task EditOrganizationAsync(OrganizationEditModel model, bool includeDeleted = false)
+        {
+            var organization = this.GetById(model.Id, includeDeleted);
+
+            organization.Name = model.Name;
+            organization.Description = model.Description;
+            organization.IsDeleted = model.IsDeleted;
+
+            this.organizationRepository.Update(organization);
+            await this.organizationRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteOrganizationAsync(Organization model)
+        {
+            this.organizationRepository.Delete(model);
+            await this.organizationRepository.SaveChangesAsync();
+        }
 
         public async Task CreateAsync(OrganizationInputModel model, string userId)
         {
@@ -83,7 +117,8 @@ namespace WeLearn.Services
             var organization = new Organization
             {
                 Name = model.Name,
-                Description = model.Description
+                Description = model.Description,
+                CreatorId = userId,
             };
 
             await this.organizationRepository.AddAsync(organization);
@@ -92,23 +127,23 @@ namespace WeLearn.Services
             await this.organizationRepository.SaveChangesAsync();
         }
 
-        public async Task UpdateOrganizationsAsync(OrganizationViewModel model, string userId)
-        {
-            var organization = this.GetById(model.Id);
-            var user = this.appUserRepository
-                .All()
-                .Include(x => x.Organizations)
-                .FirstOrDefault(x => x.Id == userId);
-
-            if (organization.ApplicationUsers.Contains(user))
-            {
-                // ...
-            }
-
-            this.organizationRepository.Update(organization);
-            await this.organizationRepository.SaveChangesAsync();
-        }
-
+        // todo: delete
+        // public async Task UpdateOrganizationsAsync(OrganizationViewModel model, string userId)
+        // {
+        //     var organization = this.GetById(model.Id);
+        //     var user = this.appUserRepository
+        //         .All()
+        //         .Include(x => x.Organizations)
+        //         .FirstOrDefault(x => x.Id == userId);
+        //
+        //     if (organization.ApplicationUsers.Contains(user))
+        //     {
+        //         // ...
+        //     }
+        //
+        //     this.organizationRepository.Update(organization);
+        //     await this.organizationRepository.SaveChangesAsync();
+        // }
         public async Task SoftDeleteAsync(int id)
         {
             var organization = this.organizationRepository
@@ -119,11 +154,13 @@ namespace WeLearn.Services
             await this.organizationRepository.SaveChangesAsync();
         }
 
-        public async Task HardDeleteAsync(int id)
+        public async Task HardDeleteAsync(int id, bool includeDeleted = false)
         {
-            var organization = this.organizationRepository
-                .All()
-                .FirstOrDefault(x => x.Id == id);
+            var query = includeDeleted
+                ? this.organizationRepository.AllWithDeleted()
+                : this.organizationRepository.All();
+
+            var organization = query.FirstOrDefault(x => x.Id == id);
 
             this.organizationRepository.HardDelete(organization);
             await this.organizationRepository.SaveChangesAsync();

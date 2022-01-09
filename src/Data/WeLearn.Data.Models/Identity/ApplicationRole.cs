@@ -6,7 +6,7 @@ using WeLearn.Data.Common.Models;
 
 namespace WeLearn.Data.Models.Identity
 {
-    public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
+    public sealed class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {
         public ApplicationRole()
            : this(null)

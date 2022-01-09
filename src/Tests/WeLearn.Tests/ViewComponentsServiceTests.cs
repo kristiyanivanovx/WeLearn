@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Shared;

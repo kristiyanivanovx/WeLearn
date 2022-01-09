@@ -9,6 +9,11 @@ a {
     color: #0366d6;
 }
 
+a.disabled {
+    pointer-events: none;
+    /*color: #ccc;*/
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;

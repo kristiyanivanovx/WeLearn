@@ -1,8 +1,6 @@
 using System;
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualBasic;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Identity;
 
 using static WeLearn.Common.GlobalConstants;

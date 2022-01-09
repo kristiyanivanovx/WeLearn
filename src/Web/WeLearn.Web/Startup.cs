@@ -93,7 +93,7 @@ namespace WeLearn.Web
             services.AddTransient<IInputOutputService, InputOutputService>();
             services.AddTransient<IFileDownloadService, FileDownloadService>();
             services.AddTransient<IViewComponentsService, ViewComponentsService>();
-            services.AddTransient<IEmailSender>(serviceProvider =>
+            services.AddTransient<IEmailSender>(_ =>
                 new SendGridEmailService(this.Configuration["SendGrid:ApiKey"]));
 
             services.AddAuthentication()

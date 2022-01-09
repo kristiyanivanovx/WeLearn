@@ -50,7 +50,7 @@
             <tr>
                 @{
                     var dbUser = await userManager.FindByIdAsync(item.Id);
-                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorUsername);
+                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
                     var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
 
                     var adminRoleButtonClassStyling = dbUserIsAdmin ?
@@ -92,11 +92,11 @@
                         <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
                             @if (dbUserIsAdmin)
                             {
-                                <div>Demote</div>
+                                <div>Demote to User</div>
                             }
                             else
                             {
-                                <div>Promote</div>
+                                <div>Promote to Admin</div>
                             }
                         </button>
                     </form>

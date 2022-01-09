@@ -87,7 +87,7 @@
                         @Html.DisplayFor(modelItem => item.IsDeleted)
                     </td>
                     <td>
-                        @if (item?.LessonId != null)
+                        @if (item.LessonId != null)
                         {
                             <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
                         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Common;
@@ -66,6 +67,18 @@ namespace WeLearn.Data.Infrastructure
                 .HasOne(x => x.Lesson)
                 .WithOne(x => x.Video)
                 .HasForeignKey<Video>(x => x.LessonId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<Organization>()
+                .HasOne(x => x.Creator)
+                .WithMany(x => x.CreatedOrganizations)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder
+                .Entity<ApplicationUser>()
+                .HasMany(x => x.CreatedOrganizations)
+                .WithOne(x => x.Creator)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder

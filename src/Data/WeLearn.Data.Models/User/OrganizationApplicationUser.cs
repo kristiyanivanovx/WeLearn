@@ -1,4 +1,3 @@
-using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Models.Identity;
 
 namespace WeLearn.Data.Models.User
@@ -11,6 +10,6 @@ namespace WeLearn.Data.Models.User
 
         public int OrganizationId { get; set; }
 
-        public WeLearn.Data.Models.User.Organization Organization { get; set; }
+        public Organization Organization { get; set; }
     }
 }

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id" content="683158115512-kek44cn4mtvhl1mr00uq9t3mv613sofr.apps.googleusercontent.com">
-    <title>Administration Dashboard - @GlobalConstants.SystemName</title>
+    <title>@ViewData["Title"] - @GlobalConstants.SystemName</title>
     
     @* SB Admin 2 *@
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,8 +45,6 @@
 <div id="wrapper">
 
 @{
-    // todo: different color if admin ...
-    
     var gradientStyle = this.User.IsInRole(GlobalConstants.ApplicationHeadAdministratorRoleName) ?
         "bg-gradient-primary" :
         "bg-gradient-success"; // bg-gradient-admin or bg-gradient-success

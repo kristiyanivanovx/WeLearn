@@ -18,6 +18,10 @@ namespace WeLearn.Data.Models.User
         [Required]
         public string Description { get; set; }
 
-        public ICollection<ApplicationUser> ApplicationUsers { get; set; } 
+        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
+
+        public string CreatorId { get; set; }
+
+        public ApplicationUser Creator { get; set; }
     }
 }

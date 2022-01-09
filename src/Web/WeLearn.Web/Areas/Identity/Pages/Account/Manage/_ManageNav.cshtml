@@ -1,8 +1,9 @@
 ﻿@using WeLearn.Data.Models.Identity
-@inject SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<ApplicationUser> signInManager
 @{
-    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    var hasExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
+
 <ul class="nav nav-pills flex-column mb-5">
     <li class="nav-item"><a class="nav-link gray-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
     <li class="nav-item"><a class="nav-link gray-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>

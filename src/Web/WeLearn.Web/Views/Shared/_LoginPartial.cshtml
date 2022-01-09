@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WeLearn.Data.Models.Identity
-@inject SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<ApplicationUser> signInManager
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
+    @if (signInManager.IsSignedIn(User))
     {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">

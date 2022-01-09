@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using WeLearn.Data.Models.Identity;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.ApplicationUser;
 
@@ -15,9 +13,15 @@ namespace WeLearn.Web.ViewModels.Organization
 
         public string Description { get; set; }
         
+        public bool IsDeleted { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public int ApplicationUsersCount { get; set; }
+        
+        public string CreatorId { get; set; }
+
+        public string CreatorUserName { get; set; }
 
         public ICollection<ApplicationUserViewModel> ApplicationUsers { get; set; }
     }

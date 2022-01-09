@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Win32;
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;

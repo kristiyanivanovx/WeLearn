@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
-using WeLearn.Web.ViewModels.Admin.Lesson;
-using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Question;
 using WeLearn.Web.ViewModels.Quiz;
 

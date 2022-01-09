@@ -304,7 +304,7 @@ namespace WeLearn.Services
             await this.lessonRepository.SaveChangesAsync();
         }
 
-        public async Task<Data.Models.LessonModule.Video> UploadVideoAsync(
+        public async Task<Video> UploadVideoAsync(
             Lesson lesson,
             ILessonModel lessonInputModel,
             string environmentWebRootPath)
@@ -333,6 +333,7 @@ namespace WeLearn.Services
                 await video.CopyToAsync(stream);
             }
 
+            // ?
             Video videoEntity = CreateVideoEntity(lesson, video, videoPath, null);
 
             await this.videoRepository.AddAsync(videoEntity);

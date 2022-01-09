@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
+
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.LessonModule;
-using WeLearn.Data.Repositories;
 using WeLearn.Services.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Admin.Comment;

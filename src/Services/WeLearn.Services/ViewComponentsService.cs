@@ -2,11 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
 using WeLearn.Data.Common.Repositories;
-using WeLearn.Data.Models;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Shared;

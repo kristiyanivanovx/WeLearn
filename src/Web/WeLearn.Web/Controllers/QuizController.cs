@@ -64,8 +64,14 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public IActionResult View(int id)
         {
-            bool examinationExists = this.examinationsService.Contains(id);
-            if (!examinationExists)
+            bool examinationExists = this.examinationsService
+                .Contains(id);
+
+            bool isViewingAllowed = this.examinationsService
+                .GetExaminationById(id)
+                .ApplicationUserId == this.GetUserId();
+
+            if (!examinationExists || !isViewingAllowed)
             {
                 this.Response.StatusCode = 404;
                 return this.NotFound();

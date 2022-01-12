@@ -29,7 +29,8 @@ namespace WeLearn.Services
         public Examination GetExaminationById(int id)
             => this.examinationRepository
                 .All()
-                .Include(x => x.QuizId)
+                .Include(x => x.Quiz)
+                .Include(x => x.ApplicationUser)
                 .FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<T> GetById<T>(int id)

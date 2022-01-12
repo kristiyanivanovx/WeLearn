@@ -88,7 +88,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public IActionResult Examinations()
         {
-
             var models = this.examinationsService
                 .GetAll<ExaminationViewModel>();
 

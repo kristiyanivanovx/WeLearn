@@ -1,9 +1,10 @@
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
+using WeLearn.Web.ViewModels.Examination;
 using WeLearn.Web.ViewModels.Question;
 using WeLearn.Web.ViewModels.Quiz;
 
@@ -12,15 +13,18 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     public class QuizzesController : AdministrationController
     {
         // todo: interface instead of class
+        private readonly ExaminationsService examinationsService;
         private readonly QuestionsService questionsService;
         private readonly ICategoriesService categoriesService;
         private readonly QuizzesService quizzesService;
 
         public QuizzesController(
+            ExaminationsService examinationsService,
             QuestionsService questionsService,
             ICategoriesService categoriesService,
             QuizzesService quizzesService)
         {
+            this.examinationsService = examinationsService;
             this.questionsService = questionsService;
             this.categoriesService = categoriesService;
             this.quizzesService = quizzesService;
@@ -29,9 +33,6 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // var randomQuiz = this.quizzesService.GetQuizById(4)
-            //     .Questions.Sum(q => q.Answers.Where(a => a.IsCorrect && a.QuestionId == q.Id)
-            //         .Sum(a => a.Question.Points));
             var quizzes = this.quizzesService.GetAll<QuizViewModel>();
             return this.View(quizzes);
         }
@@ -83,6 +84,34 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             await this.quizzesService.EditAsync(model);
             return this.RedirectToAction(nameof(this.Index));
+        }
+
+        public IActionResult Examinations()
+        {
+
+            var models = this.examinationsService
+                .GetAll<ExaminationViewModel>();
+
+            return this.View(models);
+        }
+
+        [HttpGet]
+        public IActionResult View(int id)
+        {
+            bool examinationExists = this.examinationsService.Contains(id);
+            if (!examinationExists)
+            {
+                this.Response.StatusCode = 404;
+                return this.NotFound();
+            }
+
+            var examination = this.examinationsService.GetById<ExaminationViewModel>(id).FirstOrDefault();
+            examination!.Questions = this.questionsService
+                .GetAll<QuestionViewModel>()
+                .Where(question => question.Quizzes
+                    .Any(quiz => quiz.Id == examination.QuizId));
+
+            return this.View(examination);
         }
 
         [HttpPost]

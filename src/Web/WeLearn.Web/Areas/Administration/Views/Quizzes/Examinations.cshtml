@@ -1,6 +1,7 @@
 @model IEnumerable<ExaminationViewModel>
 @{
-    ViewData["Title"] = "Quizzes taken by me";
+    // ViewData["Title"] = "Quizzes taken by users";
+    ViewData["Title"] = "Manage examinations";
 }
 
 <div class="container-fluid pl-5 pr-5 text-center">
@@ -21,7 +22,10 @@
                             Quiz category
                         </th>
                         <th>
-                            Your points
+                            Username
+                        </th>
+                        <th>
+                            Points
                         </th>
                         <th>
                             Quiz max points
@@ -45,6 +49,9 @@
                                 @Html.DisplayFor(modelItem => examinationViewModel.QuizCategoryName)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => examinationViewModel.ApplicationUserUserName)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => examinationViewModel.Points)
                             </td>
                             <td>
@@ -56,7 +63,7 @@
                                 </time>
                             </td>
                             <td>
-                                <a asp-area="" asp-controller="Quiz" asp-action="View" asp-route-id="@examinationViewModel.Id"
+                                <a asp-area="" asp-controller="Quizzes" asp-action="View" asp-route-id="@examinationViewModel.Id"
                                    class="btn btn-sm btn-outline-primary">
                                     View
                                 </a>

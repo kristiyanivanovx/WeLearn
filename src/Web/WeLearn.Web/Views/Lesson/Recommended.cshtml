@@ -109,14 +109,14 @@
                    class="btn btn-sm btn-outline-dark @prevDisabled">
                     <i class="fas fa-arrow-left"></i> Previous
                 </a>
-                @for (int i = 1; i <= Model.TotalPages; i++)
+                @for (int index = 1; index <= Model.TotalPages; index++)
                 {
                     <a asp-controller="Lesson"
                        asp-action="Recommended"
-                       asp-route-pageNumber="@i"
+                       asp-route-pageNumber="@index"
                        asp-route-searchString="@Model.SearchString"
                        class="btn btn-sm btn-outline-dark ">
-                        @i
+                        @index
                     </a>
                 }
                 <a asp-controller="Lesson"

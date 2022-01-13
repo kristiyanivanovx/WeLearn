@@ -11,12 +11,10 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     public class QuestionsController : AdministrationController
     {
         // todo: interface instead of class
-        private readonly AnswersService answersService;
         private readonly QuestionsService questionsService;
 
-        public QuestionsController(AnswersService answersService, QuestionsService questionsService)
+        public QuestionsController(QuestionsService questionsService)
         {
-            this.answersService = answersService;
             this.questionsService = questionsService;
         }
 

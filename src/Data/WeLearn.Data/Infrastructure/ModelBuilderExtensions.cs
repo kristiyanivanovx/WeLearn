@@ -19,7 +19,7 @@ namespace WeLearn.Data.Infrastructure
         {
             modelBuilder
                 .Entity<ChatApplicationUser>()
-                .HasKey(x => new {x.ChatId, x.ApplicationUserId});
+                .HasKey(x => new { x.ChatId, x.ApplicationUserId });
 
             // do not cascade delete the lessons on user delete, just set their owner to null
             modelBuilder
@@ -102,7 +102,6 @@ namespace WeLearn.Data.Infrastructure
         //    .WithOne(x => x.Lesson)
         //    .HasForeignKey<Lesson>(x => x.VideoId)
         //    .OnDelete(DeleteBehavior.Cascade);
-
         public static void Seed(this ModelBuilder modelBuilder)
         {
             const string userId = GlobalConstants.ApplicationRegularAdministratorId;
@@ -152,23 +151,23 @@ namespace WeLearn.Data.Infrastructure
                 });
 
             modelBuilder.Entity<Category>().HasData(
-                new Category {Id = 1, CreatedOn = DateTime.UtcNow, Name = "Bulgarian Language"},
-                new Category {Id = 2, CreatedOn = DateTime.UtcNow, Name = "Mathematics"},
-                new Category {Id = 3, CreatedOn = DateTime.UtcNow, Name = "Informatics"},
-                new Category {Id = 4, CreatedOn = DateTime.UtcNow, Name = "IT"},
-                new Category {Id = 5, CreatedOn = DateTime.UtcNow, Name = "Geography"},
-                new Category {Id = 6, CreatedOn = DateTime.UtcNow, Name = "Physical Education and Sport"},
-                new Category {Id = 7, CreatedOn = DateTime.UtcNow, Name = "Literature"},
-                new Category {Id = 8, CreatedOn = DateTime.UtcNow, Name = "Civic Education"},
-                new Category {Id = 9, CreatedOn = DateTime.UtcNow, Name = "English Language"},
-                new Category {Id = 10, CreatedOn = DateTime.UtcNow, Name = "Russian Language"},
-                new Category {Id = 11, CreatedOn = DateTime.UtcNow, Name = "History"},
-                new Category {Id = 12, CreatedOn = DateTime.UtcNow, Name = "Biology"},
-                new Category {Id = 13, CreatedOn = DateTime.UtcNow, Name = "Chemistry"},
-                new Category {Id = 14, CreatedOn = DateTime.UtcNow, Name = "Music"},
-                new Category {Id = 15, CreatedOn = DateTime.UtcNow, Name = "Art"},
-                new Category {Id = 16, CreatedOn = DateTime.UtcNow, Name = "Technologies and Entrepreneurship"},
-                new Category {Id = 17, CreatedOn = DateTime.UtcNow, Name = "Others"});
+                new Category { Id = 1, CreatedOn = DateTime.UtcNow, Name = "Bulgarian Language" },
+                new Category { Id = 2, CreatedOn = DateTime.UtcNow, Name = "Mathematics" },
+                new Category { Id = 3, CreatedOn = DateTime.UtcNow, Name = "Informatics" },
+                new Category { Id = 4, CreatedOn = DateTime.UtcNow, Name = "IT" },
+                new Category { Id = 5, CreatedOn = DateTime.UtcNow, Name = "Geography" },
+                new Category { Id = 6, CreatedOn = DateTime.UtcNow, Name = "Physical Education and Sport" },
+                new Category { Id = 7, CreatedOn = DateTime.UtcNow, Name = "Literature" },
+                new Category { Id = 8, CreatedOn = DateTime.UtcNow, Name = "Civic Education" },
+                new Category { Id = 9, CreatedOn = DateTime.UtcNow, Name = "English Language" },
+                new Category { Id = 10, CreatedOn = DateTime.UtcNow, Name = "Russian Language" },
+                new Category { Id = 11, CreatedOn = DateTime.UtcNow, Name = "History" },
+                new Category { Id = 12, CreatedOn = DateTime.UtcNow, Name = "Biology" },
+                new Category { Id = 13, CreatedOn = DateTime.UtcNow, Name = "Chemistry" },
+                new Category { Id = 14, CreatedOn = DateTime.UtcNow, Name = "Music" },
+                new Category { Id = 15, CreatedOn = DateTime.UtcNow, Name = "Art" },
+                new Category { Id = 16, CreatedOn = DateTime.UtcNow, Name = "Technologies and Entrepreneurship" },
+                new Category { Id = 17, CreatedOn = DateTime.UtcNow, Name = "Others" });
 
             modelBuilder.Entity<Video>().HasData(
                 new Video
@@ -469,10 +468,10 @@ namespace WeLearn.Data.Infrastructure
                 });
 
             modelBuilder.Entity<Chat>().HasData(
-                new Chat {Id = 1, Name = "Main", CreatedOn = DateTime.UtcNow});
+                new Chat { Id = 1, Name = "Main", CreatedOn = DateTime.UtcNow });
 
             modelBuilder.Entity<ChatApplicationUser>().HasData(
-                new ChatApplicationUser {ApplicationUserId = userId, ChatId = 1});
+                new ChatApplicationUser { ApplicationUserId = userId, ChatId = 1 });
         }
     }
 }

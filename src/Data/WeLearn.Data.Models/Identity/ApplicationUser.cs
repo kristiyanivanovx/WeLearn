@@ -50,7 +50,6 @@ namespace WeLearn.Data.Models.Identity
 
         public ICollection<Comment> Comments { get; set; }
 
-
         public ICollection<Report> Reports { get; set; }
 
         public ICollection<ChatApplicationUser> Chats { get; set; }

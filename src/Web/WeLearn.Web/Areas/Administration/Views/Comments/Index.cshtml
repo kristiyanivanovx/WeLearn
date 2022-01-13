@@ -114,18 +114,18 @@
            class="btn btn-sm btn-outline-dark @prevDisabled">
             <i class="fas fa-arrow-left"></i> Previous
         </a>
-        @for (int i = 1; i <= Model.TotalPages; i++)
+        @for (int index = 1; index <= Model.TotalPages; index++)
         {
             <a asp-area="Administration"
                asp-controller="Users"
                asp-action="Index"
                asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@i"
+               asp-route-pageNumber="@index"
                asp-route-currentFilter="@ViewData["CurrentFilter"]"
                asp-route-searchString="@Model.SearchString"
                asp-route-categoryName="@ViewData["CategoryName"]"
                class="btn btn-sm btn-outline-dark ">
-                @i
+                @index
             </a>
         }
         <a asp-area="Administration"

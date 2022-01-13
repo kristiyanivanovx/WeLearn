@@ -2,8 +2,9 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using WeLearn.Services;
-using WeLearn.Services.Interfaces;
+
 using WeLearn.Web.ViewModels.Organization;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
@@ -11,14 +12,10 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     public class OrganizationsController : AdministrationController
     {
         private readonly OrganizationsService organizationsService;
-        private readonly IUsersService usersService;
 
-        public OrganizationsController(
-            OrganizationsService organizationsService,
-            IUsersService usersService)
+        public OrganizationsController(OrganizationsService organizationsService)
         {
             this.organizationsService = organizationsService;
-            this.usersService = usersService;
         }
 
         public IActionResult Index()

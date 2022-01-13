@@ -70,7 +70,7 @@ namespace WeLearn.Web.Controllers
             // get only the models that are recommended - lesson id and user id have to match
             // and that have RecommendationScore greater than or equal to 15
             var models = allLessons
-                .Where(model => model.RecommendationScore >= 0.15f)
+                //.Where(model => model.RecommendationScore >= 0.10f)
                 .Where(model => recommendations
                     .Any(rec =>
                         rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId)));
@@ -350,17 +350,17 @@ namespace WeLearn.Web.Controllers
                 <div>
                     <video playsinline controls crossorigin=""anonymous"" alt=""{model.VideoName}"" src=""{model.VideoLink}"" >
                         <!-- fallback -->
-                        Video: <a href=""{model.VideoLink}"">{model.Name}</a>
+                        Video file: <a href=""{model.VideoLink}"">{model.Name}</a>
                     </video>
                 </div>
                 <div>
-				    <p>Materials (as zip file) - {model.MaterialLink}</p>
-                    <p>Created by - {createdBy}</p>
-				    <p>Category - {model.CategoryName}</p>
-				    <p>Grade - {model.Grade}</p>
-				    <p>Likes - {model.LikesCount}</p>
-                    <p>Date created - {model.CreatedOn.ToLocalTime():d/MM/yyyy, HH:mm}</p>
-				    <p>Link - <a href=""https://{ApplicationHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
+				    <p>Materials (zip file) - {model.MaterialLink}</p>
+                    <p>Created by: {createdBy}</p>
+				    <p>Category: {model.CategoryName}</p>
+				    <p>Grade: {model.Grade}</p>
+				    <p>Likes: {model.LikesCount}</p>
+                    <p>Date created: {model.CreatedOn.ToLocalTime():d/MM/yyyy, HH:mm}</p>
+				    <p>Link to lesson: <a href=""https://{ApplicationHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
                 </div>")
                 .ToString()
                 .Trim();

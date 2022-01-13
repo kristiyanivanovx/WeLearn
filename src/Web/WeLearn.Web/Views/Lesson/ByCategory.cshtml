@@ -46,15 +46,15 @@
 			class="btn btn-sm btn-outline-dark @prevDisabled">
 			<i class="fas fa-arrow-left"></i> Previous
 		</a>
-		@for (int i = 1; i <= Model.TotalPages; i++)
+		@for (int value = 1; value <= Model.TotalPages; value++)
 		{
 			<a asp-controller="Lesson"
 				asp-action="ByCategory"
-				asp-route-pageNumber="@i"
+				asp-route-pageNumber="@value"
 				asp-route-searchString="@Model.SearchString"
 				asp-route-categoryName="@Model.CategoryName"
 				class="btn btn-sm btn-outline-dark ">
-				@i
+				@value
 			</a>
 		}
 		<a asp-controller="Lesson"

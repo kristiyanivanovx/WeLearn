@@ -39,7 +39,7 @@ namespace WeLearn.Data.Seeding
             foreach (var seeder in seeders)
             {
                 await seeder.SeedAsync(dbContext, serviceProvider);
-                logger.LogInformation("Seeder {0} done", seeder.GetType().Name);
+                logger.LogInformation(@"Seeder {0} done", seeder.GetType().Name);
             }
 
             await dbContext.SaveChangesAsync();

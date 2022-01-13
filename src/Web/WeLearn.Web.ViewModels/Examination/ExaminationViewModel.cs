@@ -22,7 +22,7 @@ namespace WeLearn.Web.ViewModels.Examination
         public int QuizMaxPoints { get; set; }
 
         public string ApplicationUserUserName { get; set; }
- 
+
         public string ApplicationUserId { get; set; }
 
         public DateTime CreatedOn { get; set; }

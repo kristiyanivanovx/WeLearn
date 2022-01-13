@@ -4,6 +4,7 @@ using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -101,8 +102,10 @@ namespace WeLearn.Web
                 {
                     IConfigurationSection googleAuthenticationSection =
                         this.Configuration.GetSection("Authentication:Google");
+
                     options.ClientId = googleAuthenticationSection["ClientId"];
                     options.ClientSecret = googleAuthenticationSection["ClientSecret"];
+                    options.CorrelationCookie.SameSite = SameSiteMode.Lax;
                 });
 
             services.AddHangfire(config =>

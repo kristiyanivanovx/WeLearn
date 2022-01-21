@@ -31,13 +31,29 @@
                 var user = await userManager.FindByIdAsync(@Model.Id);
             }
             
-            <p>
-                @string.Join(", ", await userManager.GetRolesAsync(user))
+            <p class="card-title">
+                <strong>Roles:</strong> @string.Join(", ", await userManager.GetRolesAsync(user))
             </p>
             
             <p class="card-title">  
-                <strong>Is Administrator:</strong>
-                @if (await userManager.IsInRoleAsync(user, "Admin"))
+                <strong>
+                    Is Administrator?:
+                </strong>
+                @if (await userManager.IsInRoleAsync(user, ApplicationRegularAdministratorRoleName))
+                {
+                    <span class="admin-role-color">Yes</span>
+                }
+                else
+                {
+                    <span>No</span>
+                }
+            </p>
+            
+            <p class="card-title">  
+                <strong>
+                    Is Teacher?:
+                </strong>
+                @if (await userManager.IsInRoleAsync(user, ApplicationTeacherRoleName))
                 {
                     <span class="admin-role-color">Yes</span>
                 }

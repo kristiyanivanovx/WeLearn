@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeLearn.Data;
@@ -9,9 +10,10 @@ using WeLearn.Data;
 namespace WeLearn.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220121123936_AddCascadeDeleteForCommentsWhenLessonDeleted")]
+    partial class AddCascadeDeleteForCommentsWhenLessonDeleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -354,7 +356,7 @@ namespace WeLearn.Data.Migrations
                         {
                             Id = "d91316c6-8823-4614-a3c5-6228f06c746a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "44ab4cef-61bd-445b-ac87-4ae151b33962",
+                            ConcurrencyStamp = "8e63acf2-433f-4faa-8d0d-d99ad71e2917",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "default@gmail.com",
                             EmailConfirmed = false,
@@ -362,9 +364,9 @@ namespace WeLearn.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "DEFAULT@GMAIL.COM",
                             NormalizedUserName = "REGULARADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKMHq6+2MjqxTmNsjzqHktfnq9PFgPkXAdHki3egi/npfVXg9/f/yiDIhA0jaNIZRA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKcNRh5880T56zY127+KgniUrzq7ClTjTgPiiA+5WFuWCB/UJLSC2620UrJbowcNHQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c6c3c3c7-ce69-4b48-acee-d0dbfe46e717",
+                            SecurityStamp = "2ca32756-3ec5-49cd-83b8-d0b4db89889a",
                             TwoFactorEnabled = false,
                             UserName = "RegularAdmin"
                         });
@@ -1848,7 +1850,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithMany("Likes")
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -1878,7 +1880,7 @@ namespace WeLearn.Data.Migrations
                     b.HasOne("WeLearn.Data.Models.LessonModule.Lesson", "Lesson")
                         .WithMany("Recommendations")
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");

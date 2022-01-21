@@ -16,32 +16,32 @@
 <div class="text-center">
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    Content
-                </th>
-                <th>
-                    Created by user
-                </th>
-                <th>
-                    Lesson
-                </th>
-                <th>
-                    Video
-                </th>
-                <th>
-                    Material
-                </th>
-                <th>
-                    Date created
-                </th>
-                <th>
-                    Is deleted
-                </th>
-                <th>
-                    Manage
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Content
+            </th>
+            <th>
+                Created by user
+            </th>
+            <th>
+                Lesson
+            </th>
+            <th>
+                Video
+            </th>
+            <th>
+                Material
+            </th>
+            <th>
+                Date created
+            </th>
+            <th>
+                Is deleted
+            </th>
+            <th>
+                Manage
+            </th>
+        </tr>
         </thead>
         <tbody>
         @foreach (var item in Model)
@@ -88,9 +88,19 @@
                     @Html.DisplayFor(modelItem => item.IsDeleted)
                 </td>
                 <td>
+                    @{
+                        string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                        var dbUser = await userManager.FindByIdAsync(userId);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                        var disableIfUnauthorized =
+                            dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                    }
                     <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
                     <a asp-action="Edit" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
-                    <a asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
+                    <a asp-action="Delete" asp-route-id="@item.CommentId" class="btn btn-sm btn-outline-danger mb-1 @disableIfUnauthorized">Hard delete (Irreversible)</a>
                 </td>
             </tr>
         }

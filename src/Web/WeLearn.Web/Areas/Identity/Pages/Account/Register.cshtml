@@ -1,23 +1,16 @@
 ﻿@page
 @model RegisterModel
-
 @{
     ViewData["Title"] = "Register";
 }
 
 <section class="ftco-section">
     <div class="container">
-        @* <div class="row justify-content-center"> *@
-        @*     <div class="col-md-6 text-center mb-5"> *@
-        @*         <h2 class="heading-section">Login #05</h2> *@
-        @*     </div> *@
-        @* </div> *@
-
         <div class="row justify-content-center">
             <div class="col-md-7 col-lg-5">
                 <div class="wrap">
                     <div class="img-register background-image-forms-register"></div>
-                    @* todo decide if "p-md-5" or "p-md-4" *@
+                  
                     <div class="login-wrap p-4 p-md-5">
                         <div class="d-flex">
                             <div class="w-100 mb-3">
@@ -78,7 +71,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-4">
                                 <input asp-for="Input.Email" class="form-control" required/>
                                 <label asp-for="Input.Email" class="form-control-placeholder">Email</label>
                                 <div>
@@ -86,7 +79,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-4">
                                 <input asp-for="Input.Password" class="form-control" required type="password"/>
                                 <label asp-for="Input.Password" class="form-control-placeholder">Password</label>
                                 <div>
@@ -94,7 +87,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group mt-3">
+                            <div class="form-group mt-4">
                                 <input asp-for="Input.ConfirmPassword" class="form-control" required type="password"/>
                                 <label asp-for="Input.ConfirmPassword" class="form-control-placeholder">Confirm password</label>
                                 <div>
@@ -106,7 +99,7 @@
                                 <button type="submit" class="form-control btn btn-primary rounded submit px-3">Register</button>
                             </div>
 
-                            <div class="form-group d-md-flex">
+                            @* <div class="form-group d-md-flex"> *@
                                 @* <div class="w-50 text-left"> *@
                                 @*     <label class="checkbox-wrap checkbox-primary mb-0" asp-for="Input.RememberMe"> *@
                                 @*         <input asp-for="Input.RememberMe"> *@
@@ -116,14 +109,15 @@
                                 @* </div> *@
 
                                 @* commented out links are not implemented *@
-                                @*<p>
+                                @*
+                                    <p>
                                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                                     </p>
                                     <p>
                                         <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                                    </p>*@
-
-                            </div>
+                                    </p>
+                                *@
+                            @* </div> *@
                         </form>
 
                         <p class="text-center">

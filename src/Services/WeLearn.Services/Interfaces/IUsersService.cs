@@ -17,6 +17,8 @@ namespace WeLearn.Services.Interfaces
 
         Task ToggleAdminRoleAsync(string userId);
 
+        Task ToggleTeacherRoleAsync(string targetUserId, string actingUserId);
+
         Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId);
 
         Task<ApplicationUser> GetUserByIdAsync(string userId);

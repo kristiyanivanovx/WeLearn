@@ -15,6 +15,9 @@ namespace WeLearn.Services
             this.choicesRepository = choicesRepository;
         }
 
+        public async Task SaveChangesAsync()
+            => await this.choicesRepository.SaveChangesAsync();
+
         public async Task<Choice> CreateAsync(int questionId, int userAnswerId)
         {
             var choice = new Choice
@@ -24,7 +27,6 @@ namespace WeLearn.Services
             };
 
             await this.choicesRepository.AddAsync(choice);
-            await this.choicesRepository.SaveChangesAsync();
 
             return choice;
         }

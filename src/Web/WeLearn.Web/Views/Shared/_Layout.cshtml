@@ -42,28 +42,32 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    @if (User.IsInRole("Admin"))
+                    @{
+                        var isUserAdminOrTeacher = User.IsInRole(GlobalConstants.ApplicationRegularAdministratorRoleName) ||
+                                                   User.IsInRole(GlobalConstants.ApplicationTeacherRoleName);
+                    }
+                    @if (isUserAdminOrTeacher)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-success" asp-area="Administration" asp-controller="Manage" asp-action="Index">Administration</a>
                         </li>
                     }
- 
+
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Chat" asp-action="Joined" asp-route-id="1">
                             Chat
                         </a>
                     </li>
-                    
+
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Quiz" asp-action="All">
                             Quizzes
                         </a>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle text-dark" type="button" id="organizationDropdownMenuButton" 
+                            <button class="btn dropdown-toggle text-dark" type="button" id="organizationDropdownMenuButton"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Organizations
                             </button>
@@ -80,7 +84,7 @@
                             </div>
                         </div>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <div class="dropdown">
                             <button class="btn dropdown-toggle text-dark" type="button" id="lessonDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,9 +103,9 @@
                             </div>
                         </div>
                     </li>
-                    
+
                     @await Component.InvokeAsync("LessonsNavigatorDropdown")
-                   
+
                     <li class="nav-item dropdown">
                         <div class="dropdown">
                             <button class="btn dropdown-toggle text-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -138,17 +142,6 @@
 <div class="container-fluid padding pb-5">
     @RenderBody()
 </div>
-
-@*<footer class="sticky-footer footer bg-white mb-2 mt-2">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            &copy; @DateTime.Now.Year - WeLearn - @await Component.InvokeAsync("UsersCountSummary") -
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> -
-            <a asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a> -
-            <a asp-area="" asp-controller="Home" asp-action="FAQ">FAQ</a>
-        </div>
-    </div>
-</footer>*@
 
 <footer class="border-top footer bg-white text-muted text-center mt-4">
     <div class="container">

@@ -215,18 +215,23 @@ namespace WeLearn.Services
                 .Include(x => x.Material)
                 .FirstOrDefault(x => x.Id == lessonId);
 
-            if (lesson?.Video.PublicId != null && lesson.Material.PublicId != null)
+            if (lesson?.Video?.PublicId != null)
             {
                 Cloudinary cloudinary = new Cloudinary();
-                DelResResult deleteMaterialResult = await cloudinary.DeleteResourcesAsync(lesson.Video.PublicId);
-                DelResResult deleteVideoResult = await cloudinary.DeleteResourcesAsync(lesson.Material.PublicId);
+                await cloudinary.DeleteResourcesAsync(lesson.Material?.PublicId);
+
+                this.videoRepository.HardDelete(lesson.Video);
+                await this.videoRepository.SaveChangesAsync();
             }
 
-            this.videoRepository.HardDelete(lesson?.Video);
-            this.materialRepository.HardDelete(lesson?.Material);
+            if (lesson?.Material?.PublicId != null)
+            {
+                Cloudinary cloudinary = new Cloudinary();
+                await cloudinary.DeleteResourcesAsync(lesson.Video?.PublicId);
 
-            await this.videoRepository.SaveChangesAsync();
-            await this.materialRepository.SaveChangesAsync();
+                this.materialRepository.HardDelete(lesson?.Material);
+                await this.materialRepository.SaveChangesAsync();
+            }
 
             this.lessonRepository.HardDelete(lesson);
             await this.lessonRepository.SaveChangesAsync();

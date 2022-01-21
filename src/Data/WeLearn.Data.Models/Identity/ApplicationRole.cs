@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Identity;
 
@@ -17,6 +18,7 @@ namespace WeLearn.Data.Models.Identity
             : base(name)
         {
             this.Id = Guid.NewGuid().ToString();
+            this.ApplicationUserRoles = new HashSet<ApplicationUserRole>();
         }
 
         public DateTime CreatedOn { get; set; }
@@ -26,5 +28,7 @@ namespace WeLearn.Data.Models.Identity
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; }
     }
 }

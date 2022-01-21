@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,9 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    public class UsersController : AdministrationController
+    [Area(ApplicationAdministrationAreaName)]
+    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    public class UsersController : Controller
     {
         private readonly IUsersService usersService;
 
@@ -39,8 +42,18 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        public async Task<IActionResult> ToggleTeacherRole(string userId)
+        {
+            var actingUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            await this.usersService.ToggleTeacherRoleAsync(userId, actingUserId);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
         [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await this.usersService.GetUserByIdToModelAsync<AdminUserDeleteModel>(id);
@@ -48,9 +61,9 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.View(user);
         }
 
+        [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
         [HttpPost]
         [ActionName("Delete")]
-        [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await this.usersService.HardDeleteUserByIdAsync(id);

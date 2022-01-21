@@ -9,32 +9,32 @@
     @* <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center"> *@
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    Content
-                </th>
-                <th>
-                    Points
-                </th>
-                <th>
-                    Possible answers
-                </th>
-                <th>
-                    Quizzes
-                </th>
-                <th>
-                    Date created
-                </th>
-                <th>
-                    Date modified
-                </th>
-                <th>
-                    Manage
-                </th>
-                <th>
-                    Delete
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Content
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Possible answers
+            </th>
+            <th>
+                Quizzes
+            </th>
+            <th>
+                Date created
+            </th>
+            <th>
+                Date modified
+            </th>
+            <th>
+                Manage
+            </th>
+            <th>
+                Delete
+            </th>
+        </tr>
         </thead>
         <tbody>
         @foreach (var question in @Model)
@@ -75,7 +75,7 @@
                     @if (question.ModifiedOn != default)
                     {
                         <time datetime="@question.ModifiedOn.ToString("O")">@question.ModifiedOn.ToString("g")</time>
-                    }                   
+                    }
                     else
                     {
                         <span>not yet modified</span>
@@ -88,8 +88,18 @@
                     </a>
                 </td>
                 <td>
+                    @{
+                        string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                        var dbUser = await userManager.FindByIdAsync(userId);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                        var disableIfUnauthorized =
+                            dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                    }
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal-@question.Id">
+                    <button type="button" class="btn btn-sm btn-outline-danger" @disableIfUnauthorized data-toggle="modal" data-target="#deleteModal-@question.Id">
                         Delete
                     </button>
 

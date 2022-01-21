@@ -67,8 +67,18 @@
                     </a>
                 </td>
                 <td>
+                    @{
+                        string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                        var dbUser = await userManager.FindByIdAsync(userId);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                        var disableIfUnauthorized = 
+                            dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                    }
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal-@quiz.Id">
+                    <button type="button" class="btn btn-sm btn-outline-danger" @disableIfUnauthorized data-toggle="modal" data-target="#deleteModal-@quiz.Id">
                         Delete
                     </button>
 

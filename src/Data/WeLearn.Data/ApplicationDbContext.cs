@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Models;
@@ -17,7 +18,11 @@ using WeLearn.Data.Models.User;
 
 namespace WeLearn.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+    public class ApplicationDbContext
+        : IdentityDbContext<
+            ApplicationUser, ApplicationRole, string,
+            IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
+            IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
             typeof(ApplicationDbContext).GetMethod(

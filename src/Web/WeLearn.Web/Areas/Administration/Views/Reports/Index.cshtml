@@ -14,88 +14,102 @@
 <form asp-area="Administration" asp-controller="Reports" asp-action="Index" method="get">
     <label>Find by subject or description:</label>
     <div class="input-group input-group-sm mb-3">
-        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
-        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString"/>
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1"/>
     </div>
 </form>
 
 <div class="text-center ">
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    Subject
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Created by user
-                </th>
-                <th>
-                    Lesson details
-                </th>
-                <th>
-                    Comment content
-                </th>
-                <th>
-                    Date created
-                </th>
-                <th>
-                    Is deleted
-                </th>
-                <th>
-                    Manage
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Subject
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Created by user
+            </th>
+            <th>
+                Lesson details
+            </th>
+            <th>
+                Comment content
+            </th>
+            <th>
+                Date created
+            </th>
+            <th>
+                Is deleted
+            </th>
+            <th>
+                Manage
+            </th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Subject)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @{
-                            var userId = item.ApplicationUserId ?? "Deleted User Id";
-                            var userName = item.ApplicationUserUserName ?? "Deleted User Username";
-                            var userEmail = item.ApplicationUserEmail ?? "Deleted User Email";
-                        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @{
+                        var userId = item.ApplicationUserId ?? "Deleted User Id";
+                        var userName = item.ApplicationUserUserName ?? "Deleted User Username";
+                        var userEmail = item.ApplicationUserEmail ?? "Deleted User Email";
+                    }
 
-                        ID: @userId
-                        <hr />
-                        Username: @userName
-                        <hr />
-                        Email: @userEmail
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LessonName)
-                        <hr />
-                        @Html.DisplayFor(modelItem => item.LessonDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CommentContent)
-                    </td>
-                    <td>
-                        <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsDeleted)
-                    </td>
-                    <td>
-                        @if (item.LessonId != null)
-                        {
-                            <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                        }
-                        <a asp-area="Administration" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit / Soft delete</a>
-                        <a asp-area="Administration" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard delete (Irreversible)</a>
-                    </td>
-                </tr>
-            }
+                    ID: @userId
+                    <hr/>
+                    Username: @userName
+                    <hr/>
+                    Email: @userEmail
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonName)
+                    <hr/>
+                    @Html.DisplayFor(modelItem => item.LessonDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommentContent)
+                </td>
+                <td>
+                    <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    @if (item.LessonId != null)
+                    {
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                    }
+                    @{
+                        string currentUserId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                        var dbUser = await userManager.FindByIdAsync(currentUserId);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                        var disableIfUnauthorized =
+                            dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                    }
+                    <a asp-area="Administration" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">
+                        Edit / Soft delete
+                    </a>
+                    <a asp-area="Administration" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1 @disableIfUnauthorized">
+                        Hard delete (Irreversible)
+                    </a>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 

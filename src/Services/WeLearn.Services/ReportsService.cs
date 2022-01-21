@@ -162,7 +162,6 @@ namespace WeLearn.Services
         {
             Report report = this.reportRepository.All().FirstOrDefault(x => x.Id == reportId);
 
-            // todo validate it is marked as deleted but not actually deleted.
             this.reportRepository.Delete(report);
             await this.reportRepository.SaveChangesAsync();
         }

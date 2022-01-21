@@ -171,6 +171,7 @@ namespace WeLearn.Web.Controllers
             }
 
             await this.examinationsService.CreateAsync(quizId, points, userId, choices);
+            await this.choicesService.SaveChangesAsync();
 
             return this.RedirectToAction(nameof(this.Dashboard));
         }

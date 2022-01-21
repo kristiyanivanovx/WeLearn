@@ -1,12 +1,17 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 
+using static WeLearn.Common.GlobalConstants;
+
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    public class ManageController : AdministrationController
+    [Area(ApplicationAdministrationAreaName)]
+    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    public class ManageController : Controller
     {
         private readonly IInformationService informationService;
 

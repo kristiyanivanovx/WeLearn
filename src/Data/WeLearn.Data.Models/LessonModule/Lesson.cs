@@ -16,6 +16,7 @@ namespace WeLearn.Data.Models.LessonModule
         {
             this.Likes = new HashSet<Like>();
             this.Recommendations = new HashSet<Recommendation>();
+            this.Comments = new HashSet<Comment>();
         }
 
         [Required]
@@ -35,10 +36,6 @@ namespace WeLearn.Data.Models.LessonModule
 
         public Grade Grade { get; set; }
 
-        public ICollection<Like> Likes { get; set; }
-
-        public ICollection<Recommendation> Recommendations { get; set; }
-
         public string ApplicationUserId { get; set; }
 
         [Display(Name = "User")]
@@ -51,5 +48,11 @@ namespace WeLearn.Data.Models.LessonModule
         public int MaterialId { get; set; }
 
         public Material Material { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<Like> Likes { get; set; }
+
+        public ICollection<Recommendation> Recommendations { get; set; }
     }
 }

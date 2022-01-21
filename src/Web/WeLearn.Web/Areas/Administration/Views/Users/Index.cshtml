@@ -20,144 +20,215 @@
 </form>
 
 <div class="text-center">
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Roles
+        </th>
+        <th>
+            Is Administrator?
+        </th>
+        <th>
+            Is Teacher?
+        </th>
+        <th>
+            Manage
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Username
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Roles
-            </th>
-            <th>
-                Is Administrator
-            </th>
-            <th>
-                Manage
-            </th>
-        </tr>
-        </thead>
-        <tbody>
+            @{
+                var dbUser = await userManager.FindByIdAsync(item.Id);
+                var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+                var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                @{
-                    var dbUser = await userManager.FindByIdAsync(item.Id);
-                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
-                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+                var adminRoleButtonClassStyling = dbUserIsAdmin ?
+                    "btn btn-sm btn-outline-warning mb-1" :
+                    "btn btn-sm btn-outline-success mb-1";
 
-                    var adminRoleButtonClassStyling = dbUserIsAdmin ?
-                        "btn btn-sm btn-outline-warning mb-1" :
-                        "btn btn-sm btn-outline-success mb-1";
+                var teacherRoleButtonClassStyling = !dbUserIsTeacher ?
+                    "btn btn-sm btn-outline-success mb-1" :
+                    "btn btn-sm btn-outline-warning mb-1";
 
-                    // current logged in Admin is Head Admin
-                    var currentAdminIsHeadAdmin = User.IsInRole(ApplicationHeadAdministratorRoleName);
+                // current logged in admin is Head Admin
+                var currentAdminIsHeadAdmin = User.IsInRole(ApplicationHeadAdministratorRoleName);
+                var currentIsAdmin = User.IsInRole(ApplicationRegularAdministratorRoleName);
 
-                    // demoting is available only if the current logged in Admin is Head Admin
-                    // and the db entity (user) is not Head Admin
-                    var disableIfUnauthorized = currentAdminIsHeadAdmin && !dbUserIsHeadAdmin ? "enabled" : "disabled";
+                // demoting is available only if the current logged in Admin is Head Admin
+                // and the db entity (user) is not Head Admin
+                var disableIfUnauthorized = currentAdminIsHeadAdmin && !dbUserIsHeadAdmin ? "enabled" : "disabled";
+                var disableIfTeacherUnauthorized = currentIsAdmin && !dbUserIsHeadAdmin ? "enabled" : "disabled";
+            }
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @string.Join(", ", await userManager.GetRolesAsync(dbUser))
+            </td>
+            <td>
+                @if (dbUserIsAdmin || dbUserIsHeadAdmin)
+                {
+                    <div class="admin-role-color">
+                        Yes
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        No
+                    </div>
                 }
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @string.Join(", ", await userManager.GetRolesAsync(dbUser))
-                </td>
-                <td>
-                    @if (dbUserIsAdmin || dbUserIsHeadAdmin)
-                    {
-                        <div class="admin-role-color">Yes</div>
-                    }
-                    else
-                    {
-                        <div>No</div>
-                    }
-                </td>
-                <td>
-                    <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-userId="@item.Id">
-                        <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
-                            @if (dbUserIsAdmin)
-                            {
-                                <div>Demote to User</div>
-                            }
-                            else
-                            {
-                                <div>Promote to Admin</div>
-                            }
-                        </button>
-                    </form>
+                <form asp-area="Administration" asp-controller="Users" asp-action="ToggleAdminRole" asp-route-userId="@item.Id">
+                    <button class="@adminRoleButtonClassStyling" @disableIfUnauthorized type="submit">
+                        @if (dbUserIsAdmin)
+                        {
+                            <div>
+                                Remove Admin
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                Make Admin
+                            </div>
+                        }
+                    </button>
+                </form>
+            </td>
+            <td>
+                @if (dbUserIsTeacher)
+                {
+                    <div class="admin-role-color">Yes</div>
+                }
+                else
+                {
+                    <div>No</div>
+                }
 
-                    <form asp-area="Administration" asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id">
-                        <button class="btn btn-sm btn-outline-danger mb-1" @disableIfUnauthorized>
-                            Hard delete (Irreversible)
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-
-    @* pagination section *@
-    @{
-        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                <form asp-area="Administration" asp-controller="Users" asp-action="ToggleTeacherRole" asp-route-userId="@item.Id">
+                    <button class="@teacherRoleButtonClassStyling" @disableIfTeacherUnauthorized type="submit">
+                        @if (dbUserIsTeacher)
+                        {
+                            <div>Remove Teacher</div>
+                        }
+                        else
+                        {
+                            <div>Make Teacher</div>
+                        }
+                    </button>
+                </form>
+            </td>
+            <td>
+                <a asp-area="Administration" asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id"
+                   class="btn btn-sm btn-outline-danger mt-4 @disableIfUnauthorized">
+                    Hard delete (Irreversible)
+                </a>
+                
+                @* or this*@
+                
+                @* <button class="btn btn-sm btn-outline-danger mt-4" @disableIfUnauthorized data-toggle="modal" data-target="#confirmModal"> *@
+                @*     Hard delete (Irreversible) *@
+                @* </button> *@
+                @* *@
+                @* <!-- Delete Modal --> *@
+                @* <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true"> *@
+                @*     <div class="modal-dialog" role="document"> *@
+                @*         <div class="modal-content "> *@
+                @*             <div class="modal-header"> *@
+                @*                 <h5 class="modal-title" id="confirmModalLabel">Delete confirmation</h5> *@
+                @*                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> *@
+                @*                     <span aria-hidden="true">&times;</span> *@
+                @*                 </button> *@
+                @*             </div> *@
+                @* *@
+                @*             <div class="modal-body container"> *@
+                @*                 <div>Are you sure that you want to delete this user?</div> *@
+                @*             </div> *@
+                @* *@
+                @*             <form asp-area="Administration" asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id" method="post"> *@
+                @*                 <div class="modal-footer"> *@
+                @*                     <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger"/> *@
+                @*                     <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button> *@
+                @*                 </div> *@
+                @*             </form> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
+            </td>
+        </tr>
     }
-    <div class="mt-2 mb-2 text-center">
-        <a asp-area="Administration"
-           asp-controller="Users"
-           asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex - 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           asp-route-searchString="@Model.SearchString"
-           asp-route-categoryName="@ViewData["UserName"]"
-           class="btn btn-sm btn-outline-dark @prevDisabled">
-            <i class="fas fa-arrow-left"></i> Previous
-        </a>
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            var current = i;
-            <a asp-area="Administration"
-               asp-controller="Users"
-               asp-action="Index"
-               asp-route-sortOrder="@ViewData["CurrentSort"]"
-               asp-route-pageNumber="@current"
-               asp-route-currentFilter="@ViewData["CurrentFilter"]"
-               asp-route-searchString="@Model.SearchString"
-               asp-route-categoryName="@ViewData["UserName"]"
-               class="btn btn-sm btn-outline-dark ">
-                @current
-            </a>
-        }
-        <a asp-area="Administration"
-           asp-controller="Users"
-           asp-action="Index"
-           asp-route-sortOrder="@ViewData["CurrentSort"]"
-           asp-route-pageNumber="@(Model.PageIndex + 1)"
-           asp-route-currentFilter="@ViewData["CurrentFilter"]"
-           asp-route-searchString="@Model.SearchString"
-           asp-route-categoryName="@ViewData["UserName"]"
-           class="btn btn-sm btn-outline-dark @nextDisabled">
-            Next <i class="fas fa-arrow-right"></i>
-        </a>
-    </div>
+    </tbody>
+</table>
 
-    @* pagination section end *@
+@* pagination section *@
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div class="mt-2 mb-2 text-center">
+    <a asp-area="Administration"
+       asp-controller="Users"
+       asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       asp-route-searchString="@Model.SearchString"
+       asp-route-categoryName="@ViewData["UserName"]"
+       class="btn btn-sm btn-outline-dark @prevDisabled">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        var current = i;
+        <a asp-area="Administration"
+           asp-controller="Users"
+           asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@current"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-categoryName="@ViewData["UserName"]"
+           class="btn btn-sm btn-outline-dark ">
+            @current
+        </a>
+    }
+    <a asp-area="Administration"
+       asp-controller="Users"
+       asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       asp-route-searchString="@Model.SearchString"
+       asp-route-categoryName="@ViewData["UserName"]"
+       class="btn btn-sm btn-outline-dark @nextDisabled">
+        Next <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+
+@* pagination section end *@
 </div>
 
 @section Scripts

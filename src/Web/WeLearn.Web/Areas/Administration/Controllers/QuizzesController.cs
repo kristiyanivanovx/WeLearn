@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services;
 using WeLearn.Services.Interfaces;
@@ -8,9 +9,13 @@ using WeLearn.Web.ViewModels.Examination;
 using WeLearn.Web.ViewModels.Question;
 using WeLearn.Web.ViewModels.Quiz;
 
+using static WeLearn.Common.GlobalConstants;
+
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    public class QuizzesController : AdministrationController
+    [Area(ApplicationAdministrationAreaName)]
+    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    public class QuizzesController : Controller
     {
         // todo: interface instead of class
         private readonly ExaminationsService examinationsService;
@@ -113,6 +118,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.View(examination);
         }
 
+        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -126,14 +132,5 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             await this.quizzesService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }
-
-        // [HttpGet]
-        // public IActionResult Index()
-        // {
-        //     // IEnumerable<AdminReportViewModel> reports = await this.quizzesService.GetAllReportsAsync<AdminReportViewModel>(searchString);
-        //     // paginated.SearchString = searchString;
-        //
-        //     return View();
-        // }
     }
 }

@@ -15,5 +15,10 @@ namespace WeLearn.Data.Models.Quiz
         public int UserAnswerId { get; set; }
 
         public Answer UserAnswer { get; set; }
+
+        [Required]
+        public int ExaminationId { get; set; }
+
+        public Examination Examination { get; set; }
     }
 }

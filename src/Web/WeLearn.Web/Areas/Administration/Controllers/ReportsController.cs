@@ -2,14 +2,19 @@
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Interfaces;
 using WeLearn.Web.ViewModels.Admin.Report;
 using WeLearn.Web.ViewModels.HelperModels;
 
+using static WeLearn.Common.GlobalConstants;
+
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    public class ReportsController : AdministrationController
+    [Area(ApplicationAdministrationAreaName)]
+    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    public class ReportsController : Controller
     {
         private readonly IReportsService reportsService;
 
@@ -46,6 +51,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
+        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -54,6 +60,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.View(report);
         }
 
+        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
         [HttpPost]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)

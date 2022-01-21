@@ -24,6 +24,15 @@
 
         public const string ApplicationRegularAdministratorId = "d91316c6-8823-4614-a3c5-6228f06c746a";
 
+        // Teacher User
+        public const string ApplicationTeacherEmail = "peter.856@gmail.com";
+
+        public const string ApplicationTeacherUsername = "Peter85";
+
+        public const string ApplicationTeacherRoleName = "Teacher";
+
+        public const string ApplicationTeacherId = "3d6b0f85-4c05-4d82-8a3b-08c81974c9fc";
+
         // Other
         public const string ApplicationHostName = "welearn-bg.herokuapp.com";
 

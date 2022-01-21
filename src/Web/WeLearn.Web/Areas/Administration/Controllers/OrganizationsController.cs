@@ -7,9 +7,13 @@ using WeLearn.Services;
 
 using WeLearn.Web.ViewModels.Organization;
 
+using static WeLearn.Common.GlobalConstants;
+
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    public class OrganizationsController : AdministrationController
+    [Area(ApplicationAdministrationAreaName)]
+    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    public class OrganizationsController : Controller
     {
         private readonly OrganizationsService organizationsService;
 
@@ -49,6 +53,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
+        [HttpPost]
+        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
         public async Task<RedirectToActionResult> Delete(int id)
         {
             await this.organizationsService.HardDeleteAsync(id, true);

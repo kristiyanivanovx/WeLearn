@@ -127,23 +127,6 @@ namespace WeLearn.Services
             await this.organizationRepository.SaveChangesAsync();
         }
 
-        // todo: delete
-        // public async Task UpdateOrganizationsAsync(OrganizationViewModel model, string userId)
-        // {
-        //     var organization = this.GetById(model.Id);
-        //     var user = this.appUserRepository
-        //         .All()
-        //         .Include(x => x.Organizations)
-        //         .FirstOrDefault(x => x.Id == userId);
-        //
-        //     if (organization.ApplicationUsers.Contains(user))
-        //     {
-        //         // ...
-        //     }
-        //
-        //     this.organizationRepository.Update(organization);
-        //     await this.organizationRepository.SaveChangesAsync();
-        // }
         public async Task SoftDeleteAsync(int id)
         {
             var organization = this.organizationRepository

@@ -52,7 +52,8 @@ namespace WeLearn.Web
                 options.UseNpgsql(this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddRazorPages();
             services.AddRouting(options => options.LowercaseUrls = true);

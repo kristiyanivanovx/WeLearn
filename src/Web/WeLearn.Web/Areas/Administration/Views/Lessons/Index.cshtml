@@ -8,105 +8,115 @@
 <form asp-area="Administration" asp-controller="Lessons" asp-action="Index" method="get">
     <label>Find by name or description:</label>
     <div class="input-group input-group-sm mb-3">
-        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
-        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+        <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString"/>
+        <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1"/>
     </div>
 </form>
 
 <div class="text-center">
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Category
-                </th>
-                <th>
-                    Grade
-                </th>
-                <th>
-                    Created by user
-                </th>
-                <th>
-                    Video
-                </th>
-                <th>
-                    Material
-                </th>
-                <th>
-                    Date created
-                </th>
-                <th>
-                    Is deleted
-                </th>
-                <th>
-                    Is approved
-                </th>
-                <th>
-                    Manage
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Grade
+            </th>
+            <th>
+                Created by user
+            </th>
+            <th>
+                Video
+            </th>
+            <th>
+                Material
+            </th>
+            <th>
+                Date created
+            </th>
+            <th>
+                Is deleted
+            </th>
+            <th>
+                Is approved
+            </th>
+            <th>
+                Manage
+            </th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CategoryName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Grade)
-                    </td>
-                    <td>
-                        @{
-                            var userId = item.ApplicationUserId ?? "Deleted User Id";
-                            var userName = item.ApplicationUserUserName ?? "Deleted Username";
-                            var userEmail = item.ApplicationUserEmail ?? "Deleted Email";
-                        }
-                        ID: @userId
-                        <hr />
-                        Username: @userName
-                        <hr />
-                        Email: @userEmail
-                    </td>
-                    <td>
-                        <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
-                            <source src="@item.VideoLink" type="@item.VideoContentType" />
-                            <a href="@item.VideoLink" download>Download</a>
-                        </video>
-                    </td>
-                    <td>
-                        <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.MaterialLink" class="btn btn-sm btn-outline-info">
-                            &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
-                        </a>
-                    </td>
-                    <td>
-                        <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsDeleted)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsApproved)
-                    </td>
-                    <td>
-                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger mb-1">Hard&nbsp;delete&nbsp;(Irreversible)</a>
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @{
+                        var userId = item.ApplicationUserId ?? "Deleted User Id";
+                        var userName = item.ApplicationUserUserName ?? "Deleted Username";
+                        var userEmail = item.ApplicationUserEmail ?? "Deleted Email";
+                    }
+                    ID: @userId
+                    <hr/>
+                    Username: @userName
+                    <hr/>
+                    Email: @userEmail
+                </td>
+                <td>
+                    <video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@item.VideoName" data-poster="@item.VideoLink">
+                        <source src="@item.VideoLink" type="@item.VideoContentType"/>
+                        <a href="@item.VideoLink" download>Download</a>
+                    </video>
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Lesson" asp-action="Download" asp-route-link="@item.MaterialLink" class="btn btn-sm btn-outline-info">
+                        &nbsp;<i class="fas fa-arrow-down"></i>&nbsp;Download&nbsp;Resources
+                    </a>
+                </td>
+                <td>
+                    <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsApproved)
+                </td>
+                <td>
+                    @{
+                        string currentUserId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                        var dbUser = await userManager.FindByIdAsync(currentUserId);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                        var disableIfUnauthorized =
+                            dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                    }
+                    <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">Edit&nbsp;/&nbsp;Soft&nbsp;delete&nbsp;/&nbsp;Approve</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"  class="btn btn-sm btn-outline-danger mb-1 @disableIfUnauthorized">Hard&nbsp;delete&nbsp;(Irreversible)</a>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>

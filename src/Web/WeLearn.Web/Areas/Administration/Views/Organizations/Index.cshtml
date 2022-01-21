@@ -1,4 +1,3 @@
-@using System.Security.Claims
 @model IEnumerable<OrganizationViewModel>
 @{
     ViewData["Title"] = "Organizations administration";
@@ -10,33 +9,33 @@
     <div>
         <div class="row">
             <div class="col-md-2"></div>
-            
+
             <div class="col-md-8">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Member count
-                            </th>
-                            <th>
-                                Date created
-                            </th>
-                            <th>  
-                                Is deleted
-                            </th>
-                            <th>
-                                Actions
-                            </th>
-                            <th>
-                                Management
-                            </th>
-                        </tr>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Member count
+                        </th>
+                        <th>
+                            Date created
+                        </th>
+                        <th>
+                            Is deleted
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                        <th>
+                            Management
+                        </th>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach (var organization in @Model)
@@ -74,7 +73,7 @@
                                     <a asp-area="" asp-controller="Organization" asp-action="Leave" asp-route-id="@organization.Id"
                                        class="btn btn-sm btn-outline-danger @disabledStyle">
                                         Leave
-                                    </a>   
+                                    </a>
                                 }
                                 else
                                 {
@@ -84,20 +83,29 @@
                                     </a>
                                 }
                                 <a asp-area="" asp-controller="Organization" asp-action="View" asp-route-id="@organization.Id"
-                                   class="btn btn-sm btn-outline-primary mt-1 mb-1 @disabledStyle" >
+                                   class="btn btn-sm btn-outline-primary mt-1 mb-1 @disabledStyle">
                                     View
                                 </a>
                             </td>
                             <td>
-                                <a asp-controller="Organizations"  asp-action="Edit" asp-route-id="@organization.Id" 
+                                @{
+                                    var dbUser = await userManager.FindByIdAsync(userId);
+                                    var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
+                                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+
+                                    var disableIfUnauthorized =
+                                        dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                                }
+                                <a asp-controller="Organizations" asp-action="Edit" asp-route-id="@organization.Id"
                                    class="btn btn-sm btn-outline-success mb-1">
                                     Edit / Soft delete
                                 </a>
 
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmModal">
+                                <button type="button" class="btn btn-sm btn-outline-danger" @disableIfUnauthorized data-toggle="modal" data-target="#confirmModal">
                                     Hard delete (Irreversible)
                                 </button>
-                                                    
+
                                 <!-- Delete Modal -->
                                 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -108,19 +116,28 @@
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                
+
                                             <div class="modal-body container">
                                                 <div>Are you sure that you want to delete this organization?</div>
                                             </div>
-                                                              
-                                            <div class="modal-footer">
-                                                <a asp-area="Administration" asp-controller="Organizations" asp-action="Delete" asp-route-id="@organization.Id"
-                                                   class="btn btn-sm btn-outline-danger">
-                                                    Delete
-                                                </a>
-                                                                    
-                                                <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
-                                            </div>
+
+                                            <form asp-area="Administration" asp-controller="Organizations" asp-action="Delete" asp-route-id="@organization.Id" method="post">
+                                                <div class="modal-footer">
+                                                    <input type="submit" value="Delete" class="btn btn-sm btn-outline-danger"/>
+                                                    <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                                </div>
+
+                                                @* <div class="modal-footer"> *@
+                                                @*     <a asp-area="Administration" asp-controller="Organizations" asp-action="Delete" asp-route-id="@organization.Id" *@
+                                                @*        class="btn btn-sm btn-outline-danger"> *@
+                                                @*         Delete *@
+                                                @*     </a> *@
+                                                @* *@
+                                                @*     <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button> *@
+                                                @* </div> *@
+                                            </form>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -131,10 +148,8 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="col-md-2"></div>
         </div>
     </div>
 </div>
-
-

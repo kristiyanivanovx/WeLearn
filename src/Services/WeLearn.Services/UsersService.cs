@@ -96,6 +96,39 @@ namespace WeLearn.Services
             await this.appUserRepository.SaveChangesAsync();
         }
 
+        public async Task ToggleTeacherRoleAsync(string targetUserId, string actingUserId)
+        {
+            var actingUser = await this.appUserRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == actingUserId);
+
+            var targetUser = await this.appUserRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == targetUserId);
+
+            // regular admins should not be able to touch head admin's teacher role
+            // this is when (acting user is not admin) and (target is head admin)
+            var isActingUserHeadAdmin = await this.userManager.IsInRoleAsync(actingUser, ApplicationHeadAdministratorRoleName);
+            var isTargetUserHeadAdmin = await this.userManager.IsInRoleAsync(targetUser, ApplicationHeadAdministratorRoleName);
+
+            if (!isActingUserHeadAdmin && isTargetUserHeadAdmin)
+            {
+                return;
+            }
+
+            var isUserTeacher = await this.userManager.IsInRoleAsync(targetUser, ApplicationTeacherRoleName);
+            if (isUserTeacher)
+            {
+                await this.userManager.RemoveFromRoleAsync(targetUser, ApplicationTeacherRoleName);
+            }
+            else
+            {
+                await this.userManager.AddToRoleAsync(targetUser, ApplicationTeacherRoleName);
+            }
+
+            await this.appUserRepository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId)
             => await this.appUserRepository
                 .All()
@@ -121,7 +154,16 @@ namespace WeLearn.Services
 
         public async Task HardDeleteUserByIdAsync(string userId)
         {
-            var user = this.appUserRepository.All().FirstOrDefault(x => x.Id == userId);
+            var user = this.appUserRepository
+                .All()
+                .FirstOrDefault(x => x.Id == userId);
+
+            var isUserHeadAdmin = await this.userManager.IsInRoleAsync(user, ApplicationHeadAdministratorRoleName);
+            if (isUserHeadAdmin)
+            {
+                return;
+            }
+
             if (user != null)
             {
                 this.appUserRepository.HardDelete(user);

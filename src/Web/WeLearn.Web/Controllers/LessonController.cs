@@ -68,9 +68,8 @@ namespace WeLearn.Web.Controllers
                 .ToList();
 
             // get only the models that are recommended - lesson id and user id have to match
-            // and that have RecommendationScore greater than or equal to 15
+            // .Where(model => (int)(model.RecommendationScore * 100) >= 25)
             var models = allLessons
-                //.Where(model => model.RecommendationScore >= 0.10f)
                 .Where(model => recommendations
                     .Any(rec =>
                         rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId)));

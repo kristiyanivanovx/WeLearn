@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id" content="683158115512-kek44cn4mtvhl1mr00uq9t3mv613sofr.apps.googleusercontent.com">
-    <title>@ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <title>@ViewData["Title"] - @SystemName</title>
     
     @* SB Admin 2 *@
     <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -44,9 +44,18 @@
 <div id="wrapper">
 
 @{
-    var gradientStyle = this.User.IsInRole(GlobalConstants.ApplicationHeadAdministratorRoleName) ?
+    var isHeadAdmin = this.User.IsInRole(ApplicationHeadAdministratorRoleName);
+    var isAdmin = this.User.IsInRole(ApplicationRegularAdministratorRoleName);
+    var isTeacher = this.User.IsInRole(ApplicationTeacherRoleName);
+    var isTeacherOnly = isTeacher && !isAdmin && !isHeadAdmin;
+    
+    var gradientStyle = isHeadAdmin ?
         "bg-gradient-primary" :
-        "bg-gradient-success"; // bg-gradient-admin or bg-gradient-success
+        "bg-gradient-success"; 
+
+    gradientStyle = isTeacherOnly ?
+        "bg-gradient-teacher" :
+        gradientStyle;
 }
 
 <!-- Sidebar -->
@@ -197,22 +206,22 @@
             </a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+        @if (!isTeacherOnly)
+        {
+            <hr class="sidebar-divider">
+            
+            <div class="sidebar-heading">
+                Cron jobs management
+            </div>
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Cron jobs management
-        </div>
-
-        <li class="nav-item">
-            @* ReSharper disable once Mvc.ControllerNotResolved *@
-            <a class="nav-link" asp-area="" asp-controller="Hangfire" asp-action="Index">
-                <i class="fas fa-fw fa-fire"></i>
-                <span>Hangfire</span>
-            </a>
-        </li>
-
+            <li class="nav-item">
+                @* ReSharper disable once Mvc.ControllerNotResolved *@
+                <a class="nav-link" asp-area="" asp-controller="Hangfire" asp-action="Index">
+                    <i class="fas fa-fw fa-fire"></i>
+                    <span>Hangfire</span>
+                </a>
+            </li>
+        }
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

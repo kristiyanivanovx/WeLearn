@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using WeLearn.Data.Common.Models;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Models.LessonModule;
+using WeLearn.Data.Models.Quiz;
 using WeLearn.Data.Models.User;
 
 namespace WeLearn.Data.Models.Identity
@@ -14,12 +15,11 @@ namespace WeLearn.Data.Models.Identity
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.ApplicationUserRoles = new HashSet<ApplicationUserRole>();
 
-            // this.SentPrivateMessages = new HashSet<PrivateMessage>();
-            // this.ReceivedPrivateMessages = new HashSet<PrivateMessage>();
+            this.Examinations = new HashSet<Examination>();
             this.Recommendations = new HashSet<LessonModule.Recommendation>();
             this.Likes = new HashSet<Like>();
             this.Lessons = new HashSet<Lesson>();
@@ -40,6 +40,8 @@ namespace WeLearn.Data.Models.Identity
 
         public DateTime? DeletedOn { get; set; }
 
+        public IEnumerable<Examination> Examinations { get; set; }
+
         public IEnumerable<Organization> CreatedOrganizations { get; set; }
 
         public IEnumerable<Organization> Organizations { get; set; }
@@ -56,7 +58,7 @@ namespace WeLearn.Data.Models.Identity
 
         public ICollection<LessonModule.Recommendation> Recommendations { get; set; }
 
-        public ICollection<IdentityUserRole<string>> Roles { get; set; }
+        public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
         public ICollection<IdentityUserClaim<string>> Claims { get; set; }
 

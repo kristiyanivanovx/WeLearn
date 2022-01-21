@@ -8,8 +8,13 @@ namespace WeLearn.Data.Models.Quiz
 {
     public class Examination : BaseDeletableModel<int>
     {
+        public Examination()
+        {
+            this.Choices = new HashSet<Choice>();
+        }
+
         [Required]
-        public ICollection<Choice> Choices { get; set; } = new HashSet<Choice>();
+        public ICollection<Choice> Choices { get; set; }
 
         [Required]
         public int Points { get; set; }

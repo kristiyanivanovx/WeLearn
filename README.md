@@ -51,6 +51,11 @@ Primary focus is on students in primary/secondary school and respectively, their
 - Password: User_qwerty_1234%
 - Email: default@gmail.com
 
+### User credentials: Teacher role
+- Username: Peter85
+- Password: Peter_1234_#pass
+- Email: peter.856@gmail.com
+
 ### User credentials: User
 - Username: #todo
 - Password: #todo

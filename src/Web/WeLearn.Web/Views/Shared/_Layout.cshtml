@@ -32,7 +32,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
         @* <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow"> *@
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand black-text" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="/logo.png" class="logo" alt="earth"/>
                 <span>@GlobalConstants.SystemName</span>
             </a>
@@ -144,7 +144,7 @@
 </div>
 
 <footer class="border-top footer bg-white text-muted text-center mt-4">
-    <div class="container">
+    <div class="container black-text">
         @DateTime.Now.Year • WeLearn • @await Component.InvokeAsync("UsersCountSummary") •
         <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> •
         <a asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a> •

@@ -247,99 +247,99 @@ namespace WeLearn.Data.Infrastructure
                 {
                     Id = 1, LessonId = 1, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Teaching",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622056204/welearn-asp-net-core-app/videos/seed/teacher-presenting.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622056204/welearn-asp-net-core-app/videos/seed/teacher-presenting.mp4"
                 },
                 new Video
                 {
                     Id = 2, LessonId = 2, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Teaching",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053205/welearn-asp-net-core-app/videos/seed/man-teaching_miueor.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053205/welearn-asp-net-core-app/videos/seed/man-teaching_miueor.mp4"
                 },
                 new Video
                 {
                     Id = 3, LessonId = 3, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Coding",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053215/welearn-asp-net-core-app/videos/seed/coding_bbc9sv.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053215/welearn-asp-net-core-app/videos/seed/coding_bbc9sv.mp4"
                 },
                 new Video
                 {
                     Id = 4, LessonId = 4, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Office Suite",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053172/welearn-asp-net-core-app/videos/seed/office-suite_lugjnz.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053172/welearn-asp-net-core-app/videos/seed/office-suite_lugjnz.mp4"
                 },
                 new Video
                 {
                     Id = 5, LessonId = 5, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Ukraine",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053238/welearn-asp-net-core-app/videos/seed/eastern-europe_a7ljx0.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053238/welearn-asp-net-core-app/videos/seed/eastern-europe_a7ljx0.mp4"
                 },
                 new Video
                 {
                     Id = 6, LessonId = 6, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Football",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053255/welearn-asp-net-core-app/videos/seed/football_basmoc.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053255/welearn-asp-net-core-app/videos/seed/football_basmoc.mp4"
                 },
                 new Video
                 {
                     Id = 7, LessonId = 7, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Literature",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053256/welearn-asp-net-core-app/videos/seed/literature_u1mriv.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053256/welearn-asp-net-core-app/videos/seed/literature_u1mriv.mp4"
                 },
                 new Video
                 {
                     Id = 8, LessonId = 8, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Human Rights",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053261/welearn-asp-net-core-app/videos/seed/human-rights_vbojip.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053261/welearn-asp-net-core-app/videos/seed/human-rights_vbojip.mp4"
                 },
                 new Video
                 {
                     Id = 9, LessonId = 9, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Modal Verbs",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053183/welearn-asp-net-core-app/videos/seed/modal-verbs_jjnya3.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053183/welearn-asp-net-core-app/videos/seed/modal-verbs_jjnya3.mp4"
                 },
                 new Video
                 {
                     Id = 10, LessonId = 10, CreatedOn = dateTime, ContentType = "video/mp4",
                     Name = "Russian Language",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053192/welearn-asp-net-core-app/videos/seed/russian-language_uaydhx.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053192/welearn-asp-net-core-app/videos/seed/russian-language_uaydhx.mp4"
                 },
                 new Video
                 {
                     Id = 11, LessonId = 11, CreatedOn = dateTime, ContentType = "video/mp4", Name = "History",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053246/welearn-asp-net-core-app/videos/seed/history_sll9r9.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053246/welearn-asp-net-core-app/videos/seed/history_sll9r9.mp4"
                 },
                 new Video
                 {
                     Id = 12, LessonId = 12, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Biology",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053200/welearn-asp-net-core-app/videos/seed/biology_veyt5f.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053200/welearn-asp-net-core-app/videos/seed/biology_veyt5f.mp4"
                 },
                 new Video
                 {
                     Id = 13, LessonId = 13, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Chemistry",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053225/welearn-asp-net-core-app/videos/seed/chemistry_zpdwl9.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053225/welearn-asp-net-core-app/videos/seed/chemistry_zpdwl9.mp4"
                 },
                 new Video
                 {
                     Id = 14, LessonId = 14, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Music",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053175/welearn-asp-net-core-app/videos/seed/music_x6vt4y.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053175/welearn-asp-net-core-app/videos/seed/music_x6vt4y.mp4"
                 },
                 new Video
                 {
                     Id = 15, LessonId = 15, CreatedOn = dateTime, ContentType = "video/mp4", Name = "Painting",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053181/welearn-asp-net-core-app/videos/seed/painting_glxyu0.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053181/welearn-asp-net-core-app/videos/seed/painting_glxyu0.mp4"
                 },
                 new Video
                 {
                     Id = 16, LessonId = 16, CreatedOn = dateTime, ContentType = "video/mp4",
                     Name = "Entrepreneurship",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/v1622053249/welearn-asp-net-core-app/videos/seed/entrepreneurship_ulreso.mp4"
+                        "https://res.cloudinary.com/dgvfqp9zu/video/upload/q_auto/v1622053249/welearn-asp-net-core-app/videos/seed/entrepreneurship_ulreso.mp4"
                 });
 
             modelBuilder.Entity<Lesson>().HasData(
@@ -447,97 +447,97 @@ namespace WeLearn.Data.Infrastructure
                 {
                     Id = 1, LessonId = 1, CreatedOn = dateTime, Name = "Teaching",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 2, LessonId = 2, CreatedOn = dateTime, Name = "Teaching",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 3, LessonId = 3, CreatedOn = dateTime, Name = "Coding",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 4, LessonId = 4, CreatedOn = dateTime, Name = "Office Suite",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 5, LessonId = 5, CreatedOn = dateTime, Name = "Ukraine",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 6, LessonId = 6, CreatedOn = dateTime, Name = "Football",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 7, LessonId = 7, CreatedOn = dateTime, Name = "Literature",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 8, LessonId = 8, CreatedOn = dateTime, Name = "Human Rights",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 9, LessonId = 9, CreatedOn = dateTime, Name = "Modal Verbs",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 10, LessonId = 10, CreatedOn = dateTime, Name = "Russian Language",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 11, LessonId = 11, CreatedOn = dateTime, Name = "History",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 12, LessonId = 12, CreatedOn = dateTime, Name = "Biology",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 13, LessonId = 13, CreatedOn = dateTime, Name = "Chemistry",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 14, LessonId = 14, CreatedOn = dateTime, Name = "Music",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 15, LessonId = 15, CreatedOn = dateTime, Name = "Painting",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 },
                 new Material
                 {
                     Id = 16, LessonId = 16, CreatedOn = dateTime, Name = "Entrepreneurship",
                     Link =
-                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
+                        "https://res.cloudinary.com/dgvfqp9zu/raw/upload/q_auto/v1620309301/welearn-asp-net-core-app/zip-files/seed-dfd1-4ed3-a862-684cd9a35995_mdzu3z.zip"
                 });
 
             modelBuilder.Entity<Chat>().HasData(

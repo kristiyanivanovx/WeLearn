@@ -64,7 +64,7 @@ Primary focus is on students in primary/secondary school and respectively, their
 ## Installation instructions
 
 ### External logins
-For the Goolge Authentication option to work you need to configure it.
+For the Google Authentication option to work you need to configure it.
 
 * In the Credentials page of the Google console (https://console.developers.google.com/apis/credentials), after creating an project, select ```CREATE CREDENTIALS``` > ```OAuth client ID```.
 * In the Application type dialog, select ```Web application```. Provide a ```Name``` for it.
@@ -159,6 +159,7 @@ export CLOUDINARY_URL=cloudinary://example:xyz@123456
 dotnet WeLearn.Web.dll
 ```
 
+<!--- // legacy //
 ### Training your own recommendations model with ML.NET
 1. Make sure you have some users and these users have liked moderate amount of lessons with one or more users.
 2. Open the ```/src/Services/WeLearn.Services.Data/ExportDataService.cs``` class. Change the test data (step ```3.```) to reflect your version of the data. ```(UserId <=> LessonId)```
@@ -176,15 +177,23 @@ With more data, the predictions will be better, more certain.
 Now you've exported some data, trained a Machine Learning model and got some data. Great!
 For training models using the web application's user interface, something a bit different is done.
 Using HangFire, every day the data is exported to an csv file, and then the model is trained over that data. 
+--->
 
-### Training your own recommendations model with ML.NET - User interface version with HangFire
-1. Run the application - the ```WeLearn.Web``` project.
-2. After it has started up, log in with the administrator account and visit the ```http://localhost:5000/hangfire/recurring``` page.
-3. Run/trigger the ```GetLikesInformationJob``` job. In the ```/WeLearn.Web/Data/``` directory, a new file is created - ```UsersInLessons.csv```.
-4. Run/trigger the ```TrainRecommendationModelJob``` job. In the ```/WeLearn.Web/Data/``` directory, a new file is created - ```WeLearnLessonsModel.zip```.
+### Training your own recommendations model with ML.NET using the HangFire interface
+1. Make sure you have some users and these users have liked moderate amount of lessons, so that the model can do it's job - at least 9 lessons liked by user, more than half of them should be liked by both of these users.
+- Liking the same lessons with different users will give the best results.
+- You should have some lessons liked only by the first user and some lessons liked only by the second user.
+2. Run the application - the ```WeLearn.Web``` project.
+3. After it has started up, log in with the head administrator's account and visit the ```http://localhost:5000/hangfire/recurring``` page.
+4. Run (trigger) the ```GetLikesInformationJob``` job. In the ```/WeLearn.Web/Data/``` directory, a new file is created - ```UsersInLessons.csv```.
+5. Run (trigger) the ```TrainRecommendationModelJob``` job. In the ```/WeLearn.Web/Data/``` directory, a new file is created - ```WeLearnLessonsModel.zip```. Wait a bit, 30 seconds to a minute should be enough to train the model.
+6. Run (trigger) the ```GetPersonalRecommendationsJob``` job. 
 
-Now, every time you check your recommendations you will see the lessons that are most likely to pique your interest.
-By default he data is collected every hour, and the model is trained once a day.
+Now, when you check your recommended lessons you will see the lessons that are most likely to be interesting to you.
+The model finds the users that have common interests and preferences, then recommends based on common liked lessons by two or more users.
+
+By default the exact actions we did here are done automatically by the system itself, using cron jobs and HangFire.
+You generally do not have to do anything, the system takes care of this work itself.
 
 ### Notes
 - You can run with ```ASPNETCORE_ENVIRONMENT=Production``` too, but you will need to configure Cloudinary for this one.

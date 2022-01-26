@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Admin.User;
 using WeLearn.Web.ViewModels.HelperModels;
 

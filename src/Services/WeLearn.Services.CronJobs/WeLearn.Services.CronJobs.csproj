@@ -7,7 +7,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
         <ProjectReference Include="..\WeLearn.Services.ML\WeLearn.Services.ML.csproj" />
-        <ProjectReference Include="..\WeLearn.Services\WeLearn.Services.csproj" />
+        <ProjectReference Include="..\WeLearn.Services.Data\WeLearn.Services.Data.csproj" />
     </ItemGroup>
 
     <PropertyGroup>

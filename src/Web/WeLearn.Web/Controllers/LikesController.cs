@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Data.Models.Identity;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Like;
 
 namespace WeLearn.Web.Controllers

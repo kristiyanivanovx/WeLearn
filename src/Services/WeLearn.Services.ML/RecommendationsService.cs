@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 using Microsoft.ML;
 using Microsoft.ML.Trainers;
 
@@ -47,21 +44,6 @@ namespace WeLearn.Services.ML
 
             // Save model
             context.Model.Save(model, trainingDataView.Schema, outputFile);
-        }
-
-        public static void TestRecommendationsModel(string modelFile, IEnumerable<UserInLesson> testModelData)
-        {
-            var context = new MLContext();
-            var model = context.Model.Load(modelFile, out _);
-            var predictionEngine = context.Model.CreatePredictionEngine<UserInLesson, UserInLessonScore>(model);
-
-            foreach (var testInput in testModelData)
-            {
-                var prediction = predictionEngine.Predict(testInput);
-
-                Console.WriteLine(
-                    $"User: {testInput.UserId}, Lesson: {testInput.LessonId}, Score: {prediction.Score}");
-            }
         }
     }
 }

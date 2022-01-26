@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Recommendation;
+using WeLearn.Services.Data;
 
 using static WeLearn.Common.GlobalConstants;
 
@@ -55,6 +56,7 @@ namespace WeLearn.Services.CronJobs
             string modelFilePath = Path.Combine(path, ExportDirectory, ModelFile);
 
             // using existing model, check for all possible combinations and store them to database
+            
             await this.recommendationsService.TestRecommendationsModel(modelFilePath, allCombinations);
         }
     }

@@ -12,7 +12,7 @@ using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Data.Models.InputOutput;
 using WeLearn.Data.Models.LessonModule;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Services.Messaging.Interfaces;
 
 using WeLearn.Web.ViewModels.HelperModels;

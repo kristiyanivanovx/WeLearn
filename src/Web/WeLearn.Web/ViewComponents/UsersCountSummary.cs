@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 
 namespace WeLearn.Web.ViewComponents
 {

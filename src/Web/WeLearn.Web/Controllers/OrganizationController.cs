@@ -1,8 +1,10 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services;
+using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Organization;
 
 namespace WeLearn.Web.Controllers
@@ -28,7 +30,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Join(int id)
         {
-            await this.organizationsService.AddUserToOrganization(id, this.GetUserId());
+            await this.organizationsService.AddUserToOrganizationAsync(id, this.GetUserId());
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -88,7 +90,7 @@ namespace WeLearn.Web.Controllers
 
             if (model.CreatorId.Equals(this.GetUserId()))
             {
-                await this.organizationsService.EditOrganizationAsync(model);
+                await this.organizationsService.EditAsync(model);
             }
 
             return this.RedirectToAction(nameof(this.View), new { id = model.Id });
@@ -98,11 +100,8 @@ namespace WeLearn.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            var model = this.organizationsService.GetById(id);
-            if (model.CreatorId.Equals(this.GetUserId()))
-            {
-                await this.organizationsService.DeleteOrganizationAsync(model);
-            }
+            var userId = this.GetUserId();
+            await this.organizationsService.SoftDeleteAsync(id, userId);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -116,7 +115,10 @@ namespace WeLearn.Web.Controllers
                 return this.View(model);
             }
 
-            await this.organizationsService.CreateAsync(model, this.GetUserId());
+            var organizationId = await this.organizationsService.CreateAsync(model, this.GetUserId());
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await this.organizationsService.AddUserToOrganizationAsync(organizationId, userId);
 
             return this.RedirectToAction(nameof(this.All));
         }

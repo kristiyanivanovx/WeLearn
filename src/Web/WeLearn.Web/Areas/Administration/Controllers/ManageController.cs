@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 
 using static WeLearn.Common.GlobalConstants;
 

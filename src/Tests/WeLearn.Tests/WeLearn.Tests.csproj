@@ -35,7 +35,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\Data\WeLearn.Data\WeLearn.Data.csproj" />
-    <ProjectReference Include="..\..\Services\WeLearn.Services\WeLearn.Services.csproj" />
+    <ProjectReference Include="..\..\Services\WeLearn.Services.Data\WeLearn.Services.Data.csproj" />
     <ProjectReference Include="..\..\Web\WeLearn.Web\WeLearn.Web.csproj" />
   </ItemGroup>
 

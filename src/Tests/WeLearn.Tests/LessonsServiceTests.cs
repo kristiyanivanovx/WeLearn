@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,9 +9,10 @@ using WeLearn.Data;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
-using WeLearn.Services;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Tests.HelperClasses;
+using WeLearn.Tests.Mocks;
 using WeLearn.Web.ViewModels.Lesson;
 using Xunit;
 
@@ -24,13 +24,10 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_LessonIsSoftDeleted()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var videoRepository = new EfDeletableEntityRepository<Video>(new ApplicationDbContext(options));
-            var materialRepository = new EfDeletableEntityRepository<Material>(new ApplicationDbContext(options));
-            var lessonRepository = new EfDeletableEntityRepository<Lesson>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var videoRepository = new EfDeletableEntityRepository<Video>(dbInstance);
+            var materialRepository = new EfDeletableEntityRepository<Material>(dbInstance);
+            var lessonRepository = new EfDeletableEntityRepository<Lesson>(dbInstance);
             var inputOutputService = new InputOutputService();
 
             var lessonsService = new LessonsService(

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Data.Models.ChatApp;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 
 namespace WeLearn.Web.ViewComponents
 {

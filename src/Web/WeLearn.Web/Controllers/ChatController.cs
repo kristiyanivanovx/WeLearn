@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using WeLearn.Data.Models.ChatApp;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ChatApp;
 
 namespace WeLearn.Web.Controllers

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using WeLearn.Services;
-
+using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Organization;
 
 using static WeLearn.Common.GlobalConstants;
@@ -48,7 +48,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return this.View(model);
             }
 
-            await this.organizationsService.EditOrganizationAsync(model, true);
+            await this.organizationsService.EditAsync(model, true);
 
             return this.RedirectToAction(nameof(this.Index));
         }

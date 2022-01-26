@@ -8,6 +8,8 @@ using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Shared;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
+using WeLearn.Services.Data;
+using WeLearn.Tests.Mocks;
 using Xunit;
 
 namespace WeLearn.Tests
@@ -18,14 +20,11 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_ViewComponentIsBuilt()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var categoryRepository = new EfDeletableEntityRepository<Category>(new ApplicationDbContext(options));
-            var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(new ApplicationDbContext(options));
-            var lessonsRepository = new EfDeletableEntityRepository<Lesson>(new ApplicationDbContext(options));
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var categoryRepository = new EfDeletableEntityRepository<Category>(dbInstance);
+            var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(dbInstance);
+            var lessonsRepository = new EfDeletableEntityRepository<Lesson>(dbInstance);
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
 
             var comment = new Comment { Id = 1, Content = "hi from test comment" };
             await commentRepository.AddAsync(comment);
@@ -47,6 +46,29 @@ namespace WeLearn.Tests
 
             // assert
             Assert.NotNull(navigationDropdownModel);
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_UserCountZero()
+        {
+            // arrange
+            await using var dbInstance = DatabaseMock.Instance;
+            var categoryRepository = new EfDeletableEntityRepository<Category>(dbInstance);
+            var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(dbInstance);
+            var lessonsRepository = new EfDeletableEntityRepository<Lesson>(dbInstance);
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
+
+            var viewComponentsService = new ViewComponentsService(
+                commentRepository,
+                categoryRepository,
+                lessonsRepository,
+                appUserRepository);
+
+            // act
+            var usersCount = await viewComponentsService.GetUsersCount();
+
+            // assert
+            Assert.Equal(0, usersCount);
         }
     }
 }

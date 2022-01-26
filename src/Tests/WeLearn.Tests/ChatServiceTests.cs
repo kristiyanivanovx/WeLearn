@@ -7,6 +7,8 @@ using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
+using WeLearn.Services.Data;
+using WeLearn.Tests.Mocks;
 using Xunit;
 
 namespace WeLearn.Tests
@@ -17,13 +19,10 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_MessageIsCreated()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
-            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var messageRepository = new EfRepository<Message>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
             var message = "asd";
@@ -42,13 +41,10 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_RoomIsCreated()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
-            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var messageRepository = new EfRepository<Message>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
             var roomName = "Room 1";
@@ -70,13 +66,10 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_ChatIsRetrieved()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
-            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var messageRepository = new EfRepository<Message>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
             var roomName = "Room 1";
@@ -99,13 +92,10 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_ChatsAreRetrievedByExcludingUserId()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
-            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var messageRepository = new EfRepository<Message>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
             var roomName = "Room 1";
@@ -124,13 +114,10 @@ namespace WeLearn.Tests
         public async Task Should_Succeed_When_ChatIsJoined()
         {
             // arrange
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var messageRepository = new EfRepository<Message>(new ApplicationDbContext(options));
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(new ApplicationDbContext(options));
-            var chatRepository = new EfRepository<Chat>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var messageRepository = new EfRepository<Message>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
             var roomName = "Room 1";

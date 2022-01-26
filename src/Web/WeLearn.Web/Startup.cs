@@ -16,15 +16,13 @@ using WeLearn.Data.Common;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.Identity;
 using WeLearn.Data.Repositories;
-using WeLearn.Services;
-using WeLearn.Services.Interfaces;
+using WeLearn.Services.Data;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Services.Messaging;
 using WeLearn.Services.Messaging.Interfaces;
 using WeLearn.Web.Infrastructure;
 using WeLearn.Web.ViewModels;
-
-using RecommendationsService = WeLearn.Services.RecommendationsService;
 
 namespace WeLearn.Web
 {

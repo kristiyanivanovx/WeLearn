@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services;
+using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Answer;
 using WeLearn.Web.ViewModels.Question;
 
@@ -92,7 +93,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            await this.answersService.Delete(id);
+            await this.answersService.DeleteAsync(id);
             return this.RedirectToAction(nameof(this.Index));
         }
     }

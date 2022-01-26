@@ -8,7 +8,8 @@ using WeLearn.Data;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
-
+using WeLearn.Services.Data;
+using WeLearn.Tests.Mocks;
 using WeLearn.Web.ViewModels.Admin.Comment;
 using WeLearn.Web.ViewModels.Comment;
 using Xunit;
@@ -28,11 +29,8 @@ namespace WeLearn.Tests
                 new Comment { Content = "z-Category" },
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
             var commentsService = new CommentsService(commentRepository);
 
             foreach (var comment in data)
@@ -66,11 +64,8 @@ namespace WeLearn.Tests
                 new Comment { Id = 3, Content = "Cab" },
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
             var commentsService = new CommentsService(commentRepository);
 
             foreach (var comment in data)
@@ -106,11 +101,8 @@ namespace WeLearn.Tests
                 new Comment { Id = 3, Content = "Cab" },
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
             var commentsService = new CommentsService(commentRepository);
 
             foreach (var comment in data)
@@ -151,11 +143,8 @@ namespace WeLearn.Tests
                 },
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
             var commentsService = new CommentsService(commentRepository);
 
             foreach (var comment in data)
@@ -192,11 +181,8 @@ namespace WeLearn.Tests
                 },
             }.AsQueryable();
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
             var commentsService = new CommentsService(commentRepository);
 
             foreach (var comment in data)
@@ -233,11 +219,8 @@ namespace WeLearn.Tests
                 },
             };
 
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var commentRepository = new EfDeletableEntityRepository<Comment>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var commentRepository = new EfDeletableEntityRepository<Comment>(dbInstance);
             var commentsService = new CommentsService(commentRepository);
 
             foreach (var comment in data)

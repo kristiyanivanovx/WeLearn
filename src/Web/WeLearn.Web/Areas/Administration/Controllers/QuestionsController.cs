@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using WeLearn.Services;
+using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Question;
 
 using static WeLearn.Common.GlobalConstants;

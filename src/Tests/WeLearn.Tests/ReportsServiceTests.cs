@@ -8,6 +8,8 @@ using WeLearn.Data;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
 using WeLearn.Services;
+using WeLearn.Services.Data;
+using WeLearn.Tests.Mocks;
 using WeLearn.Web.ViewModels.Admin.Report;
 using WeLearn.Web.ViewModels.Report.Comment;
 using WeLearn.Web.ViewModels.Report.Lesson;
@@ -20,11 +22,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsCreated()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "customTestSubject";
@@ -60,11 +59,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsEdited()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";
@@ -109,11 +105,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_CommentReportIsEdited()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";
@@ -158,11 +151,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsEditedByAdmin()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";
@@ -206,11 +196,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsSoftDeletedByAdmin()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";
@@ -253,11 +240,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsSoftDeletedById()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";
@@ -289,11 +273,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_LessonReportIsHardDeletedById()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";
@@ -325,11 +306,8 @@ namespace WeLearn.Tests
         [Fact]
         public async Task Should_Succeed_When_AllReportsAreRetrieved()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
-                .Options;
-
-            var reportRepository = new EfDeletableEntityRepository<Report>(new ApplicationDbContext(options));
+            await using var dbInstance = DatabaseMock.Instance;
+            var reportRepository = new EfDeletableEntityRepository<Report>(dbInstance);
             var service = new ReportsService(reportRepository);
 
             var testSubject = "subjectOne";

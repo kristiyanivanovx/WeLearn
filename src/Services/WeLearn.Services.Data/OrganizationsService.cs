@@ -79,6 +79,7 @@ namespace WeLearn.Services.Data
             this.organizationRepository.Update(organization);
 
             await this.appUserRepository.SaveChangesAsync();
+            await this.organizationRepository.SaveChangesAsync();
         }
 
         public Organization GetById(int id, bool includeDeleted = false)

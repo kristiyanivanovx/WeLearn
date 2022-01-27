@@ -19,7 +19,6 @@ namespace WeLearn.Tests
         {
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
-
             var organizationRepository = new EfDeletableEntityRepository<Organization>(dbInstance);
             var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(dbInstance);
             var usersServiceMock = new Mock<IUsersService>();
@@ -48,7 +47,6 @@ namespace WeLearn.Tests
         {
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
-
             var organizationRepository = new EfDeletableEntityRepository<Organization>(dbInstance);
             var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(dbInstance);
             var usersServiceMock = new Mock<IUsersService>();
@@ -83,7 +81,6 @@ namespace WeLearn.Tests
         {
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
-
             var organizationRepository = new EfDeletableEntityRepository<Organization>(dbInstance);
             var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(dbInstance);
             var usersServiceMock = new Mock<IUsersService>();
@@ -116,7 +113,6 @@ namespace WeLearn.Tests
         {
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
-
             var organizationRepository = new EfDeletableEntityRepository<Organization>(dbInstance);
             var appUserRepository = new EfDeletableEntityRepository<ApplicationUser>(dbInstance);
             var usersServiceMock = new Mock<IUsersService>();

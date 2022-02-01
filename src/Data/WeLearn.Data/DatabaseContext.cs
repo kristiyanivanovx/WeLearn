@@ -18,18 +18,18 @@ using WeLearn.Data.Models.User;
 
 namespace WeLearn.Data
 {
-    public class ApplicationDbContext
+    public class DatabaseContext
         : IdentityDbContext<
             ApplicationUser, ApplicationRole, string,
             IdentityUserClaim<string>, ApplicationUserRole, IdentityUserLogin<string>,
             IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
-            typeof(ApplicationDbContext).GetMethod(
+            typeof(DatabaseContext).GetMethod(
                 nameof(SetIsDeletedQueryFilter),
                 BindingFlags.NonPublic | BindingFlags.Static);
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
         }
@@ -55,7 +55,7 @@ namespace WeLearn.Data
 
         public virtual DbSet<Message> Messages { get; set; }
 
-        public virtual DbSet<ChatApplicationUser> ChatApplicationUsers { get; set; }
+        public virtual DbSet<ChatUser> ChatUsers { get; set; }
 
         public virtual DbSet<Recommendation> Recommendations { get; set; }
 

@@ -7,13 +7,13 @@ using Microsoft.Extensions.Logging;
 
 namespace WeLearn.Data.Seeding
 {
-    public class ApplicationDbContextSeeder : ISeeder
+    public class DatabaseContextSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            if (dbContext == null)
+            if (databaseContext == null)
             {
-                throw new ArgumentNullException(nameof(dbContext));
+                throw new ArgumentNullException(nameof(databaseContext));
             }
 
             if (serviceProvider == null)
@@ -21,7 +21,7 @@ namespace WeLearn.Data.Seeding
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
+            var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(DatabaseContextSeeder));
 
             var seeders = new List<ISeeder>
             {
@@ -38,11 +38,11 @@ namespace WeLearn.Data.Seeding
 
             foreach (var seeder in seeders)
             {
-                await seeder.SeedAsync(dbContext, serviceProvider);
+                await seeder.SeedAsync(databaseContext, serviceProvider);
                 logger.LogInformation(@"Seeder {0} done", seeder.GetType().Name);
             }
 
-            await dbContext.SaveChangesAsync();
+            await databaseContext.SaveChangesAsync();
             logger.LogInformation("All seeders have completed");
         }
     }

@@ -45,7 +45,7 @@
                                 @Html.DisplayFor(modelItem => organization.Description)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => organization.ApplicationUsersCount)
+                                @Html.DisplayFor(modelItem => organization.UsersCount)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => organization.CreatorUserName)
@@ -59,7 +59,7 @@
 
                                 @{
                                     string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                                    var isMember = organization.ApplicationUsers
+                                    var isMember = organization.Users
                                         .Any(x => x.Id == userId);
                                     
                                     var isCreator = userId == organization.CreatorId;

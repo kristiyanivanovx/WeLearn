@@ -27,7 +27,7 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public string CategoryName { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public string VideoName { get; set; }
 

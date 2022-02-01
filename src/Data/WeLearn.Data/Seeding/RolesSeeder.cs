@@ -12,12 +12,12 @@ namespace WeLearn.Data.Seeding
 {
     public class RolesSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            await SeedRoleAsync(roleManager, ApplicationRegularAdministratorRoleName);
-            await SeedRoleAsync(roleManager, ApplicationHeadAdministratorRoleName);
+            await SeedRoleAsync(roleManager, SystemRegularAdministratorRoleName);
+            await SeedRoleAsync(roleManager, SystemHeadAdministratorRoleName);
         }
 
         private static async Task SeedRoleAsync(RoleManager<ApplicationRole> roleManager, string roleName)

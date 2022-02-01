@@ -9,7 +9,7 @@ using WeLearn.Data;
 
 namespace WeLearn.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20210512184158_AddGradeSeedDataInLesson")]
     partial class AddGradeSeedDataInLesson
     {

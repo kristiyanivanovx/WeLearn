@@ -44,9 +44,9 @@
 <div id="wrapper">
 
 @{
-    var isHeadAdmin = this.User.IsInRole(ApplicationHeadAdministratorRoleName);
-    var isAdmin = this.User.IsInRole(ApplicationRegularAdministratorRoleName);
-    var isTeacher = this.User.IsInRole(ApplicationTeacherRoleName);
+    var isHeadAdmin = this.User.IsInRole(SystemHeadAdministratorRoleName);
+    var isAdmin = this.User.IsInRole(SystemRegularAdministratorRoleName);
+    var isTeacher = this.User.IsInRole(SystemTeacherRoleName);
     var isTeacherOnly = isTeacher && !isAdmin && !isHeadAdmin;
     
     var gradientStyle = isHeadAdmin ?

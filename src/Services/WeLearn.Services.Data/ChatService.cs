@@ -13,12 +13,12 @@ namespace WeLearn.Services.Data
     public class ChatService : IChatService
     {
         private readonly IRepository<Chat> chatRepository;
-        private readonly IRepository<ChatApplicationUser> chatAppUserRepository;
+        private readonly IRepository<ChatUser> chatAppUserRepository;
         private readonly IRepository<Message> messageRepository;
 
         public ChatService(
             IRepository<Chat> chatRepository,
-            IRepository<ChatApplicationUser> chatAppUserRepository,
+            IRepository<ChatUser> chatAppUserRepository,
             IRepository<Message> messageRepository)
         {
             this.chatRepository = chatRepository;
@@ -49,9 +49,9 @@ namespace WeLearn.Services.Data
                 Name = name,
             };
 
-            chat.ChatApplicationUsers.Add(new ChatApplicationUser
+            chat.ChatUsers.Add(new ChatUser
             {
-                ApplicationUserId = userId,
+                UserId = userId,
             });
 
             await this.chatRepository.AddAsync(chat);
@@ -62,7 +62,7 @@ namespace WeLearn.Services.Data
                 .ToList()
                 .First(c =>
                     c.Name == name &&
-                    c.ChatApplicationUsers.Any(chatAppUser => chatAppUser.ApplicationUserId == userId))
+                    c.ChatUsers.Any(chatAppUser => chatAppUser.UserId == userId))
                 .Id;
 
             return chatId;
@@ -82,16 +82,16 @@ namespace WeLearn.Services.Data
         public IEnumerable<Chat> GetChats(string userId)
             => this.chatRepository
                 .All()
-                .Include(x => x.ChatApplicationUsers)
-                .Where(x => x.ChatApplicationUsers.All(y => y.ApplicationUserId != userId))
+                .Include(x => x.ChatUsers)
+                .Where(x => x.ChatUsers.All(y => y.UserId != userId))
                 .ToList();
 
         public async Task JoinRoomAsync(int chatId, string userId)
         {
-            ChatApplicationUser chatUser = new ChatApplicationUser
+            ChatUser chatUser = new ChatUser
             {
                 ChatId = chatId,
-                ApplicationUserId = userId,
+                UserId = userId,
             };
 
             await this.chatAppUserRepository.AddAsync(chatUser);

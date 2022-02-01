@@ -51,11 +51,11 @@
                     @Html.DisplayFor(modelItem => item.Content)
                 </td>
                 <td>
-                    ID: @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                    ID: @Html.DisplayFor(modelItem => item.UserId)
                     <hr/>
-                    Username: @Html.DisplayFor(modelItem => item.ApplicationUserUserName)
+                    Username: @Html.DisplayFor(modelItem => item.UserUserName)
                     <hr/>
-                    Email: @Html.DisplayFor(modelItem => item.ApplicationUserEmail)
+                    Email: @Html.DisplayFor(modelItem => item.UserEmail)
                 </td>
                 <td>
                     Name: @Html.DisplayFor(modelItem => item.LessonName)
@@ -66,7 +66,7 @@
                     <hr/>
                     Category: @Html.DisplayFor(modelItem => item.LessonCategoryName)
                     <hr/>
-                    Created by: @Html.DisplayFor(modelItem => item.LessonApplicationUserUserName)
+                    Created by: @Html.DisplayFor(modelItem => item.LessonUserUserName)
                     <hr/>
                     Date created: <time datetime="@item.LessonCreatedOn.ToString("O")">@item.LessonCreatedOn.ToString("g")</time>
                 </td>
@@ -91,9 +91,9 @@
                     @{
                         string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         var dbUser = await userManager.FindByIdAsync(userId);
-                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
-                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
-                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, SystemTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, SystemRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, SystemHeadAdministratorRoleName);
 
                         var disableIfUnauthorized =
                             dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";

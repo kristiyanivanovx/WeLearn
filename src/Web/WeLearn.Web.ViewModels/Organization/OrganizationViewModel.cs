@@ -18,12 +18,12 @@ namespace WeLearn.Web.ViewModels.Organization
 
         public DateTime CreatedOn { get; set; }
 
-        public int ApplicationUsersCount { get; set; }
+        public int UsersCount { get; set; }
 
         public string CreatorId { get; set; }
 
         public string CreatorUserName { get; set; }
 
-        public ICollection<ApplicationUserViewModel> ApplicationUsers { get; set; }
+        public ICollection<UserViewModel> Users { get; set; }
     }
 }

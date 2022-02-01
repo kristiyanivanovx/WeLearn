@@ -70,9 +70,9 @@
                 </td>
                 <td>
                     @{
-                        var userId = item.ApplicationUserId ?? "Deleted User Id";
-                        var userName = item.ApplicationUserUserName ?? "Deleted Username";
-                        var userEmail = item.ApplicationUserEmail ?? "Deleted Email";
+                        var userId = item.UserId ?? "Deleted User Id";
+                        var userName = item.UserUserName ?? "Deleted Username";
+                        var userEmail = item.UserEmail ?? "Deleted Email";
                     }
                     ID: @userId
                     <hr/>
@@ -104,9 +104,9 @@
                     @{
                         string currentUserId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         var dbUser = await userManager.FindByIdAsync(currentUserId);
-                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
-                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
-                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, SystemTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, SystemRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, SystemHeadAdministratorRoleName);
 
                         var disableIfUnauthorized =
                             dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";

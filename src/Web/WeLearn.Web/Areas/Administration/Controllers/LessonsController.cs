@@ -11,8 +11,8 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    [Area(SystemAdministrationAreaName)]
+    [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class LessonsController : Controller
     {
         private readonly ILessonsService lessonsService;
@@ -62,7 +62,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             var lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonDeleteModel>(id);
@@ -70,7 +70,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

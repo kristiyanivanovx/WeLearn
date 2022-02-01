@@ -75,9 +75,9 @@
                     @{
                         string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         var dbUser = await userManager.FindByIdAsync(userId);
-                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
-                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
-                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+                        var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, SystemTeacherRoleName);
+                        var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, SystemRegularAdministratorRoleName);
+                        var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, SystemHeadAdministratorRoleName);
 
                         var disableIfUnauthorized =
                             dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";

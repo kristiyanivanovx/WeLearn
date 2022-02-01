@@ -8,7 +8,7 @@
         <h3>Are you sure that you want to delete this lesson?</h3>
         <hr />
         <form asp-controller="Lesson" asp-action="Delete" method="post" class="mb-3">
-            <input type="hidden" value="@Model.ApplicationUserUserName" asp-for="@Model.ApplicationUserUserName" />
+            <input type="hidden" value="@Model.UserUserName" asp-for="@Model.UserUserName" />
             <input type="hidden" value="@Model.LessonId" asp-for="@Model.LessonId" />
             <input class="btn btn-sm btn-outline-danger" type="submit" value="Delete" />
             <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="text-muted">
                     <small>
-                        Created by - @Model.ApplicationUserUserName
+                        Created by - @Model.UserUserName
                     </small>
                 </div>
                 <div class="text-muted">

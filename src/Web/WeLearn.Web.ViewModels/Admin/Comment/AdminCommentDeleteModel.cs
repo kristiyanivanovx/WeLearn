@@ -17,7 +17,7 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
         [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         public string Content { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
@@ -43,6 +43,6 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
 
         public string LessonMaterialLink { get; set; }
 
-        public string LessonApplicationUserUserName { get; set; }
+        public string LessonUserUserName { get; set; }
     }
 }

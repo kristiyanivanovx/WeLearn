@@ -7,15 +7,15 @@ namespace WeLearn.Tests.Mocks
 {
     public static class DatabaseMock
     {
-        public static ApplicationDbContext Instance
+        public static DatabaseContext Instance
         {
             get
             {
-                var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                var dbContextOptions = new DbContextOptionsBuilder<DatabaseContext>()
                     .UseInMemoryDatabase(Guid.NewGuid().ToString())
                     .Options;
 
-                return new ApplicationDbContext(dbContextOptions);
+                return new DatabaseContext(dbContextOptions);
             }
         }
     }

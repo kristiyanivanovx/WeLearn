@@ -44,7 +44,7 @@
             <hr />
             <form asp-controller="Comment" asp-action="Edit" method="post">
                 <input type="hidden" value="@Model.Id" asp-for="@Model.Id" class="form-control" />
-                <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
+                <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
                 <div class="form-group">
                     <label asp-for="@Model.Content"></label>
                     <textarea asp-for="@Model.Content" class="form-control"></textarea>

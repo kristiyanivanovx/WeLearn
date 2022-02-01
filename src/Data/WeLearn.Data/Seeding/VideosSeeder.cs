@@ -8,12 +8,12 @@ namespace WeLearn.Data.Seeding
 {
     public class VideosSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            var videosCount = dbContext.Videos.Count();
+            var videosCount = databaseContext.Videos.Count();
             if (videosCount == 0)
             {
-                await dbContext.Videos.AddRangeAsync(
+                await databaseContext.Videos.AddRangeAsync(
                     new Video
                     {
                         Id = 1, LessonId = 1, ContentType = "video/mp4", Name = "Teaching",

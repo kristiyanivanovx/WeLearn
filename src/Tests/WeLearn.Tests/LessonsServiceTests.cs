@@ -59,11 +59,11 @@ namespace WeLearn.Tests
             {
                 new Lesson
                 {
-                    Id = 1, Name = "Test Content", Description = "123", ApplicationUserId = "asd", IsApproved = true
+                    Id = 1, Name = "Test Content", Description = "123", UserId = "asd", IsApproved = true
                 },
                 new Lesson
                 {
-                    Id = 2, Name = "Test Content2", Description = "1233", ApplicationUserId = "as4d", IsApproved = true
+                    Id = 2, Name = "Test Content2", Description = "1233", UserId = "as4d", IsApproved = true
                 },
             }.AsQueryable();
 
@@ -81,7 +81,7 @@ namespace WeLearn.Tests
             mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            Mock<DatabaseContext> mockContext = new Mock<DatabaseContext>();
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var mockedVideoRepo = new Mock<IDeletableEntityRepository<Video>>();
@@ -110,8 +110,8 @@ namespace WeLearn.Tests
             // arrange
             var data = new List<Lesson>
             {
-                new Lesson { Id = 1, Name = "asd", Description = "123", ApplicationUserId = userId, IsApproved = true },
-                new Lesson { Id = 2, Name = "asd", Description = "1233", ApplicationUserId = "as4d", IsApproved = true },
+                new Lesson { Id = 1, Name = "asd", Description = "123", UserId = userId, IsApproved = true },
+                new Lesson { Id = 2, Name = "asd", Description = "1233", UserId = "as4d", IsApproved = true },
             }.AsQueryable();
 
             Mock<DbSet<Lesson>> mockSet = new Mock<DbSet<Lesson>>();
@@ -128,7 +128,7 @@ namespace WeLearn.Tests
             mockSet.As<IQueryable<Lesson>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Lesson>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            Mock<ApplicationDbContext> mockContext = new Mock<ApplicationDbContext>();
+            Mock<DatabaseContext> mockContext = new Mock<DatabaseContext>();
             mockContext.Setup(x => x.Lessons).Returns(mockSet.Object);
 
             var mockedVideoRepo = new Mock<IDeletableEntityRepository<Video>>();

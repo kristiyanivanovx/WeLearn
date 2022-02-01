@@ -29,7 +29,7 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
 
         public string LessonCategoryName { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public DateTime LessonCreatedOn { get; set; }
 
@@ -50,7 +50,7 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
         [MaxLength(MaxDescriptionLength)]
         public string ReportDescription { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

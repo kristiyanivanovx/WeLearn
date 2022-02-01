@@ -17,9 +17,9 @@ namespace WeLearn.Data.Models.LessonModule
         [MaxLength(MaxDescriptionLength)]
         public string Description { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int? LessonId { get; set; }
 

@@ -8,12 +8,12 @@ namespace WeLearn.Data.Seeding
 {
     public class CategoriesSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            var categoriesCount = dbContext.Categories.Count();
+            var categoriesCount = databaseContext.Categories.Count();
             if (categoriesCount == 0)
             {
-                await dbContext.Categories.AddRangeAsync(
+                await databaseContext.Categories.AddRangeAsync(
                     new Category { Id = 1, Name = "Bulgarian Language" },
                     new Category { Id = 2, Name = "Mathematics" },
                     new Category { Id = 3, Name = "Informatics" },

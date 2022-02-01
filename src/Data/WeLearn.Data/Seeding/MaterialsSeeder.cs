@@ -8,12 +8,12 @@ namespace WeLearn.Data.Seeding
 {
     public class MaterialsSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            var materialsCount = dbContext.Materials.Count();
+            var materialsCount = databaseContext.Materials.Count();
             if (materialsCount == 0)
             {
-                await dbContext.Materials.AddRangeAsync(
+                await databaseContext.Materials.AddRangeAsync(
                     new Material
                     {
                         Id = 1, LessonId = 1, Name = "Teaching",

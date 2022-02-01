@@ -9,7 +9,7 @@
         <hr />
         <form asp-controller="Comment" asp-action="Delete" method="post" class="mb-4">
             <input type="hidden" value="@Model.Id" asp-for="@Model.Id" />
-            <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" />
+            <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" />
             <div class="form-group">
                 <p>@Model.Content</p>
                 <small><time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></small>

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WeLearn.Data.Models.Identity
 @inject SignInManager<ApplicationUser> signInManager
-@inject UserManager<ApplicationUser> UserManager
+@inject UserManager<ApplicationUser> userManager
 
 <ul class="navbar-nav">
     @if (signInManager.IsSignedIn(User))

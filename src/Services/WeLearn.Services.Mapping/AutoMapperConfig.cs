@@ -10,18 +10,18 @@ namespace WeLearn.Services.Mapping
 {
     public static class AutoMapperConfig
     {
-        private static bool initialized;
+        private static bool isInitialized;
 
         public static IMapper MapperInstance { get; set; }
 
         public static void RegisterMappings(params Assembly[] assemblies)
         {
-            if (initialized)
+            if (isInitialized)
             {
                 return;
             }
 
-            initialized = true;
+            isInitialized = true;
 
             var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
 

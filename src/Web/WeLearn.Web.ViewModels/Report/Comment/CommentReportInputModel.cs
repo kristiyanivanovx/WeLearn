@@ -32,7 +32,7 @@ namespace WeLearn.Web.ViewModels.Report.Comment
         [Required(ErrorMessage = "Please provide description to the report.")]
         public string ReportDescription { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public DateTime CreatedOn { get; set; }
 
@@ -44,7 +44,7 @@ namespace WeLearn.Web.ViewModels.Report.Comment
                 .ForMember(dest => dest.CommentCreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
                 .ForMember(
                     dest => dest.CommentApplicationUserUserName,
-                    opt => opt.MapFrom(src => src.ApplicationUser.UserName));
+                    opt => opt.MapFrom(src => src.User.UserName));
 
             configuration.CreateMap<CommentReportInputModel, Data.Models.LessonModule.Report>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ReportId))

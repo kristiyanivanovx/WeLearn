@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using WeLearn.Services;
 using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Organization;
 
@@ -11,8 +10,8 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    [Area(SystemAdministrationAreaName)]
+    [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class OrganizationsController : Controller
     {
         private readonly OrganizationsService organizationsService;
@@ -54,7 +53,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         public async Task<RedirectToActionResult> Delete(int id)
         {
             await this.organizationsService.HardDeleteAsync(id, true);

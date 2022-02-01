@@ -6,20 +6,20 @@ using Microsoft.Extensions.Configuration;
 
 namespace WeLearn.Data
 {
-    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DatabaseContext>
     {
-        public ApplicationDbContext CreateDbContext(string[] args)
+        public DatabaseContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false, true)
                 .Build();
 
-            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var builder = new DbContextOptionsBuilder<DatabaseContext>();
             var connectionString = configuration.GetConnectionString("DefaultConnectionPostgreSQL");
             builder.UseNpgsql(connectionString);
 
-            return new ApplicationDbContext(builder.Options);
+            return new DatabaseContext(builder.Options);
         }
     }
 }

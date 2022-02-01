@@ -12,8 +12,8 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    [Area(SystemAdministrationAreaName)]
+    [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class UsersController : Controller
     {
         private readonly IUsersService usersService;
@@ -34,7 +34,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
+        [Authorize(Roles = SystemHeadAdministratorRoleName)]
         public async Task<IActionResult> ToggleAdminRole(string userId)
         {
             await this.usersService.ToggleAdminRoleAsync(userId);
@@ -43,7 +43,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         public async Task<IActionResult> ToggleTeacherRole(string userId)
         {
             var actingUserId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -52,7 +52,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
+        [Authorize(Roles = SystemHeadAdministratorRoleName)]
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
@@ -61,7 +61,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.View(user);
         }
 
-        [Authorize(Roles = ApplicationHeadAdministratorRoleName)]
+        [Authorize(Roles = SystemHeadAdministratorRoleName)]
         [HttpPost]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(string id)

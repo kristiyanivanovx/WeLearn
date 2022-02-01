@@ -48,7 +48,7 @@
                                 @Html.DisplayFor(modelItem => organization.Description)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => organization.ApplicationUsersCount)
+                                @Html.DisplayFor(modelItem => organization.UsersCount)
                             </td>
                             <td>
                                 <time datetime="@organization.CreatedOn.ToString("O")">
@@ -61,7 +61,7 @@
                             <td>
                                 @{
                                     string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                                    var isMember = organization.ApplicationUsers
+                                    var isMember = organization.Users
                                         .Any(x => x.Id == userId);
 
                                     var disabledStyle = organization.IsDeleted ?
@@ -90,9 +90,9 @@
                             <td>
                                 @{
                                     var dbUser = await userManager.FindByIdAsync(userId);
-                                    var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
-                                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
-                                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
+                                    var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, SystemTeacherRoleName);
+                                    var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, SystemRegularAdministratorRoleName);
+                                    var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, SystemHeadAdministratorRoleName);
 
                                     var disableIfUnauthorized =
                                         dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";

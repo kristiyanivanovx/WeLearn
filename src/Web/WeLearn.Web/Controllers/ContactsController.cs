@@ -33,8 +33,8 @@ namespace WeLearn.Web.Controllers
             string message = BuildMessage(model);
 
             await this.emailSender.SendEmailAsync(
-                ApplicationHeadAdministratorEmail,
-                ApplicationHeadAdministratorEmail,
+                SystemHeadAdministratorEmail,
+                SystemHeadAdministratorEmail,
                 model.Subject,
                 message,
                 false);

@@ -10,7 +10,7 @@ namespace WeLearn.Data.Models.ChatApp
         public Chat()
         {
             this.Messages = new HashSet<Message>();
-            this.ChatApplicationUsers = new HashSet<ChatApplicationUser>();
+            this.ChatUsers = new HashSet<ChatUser>();
         }
 
         [Required]
@@ -19,6 +19,6 @@ namespace WeLearn.Data.Models.ChatApp
 
         public ICollection<Message> Messages { get; set; }
 
-        public ICollection<ChatApplicationUser> ChatApplicationUsers { get; set; }
+        public ICollection<ChatUser> ChatUsers { get; set; }
     }
 }

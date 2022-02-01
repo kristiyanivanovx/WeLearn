@@ -36,10 +36,9 @@ namespace WeLearn.Data.Models.LessonModule
 
         public Grade Grade { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        [Display(Name = "User")]
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int VideoId { get; set; }
 

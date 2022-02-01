@@ -18,7 +18,7 @@ namespace WeLearn.Web.ViewModels.Comment
         [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         public string Content { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public DateTime CreatedOn { get; set; }
     }

@@ -10,30 +10,30 @@ namespace WeLearn.Data.Seeding
 {
     public class CommentsSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            var commentsCount = dbContext.Comments.Count();
+            var commentsCount = databaseContext.Comments.Count();
             if (commentsCount == 0)
             {
-                await dbContext.Comments.AddRangeAsync(
+                await databaseContext.Comments.AddRangeAsync(
                     new Comment
                     {
                         Id = 1,
-                        ApplicationUserId = ApplicationHeadAdministratorId,
+                        UserId = SystemHeadAdministratorId,
                         Content = "I like it!",
                         LessonId = 1
                     },
                     new Comment
                     {
                         Id = 2,
-                        ApplicationUserId = ApplicationHeadAdministratorId,
+                        UserId = SystemHeadAdministratorId,
                         Content = "The teacher is awesome.",
                         LessonId = 2
                     },
                     new Comment
                     {
                         Id = 3,
-                        ApplicationUserId = ApplicationHeadAdministratorId,
+                        UserId = SystemHeadAdministratorId,
                         Content = "This is just great.",
                         LessonId = 3
                     });

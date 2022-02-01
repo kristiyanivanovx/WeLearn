@@ -9,8 +9,8 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    [Area(SystemAdministrationAreaName)]
+    [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class ManageController : Controller
     {
         private readonly IInformationService informationService;

@@ -72,14 +72,14 @@ namespace WeLearn.Web.Controllers
             var models = allLessons
                 .Where(model => recommendations
                     .Any(rec =>
-                        rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId)));
+                        rec.LessonId == model.LessonId && rec.UserId.Equals(userId)));
 
             models.All(model =>
             {
                 model.RecommendationScore = MathF.Round(
                     recommendations
                         .FirstOrDefault(rec =>
-                            rec.LessonId == model.LessonId && rec.ApplicationUserId.Equals(userId))
+                            rec.LessonId == model.LessonId && rec.UserId.Equals(userId))
                         ?.Score ?? 0,
                     2) * 100;
 
@@ -247,7 +247,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            if (model.ApplicationUserUserName != this.GetUserName())
+            if (model.UserUserName != this.GetUserName())
             {
                 return this.View("Unauthorized");
             }
@@ -326,11 +326,11 @@ namespace WeLearn.Web.Controllers
 
             StringBuilder stringBuilder = new StringBuilder();
             string subject = $"Lesson #{model.LessonId} - {model.Name}";
-            string createdBy = model.ApplicationUserUserName ?? "Deleted User";
+            string createdBy = model.UserUserName ?? "Deleted User";
             string message = BuildMessage(model, stringBuilder, createdBy);
 
             await this.emailSender.SendEmailAsync(
-                ApplicationHeadAdministratorEmail,
+                SystemHeadAdministratorEmail,
                 model.Email,
                 subject,
                 message,
@@ -359,7 +359,7 @@ namespace WeLearn.Web.Controllers
 				    <p>Grade: {model.Grade}</p>
 				    <p>Likes: {model.LikesCount}</p>
                     <p>Date created: {model.CreatedOn.ToLocalTime():d/MM/yyyy, HH:mm}</p>
-				    <p>Link to lesson: <a href=""https://{ApplicationHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
+				    <p>Link to lesson: <a href=""https://{SystemHostName}/lesson/watch/{model.LessonId}"">{model.Name}</a></p>
                 </div>")
                 .ToString()
                 .Trim();

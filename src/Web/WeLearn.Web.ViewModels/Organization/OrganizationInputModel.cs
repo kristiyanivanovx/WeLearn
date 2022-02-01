@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 
-using WeLearn.Services.Mapping;
-
 namespace WeLearn.Web.ViewModels.Organization
 {
     public class OrganizationInputModel

@@ -12,7 +12,7 @@
 		<p class="card-text mb-1">@Model.Description</p>
 
 		<div class="card-text mb-3">
-			@{ var createdBy = Model.ApplicationUserUserName ?? "Deleted User"; }
+			@{ var createdBy = Model.UserUserName ?? "Deleted User"; }
 			<form id="likesForm" method="post"></form>
 			<div>
 				<small class="text-muted">Likes - <span id="likesCount">@Model.LikesCount</span></small>
@@ -46,7 +46,7 @@
 			</a>
 		}
 		
-		@if (User.Identity?.Name == Model.ApplicationUserUserName)
+		@if (User.Identity?.Name == Model.UserUserName)
 		{
 			<a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success mb-1">
 				<i class="fas fa-edit"></i> Edit

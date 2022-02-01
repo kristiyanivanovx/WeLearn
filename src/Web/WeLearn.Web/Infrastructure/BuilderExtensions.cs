@@ -15,7 +15,7 @@ using WeLearn.Web.ChatApp;
 
 namespace WeLearn.Web.Infrastructure
 {
-    public static class ApplicationBuilderExtensions
+    public static class BuilderExtensions
     {
         public static IApplicationBuilder UseEndpoints(this IApplicationBuilder app)
             => app.UseEndpoints(endpoints =>
@@ -31,7 +31,7 @@ namespace WeLearn.Web.Infrastructure
         public static IApplicationBuilder MigrateDatabase(this IApplicationBuilder app)
         {
             using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
-            ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            DatabaseContext context = serviceScope.ServiceProvider.GetRequiredService<DatabaseContext>();
             context.Database.Migrate();
 
             return app;
@@ -42,7 +42,7 @@ namespace WeLearn.Web.Infrastructure
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {
-            ApplicationDbInitializer.SeedData(userManager, roleManager);
+            DatabaseInitializer.SeedData(userManager, roleManager);
             return app;
         }
 

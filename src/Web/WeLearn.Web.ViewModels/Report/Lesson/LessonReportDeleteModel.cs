@@ -48,7 +48,7 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
         [MaxLength(MaxDescriptionLength)]
         public string ReportDescription { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

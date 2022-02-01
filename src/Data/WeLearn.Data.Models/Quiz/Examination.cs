@@ -14,9 +14,6 @@ namespace WeLearn.Data.Models.Quiz
         }
 
         [Required]
-        public ICollection<Choice> Choices { get; set; }
-
-        [Required]
         public int Points { get; set; }
 
         [Required]
@@ -25,8 +22,11 @@ namespace WeLearn.Data.Models.Quiz
         public Quiz Quiz { get; set; }
 
         [Required]
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
+
+        [Required]
+        public ICollection<Choice> Choices { get; set; }
     }
 }

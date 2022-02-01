@@ -11,21 +11,21 @@ namespace WeLearn.Data.Seeding
 {
     public class HeadAdminSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var user = await userManager.FindByEmailAsync(ApplicationHeadAdministratorEmail);
+            var user = await userManager.FindByEmailAsync(SystemHeadAdministratorEmail);
 
             if (user == null)
             {
                 ApplicationUser applicationUser = new ApplicationUser
                 {
-                    Id = ApplicationHeadAdministratorId,
-                    Email = ApplicationHeadAdministratorEmail,
+                    Id = SystemHeadAdministratorId,
+                    Email = SystemHeadAdministratorEmail,
                     EmailConfirmed = false,
-                    UserName = ApplicationHeadAdministratorUsername,
-                    NormalizedEmail = ApplicationHeadAdministratorEmail.ToUpper(),
-                    NormalizedUserName = ApplicationHeadAdministratorUsername.ToUpper(),
+                    UserName = SystemHeadAdministratorUsername,
+                    NormalizedEmail = SystemHeadAdministratorEmail.ToUpper(),
+                    NormalizedUserName = SystemHeadAdministratorUsername.ToUpper(),
                 };
 
                 PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
@@ -34,8 +34,8 @@ namespace WeLearn.Data.Seeding
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(applicationUser, ApplicationRegularAdministratorRoleName);
-                    await userManager.AddToRoleAsync(applicationUser, ApplicationHeadAdministratorRoleName);
+                    await userManager.AddToRoleAsync(applicationUser, SystemRegularAdministratorRoleName);
+                    await userManager.AddToRoleAsync(applicationUser, SystemHeadAdministratorRoleName);
                 }
             }
         }

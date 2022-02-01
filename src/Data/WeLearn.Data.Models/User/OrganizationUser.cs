@@ -2,11 +2,11 @@ using WeLearn.Data.Models.Identity;
 
 namespace WeLearn.Data.Models.User
 {
-    public class OrganizationApplicationUser
+    public class OrganizationUser
     {
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int OrganizationId { get; set; }
 

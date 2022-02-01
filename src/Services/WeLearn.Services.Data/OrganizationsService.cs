@@ -44,8 +44,8 @@ namespace WeLearn.Services.Data
         public IEnumerable<T> GetByMemberIdToModel<T>(string memberId)
             => this.organizationRepository
                 .All()
-                .Include(x => x.ApplicationUsers)
-                .Where(x => x.ApplicationUsers.Any(u => u.Id == memberId))
+                .Include(x => x.Users)
+                .Where(x => x.Users.Any(u => u.Id == memberId))
                 .To<T>()
                 .ToList();
 
@@ -66,7 +66,7 @@ namespace WeLearn.Services.Data
             var organization = this.GetById(orgId);
             var user = await this.usersService.GetUserByIdAsync(userId);
 
-            organization?.ApplicationUsers.Add(user);
+            organization?.Users.Add(user);
             await this.organizationRepository.SaveChangesAsync();
         }
 
@@ -75,7 +75,7 @@ namespace WeLearn.Services.Data
             var organization = this.GetById(orgId);
             var user = await this.usersService.GetUserByIdAsync(userId);
 
-            organization?.ApplicationUsers.Remove(user);
+            organization?.Users.Remove(user);
             this.organizationRepository.Update(organization);
 
             await this.appUserRepository.SaveChangesAsync();
@@ -89,7 +89,7 @@ namespace WeLearn.Services.Data
                 this.organizationRepository.All();
 
             return query
-                .Include(x => x.ApplicationUsers)
+                .Include(x => x.Users)
                 .FirstOrDefault(x => x.Id == id);
         }
 

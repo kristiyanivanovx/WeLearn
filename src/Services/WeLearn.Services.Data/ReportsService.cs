@@ -38,8 +38,8 @@ namespace WeLearn.Services.Data
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.Lesson.User)
+                .Include(x => x.User)
                 .Include(x => x.Comment)
                 .To<T>()
                 .FirstOrDefaultAsync();
@@ -51,8 +51,8 @@ namespace WeLearn.Services.Data
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Where(x => x.ApplicationUserId == userId && x.LessonId != null && !x.Lesson.IsDeleted)
+                .Include(x => x.Lesson.User)
+                .Where(x => x.UserId == userId && x.LessonId != null && !x.Lesson.IsDeleted)
                 .To<LessonReportViewModel>()
                 .ToListAsync();
 
@@ -60,8 +60,8 @@ namespace WeLearn.Services.Data
             => await this.reportRepository
                 .All()
                 .Include(x => x.Comment)
-                .Include(x => x.Comment.ApplicationUser)
-                .Where(x => x.ApplicationUserId == userId && x.CommentId != null && !x.Comment.IsDeleted)
+                .Include(x => x.Comment.User)
+                .Where(x => x.UserId == userId && x.CommentId != null && !x.Comment.IsDeleted)
                 .To<CommentReportViewModel>()
                 .ToListAsync();
 
@@ -76,7 +76,7 @@ namespace WeLearn.Services.Data
             }
 
             var reportsMapped = await reports
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Lesson)
                 .Include(x => x.Comment)
                 .To<T>()
@@ -92,7 +92,7 @@ namespace WeLearn.Services.Data
                 LessonId = model.LessonId,
                 Subject = model.Subject,
                 Description = model.ReportDescription,
-                ApplicationUserId = model.ApplicationUserId,
+                UserId = model.UserId,
             };
 
             await this.reportRepository.AddAsync(report);
@@ -106,7 +106,7 @@ namespace WeLearn.Services.Data
                 CommentId = model.CommentId,
                 Subject = model.Subject,
                 Description = model.ReportDescription,
-                ApplicationUserId = model.ApplicationUserId,
+                UserId = model.UserId,
             };
 
             await this.reportRepository.AddAsync(report);

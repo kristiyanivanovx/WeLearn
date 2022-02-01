@@ -22,7 +22,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Create(CommentInputModel commentViewModel)
         {
-            commentViewModel.ApplicationUserId = this.GetUserId();
+            commentViewModel.UserId = this.GetUserId();
             var id = new { id = commentViewModel.LessonId };
 
             if (!this.ModelState.IsValid)
@@ -52,7 +52,7 @@ namespace WeLearn.Web.Controllers
                 return this.View(model);
             }
 
-            if (model.ApplicationUserId != this.GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return this.View(nameof(this.Unauthorized));
             }
@@ -73,7 +73,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(CommentDeleteModel model)
         {
-            if (model.ApplicationUserId != this.GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return this.View("Unauthorized");
             }

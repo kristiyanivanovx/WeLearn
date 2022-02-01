@@ -35,7 +35,7 @@ namespace WeLearn.Services.Data
             Comment comment = new Comment
             {
                 Content = commentInputModel.Content,
-                ApplicationUserId = commentInputModel.ApplicationUserId,
+                UserId = commentInputModel.UserId,
                 LessonId = commentInputModel.LessonId,
             };
 
@@ -106,19 +106,19 @@ namespace WeLearn.Services.Data
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Category)
-                .Include(x => x.Lesson.ApplicationUser)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.Lesson.User)
+                .Include(x => x.User)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
         public async Task<IEnumerable<CommentByMeModel>> GetCommentsMadeByMeAsync(string userId)
             => await this.commentRepository.All()
-                .Where(x => x.ApplicationUserId == userId)
+                .Where(x => x.UserId == userId)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Video)
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.Material)
-                .Include(x => x.Lesson.ApplicationUser)
+                .Include(x => x.Lesson.User)
                 .To<CommentByMeModel>()
                 .ToListAsync();
 
@@ -131,12 +131,12 @@ namespace WeLearn.Services.Data
             }
 
             var comments = await allComments
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Lesson)
                 .Include(x => x.Lesson.Category)
                 .Include(x => x.Lesson.Material)
                 .Include(x => x.Lesson.Video)
-                .Include(x => x.Lesson.ApplicationUser)
+                .Include(x => x.Lesson.User)
                 .OrderByDescending(x => x.CreatedOn)
                 .To<AdminCommentViewModel>()
                 .ToListAsync();

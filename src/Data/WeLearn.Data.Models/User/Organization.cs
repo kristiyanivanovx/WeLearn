@@ -10,7 +10,7 @@ namespace WeLearn.Data.Models.User
     {
         public Organization()
         {
-            this.ApplicationUsers = new HashSet<ApplicationUser>();
+            this.Users = new HashSet<ApplicationUser>();
         }
 
         [Required]
@@ -19,7 +19,7 @@ namespace WeLearn.Data.Models.User
         [Required]
         public string Description { get; set; }
 
-        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public ICollection<ApplicationUser> Users { get; set; }
 
         public string CreatorId { get; set; }
 

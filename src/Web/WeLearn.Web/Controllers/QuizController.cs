@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Data.Models.Quiz;
-using WeLearn.Services;
+
 using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Examination;
 using WeLearn.Web.ViewModels.Question;
@@ -55,7 +55,7 @@ namespace WeLearn.Web.Controllers
 
             var models = this.examinationsService
                 .GetAll<ExaminationViewModel>()
-                .Where(x => x.ApplicationUserId == userId);
+                .Where(x => x.UserId == userId);
 
             // todo: pagination
             return this.View(models);
@@ -70,7 +70,7 @@ namespace WeLearn.Web.Controllers
 
             bool isViewingAllowed = this.examinationsService
                 .GetExaminationById(id)
-                .ApplicationUserId == this.GetUserId();
+                .UserId == this.GetUserId();
 
             if (!examinationExists || !isViewingAllowed)
             {

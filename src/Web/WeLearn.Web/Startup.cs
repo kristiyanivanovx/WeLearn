@@ -46,12 +46,12 @@ namespace WeLearn.Web
 
             services.AddSignalR();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<DatabaseContext>(options =>
                 options.UseNpgsql(this.Configuration.GetConnectionString("DefaultConnectionPostgreSQL")));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<DatabaseContext>();
 
             services.AddRazorPages();
             services.AddRouting(options => options.LowercaseUrls = true);
@@ -116,7 +116,7 @@ namespace WeLearn.Web
             IApplicationBuilder app,
             IWebHostEnvironment env,
             IRecurringJobManager recurringJobManager,
-            ApplicationDbContext applicationDbContext,
+            DatabaseContext applicationDatabaseContext,
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager)
         {

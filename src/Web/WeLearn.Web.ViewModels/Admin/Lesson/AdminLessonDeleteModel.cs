@@ -27,7 +27,7 @@ namespace WeLearn.Web.ViewModels.Admin.Lesson
         [Display(Name = "Is approved")]
         public bool IsApproved { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public string VideoName { get; set; }
 

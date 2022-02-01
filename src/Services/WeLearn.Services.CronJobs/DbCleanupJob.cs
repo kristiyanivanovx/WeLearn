@@ -9,9 +9,9 @@ namespace WeLearn.Services.CronJobs
 {
     public class DbCleanupJob
     {
-        private readonly ApplicationDbContext context;
+        private readonly DatabaseContext context;
 
-        public DbCleanupJob(ApplicationDbContext context)
+        public DbCleanupJob(DatabaseContext context)
             => this.context = context;
 
         public async Task WorkAsync()
@@ -24,10 +24,10 @@ namespace WeLearn.Services.CronJobs
             await this.context.SaveChangesAsync();
 
             // remove all chat users where the chat id is not 1
-            var chatApplicationUsers = this.context.ChatApplicationUsers
+            var chatApplicationUsers = this.context.ChatUsers
                 .Where(x => x.Chat.Id != mainChatId);
 
-            this.context.ChatApplicationUsers.RemoveRange(chatApplicationUsers);
+            this.context.ChatUsers.RemoveRange(chatApplicationUsers);
             await this.context.SaveChangesAsync();
 
             // remove all chats where the chat id is not 1

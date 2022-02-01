@@ -1,8 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using WeLearn.Data.Models.Identity
-@using static WeLearn.Common.GlobalConstants;
-
-@inject UserManager<ApplicationUser> userManager
+﻿@inject UserManager<ApplicationUser> userManager
 
 @model PaginatedList<WeLearn.Web.ViewModels.Admin.User.AdminUserViewModel>
 @{
@@ -53,9 +49,9 @@
         <tr>
             @{
                 var dbUser = await userManager.FindByIdAsync(item.Id);
-                var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationRegularAdministratorRoleName);
-                var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, ApplicationHeadAdministratorRoleName);
-                var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, ApplicationTeacherRoleName);
+                var dbUserIsAdmin = await userManager.IsInRoleAsync(dbUser, SystemRegularAdministratorRoleName);
+                var dbUserIsHeadAdmin = await userManager.IsInRoleAsync(dbUser, SystemHeadAdministratorRoleName);
+                var dbUserIsTeacher = await userManager.IsInRoleAsync(dbUser, SystemTeacherRoleName);
 
                 var adminRoleButtonClassStyling = dbUserIsAdmin ?
                     "btn btn-sm btn-outline-warning mb-1" :
@@ -66,8 +62,8 @@
                     "btn btn-sm btn-outline-warning mb-1";
 
                 // current logged in admin is Head Admin
-                var currentAdminIsHeadAdmin = User.IsInRole(ApplicationHeadAdministratorRoleName);
-                var currentIsAdmin = User.IsInRole(ApplicationRegularAdministratorRoleName);
+                var currentAdminIsHeadAdmin = User.IsInRole(SystemHeadAdministratorRoleName);
+                var currentIsAdmin = User.IsInRole(SystemRegularAdministratorRoleName);
 
                 // demoting is available only if the current logged in Admin is Head Admin
                 // and the db entity (user) is not Head Admin

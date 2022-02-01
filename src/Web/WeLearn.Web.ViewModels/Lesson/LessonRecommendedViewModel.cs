@@ -30,9 +30,9 @@ namespace WeLearn.Web.ViewModels.Lesson
 
         public string CategoryName { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public string VideoName { get; set; }
 

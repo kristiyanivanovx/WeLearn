@@ -51,7 +51,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Lesson(LessonReportInputModel model)
         {
-            model.ApplicationUserId = this.GetUserId();
+            model.UserId = this.GetUserId();
 
             if (!this.ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace WeLearn.Web.Controllers
                 return this.View(model);
             }
 
-            if (model.ApplicationUserId != this.GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return this.View("Unauthorized");
             }
@@ -124,7 +124,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            if (model.ApplicationUserId != this.GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return this.View("Unauthorized");
             }
@@ -158,7 +158,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Comment(CommentReportInputModel model)
         {
-            model.ApplicationUserId = this.GetUserId();
+            model.UserId = this.GetUserId();
 
             if (!this.ModelState.IsValid)
             {
@@ -198,7 +198,7 @@ namespace WeLearn.Web.Controllers
                 return this.View(model);
             }
 
-            if (model.ApplicationUserId != this.GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return this.View("Unauthorized");
             }
@@ -231,7 +231,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            if (model.ApplicationUserId != this.GetUserId())
+            if (model.UserId != this.GetUserId())
             {
                 return this.View(nameof(this.Unauthorized));
             }

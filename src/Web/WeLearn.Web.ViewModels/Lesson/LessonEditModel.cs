@@ -58,7 +58,7 @@ namespace WeLearn.Web.ViewModels.Lesson
             configuration.CreateMap<Data.Models.LessonModule.Lesson, LessonEditModel>()
                 .ForMember(
                     dest => dest.UserId, opt =>
-                        opt.MapFrom(src => src.ApplicationUserId))
+                        opt.MapFrom(src => src.UserId))
                 .ForMember(
                     dest => dest.LessonId,
                     opt => opt.MapFrom(src => src.Id))

@@ -34,7 +34,7 @@ namespace WeLearn.Services.CronJobs
                 .All()
                 .Select(x => new LikeLessonUserModel
                 {
-                    UserId = x.ApplicationUserId,
+                    UserId = x.UserId,
                     LessonId = x.LessonId,
                 })
                 .ToListAsync();
@@ -56,7 +56,6 @@ namespace WeLearn.Services.CronJobs
             string modelFilePath = Path.Combine(path, ExportDirectory, ModelFile);
 
             // using existing model, check for all possible combinations and store them to database
-            
             await this.recommendationsService.TestRecommendationsModel(modelFilePath, allCombinations);
         }
     }

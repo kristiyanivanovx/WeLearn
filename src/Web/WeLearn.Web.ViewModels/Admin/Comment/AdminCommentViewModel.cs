@@ -11,9 +11,11 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
 {
     public class AdminCommentViewModel : IMapFrom<Data.Models.LessonModule.Comment>, IHaveCustomMappings
     {
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
-        public string ApplicationUserEmail { get; set; }
+        public string UserEmail { get; set; }
+
+        public string UserId { get; set; }
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
@@ -29,8 +31,6 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
 
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }
-
-        public string ApplicationUserId { get; set; }
 
         public DateTime LessonCreatedOn { get; set; }
 
@@ -50,7 +50,7 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
 
         public string LessonMaterialLink { get; set; }
 
-        public string LessonApplicationUserUserName { get; set; }
+        public string LessonUserUserName { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

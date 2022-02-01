@@ -29,9 +29,9 @@ namespace WeLearn.Web.ViewModels.Report.Comment
         [Required(ErrorMessage = "Please provide description to the report.")]
         public string ReportDescription { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -29,7 +29,7 @@
             <form asp-controller="Report" asp-action="CommentDelete" method="post">
                 <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
                 <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
-                <input type="hidden" value="@Model.ApplicationUserId" asp-for="@Model.ApplicationUserId" class="form-control" />
+                <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
                 <div class="mb-3">
                     <p>Subject:</p>
                     <p>@Model.Subject</p>

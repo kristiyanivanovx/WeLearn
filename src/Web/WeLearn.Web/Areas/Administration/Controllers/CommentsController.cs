@@ -11,8 +11,8 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    [Area(SystemAdministrationAreaName)]
+    [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class CommentsController : Controller
     {
         private readonly ICommentsService commentsService;
@@ -49,7 +49,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
@@ -57,7 +57,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.View(comment);
         }
 
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         [HttpPost]
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)

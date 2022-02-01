@@ -20,7 +20,7 @@
                     <h5 class="card-title">@Model.Name</h5>
                     <hr />
                     <p class="card-text">@Model.Description</p>
-                    @{ var createdBy = Model.ApplicationUserUserName ?? "Deleted User"; }
+                    @{ var createdBy = Model.UserUserName ?? "Deleted User"; }
                     <div class="card-text">
                         <p class="small text-muted mt-2">Grade - @Model.Grade</p>
                         <p class="small text-muted">Category - @Model.CategoryName</p>

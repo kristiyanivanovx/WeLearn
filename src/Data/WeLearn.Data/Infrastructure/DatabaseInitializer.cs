@@ -9,7 +9,7 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Data.Infrastructure
 {
-    public static class ApplicationDbInitializer
+    public static class DatabaseInitializer
     {
         public static void SeedData(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
@@ -21,9 +21,9 @@ namespace WeLearn.Data.Infrastructure
         {
             List<string> roles = new List<string>
             {
-                ApplicationRegularAdministratorRoleName,
-                ApplicationHeadAdministratorRoleName,
-                ApplicationTeacherRoleName
+                SystemRegularAdministratorRoleName,
+                SystemHeadAdministratorRoleName,
+                SystemTeacherRoleName
             };
 
             foreach (var role in roles)
@@ -43,83 +43,83 @@ namespace WeLearn.Data.Infrastructure
         private static void SeedUsers(UserManager<ApplicationUser> userManager)
         {
             // seed Teacher
-            var teacherUser = userManager.FindByEmailAsync(ApplicationTeacherEmail).Result;
+            var teacherUser = userManager.FindByEmailAsync(SystemTeacherEmail).Result;
 
             // Teacher doesn't exist, create him and add him to the teacher role
             if (teacherUser == null)
             {
                 var roles = new[]
                 {
-                    ApplicationTeacherRoleName
+                    SystemTeacherRoleName
                 };
 
                 CreateUser(
                     userManager,
-                    ApplicationTeacherId,
-                    ApplicationTeacherEmail,
+                    SystemTeacherId,
+                    SystemTeacherEmail,
                     false,
-                    ApplicationTeacherUsername,
+                    SystemTeacherUsername,
                     "Peter_1234_#pass",
                     roles);
             }
             else
             {
                 // Teacher does exist, ensure he is in the Teacher roles
-                EnsureUserInRole(userManager, teacherUser, ApplicationTeacherRoleName);
+                EnsureUserInRole(userManager, teacherUser, SystemTeacherRoleName);
             }
 
             // seed Regular Admin
-            var regularAdmin = userManager.FindByEmailAsync(ApplicationRegularAdministratorEmail).Result;
+            var regularAdmin = userManager.FindByEmailAsync(SystemRegularAdministratorEmail).Result;
 
             // Regular Admin doesn't exist, create him and add him to Admin roles
             if (regularAdmin == null)
             {
                 var roles = new[]
                 {
-                    ApplicationRegularAdministratorRoleName,
+                    SystemRegularAdministratorRoleName,
                 };
 
                 CreateUser(
                     userManager,
-                    ApplicationRegularAdministratorId,
-                    ApplicationRegularAdministratorEmail,
+                    SystemRegularAdministratorId,
+                    SystemRegularAdministratorEmail,
                     false,
-                    ApplicationRegularAdministratorUsername,
+                    SystemRegularAdministratorUsername,
                     "User_qwerty_1234%",
                     roles);
             }
             else
             {
                 // Regular Admin does exist, ensure he is in Admin role
-                EnsureUserInRole(userManager, regularAdmin, ApplicationRegularAdministratorRoleName);
+                EnsureUserInRole(userManager, regularAdmin, SystemRegularAdministratorRoleName);
             }
 
             // seed Head Admin
-            var headAdmin = userManager.FindByEmailAsync(ApplicationHeadAdministratorEmail).Result;
+            var headAdmin = userManager.FindByEmailAsync(SystemHeadAdministratorEmail).Result;
 
             // Head Admin doesn't exist, create him and add him to HeadAdmin and Admin roles
             if (headAdmin == null)
             {
                 var roles = new[]
                 {
-                    ApplicationRegularAdministratorRoleName,
-                    ApplicationHeadAdministratorRoleName
+                    SystemRegularAdministratorRoleName,
+                    SystemHeadAdministratorRoleName
                 };
 
                 CreateUser(
                     userManager,
-                    ApplicationHeadAdministratorId,
-                    ApplicationHeadAdministratorEmail,
+                    SystemHeadAdministratorId,
+                    SystemHeadAdministratorEmail,
                     false,
-                    ApplicationHeadAdministratorUsername,
+                    SystemHeadAdministratorUsername,
                     "admin_Pass123%",
                     roles);
             }
             else
             {
                 // Head Admin does exist, ensure he is in HeadAdmin and Admin roles
-                EnsureUserInRole(userManager, headAdmin, ApplicationRegularAdministratorRoleName);
-                EnsureUserInRole(userManager, headAdmin, ApplicationHeadAdministratorRoleName);
+                EnsureUserInRole(userManager, headAdmin, SystemRegularAdministratorRoleName);
+                EnsureUserInRole(userManager, headAdmin, SystemHeadAdministratorRoleName);
             }
         }
 

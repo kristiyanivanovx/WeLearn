@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
 using WeLearn.Data.Models.ChatApp;
 using WeLearn.Data.Repositories;
-using WeLearn.Services;
+
 using WeLearn.Services.Data;
 using WeLearn.Tests.Mocks;
 using Xunit;
@@ -21,7 +18,7 @@ namespace WeLearn.Tests
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
             var messageRepository = new EfRepository<Message>(dbInstance);
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatUser>(dbInstance);
             var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
@@ -43,7 +40,7 @@ namespace WeLearn.Tests
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
             var messageRepository = new EfRepository<Message>(dbInstance);
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatUser>(dbInstance);
             var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
@@ -55,7 +52,7 @@ namespace WeLearn.Tests
 
             var chats = await service.GetAllChatsAsync();
             var chat = chats.FirstOrDefault(x => x.Name == roomName);
-            var userBelongsToChat = chat?.ChatApplicationUsers.Any(x => x.ApplicationUserId == userId);
+            var userBelongsToChat = chat?.ChatUsers.Any(x => x.UserId == userId);
 
             // assert
             Assert.NotNull(chat);
@@ -68,7 +65,7 @@ namespace WeLearn.Tests
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
             var messageRepository = new EfRepository<Message>(dbInstance);
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatUser>(dbInstance);
             var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
@@ -94,7 +91,7 @@ namespace WeLearn.Tests
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
             var messageRepository = new EfRepository<Message>(dbInstance);
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatUser>(dbInstance);
             var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
@@ -116,7 +113,7 @@ namespace WeLearn.Tests
             // arrange
             await using var dbInstance = DatabaseMock.Instance;
             var messageRepository = new EfRepository<Message>(dbInstance);
-            var chatAppUserRepository = new EfRepository<ChatApplicationUser>(dbInstance);
+            var chatAppUserRepository = new EfRepository<ChatUser>(dbInstance);
             var chatRepository = new EfRepository<Chat>(dbInstance);
             var service = new ChatService(chatRepository, chatAppUserRepository, messageRepository);
 
@@ -133,7 +130,7 @@ namespace WeLearn.Tests
 
             var userHasJoined = chatAppUserRepository
                 .All()
-                .Any(x => x.ApplicationUserId == userIdTwo && x.ChatId == chat.Id);
+                .Any(x => x.UserId == userIdTwo && x.ChatId == chat.Id);
 
             // assert
             Assert.True(userHasJoined);

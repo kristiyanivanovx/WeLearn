@@ -19,7 +19,7 @@
                         <h5 class="card-title">@Model.LessonName</h5>
                         <hr />
                         <p class="card-text">@Model.LessonDescription</p>
-                        @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
+                        @{ var createdBy = Model.LessonUserUserName ?? "Deleted User"; }
                         <p class="small text-muted mt-3">Grade - @Model.LessonGrade</p>
                         <p class="small text-muted">Category - @Model.LessonCategoryName</p>
                         <p class="small text-muted">Created by - @createdBy</p>
@@ -37,13 +37,13 @@
             <h2>Comment</h2>
             <hr />
             
-            <p>Created by: @Model.ApplicationUserUserName</p>
+            <p>Created by: @Model.UserUserName</p>
             <p>Date created: <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
             <hr />
             
             <form asp-action="Edit">
                 <input asp-for="LessonId" type="hidden" />
-                <input asp-for="ApplicationUserId" type="hidden" />
+                <input asp-for="UserId" type="hidden" />
                 <input asp-for="Id" type="hidden" />
                 <div class="form-group">
                     <label asp-for="Content" class="control-label"></label>

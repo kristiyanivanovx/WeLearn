@@ -38,7 +38,7 @@ namespace WeLearn.Services.Data
             => await this.commentRepository
                 .All()
                 .Where(x => x.Lesson.Id == lessonId && !x.IsDeleted)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .OrderByDescending(x => x.CreatedOn)
                 .To<CommentViewModel>()
                 .ToArrayAsync();

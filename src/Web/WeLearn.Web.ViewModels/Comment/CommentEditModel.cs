@@ -24,7 +24,7 @@ namespace WeLearn.Web.ViewModels.Comment
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public DateTime LessonCreatedOn { get; set; }
 

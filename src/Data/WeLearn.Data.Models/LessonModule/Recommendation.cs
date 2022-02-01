@@ -13,9 +13,9 @@ namespace WeLearn.Data.Models.LessonModule
         public Lesson Lesson { get; set; }
 
         [Required]
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser User { get; set; }
 
         [Required]
         public float Score { get; set; }

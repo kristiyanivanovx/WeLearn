@@ -31,7 +31,7 @@ namespace WeLearn.Services.CronJobs
                 .All()
                 .Select(x => new LikeLessonUserModel
                 {
-                    UserId = x.ApplicationUserId,
+                    UserId = x.UserId,
                     LessonId = x.LessonId,
                 })
                 .ToListAsync();

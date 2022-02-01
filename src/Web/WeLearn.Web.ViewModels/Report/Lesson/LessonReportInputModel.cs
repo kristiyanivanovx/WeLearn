@@ -53,7 +53,7 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
         [MaxLength(MaxDescriptionLength)]
         public string ReportDescription { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
@@ -89,7 +89,7 @@ namespace WeLearn.Web.ViewModels.Report.Lesson
                     opt => opt.MapFrom(src => src.Category.Name))
                 .ForMember(
                     dest => dest.LessonApplicationUserUserName,
-                    opt => opt.MapFrom(src => src.ApplicationUser.UserName));
+                    opt => opt.MapFrom(src => src.User.UserName));
         }
     }
 }

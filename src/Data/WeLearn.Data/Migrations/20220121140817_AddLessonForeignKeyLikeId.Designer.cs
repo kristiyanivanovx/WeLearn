@@ -9,7 +9,7 @@ using WeLearn.Data;
 
 namespace WeLearn.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20220121140817_AddLessonForeignKeyLikeId")]
     partial class AddLessonForeignKeyLikeId
     {

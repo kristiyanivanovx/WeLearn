@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-using WeLearn.Services;
 using WeLearn.Services.Data;
 using WeLearn.Web.ViewModels.Question;
 
@@ -12,8 +11,8 @@ using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Web.Areas.Administration.Controllers
 {
-    [Area(ApplicationAdministrationAreaName)]
-    [Authorize(Roles = ApplicationRegularAdministratorRoleName + "," + ApplicationTeacherRoleName)]
+    [Area(SystemAdministrationAreaName)]
+    [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class QuestionsController : Controller
     {
         // todo: interface instead of class
@@ -81,7 +80,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        [Authorize(Roles = ApplicationRegularAdministratorRoleName)]
+        [Authorize(Roles = SystemRegularAdministratorRoleName)]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

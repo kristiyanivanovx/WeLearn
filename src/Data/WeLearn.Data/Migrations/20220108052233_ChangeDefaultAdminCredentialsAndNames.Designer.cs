@@ -9,7 +9,7 @@ using WeLearn.Data;
 
 namespace WeLearn.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20220108052233_ChangeDefaultAdminCredentialsAndNames")]
     partial class ChangeDefaultAdminCredentialsAndNames
     {

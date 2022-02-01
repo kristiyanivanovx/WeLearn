@@ -11,9 +11,9 @@ namespace WeLearn.Data.Seeding
 {
     public class UsersSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            var headAdminUser = dbContext.ApplicationUsers.FirstOrDefault(x => x.Id == ApplicationHeadAdministratorId);
+            var headAdminUser = databaseContext.ApplicationUsers.FirstOrDefault(x => x.Id == SystemHeadAdministratorId);
 
             if (headAdminUser == null)
             {
@@ -29,8 +29,8 @@ namespace WeLearn.Data.Seeding
                 PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
                 applicationUser.PasswordHash = passwordHasher.HashPassword(applicationUser, "User_qwerty_1234%");
 
-                await dbContext.ApplicationUsers.AddAsync(applicationUser);
-                await dbContext.SaveChangesAsync();
+                await databaseContext.ApplicationUsers.AddAsync(applicationUser);
+                await databaseContext.SaveChangesAsync();
             }
         }
     }

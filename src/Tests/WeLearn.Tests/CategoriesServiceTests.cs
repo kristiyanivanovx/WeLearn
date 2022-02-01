@@ -1,13 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
-using WeLearn.Data;
 using WeLearn.Data.Models.Shared;
 using WeLearn.Data.Repositories;
-using WeLearn.Services;
+
 using WeLearn.Services.Data;
 using WeLearn.Tests.Mocks;
 using Xunit;

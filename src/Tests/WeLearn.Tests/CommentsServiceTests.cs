@@ -1,13 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-using WeLearn.Data;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
-using WeLearn.Services;
 using WeLearn.Services.Data;
 using WeLearn.Tests.Mocks;
 using WeLearn.Web.ViewModels.Admin.Comment;
@@ -39,7 +35,7 @@ namespace WeLearn.Tests
                 {
                     LessonId = 1,
                     Content = comment.Content,
-                    ApplicationUserId = "123",
+                    UserId = "123",
                 };
 
                 await commentsService.CreateCommentAsync(inputModel);
@@ -74,7 +70,7 @@ namespace WeLearn.Tests
                 {
                     LessonId = 1,
                     Content = comment.Content,
-                    ApplicationUserId = "123",
+                    UserId = "123",
                 };
 
                 await commentsService.CreateCommentAsync(inputModel);
@@ -111,7 +107,7 @@ namespace WeLearn.Tests
                 {
                     LessonId = 1,
                     Content = comment.Content,
-                    ApplicationUserId = "123",
+                    UserId = "123",
                 };
 
                 await commentsService.CreateCommentAsync(inputModel);
@@ -139,7 +135,7 @@ namespace WeLearn.Tests
             {
                 new Comment
                 {
-                    Id = 1, Content = "C", ApplicationUserId = "asd", LessonId = 3,
+                    Id = 1, Content = "C", UserId = "asd", LessonId = 3,
                 },
             };
 
@@ -153,7 +149,7 @@ namespace WeLearn.Tests
                 {
                     LessonId = 1,
                     Content = comment.Content,
-                    ApplicationUserId = "123",
+                    UserId = "123",
                 };
 
                 await commentsService.CreateCommentAsync(inputModel);
@@ -177,7 +173,7 @@ namespace WeLearn.Tests
             {
                 new Comment
                 {
-                    Id = 1, Content = "C", ApplicationUserId = "asd", LessonId = 3,
+                    Id = 1, Content = "C", UserId = "asd", LessonId = 3,
                 },
             }.AsQueryable();
 
@@ -191,7 +187,7 @@ namespace WeLearn.Tests
                 {
                     LessonId = 1,
                     Content = comment.Content,
-                    ApplicationUserId = "123",
+                    UserId = "123",
                 };
 
                 await commentsService.CreateCommentAsync(inputModel);
@@ -215,7 +211,7 @@ namespace WeLearn.Tests
             {
                 new Comment
                 {
-                    Id = 1, Content = "Test Content", ApplicationUserId = "asd", LessonId = 3,
+                    Id = 1, Content = "Test Content", UserId = "asd", LessonId = 3,
                 },
             };
 
@@ -229,7 +225,7 @@ namespace WeLearn.Tests
                 {
                     LessonId = 1,
                     Content = comment.Content,
-                    ApplicationUserId = "123",
+                    UserId = "123",
                 };
 
                 await commentsService.CreateCommentAsync(inputModel);

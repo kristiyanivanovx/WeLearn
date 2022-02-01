@@ -29,7 +29,7 @@ namespace WeLearn.Services.Data
                 // Console.WriteLine($"User: {testInput.UserId}, Lesson: {testInput.LessonId}, Score: {prediction.Score}");
                 var recommendation = new Recommendation
                 {
-                    ApplicationUserId = testInput.UserId,
+                    UserId = testInput.UserId,
                     LessonId = testInput.LessonId,
                     Score = prediction.Score,
                 };
@@ -37,7 +37,7 @@ namespace WeLearn.Services.Data
                 var existingRecommendation = this.recommendationsRepository
                     .All()
                     .FirstOrDefault(x =>
-                        x.ApplicationUserId.Equals(recommendation.ApplicationUserId) && x.LessonId == recommendation.LessonId);
+                        x.UserId.Equals(recommendation.UserId) && x.LessonId == recommendation.LessonId);
 
                 if (existingRecommendation != null)
                 {

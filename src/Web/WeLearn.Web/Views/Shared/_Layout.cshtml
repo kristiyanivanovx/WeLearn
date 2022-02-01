@@ -43,8 +43,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     @{
-                        var isUserAdminOrTeacher = User.IsInRole(GlobalConstants.ApplicationRegularAdministratorRoleName) ||
-                                                   User.IsInRole(GlobalConstants.ApplicationTeacherRoleName);
+                        var isUserAdminOrTeacher = User.IsInRole(GlobalConstants.SystemRegularAdministratorRoleName) ||
+                                                   User.IsInRole(GlobalConstants.SystemTeacherRoleName);
                     }
                     @if (isUserAdminOrTeacher)
                     {

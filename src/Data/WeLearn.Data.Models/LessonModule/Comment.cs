@@ -12,9 +12,9 @@ namespace WeLearn.Data.Models.LessonModule
         [MaxLength(MaxContentLength)]
         public string Content { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public Identity.ApplicationUser ApplicationUser { get; set; }
+        public Identity.ApplicationUser User { get; set; }
 
         public int LessonId { get; set; }
 

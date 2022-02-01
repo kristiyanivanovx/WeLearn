@@ -1,13 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore;
-
-using WeLearn.Data;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Repositories;
-using WeLearn.Services;
+
 using WeLearn.Services.Data;
 using WeLearn.Tests.Mocks;
 using WeLearn.Web.ViewModels.Admin.Report;
@@ -35,7 +31,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 
@@ -52,7 +48,7 @@ namespace WeLearn.Tests
             Assert.NotNull(entity);
             Assert.Equal(testSubject, entity.Subject);
             Assert.Equal(testDescription, entity.Description);
-            Assert.Equal(testAppUserId, entity.ApplicationUserId);
+            Assert.Equal(testAppUserId, entity.UserId);
             Assert.Equal(testLessonId, entity.LessonId);
         }
 
@@ -74,7 +70,7 @@ namespace WeLearn.Tests
                 LessonId = testLessonId,
                 Subject = testSubject,
                 ReportDescription = testReportDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
             };
 
             // act
@@ -121,7 +117,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 CommentId = testCommentId
             };
 
@@ -133,7 +129,7 @@ namespace WeLearn.Tests
                 ReportId = 1,
                 Subject = subjectChanged,
                 ReportDescription = descriptionChanged,
-                ApplicationUserId = testAppUserId
+                UserId = testAppUserId
             };
 
             await service.EditCommentReportAsync(editModel);
@@ -167,7 +163,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 
@@ -181,7 +177,7 @@ namespace WeLearn.Tests
                 Id = entity!.Id,
                 Subject = subjectChanged,
                 Description = descriptionChanged,
-                ApplicationUserId = "1asd",
+                UserId = "1asd",
             };
 
             await service.EditReportAdministrationAsync(editModel);
@@ -212,7 +208,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 
@@ -225,7 +221,7 @@ namespace WeLearn.Tests
                 Id = entity!.Id,
                 Subject = subjectChanged,
                 Description = descriptionChanged,
-                ApplicationUserId = "1asd",
+                UserId = "1asd",
                 IsDeleted = true,
             };
 
@@ -254,7 +250,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 
@@ -287,7 +283,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 
@@ -319,7 +315,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 
@@ -327,7 +323,7 @@ namespace WeLearn.Tests
             {
                 Subject = testSubject,
                 ReportDescription = testDescription,
-                ApplicationUserId = testAppUserId,
+                UserId = testAppUserId,
                 LessonId = testLessonId
             };
 

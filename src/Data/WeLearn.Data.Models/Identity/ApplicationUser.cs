@@ -25,7 +25,7 @@ namespace WeLearn.Data.Models.Identity
             this.Lessons = new HashSet<Lesson>();
             this.Comments = new HashSet<Comment>();
             this.Reports = new HashSet<Report>();
-            this.Chats = new HashSet<ChatApplicationUser>();
+            this.Chats = new HashSet<ChatUser>();
             this.Organizations = new HashSet<Organization>();
             this.CreatedOrganizations = new HashSet<Organization>();
         }
@@ -54,7 +54,7 @@ namespace WeLearn.Data.Models.Identity
 
         public ICollection<Report> Reports { get; set; }
 
-        public ICollection<ChatApplicationUser> Chats { get; set; }
+        public ICollection<ChatUser> Chats { get; set; }
 
         public ICollection<LessonModule.Recommendation> Recommendations { get; set; }
 

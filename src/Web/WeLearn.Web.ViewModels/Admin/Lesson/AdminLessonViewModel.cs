@@ -22,11 +22,11 @@ namespace WeLearn.Web.ViewModels.Admin.Lesson
 
         public string CategoryName { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
-        public string ApplicationUserEmail { get; set; }
+        public string UserEmail { get; set; }
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }

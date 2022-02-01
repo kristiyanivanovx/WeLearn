@@ -63,7 +63,7 @@ namespace WeLearn.Services.Data
         {
             var lessons = this.lessonRepository
                 .All()
-                .Where(x => x.Likes.Any(like => like.ApplicationUserId == userId));
+                .Where(x => x.Likes.Any(like => like.UserId == userId));
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -73,7 +73,7 @@ namespace WeLearn.Services.Data
 
             var allWithRelated = await lessons
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .To<T>()
@@ -87,7 +87,7 @@ namespace WeLearn.Services.Data
                 .All()
                 .Where(x => x.Id == id)
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .To<T>()
@@ -98,7 +98,7 @@ namespace WeLearn.Services.Data
                 .AllWithDeleted()
                 .Where(x => x.Id == id)
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .To<T>()
@@ -128,7 +128,7 @@ namespace WeLearn.Services.Data
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .To<LessonViewModel>()
                 .ToListAsync();
 
@@ -148,7 +148,7 @@ namespace WeLearn.Services.Data
 
             var models = await lessons
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .Include(x => x.Recommendations)
@@ -170,7 +170,7 @@ namespace WeLearn.Services.Data
 
             var mapped = await lessons
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .To<T>()
@@ -190,9 +190,9 @@ namespace WeLearn.Services.Data
             }
 
             List<LessonViewModel> lessonsByMe = await lessons
-                .Where(x => x.ApplicationUserId == userId)
+                .Where(x => x.UserId == userId)
                 .Include(x => x.Category)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .Include(x => x.Video)
                 .Include(x => x.Material)
                 .To<LessonViewModel>()
@@ -251,7 +251,7 @@ namespace WeLearn.Services.Data
                 Grade = lessonInputModel.Grade,
                 Description = lessonInputModel.Description,
                 CategoryId = lessonInputModel.CategoryId,
-                ApplicationUserId = userId
+                UserId = userId
             };
 
             await this.lessonRepository.AddAsync(lesson);
@@ -512,7 +512,6 @@ namespace WeLearn.Services.Data
 
             if (isDevelopment)
             {
-                int lessonId = lesson.Id;
                 string stringGuid = Guid.NewGuid().ToString();
                 string uploadsMaterialsPath =
                     this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "materials");

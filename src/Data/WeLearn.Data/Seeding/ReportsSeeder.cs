@@ -10,16 +10,16 @@ namespace WeLearn.Data.Seeding
 {
     public class ReportsSeeder : ISeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public async Task SeedAsync(DatabaseContext databaseContext, IServiceProvider serviceProvider)
         {
-            var reportsCount = dbContext.Reports.ToList().Count;
+            var reportsCount = databaseContext.Reports.ToList().Count;
             if (reportsCount == 0)
             {
-                await dbContext.Reports.AddRangeAsync(
+                await databaseContext.Reports.AddRangeAsync(
                         new Report
                         {
                             Id = 1,
-                            ApplicationUserId = ApplicationHeadAdministratorId,
+                            UserId = SystemHeadAdministratorId,
                             LessonId = 5,
                             Subject = "The language used in title",
                             Description = "Bad language in lesson's title.",
@@ -27,7 +27,7 @@ namespace WeLearn.Data.Seeding
                         new Report
                         {
                             Id = 3,
-                            ApplicationUserId = ApplicationHeadAdministratorId,
+                            UserId = SystemHeadAdministratorId,
                             CommentId = 1,
                             Subject = "Unacceptable behaviour",
                             Description = "Bad language in comment.",

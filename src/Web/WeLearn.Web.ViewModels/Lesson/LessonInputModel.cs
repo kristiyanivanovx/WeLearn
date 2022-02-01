@@ -47,7 +47,7 @@ namespace WeLearn.Web.ViewModels.Lesson
         {
             configuration.CreateMap<LessonInputModel, Data.Models.LessonModule.Lesson>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.LessonName))
-                .ForMember(dest => dest.ApplicationUserId, opt => opt.Ignore())
+                .ForMember(dest => dest.UserId, opt => opt.Ignore())
                 .ForMember(dest => dest.Video, opt => opt.Ignore())
                 .ForMember(dest => dest.VideoId, opt => opt.Ignore())
                 .ForMember(dest => dest.Material, opt => opt.Ignore())

@@ -20,9 +20,9 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }
 
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
 
-        public string ApplicationUserUserName { get; set; }
+        public string UserUserName { get; set; }
 
         public int LessonId { get; set; }
 
@@ -47,6 +47,6 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
 
         public string LessonMaterialLink { get; set; }
 
-        public string LessonApplicationUserUserName { get; set; }
+        public string LessonUserUserName { get; set; }
     }
 }

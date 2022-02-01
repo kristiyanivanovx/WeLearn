@@ -4,7 +4,7 @@
 {
     <div class="card mb-3 card-style-80-rem">
         <div class="card-body">
-            <h5 class="card-title">@item.ApplicationUserUserName wrote</h5>
+            <h5 class="card-title">@item.UserUserName wrote</h5>
             <hr />
             <input asp-for="@item.LessonId" type="hidden" />
             <div class="form-group">
@@ -13,7 +13,7 @@
                 </p>
                 <small class="text-muted">on <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time></small>
             </div>
-            @if (User.Identity?.Name == item.ApplicationUserUserName)
+            @if (User.Identity?.Name == item.UserUserName)
             {
                 <a asp-controller="Comment" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success">
                     <i class="fas fa-edit"></i> Edit

@@ -11,7 +11,7 @@
             <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center form-group">
                 <input asp-for="LessonId" type="hidden"/>
                 <input asp-for="Name" type="hidden"/>
-                <input asp-for="ApplicationUserUserName" type="hidden"/>
+                <input asp-for="UserUserName" type="hidden"/>
                 <input asp-for="VideoName" type="hidden"/>
                 <input asp-for="VideoLink" type="hidden"/>
                 <input asp-for="MaterialLink" type="hidden"/>
@@ -40,7 +40,7 @@
             <hr/>
             <p class="card-text mb-1">@Model.Description</p>
                     
-            @{ var createdBy = Model.ApplicationUserUserName ?? "Deleted User"; }
+            @{ var createdBy = Model.UserUserName ?? "Deleted User"; }
             <form id="likesForm" method="post"></form>
             <div class="text-muted">
                 <small>Likes - <span id="likesCount">@Model.LikesCount</span></small>
@@ -73,7 +73,7 @@
                 </a>
 	        }
             
-            @if (User.Identity?.Name == Model.ApplicationUserUserName)
+            @if (User.Identity?.Name == Model.UserUserName)
             {
                 <a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success mb-1">
                     <i class="fas fa-edit"></i> Edit

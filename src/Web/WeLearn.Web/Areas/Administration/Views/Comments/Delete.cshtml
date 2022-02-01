@@ -17,7 +17,7 @@
                     <h5 class="card-title">@Model.LessonName</h5>
                     <hr />
                     <p class="card-text">@Model.LessonDescription</p>
-                    @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
+                    @{ var createdBy = Model.LessonUserUserName ?? "Deleted User"; }
                    
                     <div class="card-text">
                         <p class="small text-muted mt-2">Grade - @Model.LessonGrade</p>
@@ -40,7 +40,7 @@
             
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <p>Created by: @Model.ApplicationUserUserName</p>
+                <p>Created by: @Model.UserUserName</p>
                 <p>Date created: <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
                 <p>Content: @Model.Content</p>
                 <input class="form-check-input" asp-for="IsDeleted" disabled />

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using WeLearn.Data.Models.ChatApp;
 
 namespace WeLearn.Services.Data.Interfaces

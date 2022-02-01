@@ -75,8 +75,8 @@ namespace WeLearn.Services.Data
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
-            var isAdmin = await this.userManager.IsInRoleAsync(user, ApplicationRegularAdministratorRoleName);
-            var isHeadAdmin = await this.userManager.IsInRoleAsync(user, ApplicationHeadAdministratorRoleName);
+            var isAdmin = await this.userManager.IsInRoleAsync(user, SystemRegularAdministratorRoleName);
+            var isHeadAdmin = await this.userManager.IsInRoleAsync(user, SystemHeadAdministratorRoleName);
 
             // if HeadAdmin is trying to remove his Admin role, restrict him
             if (isHeadAdmin)
@@ -87,11 +87,11 @@ namespace WeLearn.Services.Data
             // if HeadAdmin is trying to toggle Admin role on an User
             if (isAdmin)
             {
-                await this.userManager.RemoveFromRoleAsync(user, ApplicationRegularAdministratorRoleName);
+                await this.userManager.RemoveFromRoleAsync(user, SystemRegularAdministratorRoleName);
             }
             else
             {
-                await this.userManager.AddToRoleAsync(user, ApplicationRegularAdministratorRoleName);
+                await this.userManager.AddToRoleAsync(user, SystemRegularAdministratorRoleName);
             }
 
             await this.appUserRepository.SaveChangesAsync();
@@ -109,22 +109,22 @@ namespace WeLearn.Services.Data
 
             // regular admins should not be able to touch head admin's teacher role
             // this is when (acting user is not admin) and (target is head admin)
-            var isActingUserHeadAdmin = await this.userManager.IsInRoleAsync(actingUser, ApplicationHeadAdministratorRoleName);
-            var isTargetUserHeadAdmin = await this.userManager.IsInRoleAsync(targetUser, ApplicationHeadAdministratorRoleName);
+            var isActingUserHeadAdmin = await this.userManager.IsInRoleAsync(actingUser, SystemHeadAdministratorRoleName);
+            var isTargetUserHeadAdmin = await this.userManager.IsInRoleAsync(targetUser, SystemHeadAdministratorRoleName);
 
             if (!isActingUserHeadAdmin && isTargetUserHeadAdmin)
             {
                 return;
             }
 
-            var isUserTeacher = await this.userManager.IsInRoleAsync(targetUser, ApplicationTeacherRoleName);
+            var isUserTeacher = await this.userManager.IsInRoleAsync(targetUser, SystemTeacherRoleName);
             if (isUserTeacher)
             {
-                await this.userManager.RemoveFromRoleAsync(targetUser, ApplicationTeacherRoleName);
+                await this.userManager.RemoveFromRoleAsync(targetUser, SystemTeacherRoleName);
             }
             else
             {
-                await this.userManager.AddToRoleAsync(targetUser, ApplicationTeacherRoleName);
+                await this.userManager.AddToRoleAsync(targetUser, SystemTeacherRoleName);
             }
 
             await this.appUserRepository.SaveChangesAsync();
@@ -159,7 +159,7 @@ namespace WeLearn.Services.Data
                 .All()
                 .FirstOrDefault(x => x.Id == userId);
 
-            var isUserHeadAdmin = await this.userManager.IsInRoleAsync(user, ApplicationHeadAdministratorRoleName);
+            var isUserHeadAdmin = await this.userManager.IsInRoleAsync(user, SystemHeadAdministratorRoleName);
             if (isUserHeadAdmin)
             {
                 return;

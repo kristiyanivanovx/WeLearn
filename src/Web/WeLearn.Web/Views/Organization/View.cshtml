@@ -43,7 +43,7 @@
                             @Model.Description
                         </td>
                         <td>
-                            @Model.ApplicationUsersCount
+                            @Model.UsersCount
                         </td>
                         <td>
                             @Model.CreatorUserName
@@ -56,7 +56,7 @@
                         <td>
                             @{
                                 string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                                var isMember = Model.ApplicationUsers
+                                var isMember = Model.Users
                                     .Any(x => x.Id == userId);
                                 
                                 var isCreator = userId == Model.CreatorId;
@@ -125,7 +125,7 @@
                 
                 <div class="text-center black-text mb-5">
                     <h5>Current members:</h5>
-                    @foreach (var user in @Model.ApplicationUsers)
+                    @foreach (var user in @Model.Users)
                     {
                         <div>@user.UserName</div>
                     }

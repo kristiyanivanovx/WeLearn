@@ -16,6 +16,6 @@ namespace WeLearn.Web.ViewModels.Comment
         public string Content { get; set; }
 
         // public string ApplicationUserUserName { get; set; }
-        public string ApplicationUserId { get; set; }
+        public string UserId { get; set; }
     }
 }

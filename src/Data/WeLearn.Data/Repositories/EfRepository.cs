@@ -10,7 +10,7 @@ namespace WeLearn.Data.Repositories
     public class EfRepository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        public EfRepository(ApplicationDbContext context)
+        public EfRepository(DatabaseContext context)
         {
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.DbSet = this.Context.Set<TEntity>();
@@ -18,7 +18,7 @@ namespace WeLearn.Data.Repositories
 
         protected DbSet<TEntity> DbSet { get; set; }
 
-        protected ApplicationDbContext Context { get; set; }
+        protected DatabaseContext Context { get; set; }
 
         public virtual IQueryable<TEntity> All() => this.DbSet;
 

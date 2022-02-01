@@ -33,7 +33,7 @@ namespace WeLearn.Services.Data
                 Choices = choices,
                 QuizId = quizId,
                 Points = points,
-                ApplicationUserId = userId,
+                UserId = userId,
             };
 
             await this.examinationRepository.AddAsync(examination);
@@ -44,7 +44,7 @@ namespace WeLearn.Services.Data
             => this.examinationRepository
                 .All()
                 .Include(x => x.Quiz)
-                .Include(x => x.ApplicationUser)
+                .Include(x => x.User)
                 .FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<T> GetById<T>(int id)

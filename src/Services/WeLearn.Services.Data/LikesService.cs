@@ -23,7 +23,7 @@ namespace WeLearn.Services.Data
         {
             var dbLike = this.likesRepository
                 .All()
-                .FirstOrDefault(x => x.LessonId == lessonId && x.ApplicationUserId == userId);
+                .FirstOrDefault(x => x.LessonId == lessonId && x.UserId == userId);
 
             // if the like doesn't already exist - user puts a like for the first time
             // else, the like exists and the user wants to remove it
@@ -42,7 +42,7 @@ namespace WeLearn.Services.Data
             var like = new Like
             {
                 LessonId = lessonId,
-                ApplicationUserId = userId,
+                UserId = userId,
             };
 
             await this.likesRepository.AddAsync(like);

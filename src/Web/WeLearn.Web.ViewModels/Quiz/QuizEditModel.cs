@@ -19,6 +19,7 @@ namespace WeLearn.Web.ViewModels.Quiz
         [Required(ErrorMessage = "Please pick a category.")]
         public int CategoryId { get; set; }
 
+        [Display(Name = "Questions")]
         public IEnumerable<int> QuestionIds { get; set; }
 
         public IEnumerable<CategoryViewModel> Categories { get; set; }

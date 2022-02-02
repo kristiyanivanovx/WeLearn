@@ -21,6 +21,8 @@ namespace WeLearn.Web.ViewModels.Examination
 
         public int QuizMaxPoints { get; set; }
 
+        public decimal PercentCorrect => (1.0m * Points) / (1.0m * QuizMaxPoints) * 100;
+
         public string UserUserName { get; set; }
 
         public string UserId { get; set; }

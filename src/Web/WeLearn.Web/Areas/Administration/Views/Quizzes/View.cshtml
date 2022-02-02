@@ -25,6 +25,9 @@
                     Quiz max points
                 </th>
                 <th>
+                    Percent correct
+                </th>
+                <th>
                     Date taken
                 </th>
             </tr>
@@ -45,6 +48,9 @@
                 </td>
                 <td>
                     @Model.QuizMaxPoints
+                </td>
+                <td>
+                    @Model.PercentCorrect.ToString("f0")%
                 </td>
                 <td>
                     <time datetime="@Model.CreatedOn.ToString("O")">

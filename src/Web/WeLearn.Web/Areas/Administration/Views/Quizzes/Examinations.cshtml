@@ -31,6 +31,9 @@
                             Quiz max points
                         </th>
                         <th>
+                            Percent correct
+                        </th>
+                        <th>
                             Date created
                         </th>
                         <th>
@@ -56,6 +59,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => examinationViewModel.QuizMaxPoints)
+                            </td>
+                            <td>
+                                @examinationViewModel.PercentCorrect.ToString("f0")%
                             </td>
                             <td>
                                 <time datetime="@examinationViewModel.CreatedOn.ToString("O")">

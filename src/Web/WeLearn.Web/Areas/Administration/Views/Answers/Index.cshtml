@@ -53,12 +53,16 @@
                     @Html.DisplayFor(modelItem => answer.QuestionPoints)
                 </td>
                 <td>
-                    <time datetime="@answer.CreatedOn.ToString("O")">@answer.CreatedOn.ToString("g")</time>
+                    <time datetime="@answer.CreatedOn.ToString("O")">
+                        @answer.CreatedOn.ToString("g")
+                    </time>
                 </td>
                 <td>
                     @if (answer.ModifiedOn != default)
                     {
-                        <time datetime="@answer.ModifiedOn.ToString("O")">@answer.ModifiedOn.ToString("g")</time>
+                        <time datetime="@answer.ModifiedOn.ToString("O")">
+                            @answer.ModifiedOn.ToString("g")
+                        </time>
                     }
                     else
                     {

@@ -108,7 +108,6 @@ namespace WeLearn.Services.Data
         public async Task SoftDeleteAsync(int id, string userId)
         {
             var organization = this.GetById(id);
-
             if (organization.CreatorId.Equals(userId))
             {
                 this.organizationRepository.Delete(organization);

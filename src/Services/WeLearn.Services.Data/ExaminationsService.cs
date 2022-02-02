@@ -47,7 +47,7 @@ namespace WeLearn.Services.Data
                 .Include(x => x.User)
                 .FirstOrDefault(x => x.Id == id);
 
-        public IEnumerable<T> GetById<T>(int id)
+        public T GetById<T>(int id)
             => this.examinationRepository
                 .All()
                 .Where(x => x.Id == id)
@@ -56,7 +56,7 @@ namespace WeLearn.Services.Data
                         .ThenInclude(x => x.Answers)
                 .AsSingleQuery()
                 .To<T>()
-                .ToList();
+                .FirstOrDefault();
 
         public IEnumerable<T> GetAll<T>()
             => this.examinationRepository

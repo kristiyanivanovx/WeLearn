@@ -260,6 +260,22 @@ p {
     color: #ffffff;
 }
 
+/*reply button*/
+.btn-reply,
+.btn-reply:hover,
+.btn-reply:active,
+.btn-reply:visited,
+.btn-reply:focus {
+    border-color: #04b70d;
+    color: #04B70DFF;
+}
+
+.btn-reply:hover,
+.btn-reply:active {
+    background-color: #04B70DFF;
+    color: #ffffff;
+}
+
 /* override sb-admin 2*/
 p, label {
     color: black;

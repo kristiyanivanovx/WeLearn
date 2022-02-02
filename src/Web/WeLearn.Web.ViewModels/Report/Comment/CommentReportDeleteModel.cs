@@ -18,7 +18,7 @@ namespace WeLearn.Web.ViewModels.Report.Comment
         public string CommentApplicationUserUserName { get; set; }
 
         public string CommentContent { get; set; }
-        
+
         public string SanitizedCommentContent => new HtmlSanitizer().Sanitize(this.CommentContent);
 
         public DateTime CommentCreatedOn { get; set; }

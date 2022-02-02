@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Threading.Tasks;
 
 using WeLearn.Data.Models.Quiz;
 using WeLearn.Data.Repositories;
 using WeLearn.Services.Data;
+using WeLearn.Services.Mapping;
 using WeLearn.Tests.Mocks;
 using WeLearn.Web.ViewModels.Answer;
 using Xunit;
@@ -100,6 +102,63 @@ namespace WeLearn.Tests
             // assert
             Assert.True(containsEdited);
             Assert.Equal(1, rowsAffected);
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_AllAnswersRetrieved()
+        {
+            // arrange
+            await using var dbInstance = DatabaseMock.Instance;
+            var answerRepository = new EfDeletableEntityRepository<Answer>(dbInstance);
+            var service = new AnswersService(answerRepository);
+            AutoMapperConfig.RegisterMappings(typeof(MyTestAnswer).Assembly);
+
+            var model = new AnswerInputModel
+            {
+                IsCorrect = true,
+                Content = 123.ToString(),
+                QuestionId = 3,
+            };
+
+            // act
+            await service.CreateAsync(model);
+            var answers = service.GetAll<MyTestAnswer>();
+
+            // assert
+            Assert.Single(answers);
+        }
+
+        [Fact]
+        public async Task Should_Succeed_When_AnswerRetrievedById()
+        {
+            // arrange
+            await using var dbInstance = DatabaseMock.Instance;
+            var answerRepository = new EfDeletableEntityRepository<Answer>(dbInstance);
+            var service = new AnswersService(answerRepository);
+            AutoMapperConfig.RegisterMappings(typeof(MyTestAnswer).Assembly);
+
+            var model = new AnswerInputModel
+            {
+                IsCorrect = true,
+                Content = 123.ToString(),
+                QuestionId = 3,
+            };
+
+            // act
+            await service.CreateAsync(model);
+            var answer = service.GetById<MyTestAnswer>(1);
+
+            // assert
+            Assert.NotNull(answer);
+            Assert.True(answer.IsCorrect);
+            Assert.Equal(123.ToString(), answer.Content);
+        }
+
+        public class MyTestAnswer : IMapFrom<Answer>
+        {
+            public string Content { get; set; }
+
+            public bool IsCorrect { get; set; }
         }
     }
 }

@@ -1,5 +1,60 @@
 ﻿@model LessonViewModel
+@{
+	async Task DisplayComments(int? parentId, int margin = 0)
+	{
+		var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
+		if (!comments.Any())
+		{
+			return;
+		}
+		
+		foreach (var comment in comments)
+		{
+			<div class="card mb-3 card-style-80-rem ml-@{@margin}">
+				<div class="card-body">
+					<h5 class="card-title">@comment.UserUserName wrote</h5>
+					<hr />
+					<input asp-for="@comment.LessonId" type="hidden" />
+					<div class="form-group">
+						<p>
+							@Html.Raw(comment.SanitizedContent)
+						</p>
+						<small class="text-muted">on <time datetime="@comment.CreatedOn.ToString("O")">@comment.CreatedOn.ToString("g")</time></small>
+					</div>
+					@if (User.Identity?.Name == comment.UserUserName)
+					{
+						<a asp-controller="Comment" asp-action="Edit" asp-route-id="@comment.Id" class="btn btn-sm btn-outline-success">
+							<i class="fas fa-edit"></i> Edit
+						</a>
+						<a asp-controller="Comment" asp-action="Delete" asp-route-id="@comment.Id" class="btn btn-sm btn-outline-danger">
+							<i class="fas fa-trash-alt"></i> Delete
+						</a>
+					}
+            
+					<a asp-controller="Report" asp-action="Comment" asp-route-id="@comment.Id" class="btn btn-sm btn-outline-warning">
+						<i class="far fa-flag"></i> Report
+					</a>
+            
+					@if (User.Identity.IsAuthenticated)
+					{
+						<button class="btn btn-sm btn-reply" onclick="showAddCommentForm(@comment.Id)">
+							<i class="far fa-comment"></i> Reply
+						</button>
+					}
+				</div>
+				
+				@{
+					await DisplayComments(comment.Id, 4);
+				}
+			</div>
+			
+		}
+	}
+}
 
+@* @await Component.InvokeAsync("AllComments", new { lessonId = Model.LessonId }) *@
+		
+@* the lesson itself *@
 <div class="card mb-3 card-style-80-rem">
 	<video id="player" class="js-player" playsinline controls crossorigin="anonymous" alt="@Model.VideoName" data-poster="@Model.VideoLink">
 		<source src="@Model.VideoLink" type="@Model.VideoContentType" />
@@ -65,8 +120,23 @@
 		<a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning mb-1">
 			<i class="far fa-flag"></i> Report
 		</a>
+		
+		@if (User.Identity.IsAuthenticated)
+		{
+			<button class="btn btn-sm btn-reply mb-1" onclick="showAddCommentForm(0)">
+				<i class="far fa-comment"></i> Reply
+			</button>
+		}
 	</div>
 </div>
 
+@* recursive comments *@
+@{
+	await DisplayComments(null, 0);
+}
+
 <partial name="_CommentPartial" model="new CommentViewModel { LessonId = Model.LessonId }" />
-@await Component.InvokeAsync("AllComments", new { lessonId = Model.LessonId })
+
+<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark mb-3">
+    <i class="fas fa-arrow-left"></i> Back to all
+</a>

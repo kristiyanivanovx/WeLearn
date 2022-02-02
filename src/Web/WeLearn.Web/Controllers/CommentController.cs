@@ -20,10 +20,10 @@ namespace WeLearn.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CommentInputModel commentViewModel)
+        public async Task<IActionResult> Create(CommentInputModel model)
         {
-            commentViewModel.UserId = this.GetUserId();
-            var id = new { id = commentViewModel.LessonId };
+            model.UserId = this.GetUserId();
+            var id = new { id = model.LessonId };
 
             if (!this.ModelState.IsValid)
             {
@@ -31,7 +31,16 @@ namespace WeLearn.Web.Controllers
                 return this.RedirectToAction("Watch", "Lesson", id);
             }
 
-            await this.commentsService.CreateCommentAsync(commentViewModel);
+            int? parentId = model.ParentId == 0 ? null : model.ParentId;
+            if (parentId.HasValue)
+            {
+                if (!this.commentsService.IsInLessonId(parentId.Value, model.LessonId))
+                {
+                    return this.BadRequest();
+                }
+            }
+
+            await this.commentsService.CreateCommentAsync(model, parentId);
             return this.RedirectToAction("Watch", "Lesson", id);
         }
 

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+
 using Ganss.XSS;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
-
-using static WeLearn.Data.Common.Validation.DataValidation.Comment;
 
 namespace WeLearn.Web.ViewModels.Comment
 {

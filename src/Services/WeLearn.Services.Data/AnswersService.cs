@@ -27,12 +27,12 @@ namespace WeLearn.Services.Data
                .All()
                .Any(x => x.Id == id);
 
-        public IEnumerable<T> GetById<T>(int id)
+        public T GetById<T>(int id)
             => this.answerRepository
                 .All()
                 .Where(x => x.Id == id)
                 .To<T>()
-                .ToList();
+                .FirstOrDefault();
 
         public async Task<int> CreateAsync(AnswerInputModel model)
         {

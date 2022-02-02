@@ -14,7 +14,7 @@ using WeLearn.Data.Models.InputOutput;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Services.Data.Interfaces;
 using WeLearn.Services.Messaging.Interfaces;
-
+using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.HelperModels;
 using WeLearn.Web.ViewModels.Lesson;
 
@@ -149,7 +149,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var categories = this.categoriesService.GetAllCategories();
+            var categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
             var viewModel = new LessonInputModel
             {
                 Categories = categories,
@@ -188,7 +188,7 @@ namespace WeLearn.Web.Controllers
             }
 
             LessonEditModel model = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
-            model.Categories = this.categoriesService.GetAllCategories();
+            model.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
 
             return this.View(model);
         }

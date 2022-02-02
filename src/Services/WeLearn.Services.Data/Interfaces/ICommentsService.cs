@@ -10,13 +10,15 @@ namespace WeLearn.Services.Data.Interfaces
     {
         bool Contains(int id);
 
+        bool IsInLessonId(int commentId, int lessonId);
+
         Task<T> GetCommentByIdWithDeletedAsync<T>(int id);
 
         Task<IEnumerable<AdminCommentViewModel>> GetAllCommentsAsync(string searchString);
 
         Task<IEnumerable<CommentByMeModel>> GetCommentsMadeByMeAsync(string userId);
 
-        Task CreateCommentAsync(CommentInputModel commentViewModel);
+        Task CreateCommentAsync(CommentInputModel commentViewModel, int? parentId);
 
         Task EditCommentAsync(CommentEditModel commentEditModel);
 

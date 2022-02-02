@@ -82,11 +82,11 @@ namespace WeLearn.Services.Data
                 .To<T>()
                 .ToList();
 
-        public IEnumerable<T> GetById<T>(int id)
+        public T GetById<T>(int id)
             => this.questionRepository
                 .All()
                 .Where(x => x.Id == id)
                 .To<T>()
-                .ToList();
+                .FirstOrDefault();
     }
 }

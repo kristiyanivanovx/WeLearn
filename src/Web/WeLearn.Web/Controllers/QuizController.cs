@@ -78,7 +78,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            var examination = this.examinationsService.GetById<ExaminationViewModel>(id).FirstOrDefault();
+            var examination = this.examinationsService.GetById<ExaminationViewModel>(id);
             examination!.Questions = this.questionsService
                 .GetAll<QuestionViewModel>()
                 .Where(question => question.Quizzes

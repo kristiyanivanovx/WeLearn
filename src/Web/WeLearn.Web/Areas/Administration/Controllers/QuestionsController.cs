@@ -52,9 +52,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = this.questionsService
-                .GetById<QuestionEditModel>(id)
-                .FirstOrDefault();
+            var model = this.questionsService.GetById<QuestionEditModel>(id);
 
             if (model == null)
             {

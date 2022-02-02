@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Admin.Lesson;
+using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.HelperModels;
 
 using static WeLearn.Common.GlobalConstants;
@@ -41,10 +42,8 @@ namespace WeLearn.Web.Areas.Administration.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            AdminLessonEditModel lesson =
-                await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
-
-            lesson.Categories = this.categoriesService.GetAllCategories();
+            AdminLessonEditModel lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
+            lesson.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
 
             return this.View(lesson);
         }
@@ -54,7 +53,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                // lessonModel.Categories = this.categoriesService.GetAllCategories();
+                // lessonModel.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
                 return this.View(lessonModel);
             }
 

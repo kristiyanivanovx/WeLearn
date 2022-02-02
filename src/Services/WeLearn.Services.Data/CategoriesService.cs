@@ -16,8 +16,8 @@ namespace WeLearn.Services.Data
         public CategoriesService(IDeletableEntityRepository<Category> categoryRepository)
             => this.categoryRepository = categoryRepository;
 
-        public IEnumerable<CategoryViewModel> GetAllCategories()
-            => this.categoryRepository.All().To<CategoryViewModel>().ToArray();
+        public IEnumerable<T> GetAllCategories<T>()
+            => this.categoryRepository.All().To<T>().ToArray();
 
         public int GetCount()
             => this.categoryRepository.All().Count();

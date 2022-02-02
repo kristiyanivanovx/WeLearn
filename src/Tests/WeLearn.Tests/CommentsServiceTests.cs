@@ -38,7 +38,7 @@ namespace WeLearn.Tests
                     UserId = "123",
                 };
 
-                await commentsService.CreateCommentAsync(inputModel);
+                await commentsService.CreateCommentAsync(inputModel, null);
                 await commentRepository.SaveChangesAsync();
             }
 
@@ -73,7 +73,7 @@ namespace WeLearn.Tests
                     UserId = "123",
                 };
 
-                await commentsService.CreateCommentAsync(inputModel);
+                await commentsService.CreateCommentAsync(inputModel, null);
                 await commentRepository.SaveChangesAsync();
             }
 
@@ -110,7 +110,7 @@ namespace WeLearn.Tests
                     UserId = "123",
                 };
 
-                await commentsService.CreateCommentAsync(inputModel);
+                await commentsService.CreateCommentAsync(inputModel, null);
                 await commentRepository.SaveChangesAsync();
             }
 
@@ -152,7 +152,7 @@ namespace WeLearn.Tests
                     UserId = "123",
                 };
 
-                await commentsService.CreateCommentAsync(inputModel);
+                await commentsService.CreateCommentAsync(inputModel, null);
                 await commentRepository.SaveChangesAsync();
             }
 
@@ -190,7 +190,7 @@ namespace WeLearn.Tests
                     UserId = "123",
                 };
 
-                await commentsService.CreateCommentAsync(inputModel);
+                await commentsService.CreateCommentAsync(inputModel, null);
                 await commentRepository.SaveChangesAsync();
             }
 
@@ -228,13 +228,13 @@ namespace WeLearn.Tests
                     UserId = "123",
                 };
 
-                await commentsService.CreateCommentAsync(inputModel);
+                await commentsService.CreateCommentAsync(inputModel, null);
                 await commentRepository.SaveChangesAsync();
             }
 
             // act
             var model = new CommentInputModel { Content = "asd-new" };
-            await commentsService.CreateCommentAsync(model);
+            await commentsService.CreateCommentAsync(model, null);
             var commentFromDb = commentRepository.All().First(x => x.Content == "asd-new");
 
             // assert

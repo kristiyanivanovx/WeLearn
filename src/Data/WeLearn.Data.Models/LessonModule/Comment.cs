@@ -19,5 +19,9 @@ namespace WeLearn.Data.Models.LessonModule
         public int LessonId { get; set; }
 
         public Lesson Lesson { get; set; }
+
+        public int? ParentId { get; set; }
+
+        public virtual Comment Parent { get; set; }
     }
 }

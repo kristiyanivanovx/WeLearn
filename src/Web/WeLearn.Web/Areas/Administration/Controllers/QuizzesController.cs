@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using WeLearn.Services.Data;
 using WeLearn.Services.Data.Interfaces;
+using WeLearn.Web.ViewModels.Category;
 using WeLearn.Web.ViewModels.Examination;
 using WeLearn.Web.ViewModels.Question;
 using WeLearn.Web.ViewModels.Quiz;
@@ -48,7 +49,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             QuizInputModel model = new QuizInputModel
             {
-                Categories = this.categoriesService.GetAllCategories(),
+                Categories = this.categoriesService.GetAllCategories<CategoryViewModel>(),
                 Questions = this.questionsService.GetAll<QuestionViewModel>().ToList(),
             };
 
@@ -79,7 +80,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            model.Categories = this.categoriesService.GetAllCategories();
+            model.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
             model.Questions = this.questionsService.GetAll<QuestionViewModel>().ToList();
 
             return this.View(model);
@@ -110,11 +111,14 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return this.NotFound();
             }
 
-            var examination = this.examinationsService.GetById<ExaminationViewModel>(id).FirstOrDefault();
-            examination!.Questions = this.questionsService
-                .GetAll<QuestionViewModel>()
-                .Where(question => question.Quizzes
-                    .Any(quiz => quiz.Id == examination.QuizId));
+            var examination = this.examinationsService.GetById<ExaminationViewModel>(id);
+            if (examination != null)
+            {
+                examination.Questions = this.questionsService
+                    .GetAll<QuestionViewModel>()
+                    .Where(question => question.Quizzes
+                        .Any(quiz => quiz.Id == examination.QuizId));
+            }
 
             return this.View(examination);
         }

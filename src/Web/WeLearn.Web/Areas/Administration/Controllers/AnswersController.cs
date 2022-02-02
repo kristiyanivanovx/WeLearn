@@ -59,7 +59,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = this.answersService.GetById<AnswerEditModel>(id).FirstOrDefault();
+            var model = this.answersService.GetById<AnswerEditModel>(id);
             if (model == null)
             {
                 this.Response.StatusCode = 404;

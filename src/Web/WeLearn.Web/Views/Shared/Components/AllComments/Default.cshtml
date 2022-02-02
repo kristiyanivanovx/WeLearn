@@ -9,7 +9,7 @@
             <input asp-for="@item.LessonId" type="hidden" />
             <div class="form-group">
                 <p>
-                    @Html.Raw(item.Content)
+                    @Html.Raw(item.SanitizedContent)
                 </p>
                 <small class="text-muted">on <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time></small>
             </div>
@@ -22,9 +22,17 @@
                     <i class="fas fa-trash-alt"></i> Delete
                 </a>
             }
+            
             <a asp-controller="Report" asp-action="Comment" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">
                 <i class="far fa-flag"></i> Report
             </a>
+            
+            @if (User.Identity.IsAuthenticated)
+            {
+            	<button class="btn btn-sm btn-reply" onclick="showAddCommentForm(@item.Id)">
+            		<i class="far fa-comment"></i> Reply
+            	</button>
+            }
         </div>
     </div>
 }

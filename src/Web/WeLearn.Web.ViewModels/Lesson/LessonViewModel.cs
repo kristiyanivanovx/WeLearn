@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using AutoMapper;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
+using WeLearn.Web.ViewModels.Comment;
 
 namespace WeLearn.Web.ViewModels.Lesson
 {
@@ -36,6 +38,8 @@ namespace WeLearn.Web.ViewModels.Lesson
         public string VideoLink { get; set; }
 
         public string MaterialLink { get; set; }
+
+        public IEnumerable<CommentViewModel> Comments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

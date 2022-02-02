@@ -45,10 +45,10 @@ function toggleLike(lessonId) {
         },
         body: JSON.stringify(body),
     })
-        .then(response => response.json())
-        .then(data => {
-            target.innerHTML = data['likesCount'];
-            return data;
-        })
-        .catch(err => console.error(err));
+    .then(response => response.json())
+    .then(data => {
+        target.innerHTML = data['likesCount'];
+        return data;
+    })
+    .catch(err => console.error(err));
 }

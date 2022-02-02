@@ -25,18 +25,30 @@ namespace WeLearn.Services.Data
                 .All()
                 .Any(x => x.Id == id);
 
+        public bool IsInLessonId(int commentId, int lessonId)
+        {
+            var commentLessonId = this.commentRepository
+                .All()
+                .Where(x => x.Id == commentId)
+                .Select(x => x.LessonId)
+                .FirstOrDefault();
+
+            return commentLessonId == lessonId;
+        }
+
         public int GetAllCommentsCount()
             => this.commentRepository
                 .All()
                 .Count();
 
-        public async Task CreateCommentAsync(CommentInputModel commentInputModel)
+        public async Task CreateCommentAsync(CommentInputModel model, int? parentId)
         {
             Comment comment = new Comment
             {
-                Content = commentInputModel.Content,
-                UserId = commentInputModel.UserId,
-                LessonId = commentInputModel.LessonId,
+                Content = model.Content,
+                UserId = model.UserId,
+                LessonId = model.LessonId,
+                ParentId = parentId,
             };
 
             await this.commentRepository.AddAsync(comment);

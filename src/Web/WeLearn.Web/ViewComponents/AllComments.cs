@@ -17,8 +17,8 @@ namespace WeLearn.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int lessonId)
         {
-            IEnumerable<CommentViewModel> commentViewModels = await this.viewComponentsService.GetCommentsAsync(lessonId);
-            return this.View(commentViewModels);
+            IEnumerable<CommentViewModel> models = await this.viewComponentsService.GetCommentsAsync(lessonId);
+            return this.View(models);
         }
     }
 }

@@ -5,7 +5,7 @@
         <h5 class="card-title">Leave your comment</h5>
         <hr />
         
-        @* <partial name="Templates/_TinyEditor"/> *@
+        <partial name="Templates/_TinyEditor"/>
         
         <form asp-controller="Comment" asp-action="Create" method="post">
             <input asp-for="LessonId" type="hidden" />

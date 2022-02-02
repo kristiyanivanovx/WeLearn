@@ -48,7 +48,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Content)
+                    @Html.Raw(item.SanitizedCommentContent)
                 </td>
                 <td>
                     ID: @Html.DisplayFor(modelItem => item.UserId)

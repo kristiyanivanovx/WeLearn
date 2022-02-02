@@ -9,7 +9,7 @@
             <input asp-for="@item.LessonId" type="hidden" />
             <div class="form-group">
                 <p>
-                    @item.Content
+                    @Html.Raw(item.Content)
                 </p>
                 <small class="text-muted">on <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time></small>
             </div>

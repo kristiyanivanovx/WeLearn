@@ -3,6 +3,8 @@
     ViewData["Title"] = "Comments created by me";
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container">
     <div class="row">
         @foreach (var comment in Model)
@@ -51,7 +53,7 @@
                         <h5>Comment Details</h5>
                         <hr />
                         <div>
-                            <p class="card-text mb-3">@comment.Content</p>
+                            <p class="card-text mb-3">@Html.Raw(comment.SanitizedContent)</p>
                             <small><time datetime="@comment.CreatedOn.ToString("O")">@comment.CreatedOn.ToString("g")</time></small>
                         </div>
                         <div class="mt-3">

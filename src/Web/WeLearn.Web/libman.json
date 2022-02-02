@@ -60,7 +60,6 @@
         "skins/ui/oxide/content.min.css",
         "skins/ui/oxide/skin.min.css",
         "skins/content/default/content.min.css",
-        "icons/default/icons.min.js",
         "plugins/image/plugin.min.js",
         "plugins/paste/plugin.min.js",
         "plugins/table/plugin.min.js",
@@ -71,7 +70,8 @@
         "plugins/fullscreen/plugin.min.js",
         "plugins/wordcount/plugin.min.js",
         "plugins/searchreplace/plugin.min.js",
-        "plugins/lists/plugin.min.js"
+        "plugins/lists/plugin.min.js",
+        "icons/default/icons.min.js"
       ]
     }
   ]

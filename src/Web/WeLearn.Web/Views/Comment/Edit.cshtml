@@ -3,6 +3,8 @@
     ViewData["Title"] = "Editing comment #" + Model.Id;
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container pb-3">
     <div class="card card-style-80-rem">
         <partial name="_VideoPartial" model="@Model"/>
@@ -47,7 +49,7 @@
                 <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
                 <div class="form-group">
                     <label asp-for="@Model.Content"></label>
-                    <textarea asp-for="@Model.Content" class="form-control"></textarea>
+                    <textarea asp-for="@Model.Content" class="form-control edit-with-tinymce"></textarea>
                     <span asp-validation-for="@Model.Content" class="text-danger"></span>
                 </div>
                 <input type="submit" name="submit" value="Save" class="btn btn-sm btn-outline-success" />

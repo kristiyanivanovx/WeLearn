@@ -3,6 +3,8 @@
     ViewData["Title"] = "Deleting comment report #" + Model.ReportId;
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container">
     <div align="center">
         <div class="card card-style-40-rem">
@@ -10,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Comment</h5>
                     <hr />
-                    <p class="card-text">@Model.CommentContent</p>
+                    <p class="card-text">@Html.Raw(@Model.SanitizedCommentContent)</p>
                     <p class="card-text">
                         @* @{ var createdBy = Model.CommentApplicationUserUserName ?? "Deleted User"; } *@
                         @*<div>

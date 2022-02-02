@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using Ganss.XSS;
 using WeLearn.Services.Mapping;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
@@ -34,6 +34,8 @@ namespace WeLearn.Web.ViewModels.Admin.Report
         public int? CommentId { get; set; }
 
         public string CommentContent { get; set; }
+
+        public string SanitizedCommentContent => new HtmlSanitizer().Sanitize(this.CommentContent);
 
         [Display(Name = "Date created")]
         public DateTime CreatedOn { get; set; }

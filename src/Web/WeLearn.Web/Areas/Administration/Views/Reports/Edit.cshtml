@@ -3,6 +3,8 @@
     ViewData["Title"] = "Edit a report";
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container">
     <div class="row">
         <div class="offset-md-3 col-md-6 text-center">
@@ -46,7 +48,8 @@
                     <h4>Additional information about the comment</h4>
                     <hr/>
                     <p>
-                        <strong>Content:</strong> @Model.CommentContent
+                        <strong>Content:</strong>                     
+                        @Html.Raw(Model.SanitizedCommentContent)
                     </p>
                 }
             </div>

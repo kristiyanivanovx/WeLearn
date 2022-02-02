@@ -19,6 +19,7 @@
 		<PackageReference Include="Hangfire" Version="1.7.23" />
 		<PackageReference Include="Hangfire.AspNetCore" Version="1.7.23" />
 		<PackageReference Include="Hangfire.PostgreSql" Version="1.8.4" />
+		<PackageReference Include="HtmlSanitizer" Version="7.1.475" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />

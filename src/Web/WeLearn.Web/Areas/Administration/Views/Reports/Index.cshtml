@@ -78,7 +78,7 @@
                     @Html.DisplayFor(modelItem => item.LessonDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CommentContent)
+                    @Html.Raw(item.SanitizedCommentContent)
                 </td>
                 <td>
                     <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>

@@ -230,7 +230,7 @@ namespace WeLearn.Services.Data
                 Cloudinary cloudinary = new Cloudinary();
                 await cloudinary.DeleteResourcesAsync(lesson.Material?.PublicId);
 
-                this.materialRepository.HardDelete(lesson?.Material);
+                this.materialRepository.HardDelete(lesson.Material);
                 await this.materialRepository.SaveChangesAsync();
             }
 
@@ -266,6 +266,7 @@ namespace WeLearn.Services.Data
             await this.lessonRepository.SaveChangesAsync();
         }
 
+        [RequestSizeLimit(MaximumVideoSizeInBytes + MaximumZipFileSizeInBytes)]
         public async Task EditLessonAsync(
             LessonEditModel lessonEditModel,
             string environmentWebRootPath,
@@ -290,8 +291,9 @@ namespace WeLearn.Services.Data
 
             if (entity != null)
             {
-                entity.Name = model.Name ?? entity.Name;
-                entity.Description = model.Description ?? entity.Description;
+                // todo: validate that editing lesson in server has default data
+                entity.Name = model.Name;
+                entity.Description = model.Description;
                 entity.CategoryId = model.CategoryId;
                 entity.Grade = model.Grade;
                 entity.IsApproved = model.IsApproved;
@@ -327,13 +329,11 @@ namespace WeLearn.Services.Data
             }
 
             string uniqueFileNameVideo = this.inputOutputService.GetUniqueFileName(video.FileName);
-            string uploadsVideos =
-                this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "videos");
-
+            string uploadsVideos = this.inputOutputService.GenerateItemPath(environmentWebRootPath, "uploads", "videos");
             string videoPath = this.inputOutputService.GenerateItemPath("\\uploads", "videos", uniqueFileNameVideo);
 
             string fullFilePath = Path.Combine(uploadsVideos, uniqueFileNameVideo);
-            using (FileStream stream = new FileStream(fullFilePath, FileMode.Create))
+            await using (FileStream stream = new FileStream(fullFilePath, FileMode.Create))
             {
                 await video.CopyToAsync(stream);
             }
@@ -366,8 +366,9 @@ namespace WeLearn.Services.Data
 
             await using FileStream fileStream = File.Create(path);
             await using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
+
             files.Seek(0, SeekOrigin.Begin);
-            files.CopyTo(fileStream);
+            await files.CopyToAsync(fileStream);
         }
 
         private static Video CreateVideoEntity(
@@ -453,7 +454,8 @@ namespace WeLearn.Services.Data
                 Cloudinary cloudinary = new Cloudinary();
                 Video previousVideoEntity = lesson.Video;
 
-                DelResResult result = await cloudinary.DeleteResourcesAsync(previousVideoEntity.PublicId);
+                // DelResResult result =
+                await cloudinary.DeleteResourcesAsync(previousVideoEntity.PublicId);
                 this.videoRepository.HardDelete(previousVideoEntity);
                 await this.videoRepository.SaveChangesAsync();
 
@@ -524,7 +526,6 @@ namespace WeLearn.Services.Data
             }
             else
             {
-                Cloudinary cloudinary = new Cloudinary();
                 RawUploadResult materialUploadResult = await this.UploadMaterialsCloudinaryAsync(lessonInputModel);
 
                 string path = materialUploadResult.SecureUrl.AbsoluteUri;
@@ -566,12 +567,12 @@ namespace WeLearn.Services.Data
             }
         }
 
-        private async Task<Lesson> FindLessonAsync(LessonEditModel lessonEditModel)
+        private async Task<Lesson> FindLessonAsync(LessonEditModel model)
             => await this.lessonRepository
                 .All()
                 .Include(x => x.Material)
                 .Include(x => x.Video)
-                .FirstOrDefaultAsync(x => x.Id == lessonEditModel.LessonId);
+                .FirstOrDefaultAsync(x => x.Id == model.LessonId);
 
         private async Task<RawUploadResult> UploadMaterialsCloudinaryAsync(ILessonModel lessonInputModel)
         {
@@ -594,7 +595,7 @@ namespace WeLearn.Services.Data
 
             string name = Guid.NewGuid().ToString();
 
-            using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
+            await using Stream files = await this.inputOutputService.ArchiveFilesAsync(lessonInputModel.Files);
             RawUploadParams uploadParams = GenerateRawUploadParam(files, name);
             RawUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
@@ -615,7 +616,7 @@ namespace WeLearn.Services.Data
                 throw new InvalidOperationException(InvalidVideoExtensionOrSizeMessage);
             }
 
-            using MemoryStream videoStream = new MemoryStream();
+            await using MemoryStream videoStream = new MemoryStream();
             await video.OpenReadStream().CopyToAsync(videoStream);
             videoStream.Position = 0;
 

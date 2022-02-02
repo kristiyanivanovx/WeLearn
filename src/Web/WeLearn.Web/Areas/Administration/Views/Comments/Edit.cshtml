@@ -3,6 +3,8 @@
     ViewData["Title"] = "Edit a comment";
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container text-center">
     <h1>Edit</h1>
     <hr />
@@ -41,15 +43,19 @@
             <p>Date created: <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
             <hr />
             
-            <form asp-action="Edit">
-                <input asp-for="LessonId" type="hidden" />
-                <input asp-for="UserId" type="hidden" />
-                <input asp-for="Id" type="hidden" />
+            <form asp-action="Edit" method="post">
+                <div class="form-group">
+                     <input asp-for="LessonId" type="hidden" />
+                     <input asp-for="UserId" type="hidden" />
+                     <input asp-for="Id" type="hidden" />
+                </div>
+
                 <div class="form-group">
                     <label asp-for="Content" class="control-label"></label>
-                    <input asp-for="Content" class="form-control" />
+                    <textarea asp-for="Content" class="form-control edit-with-tinymce"></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
+                
                 <div class="form-group">
                     <label asp-for="CreatedOn" class="control-label"></label>
                     <input asp-for="CreatedOn" class="form-control" id="datepicker" type="text" />

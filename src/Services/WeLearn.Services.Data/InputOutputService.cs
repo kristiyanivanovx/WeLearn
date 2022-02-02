@@ -11,25 +11,6 @@ namespace WeLearn.Services.Data
 {
     public class InputOutputService : IInputOutputService
     {
-        public Stream ArchiveFiles(IEnumerable<IFormFile> files)
-        {
-            MemoryStream stream = new MemoryStream();
-            using (ZipArchive archive = new ZipArchive(stream, ZipArchiveMode.Create, leaveOpen: true))
-            {
-                foreach (IFormFile file in files)
-                {
-                    ZipArchiveEntry entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using (Stream target = entry.Open())
-                    {
-                        file.CopyTo(target);
-                    }
-                }
-            }
-
-            stream.Position = 0;
-            return stream;
-        }
-
         public async Task<Stream> ArchiveFilesAsync(IEnumerable<IFormFile> files)
         {
             MemoryStream stream = new MemoryStream();
@@ -38,7 +19,7 @@ namespace WeLearn.Services.Data
                 foreach (IFormFile file in files)
                 {
                     ZipArchiveEntry entry = archive.CreateEntry(file.FileName, CompressionLevel.Fastest);
-                    using (Stream target = entry.Open())
+                    await using (Stream target = entry.Open())
                     {
                         await file.OpenReadStream().CopyToAsync(target);
                     }
@@ -61,6 +42,8 @@ namespace WeLearn.Services.Data
         }
 
         public string GenerateItemPath(string root, string subItem, string subSubItem = null)
-            => Path.Combine(root, subItem, subSubItem ?? string.Empty);
+            => subSubItem == null ?
+                Path.Combine(root, subItem) :
+                Path.Combine(root, subItem, subSubItem);
     }
 }

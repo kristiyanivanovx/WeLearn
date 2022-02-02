@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 
 using AutoMapper;
+using Ganss.XSS;
 using WeLearn.Services.Mapping;
 
 using static WeLearn.Data.Common.Validation.DataValidation.Report;
@@ -17,6 +18,8 @@ namespace WeLearn.Web.ViewModels.Report.Comment
         public string CommentApplicationUserUserName { get; set; }
 
         public string CommentContent { get; set; }
+
+        public string SanitizedCommentContent => new HtmlSanitizer().Sanitize(this.CommentContent);
 
         public DateTime CommentCreatedOn { get; set; }
 

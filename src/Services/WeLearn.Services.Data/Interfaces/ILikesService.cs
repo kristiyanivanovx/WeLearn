@@ -10,7 +10,7 @@ namespace WeLearn.Services.Data.Interfaces
 
         Task AddLikeAsync(int lessonId, string userId);
 
-        void RemoveLikeAsync(Like like);
+        Task RemoveLikeAsync(Like like);
 
         int GetLikesCount(int lessonId);
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using Ganss.XSS;
 using WeLearn.Data.Models.Enums;
 using WeLearn.Services.Mapping;
 
@@ -16,6 +16,8 @@ namespace WeLearn.Web.ViewModels.Admin.Comment
         [Required(ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         [MaxLength(MaxContentLength, ErrorMessage = "Please, provide content between 0 and 1000 characters.")]
         public string Content { get; set; }
+
+        public string SanitizedCommentContent => new HtmlSanitizer().Sanitize(this.Content);
 
         [Display(Name = "Is deleted")]
         public bool IsDeleted { get; set; }

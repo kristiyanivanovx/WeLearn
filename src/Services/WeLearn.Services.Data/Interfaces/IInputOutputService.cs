@@ -8,8 +8,6 @@ namespace WeLearn.Services.Data.Interfaces
 {
     public interface IInputOutputService
     {
-        Stream ArchiveFiles(IEnumerable<IFormFile> files);
-
         Task<Stream> ArchiveFilesAsync(IEnumerable<IFormFile> files);
 
         string GetUniqueFileName(string fileName);

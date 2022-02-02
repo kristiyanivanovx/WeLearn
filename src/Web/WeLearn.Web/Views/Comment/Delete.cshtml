@@ -3,6 +3,8 @@
     ViewData["Title"] = "Deleting comment #" + Model.Id;
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container text-center pb-3">
     <div>
         <h3>Are you sure that you want to delete the following comment?</h3>
@@ -11,7 +13,7 @@
             <input type="hidden" value="@Model.Id" asp-for="@Model.Id" />
             <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" />
             <div class="form-group">
-                <p>@Model.Content</p>
+                <p>@Html.Raw(Model.SanitizedContent)</p>
                 <small><time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></small>
             </div>
             <input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />

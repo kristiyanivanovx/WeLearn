@@ -88,7 +88,7 @@ namespace WeLearn.Data.Infrastructure
                 .HasMany(x => x.Users)
                 .WithMany(x => x.Organizations)
                 .UsingEntity<Dictionary<string, object>>(
-                    "OrganizationApplicationUser",
+                    "OrganizationUser",
                     b => b.HasOne<ApplicationUser>().WithMany().OnDelete(DeleteBehavior.Cascade),
                     b => b.HasOne<Organization>().WithMany().OnDelete(DeleteBehavior.Cascade));
 

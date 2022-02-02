@@ -21,19 +21,17 @@ namespace WeLearn.Services.Data
 
         public async Task ToggleLikeAsync(int lessonId, string userId)
         {
-            var dbLike = this.likesRepository
+            var like = this.likesRepository
                 .All()
                 .FirstOrDefault(x => x.LessonId == lessonId && x.UserId == userId);
 
-            // if the like doesn't already exist - user puts a like for the first time
-            // else, the like exists and the user wants to remove it
-            if (dbLike == null)
+            if (like == null)
             {
                 await this.AddLikeAsync(lessonId, userId);
             }
             else
             {
-                this.RemoveLikeAsync(dbLike);
+                await this.RemoveLikeAsync(like);
             }
         }
 
@@ -49,7 +47,7 @@ namespace WeLearn.Services.Data
             await this.likesRepository.SaveChangesAsync();
         }
 
-        public async void RemoveLikeAsync(Like like)
+        public async Task RemoveLikeAsync(Like like)
         {
             this.likesRepository.HardDelete(like);
             await this.likesRepository.SaveChangesAsync();

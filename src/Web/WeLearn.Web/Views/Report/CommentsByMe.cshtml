@@ -3,6 +3,8 @@
     ViewData["Title"] = "Comments reported by me";
 }
 
+<partial name="Templates/_TinyEditor"/>
+
 <div class="container">
     <div class="row">
         @foreach (var report in Model)
@@ -13,7 +15,7 @@
                         <h5 class="card-title">Comment details</h5>
                         <hr />
                         <div class="card-text">
-                            <h5>@report.CommentContent</h5>
+                            <h5>@Html.Raw(report.SanitizedCommentContent)</h5>
                             @{ var createdBy = report.CommentApplicationUserUserName ?? "Deleted User"; }
                              <div>
                                 <small class="text-muted">Likes - @report.LessonLikesCount</small>

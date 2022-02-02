@@ -42,7 +42,7 @@
             <div class="form-group">
                 <p>Created by: @Model.UserUserName</p>
                 <p>Date created: <time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
-                <p>Content: @Model.Content</p>
+                <p>Content: @Html.Raw(Model.SanitizedCommentContent)</p>
                 <input class="form-check-input" asp-for="IsDeleted" disabled />
                 @Html.DisplayNameFor(model => model.IsDeleted)
             </div>

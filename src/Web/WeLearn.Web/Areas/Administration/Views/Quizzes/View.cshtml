@@ -3,61 +3,61 @@
     ViewData["Title"] = "Reviewing results for quiz #" + @Model.Id;
 }
 
-<div class="container text-center">
+<div class="container text-center" id="quiz-page">
     <h3 class="mb-3 mt-4">@ViewData["Title"]</h3>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    Quiz name
-                </th>
-                <th>
-                    Quiz category
-                </th>
-                <th>
-                    Username
-                </th>
-                <th>
-                    Points
-                </th>
-                <th>
-                    Quiz max points
-                </th>
-                <th>
-                    Percent correct
-                </th>
-                <th>
-                    Date taken
-                </th>
-            </tr>
+        <tr>
+            <th>
+                Quiz name
+            </th>
+            <th>
+                Quiz category
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Points
+            </th>
+            <th>
+                Quiz max points
+            </th>
+            <th>
+                Percent correct
+            </th>
+            <th>
+                Date taken
+            </th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    @Model.QuizName
-                </td>
-                <td>
-                    @Model.QuizCategoryName
-                </td>
-                <td>
-                    @Model.UserUserName
-                </td>
-                <td>
-                    @Model.Points
-                </td>
-                <td>
-                    @Model.QuizMaxPoints
-                </td>
-                <td>
-                    @Model.PercentCorrect.ToString("f0")%
-                </td>
-                <td>
-                    <time datetime="@Model.CreatedOn.ToString("O")">
-                        @Model.CreatedOn.ToString("g")
-                    </time>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Model.QuizName
+            </td>
+            <td>
+                @Model.QuizCategoryName
+            </td>
+            <td>
+                @Model.UserUserName
+            </td>
+            <td>
+                @Model.Points
+            </td>
+            <td>
+                @Model.QuizMaxPoints
+            </td>
+            <td>
+                @Model.PercentCorrect.ToString("f0")%
+            </td>
+            <td>
+                <time datetime="@Model.CreatedOn.ToString("O")">
+                    @Model.CreatedOn.ToString("g")
+                </time>
+            </td>
+        </tr>
         </tbody>
     </table>
 
@@ -97,4 +97,26 @@
     <a asp-area="Administration" asp-controller="Quizzes" asp-action="Examinations" class="btn btn-sm btn-outline-dark">
         <i class="fas fa-arrow-left"></i> Back to all
     </a>
+    
+        
+    <button class="btn btn-sm btn-outline-info download-pdf" onclick="generatePdf()">
+        <i class="fas fa-download"></i> Download as PDF
+    </button>
 </div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function generatePdf() {
+            const element = document.getElementById("quiz-page");
+
+            html2pdf()
+                .set({
+                    filename: 'Examination Report' + '.pdf'
+                })
+                .from(element)
+                .save();
+        }
+    </script>
+}

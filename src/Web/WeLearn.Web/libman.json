@@ -50,7 +50,7 @@
       "provider": "cdnjs",
       "library": "luxon@1.26.0",
       "destination": "wwwroot/lib/luxon/"
-    }, 
+    },
     {
       "library": "tinymce@5.7.1",
       "destination": "wwwroot/lib/tinymce/",
@@ -66,7 +66,6 @@
         "plugins/link/plugin.min.js",
         "plugins/code/plugin.min.js",
         "plugins/media/plugin.min.js",
-
         "plugins/fullscreen/plugin.min.js",
         "plugins/wordcount/plugin.min.js",
         "plugins/searchreplace/plugin.min.js",

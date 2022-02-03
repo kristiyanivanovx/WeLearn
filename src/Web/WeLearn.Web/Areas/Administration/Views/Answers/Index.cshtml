@@ -41,16 +41,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => answer.Content)
+                    @answer.Content
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => answer.IsCorrect)
+                    @Html.DisplayFor(x => answer.IsCorrect)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => answer.QuestionContent)
+                    @answer.QuestionContent
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => answer.QuestionPoints)
+                    @answer.QuestionPoints
                 </td>
                 <td>
                     <time datetime="@answer.CreatedOn.ToString("O")">

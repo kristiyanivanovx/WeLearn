@@ -51,22 +51,22 @@
                     @Html.Raw(item.SanitizedCommentContent)
                 </td>
                 <td>
-                    ID: @Html.DisplayFor(modelItem => item.UserId)
+                    ID: @item.UserId
                     <hr/>
-                    Username: @Html.DisplayFor(modelItem => item.UserUserName)
+                    Username: @item.UserUserName
                     <hr/>
-                    Email: @Html.DisplayFor(modelItem => item.UserEmail)
+                    Email: @item.UserEmail
                 </td>
                 <td>
-                    Name: @Html.DisplayFor(modelItem => item.LessonName)
+                    Name: @item.LessonName
                     <hr/>
-                    Description: @Html.DisplayFor(modelItem => item.LessonDescription)
+                    Description: @item.LessonDescription
                     <hr/>
-                    Grade: @Html.DisplayFor(modelItem => item.LessonGrade)
+                    Grade: @item.LessonGrade
                     <hr/>
-                    Category: @Html.DisplayFor(modelItem => item.LessonCategoryName)
+                    Category: @item.LessonCategoryName
                     <hr/>
-                    Created by: @Html.DisplayFor(modelItem => item.LessonUserUserName)
+                    Created by: @item.LessonUserUserName
                     <hr/>
                     Date created: <time datetime="@item.LessonCreatedOn.ToString("O")">@item.LessonCreatedOn.ToString("g")</time>
                 </td>
@@ -85,7 +85,7 @@
                     <time datetime="@item.CreatedOn.ToString("O")">@item.CreatedOn.ToString("g")</time>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                    @Html.DisplayFor(x => item.IsDeleted)
                 </td>
                 <td>
                     @{

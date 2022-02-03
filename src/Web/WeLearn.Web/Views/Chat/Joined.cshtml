@@ -78,7 +78,7 @@
                         else
                         {
                             <div class="col-md-3">
-                                <div class="chat-bubble chat-bubble--left">
+                                <div class="chat-bubble chat-bubble--left black-text">
                                     <div><strong>@message.Name</strong>:</div>
                                     <span>@message.Text</span>
                                 </div>
@@ -115,8 +115,7 @@
                                    placeholder=" Type your message here...">
                             @* <i class="fas fa-paper-plane"></i> *@
 
-                            <input type="submit" class="send-button" value="&#xf1d8;"/>
-
+                            <input type="submit" class="fas send-button" value="&#xf1d8;" />
                         </div>
                     </div>
                 </div>
@@ -186,7 +185,7 @@
             
             let bubbleStyles = senderIsCurrentUser ? 
                 ["chat-bubble", "chat-bubble--right"] :
-                ["chat-bubble", "chat-bubble--left"];
+                ["chat-bubble", "chat-bubble--left", "black-text"];
             
             let footerClassList = senderIsCurrentUser ?
                 ["text-muted", "pl-4"] :

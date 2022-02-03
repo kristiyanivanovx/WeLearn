@@ -19,7 +19,9 @@
             <div class="form-group">
                 <label asp-for="@Model.QuestionId" class="control-label"></label>
                 <select asp-for="@Model.QuestionId"
-                        asp-items="Model.Questions.Select(x => new SelectListItem(string.Concat(x.Content, ' ', '-', ' ', x.Points.ToString(), ' ', points), x.Id.ToString()))"
+                        asp-items="Model.Questions.Select(x => new SelectListItem(
+                            string.Concat(x.Content, ' ', '-', ' ', x.Points.ToString(), ' ', points), 
+                            x.Id.ToString()))"
                         class="form-control">
                 </select>
                 <span asp-validation-for="@Model.QuestionId" class="text-danger"></span>

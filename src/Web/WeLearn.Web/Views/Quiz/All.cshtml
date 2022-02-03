@@ -37,13 +37,13 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => availableQuiz.Name)
+                                @availableQuiz.Name
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => availableQuiz.CategoryName)
+                                @availableQuiz.CategoryName
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => availableQuiz.MaxPoints)
+                                @availableQuiz.MaxPoints
                             </td>
                             <td>
                                 <time datetime="@availableQuiz.CreatedOn.ToString("O")">

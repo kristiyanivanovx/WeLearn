@@ -41,17 +41,22 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => question.Content)
+                    @question.Content
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => question.Points)
+                    @question.Points
                 </td>
                 <td>
                     @foreach (var answer in @question.Answers)
                     {
                         var isCorrectStyle = answer.IsCorrect ? "correct" : "wrong";
-                        <div class="@isCorrectStyle">
-                            @Html.DisplayFor(modelItem => answer.Content) - @Html.DisplayFor(modelItem => answer.IsCorrect)
+                        <div>
+                            <span class="@isCorrectStyle">
+                                @answer.Content
+                            </span>
+                            <span>
+                                - @answer.IsCorrect
+                            </span>
                         </div>
                     }
                 </td>
@@ -60,10 +65,10 @@
                     {
                         <div class="mb-3">
                             <div>
-                                <span>Name -</span> @Html.DisplayFor(modelItem => quiz.Name)
+                                <strong>Name -</strong> @quiz.Name
                             </div>
                             <div>
-                                <span>Category -</span> @Html.DisplayFor(modelItem => quiz.CategoryName)
+                                <strong>Category -</strong> @quiz.CategoryName
                             </div>
                         </div>
                     }

@@ -13,113 +13,113 @@
             <div class="col-md-8">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Member count
-                        </th>
-                         <th>
-                            Creator
-                        </th>
-                        <th>
-                            Date created
-                        </th>
-                        <th>
-                            Actions
-                        </th>
-                    </tr>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Member count
+                            </th>
+                             <th>
+                                Creator
+                            </th>
+                            <th>
+                                Date created
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>
-                            @Model.Name
-                        </td>
-                        <td>
-                            @Model.Description
-                        </td>
-                        <td>
-                            @Model.UsersCount
-                        </td>
-                        <td>
-                            @Model.CreatorUserName
-                        </td>
-                        <td>
-                            <time datetime="@Model.CreatedOn.ToString("O")">
-                                @Model.CreatedOn.ToString("g")
-                            </time>
-                        </td>
-                        <td>
-                            @{
-                                string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                                var isMember = Model.Users
-                                    .Any(x => x.Id == userId);
-                                
-                                var isCreator = userId == Model.CreatorId;
-                            }
-                            @if (isMember)
-                            {
-                                <a asp-controller="Organization" asp-action="Leave" asp-route-id="@Model.Id"
-                                   class="btn btn-sm btn-outline-danger mb-1">
-                                    Leave
-                                </a>
-                            }
-                            else
-                            {
-                                <a asp-controller="Organization" asp-action="Join" asp-route-id="@Model.Id"
-                                   class="btn btn-sm btn-outline-success mb-1">
-                                    Join
-                                </a>
-                            }
-                              
-                            @if (isCreator)
-                            {
-                                <a asp-controller="Organization" asp-action="Edit" asp-route-id="@Model.Id"
-                                   class="btn btn-sm btn-outline-warning mb-1">
-                                    Edit
-                                </a>
-                                
-                                <form method="post" asp-area="" asp-controller="Organization" asp-action="Delete" asp-route-id="@Model.Id">
-                                    <button 
-                                        type="button" class="btn btn-sm btn-outline-danger mb-1"
-                                        data-toggle="modal" data-target="#confirmModal"
-                                    >
-                                        Delete
-                                    </button>
-                    
-                                    <!-- Submit Modal -->
-                                    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content ">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="confirmModalLabel">Delete organization</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-
-                                                <div class="modal-body container">
-                                                    <div>Are you sure that you want to delete this organization?</div>
-                                                </div>
-                              
-                                                <div class="modal-footer">
-                                                    <button type="submit" value="Submit" class="btn btn-sm btn-outline-danger">
-                                                        Delete
-                                                    </button>
+                        <tr>
+                            <td>
+                                @Model.Name
+                            </td>
+                            <td>
+                                @Model.Description
+                            </td>
+                            <td>
+                                @Model.UsersCount
+                            </td>
+                            <td>
+                                @Model.CreatorUserName
+                            </td>
+                            <td>
+                                <time datetime="@Model.CreatedOn.ToString("O")">
+                                    @Model.CreatedOn.ToString("g")
+                                </time>
+                            </td>
+                            <td>
+                                @{
+                                    string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                                    var isMember = Model.Users
+                                        .Any(x => x.Id == userId);
                                     
-                                                    <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                    var isCreator = userId == Model.CreatorId;
+                                }
+                                @if (isMember)
+                                {
+                                    <a asp-controller="Organization" asp-action="Leave" asp-route-id="@Model.Id"
+                                       class="btn btn-sm btn-outline-danger mb-1">
+                                        Leave
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Organization" asp-action="Join" asp-route-id="@Model.Id"
+                                       class="btn btn-sm btn-outline-success mb-1">
+                                        Join
+                                    </a>
+                                }
+                                  
+                                @if (isCreator)
+                                {
+                                    <a asp-controller="Organization" asp-action="Edit" asp-route-id="@Model.Id"
+                                       class="btn btn-sm btn-outline-warning mb-1">
+                                        Edit
+                                    </a>
+                                    
+                                    <form method="post" asp-area="" asp-controller="Organization" asp-action="Delete" asp-route-id="@Model.Id">
+                                        <button 
+                                            type="button" class="btn btn-sm btn-outline-danger mb-1"
+                                            data-toggle="modal" data-target="#confirmModal"
+                                        >
+                                            Delete
+                                        </button>
+                        
+                                        <!-- Submit Modal -->
+                                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content ">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel">Delete organization</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body container">
+                                                        <div>Are you sure that you want to delete this organization?</div>
+                                                    </div>
+                                  
+                                                    <div class="modal-footer">
+                                                        <button type="submit" value="Submit" class="btn btn-sm btn-outline-danger">
+                                                            Delete
+                                                        </button>
+                                        
+                                                        <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                            }
-                        </td>
-                    </tr>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 

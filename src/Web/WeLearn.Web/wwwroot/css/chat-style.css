@@ -233,8 +233,9 @@ hr {
 }
 
 .chat-box-tray input.send-button:last-of-type {
+    /*font-family: FontAwesome, sans-serif;*/
     min-width: 2.5rem;
-    font-family:'FontAwesome', sans-serif;
+    font-weight: 900;
 }
 
 #message-input {

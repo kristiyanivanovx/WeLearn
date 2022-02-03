@@ -42,13 +42,13 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => organization.Name)
+                                @organization.Name
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => organization.Description)
+                                @organization.Description
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => organization.UsersCount)
+                                @organization.UsersCount
                             </td>
                             <td>
                                 <time datetime="@organization.CreatedOn.ToString("O")">

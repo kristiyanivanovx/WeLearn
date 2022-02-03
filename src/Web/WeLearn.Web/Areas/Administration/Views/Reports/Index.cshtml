@@ -54,10 +54,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Subject)
+                    @item.Subject
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @item.Description
                 </td>
                 <td>
                     @{
@@ -73,9 +73,9 @@
                     Email: @userEmail
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LessonName)
+                    @item.LessonName
                     <hr/>
-                    @Html.DisplayFor(modelItem => item.LessonDescription)
+                    @item.LessonDescription
                 </td>
                 <td>
                     @Html.Raw(item.SanitizedCommentContent)

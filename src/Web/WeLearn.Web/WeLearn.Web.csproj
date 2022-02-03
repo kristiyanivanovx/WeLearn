@@ -43,6 +43,7 @@
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="TinyMCE" Version="5.10.2" />
+		<PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.65" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -179,10 +180,6 @@
 	  <None Include="wwwroot\vendor\bootstrap\scss\_type.scss" />
 	  <None Include="wwwroot\vendor\bootstrap\scss\_utilities.scss" />
 	  <None Include="wwwroot\vendor\bootstrap\scss\_variables.scss" />
-	  <None Include="wwwroot\vendor\chart.js\Chart.bundle.js" />
-	  <None Include="wwwroot\vendor\chart.js\Chart.bundle.min.js" />
-	  <None Include="wwwroot\vendor\chart.js\Chart.js" />
-	  <None Include="wwwroot\vendor\chart.js\Chart.min.js" />
 	  <None Include="wwwroot\vendor\datatables\dataTables.bootstrap4.js" />
 	  <None Include="wwwroot\vendor\datatables\dataTables.bootstrap4.min.js" />
 	  <None Include="wwwroot\vendor\datatables\jquery.dataTables.js" />

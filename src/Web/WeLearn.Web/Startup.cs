@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebEssentials.AspNetCore.Pwa;
 using WeLearn.Data;
 using WeLearn.Data.Common;
 using WeLearn.Data.Common.Repositories;
@@ -40,6 +41,8 @@ namespace WeLearn.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddProgressiveWebApp();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddHttpContextAccessor();

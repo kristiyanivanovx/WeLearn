@@ -1,6 +1,6 @@
 @model ExaminationViewModel
 @{
-    ViewData["Title"] = "Reviewing results for quiz #" + @Model.Id;
+    ViewData["Title"] = "Reviewing results for examination #" + @Model.Id;
 }
 
 <div class="container text-center" id="quiz-page">
@@ -113,6 +113,8 @@
 
             html2pdf()
                 .set({
+                    margin: 1,
+                    html2canvas: { scale: 8, logging: true },
                     filename: 'Examination Report' + '.pdf'
                 })
                 .from(element)

@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id" content="683158115512-kek44cn4mtvhl1mr00uq9t3mv613sofr.apps.googleusercontent.com">
+    <meta name="author" content="Kristiyan Ivanov">
+    <meta name="description" content="A platform for sharing knowledge">
+    <meta name="keywords" content="learning, sharing, information, lessons, lectures, education">
     <title>@ViewData["Title"] - @SystemName</title>
     
     @* SB Admin 2 *@
@@ -16,26 +19,8 @@
     @* Site CSS *@
     <link rel="stylesheet" href="~/css/site.css"/>
     
-    @* @if (this.User.IsInRole(WeLearn.CommonGlobalConstants.ApplicationHeadAdministratorRoleName)) { *@
-    @*     <style> *@
-    @*         .bg-gradient-primary { *@
-    @*             background-color: #4e73df; *@
-    @*             background-image: linear-gradient(180deg,#4e73df 10%,#224abe 100%); *@
-    @*             background-size: cover; *@
-    @*         } *@
-    @*         /*.bg-gradient-primary {*/ *@
-    @*         /*    background-color: #1F8B4C;*/ *@
-    @*         /*    background-image: linear-gradient(180deg,#299B59 10%,#1F8B4C 100%);*/ *@
-    @*         /*    background-size: cover;*/ *@
-    @*         /*}*/ *@
-    @*     </style> *@
-    @* } *@
-
     @* Plyr *@
     <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"/>
-    
-    @* <meta name="description" content=""> *@
-    @* <meta name="author" content=""> *@
 </head>
 
 <body id="page-top">
@@ -557,11 +542,11 @@
 <script src="~/vendor/jquery-easing/jquery.easing.min.js" asp-append-version="true"></script>
 <!-- Custom scripts for all pages-->
 <script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
-<!-- Page level plugins -->
-<script src="~/vendor/chart.js/Chart.min.js" asp-append-version="true"></script>
-<!-- Page level custom scripts -->
-<script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script>
-<script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script>
+@* <!-- Page level plugins --> *@
+@* <script src="~/vendor/chart.js/Chart.min.js" asp-append-version="true"></script> *@
+@* <!-- Page level custom scripts --> *@
+@* <script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script> *@
+@* <script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script> *@
 
 @*<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>*@
 @* bootstrap 4.3.1 *@

@@ -1,10 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="google-signin-client_id" content="683158115512-kek44cn4mtvhl1mr00uq9t3mv613sofr.apps.googleusercontent.com">
+    <meta name="author" content="Kristiyan Ivanov">
+    <meta name="description" content="A platform for sharing knowledge">
+    <meta name="keywords" content="learning, sharing, information, lessons, lectures, education">
     <title>@ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     @* SB Admin 2 *@
@@ -18,12 +21,6 @@
         
     @* Plyr *@
     <link rel="stylesheet" href="https://unpkg.com/plyr@3/dist/plyr.css"/>
-
-    @* <script src="https://kit.fontawesome.com/c952ac5cde.js" crossorigin="anonymous"></script> *@
-    @* bootstrap 4.3.1 *@
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
-    @* bootstrap 4.6.0 *@
-    @* <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css"/> *@
     
     @await RenderSectionAsync("Styles", false)
 </head>
@@ -33,7 +30,7 @@
         @* <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow"> *@
         <div class="container-fluid">
             <a class="navbar-brand black-text" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="/logo.png" class="logo" alt="earth"/>
+                <img src="~/img/logo/logo-200x200.png" class="logo" alt="earth"/>
                 <span>@GlobalConstants.SystemName</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -159,11 +156,12 @@
 <script src="~/vendor/jquery-easing/jquery.easing.min.js" asp-append-version="true"></script>
 <!-- Custom scripts for all pages-->
 <script src="~/js/sb-admin-2.min.js" asp-append-version="true"></script>
+
 <!-- Page level plugins -->
-<script src="~/vendor/chart.js/Chart.min.js" asp-append-version="true"></script>
+@* <script src="~/vendor/chart.js/Chart.min.js" asp-append-version="true"></script> *@
 <!-- Page level custom scripts -->
-<script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script>
-<script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script>
+@* <script src="~/js/demo/chart-area-demo.js" asp-append-version="true"></script> *@
+@* <script src="~/js/demo/chart-pie-demo.js" asp-append-version="true"></script> *@
 
 @* <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script> *@
 @* bootstrap 4.3.1 *@

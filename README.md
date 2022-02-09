@@ -223,6 +223,7 @@ Some of the many resources used for creating this project:
 - https://www.youtube.com/watch?v=dluB5VE1m1k
 - https://github.com/NikolayIT/ArtificialIntelligencePlayground/tree/master/ML.NET/Recommendation/SoftUniCoursesRecommendation
 - https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+- https://www.npmjs.com/package/@joeattardi/emoji-button
 
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template

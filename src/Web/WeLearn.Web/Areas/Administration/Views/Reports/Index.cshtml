@@ -10,6 +10,7 @@
     Note: if the column "Lesson" is present/filled that means the type of report is a lesson report and vice versa,
     if the column "Comment" is present/filled that means the type of report is a comment report.
 </p>
+@* LessonId or CommentLessonId *@
 
 <form asp-area="Administration" asp-controller="Reports" asp-action="Index" method="get">
     <label>Find by subject or description:</label>
@@ -87,10 +88,6 @@
                     @Html.DisplayFor(modelItem => item.IsDeleted)
                 </td>
                 <td>
-                    @if (item.LessonId != null)
-                    {
-                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@item.LessonId" class="btn btn-sm btn-outline-secondary mb-1">Watch</a>
-                    }
                     @{
                         string currentUserId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
                         var dbUser = await userManager.FindByIdAsync(currentUserId);
@@ -100,6 +97,15 @@
 
                         var disableIfUnauthorized =
                             dbUserIsTeacher && !dbUserIsHeadAdmin && !dbUserIsAdmin ? "disabled" : "enabled";
+                    }
+                    @{
+                        var lessonId = item.LessonId ?? item.CommentLessonId;
+                    }
+                    @if (lessonId != null)
+                    {
+                        <a asp-area="" asp-controller="Lesson" asp-action="Watch" asp-route-id="@lessonId" class="btn btn-sm btn-outline-secondary mb-1">
+                            Watch
+                        </a>
                     }
                     <a asp-area="Administration" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-success mb-1">
                         Edit / Soft delete

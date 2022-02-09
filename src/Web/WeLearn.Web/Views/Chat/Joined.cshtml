@@ -115,6 +115,7 @@
                                    placeholder=" Type your message here...">
                             @* <i class="fas fa-paper-plane"></i> *@
 
+                            <input type="button" class="fas" id="emoji-picker-button" value="&#xf580;" />
                             <input type="submit" class="fas send-button" value="&#xf1d8;" />
                         </div>
                     </div>
@@ -156,13 +157,14 @@
     </div>
 </div>
 <!-- Modal End -->
-
 @* <div class="chat-container text-center">
         <h6>We don't have any group chats yet.</h6>
     </div>
 *@
 
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/emoji-button@latest/dist/index.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/@@joeattardi/emoji-button@4.6.2/dist/index.min.js"></script> *@
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script src="~/js/messageBuilder.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -225,10 +227,9 @@
             document.getElementById('message-input').value = '';
             
             // if (typeof data.text === "undefined") return;
-                        
             axios.post('/Chat/SendMessage', data)
                 .then(res => {
-                    console.log("Message sent!");
+                    // console.log("Message sent!");
                 })
                 .catch(err => {
                     console.log("Failed to send a message!", err);
@@ -246,6 +247,21 @@
 		$('.friend-drawer--onhover').on('click', function() {
           $('.chat-bubble').hide('slow');
           // $( '.chat-bubble' ).hide('slow').show('slow');
+        });
+
+        let input = document.getElementById('message-input');
+        let button = document.getElementById('emoji-picker-button');
+
+        let picker = new EmojiButton({
+            position: 'right-start'
+        });
+
+        picker.on('emoji', function (emoji) {
+            input.value += emoji;
+        });
+
+        button.addEventListener('click', function () {
+            picker.pickerVisible ? picker.hidePicker() : picker.showPicker(input)
         });
     </script>
 }

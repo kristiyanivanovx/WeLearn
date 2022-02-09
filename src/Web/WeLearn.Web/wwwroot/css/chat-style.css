@@ -224,16 +224,12 @@ hr {
 /*    vertical-align: middle;*/
 /*}*/
 
-/*.chat-box-tray .send-button*/
-.chat-box-tray input.send-button {
+.chat-box-tray input.send-button,
+.chat-box-tray input#emoji-picker-button {
     color: var(--clr-success);
     font-size: 1.2rem;
     max-width: 1rem;
     vertical-align: middle;
-}
-
-.chat-box-tray input.send-button:last-of-type {
-    /*font-family: FontAwesome, sans-serif;*/
     min-width: 2.5rem;
     font-weight: 900;
 }

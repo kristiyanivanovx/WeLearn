@@ -28,6 +28,8 @@ namespace WeLearn.Web.ViewModels.Admin.Report
 
         public int? LessonId { get; set; }
 
+        public int? CommentLessonId { get; set; }
+
         public string LessonName { get; set; }
 
         public string LessonDescription { get; set; }

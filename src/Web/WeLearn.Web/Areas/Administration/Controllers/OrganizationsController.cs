@@ -24,7 +24,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public IActionResult Index()
         {
             var models = this.organizationsService
-                .GetAllToModelAsync<OrganizationViewModel>(true);
+                .GetAllAsync<OrganizationViewModel>(true);
 
             return this.View(models);
         }
@@ -33,7 +33,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = this.organizationsService.GetByIdToModelAsync<OrganizationEditModel>(id, true);
+            var model = this.organizationsService.GetByIdAsync<OrganizationEditModel>(id, true);
 
             return this.View(model);
         }

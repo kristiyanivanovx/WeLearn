@@ -25,14 +25,16 @@ namespace WeLearn.Services.CronJobs
 
             // remove all chat users where the chat id is not 1
             var chatApplicationUsers = this.context.ChatUsers
-                .Where(x => x.Chat.Id != mainChatId);
+                .Where(x => x.Chat.Id != mainChatId)
+                .ToList();
 
             this.context.ChatUsers.RemoveRange(chatApplicationUsers);
             await this.context.SaveChangesAsync();
 
             // remove all chats where the chat id is not 1
             var chats = this.context.Chats
-                .Where(x => x.Id != mainChatId);
+                .Where(x => x.Id != mainChatId)
+                .ToList();
 
             this.context.Chats.RemoveRange(chats);
             await this.context.SaveChangesAsync();

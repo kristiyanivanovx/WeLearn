@@ -56,7 +56,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await this.usersService.GetUserByIdToModelAsync<AdminUserDeleteModel>(id);
+            var user = await this.usersService.GetUserByIdAsync<AdminUserDeleteModel>(id);
 
             return this.View(user);
         }

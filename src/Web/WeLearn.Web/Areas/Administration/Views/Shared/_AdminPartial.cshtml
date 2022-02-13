@@ -5,11 +5,30 @@
 </h4>
 <hr class=" mt-2">
 
-<h6 class="text-gray-800">Your roles are: </h6>
+<h6 class="text-gray-900">Your roles are: </h6>
 <ul>
     @foreach (var roleName in @Model.RoleNames)
     {
-        <li class="text-gray-800">@roleName</li>
+        <li class="text-gray-900">
+            @if (roleName == SystemHeadAdministratorRoleName)
+            {
+                <span class="badge badge-primary">
+                    @roleName
+                </span>
+            } 
+            else if (roleName == SystemRegularAdministratorRoleName)
+            {
+                <span class="badge badge-success">
+                    @roleName
+                </span>
+            }
+            else if (roleName == SystemTeacherRoleName)
+            {
+                <span class="badge teacher-color">
+                    @roleName
+                </span>
+            }
+        </li>
     }
 </ul>
 

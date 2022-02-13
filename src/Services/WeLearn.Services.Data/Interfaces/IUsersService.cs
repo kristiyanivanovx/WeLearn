@@ -23,7 +23,7 @@ namespace WeLearn.Services.Data.Interfaces
 
         Task<ApplicationUser> GetUserByIdAsync(string userId);
 
-        Task<T> GetUserByIdToModelAsync<T>(string userId);
+        Task<T> GetUserByIdAsync<T>(string userId);
 
         Task SoftDeleteUserByIdAsync(string userId);
 

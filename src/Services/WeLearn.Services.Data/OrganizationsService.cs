@@ -30,7 +30,7 @@ namespace WeLearn.Services.Data
             this.appUserRepository = appUserRepository;
         }
 
-        public IEnumerable<T> GetAllToModelAsync<T>(bool includeDeleted = false)
+        public IEnumerable<T> GetAllAsync<T>(bool includeDeleted = false)
         {
             var query = includeDeleted ?
                 this.organizationRepository.AllWithDeleted() :
@@ -41,7 +41,15 @@ namespace WeLearn.Services.Data
                 .ToList();
         }
 
-        public IEnumerable<T> GetByMemberIdToModel<T>(string memberId)
+        public IEnumerable<T> GetByCreatorId<T>(string userId)
+            => this.organizationRepository
+                .All()
+                .Include(x => x.Users)
+                .Where(x => x.CreatorId == userId)
+                .To<T>()
+                .ToList();
+
+        public IEnumerable<T> GetByMemberId<T>(string memberId)
             => this.organizationRepository
                 .All()
                 .Include(x => x.Users)
@@ -49,7 +57,7 @@ namespace WeLearn.Services.Data
                 .To<T>()
                 .ToList();
 
-        public T GetByIdToModelAsync<T>(int id, bool includeDeleted = false)
+        public T GetByIdAsync<T>(int id, bool includeDeleted = false)
         {
             var query = includeDeleted ?
                 this.organizationRepository.AllWithDeleted() :

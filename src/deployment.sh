@@ -1,6 +1,9 @@
-# change your directory to /src/
+# remove this line if you don't have PowerShell
+# powershell.exe
+
 heroku container:login
 
+# change your directory to /src/
 #docker build -t welearn-bg .
 docker build -f Web/WeLearn.Web/Dockerfile -t welearn-bg .
 

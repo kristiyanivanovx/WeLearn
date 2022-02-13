@@ -136,7 +136,7 @@ namespace WeLearn.Services.Data
                 .Where(x => x.Id != userId)
                 .ToListAsync();
 
-        public async Task<T> GetUserByIdToModelAsync<T>(string userId)
+        public async Task<T> GetUserByIdAsync<T>(string userId)
             => await this.appUserRepository
                 .All()
                 .Where(x => x.Id == userId)

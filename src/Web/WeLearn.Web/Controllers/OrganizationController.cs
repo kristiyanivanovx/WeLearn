@@ -14,15 +14,22 @@ namespace WeLearn.Web.Controllers
         private readonly OrganizationsService organizationsService;
 
         public OrganizationController(OrganizationsService organizationsService)
-        {
-            this.organizationsService = organizationsService;
-        }
+            => this.organizationsService = organizationsService;
 
         [Authorize]
         public IActionResult Joined()
         {
             var models = this.organizationsService
-                .GetByMemberIdToModel<OrganizationViewModel>(this.GetUserId());
+                .GetByMemberId<OrganizationViewModel>(this.GetUserId());
+
+            return this.View(models);
+        }
+
+        [Authorize]
+        public IActionResult ByMe()
+        {
+            var models = this.organizationsService
+                .GetByCreatorId<OrganizationViewModel>(this.GetUserId());
 
             return this.View(models);
         }
@@ -45,7 +52,7 @@ namespace WeLearn.Web.Controllers
 
         public IActionResult View(int id)
         {
-            var model = this.organizationsService.GetByIdToModelAsync<OrganizationViewModel>(id);
+            var model = this.organizationsService.GetByIdAsync<OrganizationViewModel>(id);
             if (model == null)
             {
                 this.Response.StatusCode = 404;
@@ -58,7 +65,7 @@ namespace WeLearn.Web.Controllers
         public IActionResult All()
         {
             var models = this.organizationsService
-                .GetAllToModelAsync<OrganizationViewModel>();
+                .GetAllAsync<OrganizationViewModel>();
 
             return this.View(models);
         }
@@ -74,7 +81,7 @@ namespace WeLearn.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = this.organizationsService.GetByIdToModelAsync<OrganizationEditModel>(id);
+            var model = this.organizationsService.GetByIdAsync<OrganizationEditModel>(id);
 
             return this.View(model);
         }

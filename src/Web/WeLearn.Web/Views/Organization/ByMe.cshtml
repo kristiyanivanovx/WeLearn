@@ -1,6 +1,6 @@
-@model OrganizationViewModel
+@model IEnumerable<OrganizationViewModel>
 @{
-    ViewData["Title"] =  @Model.Name;
+    ViewData["Title"] = "Organizations created by me";
 }
 
 <div class="container-fluid pl-5 pr-5 text-center">
@@ -9,7 +9,7 @@
     <div>
         <div class="row">
             <div class="col-md-2"></div>
-
+            
             <div class="col-md-8">
                 <table class="table">
                     <thead>
@@ -23,11 +23,11 @@
                             <th>
                                 Member count
                             </th>
-                             <th>
+                            <th>
                                 Creator
                             </th>
                             <th>
-                                Date created
+                                Date Created
                             </th>
                             <th>
                                 Actions
@@ -35,62 +35,71 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach (var organization in @Model)
+                    {
                         <tr>
                             <td>
-                                @Model.Name
+                                @organization.Name
                             </td>
                             <td>
-                                @Model.Description
+                                @organization.Description
                             </td>
                             <td>
-                                @Model.UsersCount
+                                @organization.UsersCount
                             </td>
                             <td>
-                                @Model.CreatorUserName
+                                @organization.CreatorUserName
                             </td>
                             <td>
-                                <time datetime="@Model.CreatedOn.ToString("O")">
-                                    @Model.CreatedOn.ToString("g")
+                                <time datetime="@organization.CreatedOn.ToString("O")">
+                                    @organization.CreatedOn.ToString("g")
                                 </time>
                             </td>
                             <td>
+
                                 @{
                                     string userId = User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                                    var isMember = Model.Users
+                                    var isMember = organization.Users
                                         .Any(x => x.Id == userId);
                                     
-                                    var isCreator = userId == Model.CreatorId;
+                                    var isCreator = userId == organization.CreatorId;
                                 }
+
                                 @if (isMember)
                                 {
-                                    <a asp-controller="Organization" asp-action="Leave" asp-route-id="@Model.Id"
+                                    <a asp-controller="Organization" asp-action="Leave" asp-route-id="@organization.Id"
                                        class="btn btn-sm btn-outline-danger mb-1">
                                         Leave
                                     </a>
                                 }
                                 else
                                 {
-                                    <a asp-controller="Organization" asp-action="Join" asp-route-id="@Model.Id"
+                                    <a asp-controller="Organization" asp-action="Join" asp-route-id="@organization.Id"
                                        class="btn btn-sm btn-outline-success mb-1">
                                         Join
                                     </a>
                                 }
-                                  
+                                
+                                <a asp-controller="Organization" asp-action="View" asp-route-id="@organization.Id"
+                                   class="btn btn-sm btn-outline-primary mb-1">
+                                    View
+                                </a>
+                                
                                 @if (isCreator)
                                 {
-                                    <a asp-controller="Organization" asp-action="Edit" asp-route-id="@Model.Id"
+                                    <a asp-controller="Organization" asp-action="Edit" asp-route-id="@organization.Id"
                                        class="btn btn-sm btn-outline-warning mb-1">
                                         Edit
                                     </a>
                                     
-                                    <form method="post" asp-area="" asp-controller="Organization" asp-action="Delete" asp-route-id="@Model.Id">
+                                    <form method="post" asp-area="" asp-controller="Organization" asp-action="Delete" asp-route-id="@organization.Id">
                                         <button 
                                             type="button" class="btn btn-sm btn-outline-danger mb-1"
                                             data-toggle="modal" data-target="#confirmModal"
                                         >
                                             Delete
                                         </button>
-                        
+                    
                                         <!-- Submit Modal -->
                                         <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -105,12 +114,12 @@
                                                     <div class="modal-body container">
                                                         <div>Are you sure that you want to delete this organization?</div>
                                                     </div>
-                                  
+                              
                                                     <div class="modal-footer">
                                                         <button type="submit" value="Submit" class="btn btn-sm btn-outline-danger">
                                                             Delete
                                                         </button>
-                                        
+                                    
                                                         <button type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">Cancel</button>
                                                     </div>
                                                 </div>
@@ -120,30 +129,11 @@
                                 }
                             </td>
                         </tr>
+                    }
                     </tbody>
                 </table>
-                
-                <div class="text-center black-text mb-5">
-                    @if (@Model.Users.Any())
-                    {
-                        <h5>Current members:</h5>
-                        @foreach (var user in @Model.Users)
-                        {
-                            <div>@user.UserName</div>
-                        }
-                    }
-                    else
-                    {
-                        <h5>Currently, no one has joined this organization.</h5>
-                    }
-                </div>
-
-                <a asp-area="" asp-controller="Organization" asp-action="All"
-                   class="btn btn-sm btn-outline-dark">
-                    <i class="fas fa-arrow-left"></i> All
-                </a>
             </div>
-
+            
             <div class="col-md-2"></div>
         </div>
     </div>

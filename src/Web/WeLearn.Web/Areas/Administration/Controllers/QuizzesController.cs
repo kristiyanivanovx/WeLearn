@@ -19,17 +19,16 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class QuizzesController : Controller
     {
-        // todo: interface instead of class
-        private readonly ExaminationsService examinationsService;
-        private readonly QuestionsService questionsService;
+        private readonly IExaminationsService examinationsService;
+        private readonly IQuestionsService questionsService;
         private readonly ICategoriesService categoriesService;
-        private readonly QuizzesService quizzesService;
+        private readonly IQuizzesService quizzesService;
 
         public QuizzesController(
-            ExaminationsService examinationsService,
-            QuestionsService questionsService,
+            IExaminationsService examinationsService,
+            IQuestionsService questionsService,
             ICategoriesService categoriesService,
-            QuizzesService quizzesService)
+            IQuizzesService quizzesService)
         {
             this.examinationsService = examinationsService;
             this.questionsService = questionsService;

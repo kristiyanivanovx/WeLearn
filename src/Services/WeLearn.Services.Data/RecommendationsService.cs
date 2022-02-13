@@ -6,10 +6,11 @@ using Microsoft.ML;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Recommendation;
+using WeLearn.Services.Data.Interfaces;
 
 namespace WeLearn.Services.Data
 {
-    public class RecommendationsService
+    public class RecommendationsService : IRecommendationsService
     {
         private readonly IDeletableEntityRepository<Recommendation> recommendationsRepository;
 

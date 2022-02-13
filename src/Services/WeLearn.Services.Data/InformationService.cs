@@ -12,14 +12,14 @@ namespace WeLearn.Services.Data
     public class InformationService : IInformationService
     {
         private readonly ICategoriesService categoriesService;
-        private readonly QuizzesService quizzesService;
+        private readonly IQuizzesService quizzesService;
         private readonly IReportsService reportsService;
         private readonly IUsersService userService;
         private readonly ILessonsService lessonsService;
 
         public InformationService(
             ICategoriesService categoriesService,
-            QuizzesService quizzesService,
+            IQuizzesService quizzesService,
             IReportsService reportsService,
             IUsersService userService,
             ILessonsService lessonsService)

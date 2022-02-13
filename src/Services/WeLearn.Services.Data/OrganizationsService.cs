@@ -13,8 +13,7 @@ using WeLearn.Web.ViewModels.Organization;
 
 namespace WeLearn.Services.Data
 {
-    // todo: interface
-    public class OrganizationsService
+    public class OrganizationsService : IOrganizationsService
     {
         private readonly IUsersService usersService;
         private readonly IDeletableEntityRepository<ApplicationUser> appUserRepository;

@@ -5,15 +5,16 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using WeLearn.Services.Data;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Organization;
 
 namespace WeLearn.Web.Controllers
 {
     public class OrganizationController : BaseController
     {
-        private readonly OrganizationsService organizationsService;
+        private readonly IOrganizationsService organizationsService;
 
-        public OrganizationController(OrganizationsService organizationsService)
+        public OrganizationController(IOrganizationsService organizationsService)
             => this.organizationsService = organizationsService;
 
         [Authorize]

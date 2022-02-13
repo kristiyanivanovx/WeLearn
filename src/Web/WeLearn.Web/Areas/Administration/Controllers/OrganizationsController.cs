@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using WeLearn.Services.Data;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Organization;
 
 using static WeLearn.Common.GlobalConstants;
@@ -14,9 +15,9 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class OrganizationsController : Controller
     {
-        private readonly OrganizationsService organizationsService;
+        private readonly IOrganizationsService organizationsService;
 
-        public OrganizationsController(OrganizationsService organizationsService)
+        public OrganizationsController(IOrganizationsService organizationsService)
         {
             this.organizationsService = organizationsService;
         }

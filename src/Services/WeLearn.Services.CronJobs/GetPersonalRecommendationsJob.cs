@@ -9,7 +9,7 @@ using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Recommendation;
 using WeLearn.Services.Data;
-
+using WeLearn.Services.Data.Interfaces;
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Services.CronJobs
@@ -17,11 +17,11 @@ namespace WeLearn.Services.CronJobs
     public class GetPersonalRecommendationsJob
     {
         private readonly IDeletableEntityRepository<Like> likesRepository;
-        private readonly RecommendationsService recommendationsService;
+        private readonly IRecommendationsService recommendationsService;
 
         public GetPersonalRecommendationsJob(
             IDeletableEntityRepository<Like> likesRepository,
-            RecommendationsService recommendationsService)
+            IRecommendationsService recommendationsService)
         {
             this.likesRepository = likesRepository;
             this.recommendationsService = recommendationsService;

@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.Quiz;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Quiz;
 
 namespace WeLearn.Services.Data
 {
-    public class QuizzesService
+    public class QuizzesService : IQuizzesService
     {
         private readonly IDeletableEntityRepository<Question> questionRepository;
         private readonly IDeletableEntityRepository<Quiz> quizRepository;
@@ -102,12 +103,6 @@ namespace WeLearn.Services.Data
                 .AsSingleQuery()
                 .Any(x => x.Id == id);
 
-        public Quiz GetQuizById(int id)
-            => this.quizRepository
-                .All()
-                .Include(x => x.Questions)
-                .AsSingleQuery()
-                .FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<T> GetById<T>(int id)
             => this.quizRepository
@@ -127,5 +122,12 @@ namespace WeLearn.Services.Data
                 .AsSingleQuery()
                 .To<T>()
                 .ToList();
+
+        public Quiz GetQuizById(int id)
+            => this.quizRepository
+                .All()
+                .Include(x => x.Questions)
+                .AsSingleQuery()
+                .FirstOrDefault(x => x.Id == id);
     }
 }

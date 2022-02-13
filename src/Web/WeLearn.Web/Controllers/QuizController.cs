@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using WeLearn.Data.Models.Quiz;
 
 using WeLearn.Services.Data;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Examination;
 using WeLearn.Web.ViewModels.Question;
 using WeLearn.Web.ViewModels.Quiz;
@@ -17,17 +18,16 @@ namespace WeLearn.Web.Controllers
 {
     public class QuizController : BaseController
     {
-        // todo: interface instead of class
-        private readonly QuestionsService questionsService;
-        private readonly QuizzesService quizzesService;
-        private readonly ExaminationsService examinationsService;
-        private readonly ChoicesService choicesService;
+        private readonly IQuestionsService questionsService;
+        private readonly IQuizzesService quizzesService;
+        private readonly IExaminationsService examinationsService;
+        private readonly IChoicesService choicesService;
 
         public QuizController(
-            QuestionsService questionsService,
-            QuizzesService quizzesService,
-            ExaminationsService examinationsService,
-            ChoicesService choicesService)
+            IQuestionsService questionsService,
+            IQuizzesService quizzesService,
+            IExaminationsService examinationsService,
+            IChoicesService choicesService)
         {
             this.questionsService = questionsService;
             this.quizzesService = quizzesService;

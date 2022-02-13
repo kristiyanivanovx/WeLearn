@@ -77,14 +77,13 @@ namespace WeLearn.Web
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<QuizzesService>();
-            services.AddTransient<AnswersService>();
-            services.AddTransient<QuestionsService>();
-            services.AddTransient<ExaminationsService>();
-            services.AddTransient<ChoicesService>();
-            services.AddTransient<RecommendationsService>();
-            services.AddTransient<OrganizationsService>();
-
+            services.AddTransient<IQuizzesService, QuizzesService>();
+            services.AddTransient<IAnswersService, AnswersService>();
+            services.AddTransient<IQuestionsService, QuestionsService>();
+            services.AddTransient<IExaminationsService, ExaminationsService>();
+            services.AddTransient<IChoicesService, ChoicesService>();
+            services.AddTransient<IRecommendationsService, RecommendationsService>();
+            services.AddTransient<IOrganizationsService, OrganizationsService>();
             services.AddTransient<IInformationService, InformationService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IUsersService, UsersService>();

@@ -302,7 +302,6 @@ namespace WeLearn.Tests
             var questions = service.GetAll<MyTestQuestion>();
 
             // assert
-            Assert.NotEmpty(questions);
             Assert.Equal(2, questions.Count());
         }
 

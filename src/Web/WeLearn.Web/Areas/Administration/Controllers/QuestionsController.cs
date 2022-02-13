@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using WeLearn.Services.Data;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Web.ViewModels.Question;
 
 using static WeLearn.Common.GlobalConstants;
@@ -15,13 +16,10 @@ namespace WeLearn.Web.Areas.Administration.Controllers
     [Authorize(Roles = SystemRegularAdministratorRoleName + "," + SystemTeacherRoleName)]
     public class QuestionsController : Controller
     {
-        // todo: interface instead of class
-        private readonly QuestionsService questionsService;
+        private readonly IQuestionsService questionsService;
 
-        public QuestionsController(QuestionsService questionsService)
-        {
-            this.questionsService = questionsService;
-        }
+        public QuestionsController(IQuestionsService questionsService)
+            => this.questionsService = questionsService;
 
         [HttpGet]
         public IActionResult Index()

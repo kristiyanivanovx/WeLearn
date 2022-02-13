@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.Quiz;
+using WeLearn.Services.Data.Interfaces;
 using WeLearn.Services.Mapping;
 using WeLearn.Web.ViewModels.Question;
 
 namespace WeLearn.Services.Data
 {
-    public class QuestionsService
+    public class QuestionsService : IQuestionsService
     {
         private readonly IDeletableEntityRepository<Question> questionRepository;
 

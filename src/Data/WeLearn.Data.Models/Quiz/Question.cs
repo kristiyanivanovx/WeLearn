@@ -17,6 +17,7 @@ namespace WeLearn.Data.Models.Quiz
         public string Content { get; set; }
 
         [Required]
+        [Range(1, 10)]
         public int Points { get; set; }
 
         public ICollection<Answer> Answers { get; set; }

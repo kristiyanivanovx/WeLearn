@@ -22,6 +22,6 @@ namespace WeLearn.Services.Data.Interfaces
 
         IEnumerable<T> GetAll<T>();
 
-        Quiz GetQuizById(int id);
+        Quiz GetById(int id);
     }
 }

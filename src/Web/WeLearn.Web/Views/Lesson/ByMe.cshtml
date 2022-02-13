@@ -3,12 +3,12 @@
     ViewData["Title"] = "Lessons created by me";
 }
 
-<div class="container">
+<div class="container bg-base">
     <form asp-area="" asp-controller="Lesson" asp-action="ByMe" method="get">
         <label>Find by name or description:</label>
         <div class="input-group input-group-sm mb-3">
             <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString"/>
-            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1"/>
+            <input type="submit" value="Search" class="btn btn-sm btn-success ml-1"/>
         </div>
     </form>
     @if (!Model.Any())

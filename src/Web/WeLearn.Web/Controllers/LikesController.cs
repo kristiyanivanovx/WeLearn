@@ -32,9 +32,9 @@ namespace WeLearn.Web.Controllers
         public async Task<ActionResult<LikeResponseModel>> ToggleLike(LikeInputModel model)
         {
             var userId = this.userManager.GetUserId(this.User);
-            await this.likesService.ToggleLikeAsync(model.LessonId, userId);
+            await this.likesService.ToggleAsync(model.LessonId, userId);
 
-            var likesCount = this.likesService.GetLikesCount(model.LessonId);
+            var likesCount = this.likesService.GetCountByLessonId(model.LessonId);
 
             return new LikeResponseModel { LikesCount = likesCount };
         }

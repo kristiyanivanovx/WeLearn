@@ -1,13 +1,30 @@
-﻿@model IndexViewModel
+﻿@model ContactsResponseModel
 @{
-	ViewData["Title"] = "Email sent";
+	@if (@Model.StatusCode == System.Net.HttpStatusCode.Accepted)
+	{
+		ViewData["Title"] = "Email sent";
+	}
+	else
+	{
+		ViewData["Title"] = "Something went wrong";
+	}
 }
 
-<div class="container">
+<div class="container bg-base bg-text mb-5 mt-3">
 	<div class="text-center">
 		<h3>@ViewData["Title"]</h3>
 		<hr />
-		<h5>Thank you for reaching out!</h5>
-		<h5>Expect a reply soon.</h5>
+		@if (@Model.StatusCode == System.Net.HttpStatusCode.Accepted)
+		{
+			<h5>Thank you for reaching out! Your feedback is important to us.</h5>
+			<h5>Your message has been sent, expect a reply soon.</h5>
+		}
+		else
+		{
+			<h5>Try again later and please contact us if the problem persists.</h5>
+		}
+		<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-primary mb-3 mt-3">
+            <i class="fas fa-arrow-left"></i> Back to all lessons
+        </a>
 	</div>
 </div>

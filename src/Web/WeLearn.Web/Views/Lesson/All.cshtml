@@ -3,12 +3,12 @@
     ViewData["Title"] = "All lessons";
 }
 
-<div class="container">
-    <form asp-area="" asp-controller="Lesson" asp-action="All" method="get">
+<div class="container bg-base mb-5 mt-3">
+    <form asp-area="" asp-controller="Lesson" asp-action="All" method="get" class="mt-3">
         <label>Find by name or description:</label>
         <div class="input-group input-group-sm mb-3">
             <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
-            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+            <input type="submit" value="Search" class="btn btn-sm btn-success ml-1" />
         </div>
     </form>
     @if (!Model.Any())
@@ -33,3 +33,7 @@
         window.player = player;
     </script>
 }
+
+@* @section Styles { *@
+@*     <link href="@Url.Content("~/css/background.css")" rel="stylesheet" type="text/css"/> *@
+@* } *@

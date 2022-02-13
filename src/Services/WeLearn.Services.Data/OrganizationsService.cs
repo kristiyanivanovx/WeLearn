@@ -56,7 +56,7 @@ namespace WeLearn.Services.Data
                 .To<T>()
                 .ToList();
 
-        public T GetByIdAsync<T>(int id, bool includeDeleted = false)
+        public T GetById<T>(int id, bool includeDeleted = false)
         {
             var query = includeDeleted ?
                 this.organizationRepository.AllWithDeleted() :
@@ -68,19 +68,19 @@ namespace WeLearn.Services.Data
                 .FirstOrDefault();
         }
 
-        public async Task AddUserToOrganizationAsync(int orgId, string userId)
+        public async Task AddUserAsync(int orgId, string userId)
         {
             var organization = this.GetById(orgId);
-            var user = await this.usersService.GetUserByIdAsync(userId);
+            var user = await this.usersService.GetByIdAsync(userId);
 
             organization?.Users.Add(user);
             await this.organizationRepository.SaveChangesAsync();
         }
 
-        public async Task RemoveUserFromOrganization(int orgId, string userId)
+        public async Task RemoveUserAsync(int orgId, string userId)
         {
             var organization = this.GetById(orgId);
-            var user = await this.usersService.GetUserByIdAsync(userId);
+            var user = await this.usersService.GetByIdAsync(userId);
 
             organization?.Users.Remove(user);
             this.organizationRepository.Update(organization);

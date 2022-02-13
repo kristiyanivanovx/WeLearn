@@ -10,20 +10,20 @@ namespace WeLearn.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IInformationService _informationService;
+        private readonly IInformationService informationService;
 
         public HomeController(IInformationService informationService)
-            => this._informationService = informationService;
+            => this.informationService = informationService;
 
         public IActionResult Index()
         {
-            IndexViewModel model = this._informationService.GenerateIndexViewModel();
+            IndexViewModel model = this.informationService.GenerateIndexViewModel();
             return this.View(model);
         }
 
         public IActionResult FAQ()
         {
-            FrequentQuestionsViewModel model = this._informationService.GenerateFrequentQuestionsViewModel();
+            FrequentQuestionsViewModel model = this.informationService.GenerateFrequentQuestionsViewModel();
             return this.View(model);
         }
 

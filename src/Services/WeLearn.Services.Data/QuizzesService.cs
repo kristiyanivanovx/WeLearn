@@ -67,7 +67,7 @@ namespace WeLearn.Services.Data
 
         public async Task EditAsync(QuizEditModel model)
         {
-            var entity = this.GetQuizById(model.Id);
+            var entity = this.GetById(model.Id);
 
             entity.Name = model.Name;
             entity.CategoryId = model.CategoryId;
@@ -103,7 +103,6 @@ namespace WeLearn.Services.Data
                 .AsSingleQuery()
                 .Any(x => x.Id == id);
 
-
         public IEnumerable<T> GetById<T>(int id)
             => this.quizRepository
                 .All()
@@ -123,7 +122,7 @@ namespace WeLearn.Services.Data
                 .To<T>()
                 .ToList();
 
-        public Quiz GetQuizById(int id)
+        public Quiz GetById(int id)
             => this.quizRepository
                 .All()
                 .Include(x => x.Questions)

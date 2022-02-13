@@ -1,7 +1,7 @@
 {
   "name": "WeLearn",
   "short_name": "WeLearn",
-  "description": "A platform for sharing knowledge",
+  "description": "A platform for sharing knowledge.",
   "orientation": "portrait",
   "display": "standalone",
   "icons": [

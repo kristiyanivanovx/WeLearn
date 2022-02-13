@@ -8,6 +8,6 @@ namespace WeLearn.Services.Data.Interfaces
     {
         int GetCount();
 
-        IEnumerable<T> GetAllCategories<T>();
+        IEnumerable<T> GetAll<T>();
     }
 }

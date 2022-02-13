@@ -41,17 +41,17 @@ namespace WeLearn.Services.Data
             return roles;
         }
 
-        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        public async Task<ApplicationUser> GetByIdAsync(string userId)
             => await this.appUserRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
-        public async Task<ApplicationUser> GetUserByUsernameAsync(string username)
+        public async Task<ApplicationUser> GetByUsernameAsync(string username)
             => await this.appUserRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.UserName == username);
 
-        public async Task<IEnumerable<T>> GetAllUsersAsync<T>(string searchString)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(string searchString)
         {
             IQueryable<ApplicationUser> users = this.appUserRepository.All();
 
@@ -130,20 +130,20 @@ namespace WeLearn.Services.Data
             await this.appUserRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId)
+        public async Task<IEnumerable<ApplicationUser>> GetExceptByIdAsync(string userId)
             => await this.appUserRepository
                 .All()
                 .Where(x => x.Id != userId)
                 .ToListAsync();
 
-        public async Task<T> GetUserByIdAsync<T>(string userId)
+        public async Task<T> GetByIdAsync<T>(string userId)
             => await this.appUserRepository
                 .All()
                 .Where(x => x.Id == userId)
                 .To<T>()
                 .FirstOrDefaultAsync();
 
-        public async Task SoftDeleteUserByIdAsync(string userId)
+        public async Task SoftDeleteByIdAsync(string userId)
         {
             var user = this.appUserRepository
                 .AllWithDeleted()
@@ -153,7 +153,7 @@ namespace WeLearn.Services.Data
             await this.appUserRepository.SaveChangesAsync();
         }
 
-        public async Task HardDeleteUserByIdAsync(string userId)
+        public async Task HardDeleteByIdAsync(string userId)
         {
             var user = this.appUserRepository
                 .All()

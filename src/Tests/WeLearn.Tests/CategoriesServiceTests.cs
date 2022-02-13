@@ -70,7 +70,7 @@ namespace WeLearn.Tests
             var categoriesService = new CategoriesService(categoryRepository);
             AutoMapperConfig.RegisterMappings(typeof(MyTestCategory).Assembly);
 
-            var models = categoriesService.GetAllCategories<MyTestCategory>();
+            var models = categoriesService.GetAll<MyTestCategory>();
 
             // assert
             Assert.Equal(3, models.Count());

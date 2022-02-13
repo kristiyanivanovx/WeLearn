@@ -3,14 +3,14 @@
 	ViewData["Title"] = "By category";
 }
 
-<div class="container">
+<div class="container bg-base mb-5 mt-3">
 	@if (Model.Count == 0)
 	{
 		<h3 class="text-center">No lessons found.</h3>
 		<hr />
 	}
 	
-	<form asp-area="" asp-controller="Lesson" asp-action="ByCategory" method="get">
+	<form asp-area="" asp-controller="Lesson" asp-action="ByCategory" method="get" class="mb-2 mt-3">
 		<input type="hidden" name="CategoryName" value="@Model.CategoryName" />
 
 		<div class="input-group input-group-sm mb-3">
@@ -24,7 +24,7 @@
 
 				<label class="mt-1">Find by name or description:</label>
 				<input type="text" name="SearchString" class="form-control input-sm " value="@Model.SearchString" />
-				<input type="submit" value="Search" class="btn btn-sm btn-outline-success mt-3" />
+				<input type="submit" value="Search" class="btn btn-sm btn-success mt-3" />
 			</div>
 		</div>
 	</form>
@@ -43,18 +43,18 @@
 			asp-route-pageNumber="@(Model.PageIndex - 1)"
 			asp-route-searchString="@Model.SearchString"
 			asp-route-categoryName="@Model.CategoryName"
-			class="btn btn-sm btn-outline-dark @prevDisabled">
+			class="btn btn-sm btn-primary @prevDisabled">
 			<i class="fas fa-arrow-left"></i> Previous
 		</a>
-		@for (int value = 1; value <= Model.TotalPages; value++)
+		@for (int i = 1; i <= Model.TotalPages; i++)
 		{
 			<a asp-controller="Lesson"
 				asp-action="ByCategory"
-				asp-route-pageNumber="@value"
+				asp-route-pageNumber="@i"
 				asp-route-searchString="@Model.SearchString"
 				asp-route-categoryName="@Model.CategoryName"
-				class="btn btn-sm btn-outline-dark ">
-				@value
+				class="btn btn-sm btn-primary">
+				@i
 			</a>
 		}
 		<a asp-controller="Lesson"
@@ -62,7 +62,7 @@
 			asp-route-pageNumber="@(Model.PageIndex + 1)"
 			asp-route-searchString="@Model.SearchString"
 			asp-route-categoryName="@Model.CategoryName"
-			class="btn btn-sm btn-outline-dark @nextDisabled">
+			class="btn btn-sm btn-primary @nextDisabled">
 			Next <i class="fas fa-arrow-right"></i>
 		</a>
 	</div>

@@ -149,7 +149,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
+            var categories = this.categoriesService.GetAll<CategoryViewModel>();
             var viewModel = new LessonInputModel
             {
                 Categories = categories,
@@ -188,7 +188,7 @@ namespace WeLearn.Web.Controllers
             }
 
             LessonEditModel model = await this.lessonsService.GetLessonByIdAsync<LessonEditModel>(id);
-            model.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
+            model.Categories = this.categoriesService.GetAll<CategoryViewModel>();
 
             return this.View(model);
         }

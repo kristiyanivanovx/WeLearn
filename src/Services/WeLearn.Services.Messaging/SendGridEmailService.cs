@@ -14,7 +14,7 @@ namespace WeLearn.Services.Messaging
         public SendGridEmailService(string apiKey)
             => this.client = new SendGridClient(apiKey);
 
-        public async Task SendEmailAsync(string from, string to, string subject, string content, bool isContentHtml)
+        public async Task<Response> SendEmailAsync(string from, string to, string subject, string content, bool isContentHtml)
         {
             if (string.IsNullOrWhiteSpace(subject) && string.IsNullOrWhiteSpace(content))
             {
@@ -39,6 +39,8 @@ namespace WeLearn.Services.Messaging
                 Response response = await this.client.SendEmailAsync(message);
                 Console.WriteLine(response.StatusCode);
                 Console.WriteLine(await response.Body.ReadAsStringAsync());
+
+                return response;
             }
             catch (Exception e)
             {

@@ -16,9 +16,9 @@ namespace WeLearn.Services.Data.Interfaces
 
         bool Contains(int id);
 
-        IEnumerable<Question> GetAllQuestions();
+        IEnumerable<Question> GetAllWithAnswers();
 
-        Question GetQuestionById(int id);
+        Question GetById(int id);
 
         IEnumerable<T> GetAll<T>();
 

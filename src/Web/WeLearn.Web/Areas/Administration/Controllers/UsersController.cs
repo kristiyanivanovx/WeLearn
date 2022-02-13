@@ -26,7 +26,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            var allUsers = await this.usersService.GetAllUsersAsync<AdminUserViewModel>(searchString);
+            var allUsers = await this.usersService.GetAllAsync<AdminUserViewModel>(searchString);
             var paginated = PaginatedList<AdminUserViewModel>.Create(allUsers.OrderBy(x => x.Id), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
 
@@ -56,7 +56,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await this.usersService.GetUserByIdAsync<AdminUserDeleteModel>(id);
+            var user = await this.usersService.GetByIdAsync<AdminUserDeleteModel>(id);
 
             return this.View(user);
         }
@@ -66,7 +66,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            await this.usersService.HardDeleteUserByIdAsync(id);
+            await this.usersService.HardDeleteByIdAsync(id);
 
             return this.RedirectToAction(nameof(this.Index));
         }

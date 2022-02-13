@@ -6,15 +6,21 @@
 <partial name="Templates/_TinyEditor"/>
 
 <div class="container text-center pb-3">
-    <div>
+    <div class="bg-base bg-solid">
         <h3>Are you sure that you want to delete the following comment?</h3>
         <hr />
-        <form asp-controller="Comment" asp-action="Delete" method="post" class="mb-4">
+        <form asp-controller="Comment" asp-action="Delete" method="post" class="mb-2">
             <input type="hidden" value="@Model.Id" asp-for="@Model.Id" />
             <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" />
+            
             <div class="form-group">
-                <p>@Html.Raw(Model.SanitizedContent)</p>
-                <small><time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></small>
+                <div>
+                    <p>Content:</p> @Html.Raw(Model.SanitizedContent)
+                </div>
+                
+                <div>
+                    <p>Date created:</p> <time class="black-text" datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time>
+                </div>
             </div>
             <input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
             <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-dark">
@@ -22,14 +28,13 @@
             </a>
         </form>
     </div>
-    <div class="card card-style-80-rem">
+    
+    <div class="card card-style-80-rem mt-3">
         <partial name="_VideoPartial" model="@Model"/>
-
         <div class="card-body">
             <h5 class="card-title">@Model.LessonName</h5>
             <hr />
             <p class="card-text mb-2">@Model.LessonDescription</p>
-            
             <div class="card-text">
                 @{ var createdBy = Model.LessonApplicationUserUserName ?? "Deleted User"; }
                 <div>

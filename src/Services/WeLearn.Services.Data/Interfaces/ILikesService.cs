@@ -6,12 +6,12 @@ namespace WeLearn.Services.Data.Interfaces
 {
     public interface ILikesService
     {
-        Task ToggleLikeAsync(int lessonId, string userId);
+        Task ToggleAsync(int lessonId, string userId);
 
-        Task AddLikeAsync(int lessonId, string userId);
+        Task AddAsync(int lessonId, string userId);
 
-        Task RemoveLikeAsync(Like like);
+        Task RemoveAsync(Like like);
 
-        int GetLikesCount(int lessonId);
+        int GetCountByLessonId(int lessonId);
     }
 }

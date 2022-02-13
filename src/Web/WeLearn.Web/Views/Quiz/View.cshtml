@@ -3,7 +3,7 @@
     ViewData["Title"] = "Reviewing results for examination #" + @Model.Id;
 }
 
-<div class="container text-center" id="quiz-page">
+<div class="container text-center bg-base bg-solid" id="quiz-page">
     <h3 class="mb-3 mt-4">@ViewData["Title"]</h3>
 
     <table class="table">
@@ -80,7 +80,7 @@
 
                         @if (chosenByUser)
                         {
-                            <span>- Your choice.</span>
+                            <span class="black-text">- Your choice.</span>
                         }
                     </div>
                 }

@@ -4,7 +4,7 @@
 }
 
 <div class="container pb-3">
-    <div class="text-center">
+    <div class="text-center bg-base bg-solid mb-3 mt-3">
         <h3>Are you sure that you want to send this lesson to your email?</h3>
         <hr/>
         <form asp-controller="Lesson" asp-action="Send" asp-route-id="@Model.LessonId" method="post" class="mb-3">
@@ -92,7 +92,9 @@
     </div>
     @await Component.InvokeAsync("AllComments", new {lessonId = Model.LessonId})
 
-    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
+    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-primary mb-4 mt-3">
+        <i class="fas fa-arrow-left"></i> Back to all
+    </a>
 </div>
 
 @section Scripts {

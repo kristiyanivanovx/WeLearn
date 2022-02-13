@@ -41,7 +41,7 @@ namespace WeLearn.Services.Data
             await this.examinationRepository.SaveChangesAsync();
         }
 
-        public Examination GetExaminationById(int id)
+        public Examination GetById(int id)
             => this.examinationRepository
                 .All()
                 .Include(x => x.Quiz)

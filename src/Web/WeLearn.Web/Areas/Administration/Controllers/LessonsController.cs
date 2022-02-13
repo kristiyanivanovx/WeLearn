@@ -43,7 +43,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             AdminLessonEditModel lesson = await this.lessonsService.GetLessonByIdWithDeletedAsync<AdminLessonEditModel>(id);
-            lesson.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
+            lesson.Categories = this.categoriesService.GetAll<CategoryViewModel>();
 
             return this.View(lesson);
         }

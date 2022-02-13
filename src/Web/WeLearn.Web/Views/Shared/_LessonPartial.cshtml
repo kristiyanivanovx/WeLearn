@@ -93,14 +93,14 @@
 				</small>
 			</div>
 		</div>
-		
+	
 		@if (User.Identity.IsAuthenticated)
 		{
 			<a onclick="toggleLike(@Model.LessonId)" class="btn btn-sm btn-like mb-1">
 				<i class="far fa-heart"></i> Like
 			</a>
 		}
-		
+	
 		@if (User.Identity?.Name == Model.UserUserName)
 		{
 			<a asp-controller="Lesson" asp-action="Edit" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-success mb-1">
@@ -110,7 +110,7 @@
 				<i class="fas fa-trash-alt"></i> Delete
 			</a>
 		}
-	
+
 		<a asp-controller="Lesson" asp-action="Download" asp-route-link="@Model.MaterialLink" class="btn btn-sm btn-outline-info mb-1">
 			<i class="fas fa-arrow-down"></i> Download Resources
 		</a>
@@ -120,7 +120,7 @@
 		<a asp-controller="Report" asp-action="Lesson" asp-route-id="@Model.LessonId" class="btn btn-sm btn-outline-warning mb-1">
 			<i class="far fa-flag"></i> Report
 		</a>
-		
+	
 		@if (User.Identity.IsAuthenticated)
 		{
 			<button class="btn btn-sm btn-reply mb-1" onclick="showAddCommentForm(0)">
@@ -132,11 +132,11 @@
 
 @* recursive comments *@
 @{
-	await DisplayComments(null, 0);
+    await DisplayComments(null, 0);
 }
 
 <partial name="_CommentPartial" model="new CommentViewModel { LessonId = Model.LessonId }" />
 
-<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark mb-3">
+<a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-primary mb-3 m-3">
     <i class="fas fa-arrow-left"></i> Back to all
 </a>

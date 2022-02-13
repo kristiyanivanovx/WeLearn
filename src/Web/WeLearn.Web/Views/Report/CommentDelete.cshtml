@@ -7,13 +7,35 @@
 
 <div class="container">
     <div align="center">
+         <div class="text-center mt-3 mb-3 bg-base bg-solid">
+             <h3 class="text-center">Deleting report #@Model.ReportId | Comment #@Model.CommentId</h3>
+             <hr />
+             <form asp-controller="Report" asp-action="CommentDelete" method="post">
+                 <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
+                 <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
+                 <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
+                 <div class="mb-3">
+                     <p>Subject:</p>
+                     <p>@Model.Subject</p>
+                 </div>
+                 <div class="mb-3">
+                     <p>Description:</p>
+                     <p>@Model.ReportDescription</p>
+                 </div>
+
+                 <input class="btn btn-sm btn-outline-danger" type="submit" value="Delete" />
+                 <a asp-controller="Report" asp-action="CommentsByMe" class="btn btn-sm btn-outline-dark">
+                     Cancel
+                 </a>
+             </form>
+        </div>
         <div class="card card-style-40-rem">
             <div>
                 <div class="card-body">
                     <h5 class="card-title">Comment</h5>
-                    <hr />
+                    <hr/>
                     <p class="card-text">@Html.Raw(@Model.SanitizedCommentContent)</p>
-                    <p class="card-text">
+                    <div class="card-text">
                         @* @{ var createdBy = Model.CommentApplicationUserUserName ?? "Deleted User"; } *@
                         @*<div>
                             <small class="text-muted">Created by - @createdBy</small>
@@ -21,32 +43,9 @@
                         <div>
                             <small class="text-muted">Date created - <time datetime="@Model.CommentCreatedOn.ToString("O")">@Model.CommentCreatedOn.ToString("g")</time></small>
                         </div>
-                    </p>
-                </div>
+                    </div>
+                </div>  
             </div>
         </div>
-        <div class="text-center mt-3">
-            <h3 class="text-center">Deleting report #@Model.ReportId | Comment #@Model.CommentId</h3>
-            <hr />
-            <form asp-controller="Report" asp-action="CommentDelete" method="post">
-                <input type="hidden" value="@Model.CommentId" asp-for="@Model.CommentId" class="form-control" />
-                <input type="hidden" value="@Model.ReportId" asp-for="@Model.ReportId" class="form-control" />
-                <input type="hidden" value="@Model.UserId" asp-for="@Model.UserId" class="form-control" />
-                <div class="mb-3">
-                    <p>Subject:</p>
-                    <p>@Model.Subject</p>
-                </div>
-                <div class="mb-3">
-                    <p>Description:</p>
-                    <p>@Model.ReportDescription</p>
-                </div>
-
-                <input class="btn btn-sm btn-outline-danger" type="submit" value="Delete" />
-                <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark">
-                    Cancel
-                </a>
-            </form>
-        </div>
     </div>
-    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
 </div>

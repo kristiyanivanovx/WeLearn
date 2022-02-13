@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
 using WeLearn.Data.Models.LessonModule;
 using WeLearn.Data.Models.Recommendation;
-using WeLearn.Services.Data;
 using WeLearn.Services.Data.Interfaces;
+
 using static WeLearn.Common.GlobalConstants;
 
 namespace WeLearn.Services.CronJobs

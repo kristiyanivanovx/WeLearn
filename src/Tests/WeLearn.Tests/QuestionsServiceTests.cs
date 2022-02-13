@@ -67,7 +67,7 @@ namespace WeLearn.Tests
             };
 
             await service.EditAsync(editModel);
-            var question = service.GetQuestionById(questionId);
+            var question = service.GetById(questionId);
 
             // assert
             Assert.NotNull(question);
@@ -102,7 +102,7 @@ namespace WeLearn.Tests
             };
 
             await service.EditAsync(editModel);
-            var question = service.GetQuestionById(questionId);
+            var question = service.GetById(questionId);
 
             // assert
             Assert.NotNull(question);
@@ -128,7 +128,7 @@ namespace WeLearn.Tests
 
             // act
             await service.CreateAsync(model);
-            var question = service.GetQuestionById(fictionalQuestionId);
+            var question = service.GetById(fictionalQuestionId);
 
             // assert
             Assert.Null(question);
@@ -152,7 +152,7 @@ namespace WeLearn.Tests
 
             // act
             await service.CreateAsync(model);
-            var question = service.GetQuestionById(questionId);
+            var question = service.GetById(questionId);
 
             // assert
             Assert.NotNull(question);
@@ -182,7 +182,7 @@ namespace WeLearn.Tests
             await service.DeleteAsync(fictionalQuestionId);
 
             var containsExisting = service.Contains(questionId);
-            var allQuestionsCount = service.GetAllQuestions()?.Count();
+            var allQuestionsCount = service.GetAllWithAnswers()?.Count();
 
             // assert
             Assert.True(containsExisting);
@@ -210,7 +210,7 @@ namespace WeLearn.Tests
             await service.DeleteAsync(questionId);
 
             var containsNotExisting = service.Contains(questionId);
-            var allQuestionsCount = service.GetAllQuestions()?.Count();
+            var allQuestionsCount = service.GetAllWithAnswers()?.Count();
 
             // assert
             Assert.False(containsNotExisting);
@@ -241,7 +241,7 @@ namespace WeLearn.Tests
             await service.CreateAsync(modelOne);
             await service.CreateAsync(modelTwo);
 
-            var allQuestions = service.GetAllQuestions();
+            var allQuestions = service.GetAllWithAnswers();
             var allQuestionsCount = allQuestions?.Count();
 
             // assert

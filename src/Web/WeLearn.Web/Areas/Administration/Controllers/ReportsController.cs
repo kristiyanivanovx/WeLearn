@@ -24,7 +24,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string searchString, int? pageNumber)
         {
-            IEnumerable<AdminReportViewModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportViewModel>(searchString);
+            IEnumerable<AdminReportViewModel> reports = await this.reportsService.GetAllAsync<AdminReportViewModel>(searchString);
             var paginated = PaginatedList<AdminReportViewModel>.Create(reports.OrderByDescending(x => x.Id), pageNumber ?? 1, 6);
             paginated.SearchString = searchString;
 
@@ -34,7 +34,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            IEnumerable<AdminReportEditModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportEditModel>();
+            IEnumerable<AdminReportEditModel> reports = await this.reportsService.GetAllAsync<AdminReportEditModel>();
             AdminReportEditModel report = reports.FirstOrDefault(x => x.Id == id);
             return this.View(report);
         }
@@ -55,7 +55,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            IEnumerable<AdminReportDeleteModel> reports = await this.reportsService.GetAllReportsAsync<AdminReportDeleteModel>();
+            IEnumerable<AdminReportDeleteModel> reports = await this.reportsService.GetAllAsync<AdminReportDeleteModel>();
             AdminReportDeleteModel report = reports.FirstOrDefault(x => x.Id == id);
             return this.View(report);
         }

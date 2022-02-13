@@ -3,8 +3,8 @@
     ViewData["Title"] = "Edit an organization";
 }
 
-<div class="container text-center">
-    <h2>@ViewData["Title"]</h2>
+<div class="container text-center bg-base bg-solid">
+    <h3 class="mt-2 mb-4">@ViewData["Title"]</h3>
     <hr/>
 
     <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">
@@ -23,7 +23,11 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Submit"/>
+            <input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Save"/>
+            <a asp-area="" asp-controller="Organization" asp-action="View" asp-route-id="@Model.Id"
+                    type="button" class="btn btn-sm btn-outline-dark" data-dismiss="modal">
+                Cancel
+            </a>
         </form>
     </div>
 </div>

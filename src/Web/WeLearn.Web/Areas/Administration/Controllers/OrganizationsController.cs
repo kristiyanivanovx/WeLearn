@@ -34,7 +34,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = this.organizationsService.GetByIdAsync<OrganizationEditModel>(id, true);
+            var model = this.organizationsService.GetById<OrganizationEditModel>(id, true);
 
             return this.View(model);
         }

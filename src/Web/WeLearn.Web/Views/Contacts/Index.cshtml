@@ -3,7 +3,7 @@
     ViewData["Title"] = "Contacts";
 }
 
-<div class="container">
+<div class="container center bg-base mb-5 mt-3">
 	<div class="text-center">
 		<h3>Contacts</h3>
 		<hr />
@@ -17,26 +17,26 @@
 		<div class="mt-3 offset-md-3 col-md-6">
 			<form asp-controller="Contacts" asp-action="Index" method="post">
 				<div class="form-group">
-					<label asp-for="FromName"></label>
-					<input asp-for="FromName" class="form-control black-text" />
-					<span asp-validation-for="FromName" class="text-danger"></span>
+					<label asp-for="@Model.FromName"></label>
+					<input asp-for="@Model.FromName" type="text" class="form-control black-text" />
+					<span asp-validation-for="@Model.FromName" class="text-danger"></span>
 				</div>
 				<div class="form-group">
-					<label asp-for="FromEmail"></label>
-					<input asp-for="FromEmail" class="form-control black-text" />
-					<span asp-validation-for="FromEmail" class="text-danger"></span>
+					<label asp-for="@Model.FromEmail"></label>
+					<input asp-for="@Model.FromEmail" type="email" class="form-control black-text" />
+					<span asp-validation-for="@Model.FromEmail" class="text-danger"></span>
 				</div>
 				<div class="form-group">
-					<label asp-for="Subject"></label>
-					<input asp-for="Subject" class="form-control black-text" />
-					<span asp-validation-for="Subject" class="text-danger"></span>
+					<label asp-for="@Model.Subject"></label>
+					<input asp-for="@Model.Subject" type="text" class="form-control black-text" />
+					<span asp-validation-for="@Model.Subject" class="text-danger"></span>
 				</div>
 				<div class="form-group">
-					<label asp-for="Content"></label>
-					<textarea asp-for="Content" class="form-control black-text"></textarea>
-					<span asp-validation-for="Content" class="text-danger"></span>
+					<label asp-for="@Model.Content"></label>
+					<textarea asp-for="@Model.Content" type="text" class="form-control black-text"></textarea>
+					<span asp-validation-for="@Model.Content" class="text-danger"></span>
 				</div>
-				<input class="btn btn-sm btn-outline-success" type="submit" name="submit" value="Send email" />
+				<input class="btn btn-sm btn-success" type="submit" name="submit" value="Send email" />
 			</form>
 		</div>
 	</div>

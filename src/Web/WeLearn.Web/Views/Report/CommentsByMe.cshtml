@@ -32,16 +32,16 @@
                         <h5>Report details</h5>
                         <hr />
                         <div class="form-group">
-                            <label asp-for="@report.Subject"></label>
-                            <h6 class="card-title">@report.Subject</h6>
+                            <label asp-for="@report.Subject"></label>:
+                            <span class="card-title black-text">@report.Subject</span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="@report.ReportDescription"></label>
-                            <h6 class="card-text">@report.ReportDescription</h6>
+                            <label asp-for="@report.ReportDescription"></label>:
+                            <span class="card-text black-text">@report.ReportDescription</span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="@report.CreatedOn">Date created</label>
-                            <h6 class="card-text"><time datetime="@report.CreatedOn.ToString("O")">@report.CreatedOn.ToString("g")</time></h6>
+                            <label asp-for="@report.CreatedOn">Date created</label>:
+                            <span class="card-text black-text"><time datetime="@report.CreatedOn.ToString("O")">@report.CreatedOn.ToString("g")</time></span>
                         </div>
                         <a asp-controller="Report" asp-action="CommentEdit" asp-route-reportid="@report.ReportId" class="btn btn-sm btn-outline-success mb-2">
                             <i class="fas fa-edit"></i> Edit
@@ -56,7 +56,9 @@
     </div>
     @if (!Model.Any())
     {
-        <h3 class="text-center">You don't have any reports to comments yet.</h3>
-        <hr />
+        <div class="bg-base bg-solid">
+            <h3 class="text-center ">You don't have any reports to comments yet.</h3>
+            <hr />
+        </div>
     }
 </div>

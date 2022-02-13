@@ -30,7 +30,7 @@ namespace WeLearn.Services.Data
                 .All()
                 .Count();
 
-        public async Task<T> GetReportByIdAsync<T>(int reportId)
+        public async Task<T> GetByIdAsync<T>(int reportId)
             => await this.reportRepository
                 .All()
                 .Where(x => x.Id == reportId)
@@ -65,7 +65,7 @@ namespace WeLearn.Services.Data
                 .To<CommentReportViewModel>()
                 .ToListAsync();
 
-        public async Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(string searchString)
         {
             IQueryable<Report> reports = this.reportRepository.AllWithDeleted();
 

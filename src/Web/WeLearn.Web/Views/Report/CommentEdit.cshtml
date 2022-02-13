@@ -10,9 +10,8 @@
         <div class="card card-style-40-rem mb-2">
             <div>
                 <div class="card-body">
-                    <h5 class="card-title">Editing report for the following comment</h5>
+                    <h5 class="card-title">Editing report for comment: @Html.Raw(@Model.SanitizedCommentContent)</h5>
                     <hr />
-                    <p class="card-text">@Html.Raw(@Model.SanitizedCommentContent)</p>
                     <p class="card-text">
                         @* @{ var createdBy = Model.ApplicationUserUserName ?? "Deleted User"; } *@
                         @*<div>
@@ -25,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center">
+        <div class="text-center bg-base bg-solid">
             <h3 class="text-center">Editing report #@Model.ReportId | Comment #@Model.CommentId</h3>
             <hr />
             <form asp-controller="Report" asp-action="CommentEdit" method="post">
@@ -43,12 +42,11 @@
                     <span asp-validation-for="ReportDescription" class="text-danger"></span>
                 </div>
 
-                <input class="btn btn-sm btn-outline-success" type="submit" value="Save" />
-                <a asp-controller="Lesson" asp-action="Watch" asp-route-id="@Model.CommentId" class="btn btn-sm btn-outline-dark">
+                <input class="btn btn-sm btn-success" type="submit" value="Save" />
+                <a asp-controller="Report" asp-action="CommentsByMe" class="btn btn-sm btn-dark">
                     Cancel
                 </a>
             </form>
         </div>
     </div>
-    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
 </div>

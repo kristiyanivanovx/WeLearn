@@ -19,7 +19,7 @@ namespace WeLearn.Tests
             var service = new LikesService(likeRepository);
 
             // act
-            var likesCount = service.GetLikesCount(1);
+            var likesCount = service.GetCountByLessonId(1);
 
             // assert
             Assert.Equal(0, likesCount);
@@ -34,8 +34,8 @@ namespace WeLearn.Tests
             var service = new LikesService(likeRepository);
 
             // act
-            await service.AddLikeAsync(1, 1.ToString());
-            var likesCount = service.GetLikesCount(1);
+            await service.AddAsync(1, 1.ToString());
+            var likesCount = service.GetCountByLessonId(1);
 
             // assert
             Assert.Equal(1, likesCount);
@@ -50,9 +50,9 @@ namespace WeLearn.Tests
             var service = new LikesService(likeRepository);
 
             // act
-            await service.AddLikeAsync(1, 1.ToString());
-            await service.ToggleLikeAsync(1, 1.ToString());
-            var likesCount = service.GetLikesCount(1);
+            await service.AddAsync(1, 1.ToString());
+            await service.ToggleAsync(1, 1.ToString());
+            var likesCount = service.GetCountByLessonId(1);
 
             // assert
             Assert.Equal(0, likesCount);
@@ -67,10 +67,10 @@ namespace WeLearn.Tests
             var service = new LikesService(likeRepository);
 
             // act
-            await service.AddLikeAsync(1, 1.ToString());
-            await service.ToggleLikeAsync(1, 1.ToString());
-            await service.ToggleLikeAsync(1, 1.ToString());
-            var likesCount = service.GetLikesCount(1);
+            await service.AddAsync(1, 1.ToString());
+            await service.ToggleAsync(1, 1.ToString());
+            await service.ToggleAsync(1, 1.ToString());
+            var likesCount = service.GetCountByLessonId(1);
 
             // assert
             Assert.Equal(1, likesCount);

@@ -13,7 +13,7 @@ namespace WeLearn.Services.Data.Interfaces
 
         Task CreateAsync(int quizId, int points, string userId, List<Choice> choices);
 
-        Examination GetExaminationById(int id);
+        Examination GetById(int id);
 
         T GetById<T>(int id);
 

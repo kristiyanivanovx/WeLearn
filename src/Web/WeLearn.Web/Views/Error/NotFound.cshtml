@@ -1,21 +1,14 @@
 @{
     ViewBag.Title = "Not found";
+    string notFoundMessage = @ViewData["ErrorMessage"].ToString() ?? "404 | Not found";
 }
 
-@* <div class="error"> *@
-@* </div> *@
-
 <div class="container bg-text text-center">
-    <h3>@ViewData["ErrorMessage"]</h3>
+    <h3>@notFoundMessage</h3>
     <hr>
     
     <a asp-controller="Home" asp-action="Index">
         Click here to return to the home page.
     </a>
-    
-    @* <img src="~/img/errors/404.png" class="img-fluid" alt="Page Not Found Image"> *@
 </div>
 
-@section Styles {
-    <link href="@Url.Content("~/css/background.css")" rel="stylesheet" type="text/css"/>
-}

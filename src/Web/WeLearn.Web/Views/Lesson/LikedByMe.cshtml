@@ -3,18 +3,20 @@
     ViewData["Title"] = "Lessons liked by me";
 }
 
-<div class="container">
-    <form asp-area="" asp-controller="Lesson" asp-action="LikedByMe" method="get">
+<div class="container bg-base">
+    <form asp-area="" asp-controller="Lesson" asp-action="LikedByMe" method="get" class="mt-3">
         <label>Find by name or description:</label>
         <div class="input-group input-group-sm mb-3">
             <input type="text" name="SearchString" class="form-control input-sm col-md-3" value="@Model.SearchString" />
-            <input type="submit" value="Search" class="btn btn-sm btn-outline-success ml-1" />
+            <input type="submit" value="Search" class="btn btn-sm btn-success ml-1" />
         </div>
     </form>
     
     @if (!Model.Any())
     {
-        <h3 class="text-center">We don't have any lessons matching your query.</h3>
+        <h3 class="text-center">
+            We don't have any lessons matching your query or you have not liked any lessons yet.
+        </h3>
         <hr />
     }
     else
@@ -33,7 +35,7 @@
                    asp-action="LikedByMe"
                    asp-route-pageNumber="@(Model.PageIndex - 1)"
                    asp-route-searchString="@Model.SearchString"
-                   class="btn btn-sm btn-outline-dark @prevDisabled">
+                   class="btn btn-sm btn-primary @prevDisabled">
                     <i class="fas fa-arrow-left"></i> Previous
                 </a>
                 @for (int i = 1; i <= Model.TotalPages; i++)
@@ -42,7 +44,7 @@
                        asp-action="LikedByMe"
                        asp-route-pageNumber="@i"
                        asp-route-searchString="@Model.SearchString"
-                       class="btn btn-sm btn-outline-dark ">
+                       class="btn btn-sm btn-primary">
                         @i
                     </a>
                 }
@@ -50,7 +52,7 @@
                    asp-action="LikedByMe"
                    asp-route-pageNumber="@(Model.PageIndex + 1)"
                    asp-route-searchString="@Model.SearchString"
-                   class="btn btn-sm btn-outline-dark @nextDisabled">
+                   class="btn btn-sm btn-primary @nextDisabled">
                     Next <i class="fas fa-arrow-right"></i>
                 </a>
             </div>

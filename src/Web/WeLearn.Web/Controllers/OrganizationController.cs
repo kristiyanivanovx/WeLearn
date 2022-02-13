@@ -38,7 +38,7 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Join(int id)
         {
-            await this.organizationsService.AddUserToOrganizationAsync(id, this.GetUserId());
+            await this.organizationsService.AddUserAsync(id, this.GetUserId());
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -46,14 +46,14 @@ namespace WeLearn.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Leave(int id)
         {
-            await this.organizationsService.RemoveUserFromOrganization(id, this.GetUserId());
+            await this.organizationsService.RemoveUserAsync(id, this.GetUserId());
 
             return this.RedirectToAction(nameof(this.All));
         }
 
         public IActionResult View(int id)
         {
-            var model = this.organizationsService.GetByIdAsync<OrganizationViewModel>(id);
+            var model = this.organizationsService.GetById<OrganizationViewModel>(id);
             if (model == null)
             {
                 this.Response.StatusCode = 404;
@@ -82,7 +82,7 @@ namespace WeLearn.Web.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = this.organizationsService.GetByIdAsync<OrganizationEditModel>(id);
+            var model = this.organizationsService.GetById<OrganizationEditModel>(id);
 
             return this.View(model);
         }
@@ -126,7 +126,7 @@ namespace WeLearn.Web.Controllers
             var organizationId = await this.organizationsService.CreateAsync(model, this.GetUserId());
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await this.organizationsService.AddUserToOrganizationAsync(organizationId, userId);
+            await this.organizationsService.AddUserAsync(organizationId, userId);
 
             return this.RedirectToAction(nameof(this.All));
         }

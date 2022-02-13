@@ -69,7 +69,7 @@ namespace WeLearn.Web.Controllers
                 .Contains(id);
 
             bool isViewingAllowed = this.examinationsService
-                .GetExaminationById(id)
+                .GetById(id)
                 .UserId == this.GetUserId();
 
             if (!examinationExists || !isViewingAllowed)
@@ -145,7 +145,7 @@ namespace WeLearn.Web.Controllers
             {
                 int questionIdParsed = int.Parse(questionId);
                 int? answerIdCorrect = this.questionsService
-                    .GetAllQuestions()
+                    .GetAllWithAnswers()
                     .FirstOrDefault(q => q.Id == questionIdParsed)
                     ?.Answers
                         .FirstOrDefault(a => a.IsCorrect)
@@ -155,7 +155,7 @@ namespace WeLearn.Web.Controllers
                 if (answerIdCorrect == userAnswerId)
                 {
                     var questionPoints = this.questionsService
-                        .GetAllQuestions()
+                        .GetAllWithAnswers()
                         .First(q => q.Id == questionIdParsed)
                         .Points;
 

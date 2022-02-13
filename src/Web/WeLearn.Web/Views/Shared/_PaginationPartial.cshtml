@@ -3,12 +3,12 @@
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<div class="mt-2 pb-2">
+<div class="mt-4 pb-2">
     <a asp-controller="Lesson"
        asp-action="All"
        asp-route-pageNumber="@(Model.PageIndex - 1)"
        asp-route-searchString="@Model.SearchString"
-       class="btn btn-sm btn-outline-dark @prevDisabled">
+       class="btn btn-sm btn-primary @prevDisabled">
         <i class="fas fa-arrow-left"></i> Previous
     </a>
     @for (int index = 1; index <= Model.TotalPages; index++)
@@ -17,7 +17,7 @@
            asp-action="All"
            asp-route-pageNumber="@index"
            asp-route-searchString="@Model.SearchString"
-           class="btn btn-sm btn-outline-dark ">
+           class="btn btn-sm btn-primary">
             @index
         </a>
     }
@@ -25,7 +25,7 @@
        asp-action="All"
        asp-route-pageNumber="@(Model.PageIndex + 1)"
        asp-route-searchString="@Model.SearchString"
-       class="btn btn-sm btn-outline-dark @nextDisabled">
+       class="btn btn-sm btn-primary @nextDisabled">
         Next <i class="fas fa-arrow-right"></i>
     </a>
 </div>

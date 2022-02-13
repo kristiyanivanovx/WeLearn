@@ -11,22 +11,22 @@ namespace WeLearn.Services.Data.Interfaces
 
         Task<IEnumerable<string>> GetRoleNamesByUserId(string userId);
 
-        Task<ApplicationUser> GetUserByUsernameAsync(string username);
+        Task<ApplicationUser> GetByUsernameAsync(string username);
 
-        Task<IEnumerable<T>> GetAllUsersAsync<T>(string searchString);
+        Task<IEnumerable<T>> GetAllAsync<T>(string searchString);
 
         Task ToggleAdminRoleAsync(string userId);
 
         Task ToggleTeacherRoleAsync(string targetUserId, string actingUserId);
 
-        Task<IEnumerable<ApplicationUser>> GetUsersExceptAsync(string userId);
+        Task<IEnumerable<ApplicationUser>> GetExceptByIdAsync(string userId);
 
-        Task<ApplicationUser> GetUserByIdAsync(string userId);
+        Task<ApplicationUser> GetByIdAsync(string userId);
 
-        Task<T> GetUserByIdAsync<T>(string userId);
+        Task<T> GetByIdAsync<T>(string userId);
 
-        Task SoftDeleteUserByIdAsync(string userId);
+        Task SoftDeleteByIdAsync(string userId);
 
-        Task HardDeleteUserByIdAsync(string userId);
+        Task HardDeleteByIdAsync(string userId);
     }
 }

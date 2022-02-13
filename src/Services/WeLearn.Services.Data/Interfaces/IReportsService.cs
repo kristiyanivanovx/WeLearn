@@ -13,9 +13,9 @@ namespace WeLearn.Services.Data.Interfaces
 
         bool Contains(int id);
 
-        Task<T> GetReportByIdAsync<T>(int reportId);
+        Task<T> GetByIdAsync<T>(int reportId);
 
-        Task<IEnumerable<T>> GetAllReportsAsync<T>(string searchString = null);
+        Task<IEnumerable<T>> GetAllAsync<T>(string searchString = null);
 
         Task<IEnumerable<LessonReportViewModel>> GetLessonReportsCreatedByMeAsync(string userId);
 

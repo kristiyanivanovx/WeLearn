@@ -10,10 +10,10 @@ namespace WeLearn.Web.ViewModels.Question
         public string Content { get; set; }
 
         [Required]
+        [Range(1, 10)]
         public int Points { get; set; }
 
         // public ICollection<AnswerViewModel> Answers { get; set; }
-        //
         // public ICollection<QuizViewModel> Quizzes { get; set; }
     }
 }

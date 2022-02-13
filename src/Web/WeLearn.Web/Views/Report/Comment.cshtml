@@ -7,25 +7,7 @@
 
 <div class="container">
     <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3 text-center">
-        <div class="card card-style-40-rem">
-            <div>
-                <div class="card-body">
-                    <h5 class="card-title">Are you sure you want to report this comment?</h5>
-                    <hr />
-                    <p class="card-text">@Html.Raw(@Model.SanitizedCommentContent)</p>
-                    <p class="card-text">
-                        @{ var createdBy = Model.CommentApplicationUserUserName ?? "Deleted User"; }
-                        <div>
-                            <small class="text-muted">Created by - @createdBy </small>
-                        </div>
-                        <div>
-                            <small class="text-muted">Date created - <time datetime="@Model.CommentCreatedOn.ToString("O")">@Model.CommentCreatedOn.ToString("g")</time></small>
-                        </div>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-2">
+        <div class="text-center bg-base bg-solid mb-3 mt-2">
             <h3 class="text-center">Reporting comment #@Model.CommentId</h3>
             <hr />
             <form asp-controller="Report" asp-action="Comment" method="post">
@@ -40,13 +22,33 @@
                     <textarea asp-for="ReportDescription" class="form-control"></textarea>
                     <span asp-validation-for="ReportDescription" class="text-danger"></span>
                 </div>
-
+       
                 <input class="btn btn-sm btn-outline-info" type="submit" value="Report" />
                 <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark">
                     Cancel
                 </a>
             </form>
         </div>
+        <div class="card card-style-40-rem">
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">Comment: @Html.Raw(@Model.SanitizedCommentContent)</h5>
+                    <hr>
+                    
+                    <div class="card-text">
+                        @{ var createdBy = Model.CommentApplicationUserUserName ?? "Deleted User"; }
+                        <div>
+                            <small class="text-muted">Created by - @createdBy </small>
+                        </div>
+                        <div>
+                            <small class="text-muted">Date created - <time datetime="@Model.CommentCreatedOn.ToString("O")">@Model.CommentCreatedOn.ToString("g")</time></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-primary mb-3 mt-3">
+                <i class="fas fa-arrow-left"></i> Back to all
+        </a>
     </div>
-    <a asp-controller="Lesson" asp-action="All" class="btn btn-sm btn-outline-dark"><i class="fas fa-arrow-left"></i> Back to all</a>
 </div>

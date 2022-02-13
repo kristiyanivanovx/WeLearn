@@ -4,7 +4,7 @@
 }
 
 <div class="container">
-    <div class="text-center">
+    <div class="text-center bg-base bg-solid mb-3">
         <h3>Are you sure that you want to delete the following report?</h3>
         <hr />
 		<form asp-controller="Report" asp-action="LessonDelete" method="post">
@@ -22,7 +22,7 @@
 				<p>Date created: </p>
 				<p><time datetime="@Model.CreatedOn.ToString("O")">@Model.CreatedOn.ToString("g")</time></p>
 			</div>
-			<div class="mb-3">
+			<div class="mb-2">
 				<input type="submit" name="submit" value="Delete" class="btn btn-sm btn-outline-danger" />
 				<a asp-controller="Report" asp-action="LessonsByMe" class="btn btn-sm btn-outline-dark">
 					Cancel

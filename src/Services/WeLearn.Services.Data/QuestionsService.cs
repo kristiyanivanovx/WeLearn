@@ -48,7 +48,7 @@ namespace WeLearn.Services.Data
 
         public async Task EditAsync(QuestionEditModel model)
         {
-            var entity = this.GetQuestionById(model.Id);
+            var entity = this.GetById(model.Id);
 
             if (entity != null)
             {
@@ -64,13 +64,13 @@ namespace WeLearn.Services.Data
                 .All()
                 .Any(x => x.Id == id);
 
-        public IEnumerable<Question> GetAllQuestions()
+        public IEnumerable<Question> GetAllWithAnswers()
             => this.questionRepository
                 .All()
                 .Include(q => q.Answers)
                 .ToList();
 
-        public Question GetQuestionById(int id)
+        public Question GetById(int id)
             => this.questionRepository
                 .All()
                 .FirstOrDefault(x => x.Id == id);

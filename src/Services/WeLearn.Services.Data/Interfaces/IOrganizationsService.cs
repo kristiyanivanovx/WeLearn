@@ -14,11 +14,11 @@ namespace WeLearn.Services.Data.Interfaces
 
         IEnumerable<T> GetByMemberId<T>(string memberId);
 
-        T GetByIdAsync<T>(int id, bool includeDeleted = false);
+        T GetById<T>(int id, bool includeDeleted = false);
 
-        Task AddUserToOrganizationAsync(int orgId, string userId);
+        Task AddUserAsync(int orgId, string userId);
 
-        Task RemoveUserFromOrganization(int orgId, string userId);
+        Task RemoveUserAsync(int orgId, string userId);
 
         Organization GetById(int id, bool includeDeleted = false);
 

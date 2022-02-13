@@ -14,12 +14,12 @@ namespace WeLearn.Services.Data
         public LikesService(IDeletableEntityRepository<Like> likesRepository)
             => this.likesRepository = likesRepository;
 
-        public int GetLikesCount(int lessonId)
+        public int GetCountByLessonId(int lessonId)
             => this.likesRepository
                 .All()
                 .Count(x => x.LessonId == lessonId);
 
-        public async Task ToggleLikeAsync(int lessonId, string userId)
+        public async Task ToggleAsync(int lessonId, string userId)
         {
             var like = this.likesRepository
                 .All()
@@ -27,15 +27,15 @@ namespace WeLearn.Services.Data
 
             if (like == null)
             {
-                await this.AddLikeAsync(lessonId, userId);
+                await this.AddAsync(lessonId, userId);
             }
             else
             {
-                await this.RemoveLikeAsync(like);
+                await this.RemoveAsync(like);
             }
         }
 
-        public async Task AddLikeAsync(int lessonId, string userId)
+        public async Task AddAsync(int lessonId, string userId)
         {
             var like = new Like
             {
@@ -47,7 +47,7 @@ namespace WeLearn.Services.Data
             await this.likesRepository.SaveChangesAsync();
         }
 
-        public async Task RemoveLikeAsync(Like like)
+        public async Task RemoveAsync(Like like)
         {
             this.likesRepository.HardDelete(like);
             await this.likesRepository.SaveChangesAsync();

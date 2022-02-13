@@ -48,7 +48,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
         {
             QuizInputModel model = new QuizInputModel
             {
-                Categories = this.categoriesService.GetAllCategories<CategoryViewModel>(),
+                Categories = this.categoriesService.GetAll<CategoryViewModel>(),
                 Questions = this.questionsService.GetAll<QuestionViewModel>().ToList(),
             };
 
@@ -79,7 +79,7 @@ namespace WeLearn.Web.Areas.Administration.Controllers
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            model.Categories = this.categoriesService.GetAllCategories<CategoryViewModel>();
+            model.Categories = this.categoriesService.GetAll<CategoryViewModel>();
             model.Questions = this.questionsService.GetAll<QuestionViewModel>().ToList();
 
             return this.View(model);

@@ -72,7 +72,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            LessonReportEditModel model = await this.reportsService.GetReportByIdAsync<LessonReportEditModel>(reportId);
+            LessonReportEditModel model = await this.reportsService.GetByIdAsync<LessonReportEditModel>(reportId);
             return this.View(model);
         }
 
@@ -110,7 +110,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            LessonReportDeleteModel model = await this.reportsService.GetReportByIdAsync<LessonReportDeleteModel>(reportId);
+            LessonReportDeleteModel model = await this.reportsService.GetByIdAsync<LessonReportDeleteModel>(reportId);
             return this.View(model);
         }
 
@@ -179,7 +179,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            CommentReportEditModel model = await this.reportsService.GetReportByIdAsync<CommentReportEditModel>(reportId);
+            CommentReportEditModel model = await this.reportsService.GetByIdAsync<CommentReportEditModel>(reportId);
             return this.View(model);
         }
 
@@ -217,7 +217,7 @@ namespace WeLearn.Web.Controllers
                 return this.NotFound();
             }
 
-            CommentReportDeleteModel model = await this.reportsService.GetReportByIdAsync<CommentReportDeleteModel>(reportId);
+            CommentReportDeleteModel model = await this.reportsService.GetByIdAsync<CommentReportDeleteModel>(reportId);
             return this.View(model);
         }
 

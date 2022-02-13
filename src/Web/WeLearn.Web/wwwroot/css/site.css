@@ -1,4 +1,19 @@
-﻿a.navbar-brand {
+﻿/*body {*/
+/*    !*padding: 50px 0 20px 0;*!*/
+/*    background-color: #EEE;*/
+/*    background-image: url('/img/background-landing.jpg');*/
+/*    background-size: 100%;*/
+/*    background-repeat: no-repeat;*/
+/*    background-attachment: fixed;*/
+/*    background-position: center;*/
+/*    */
+/*    !*background: url('/img/background-landing.jpg') no-repeat scroll 0px 100% / cover transparent;*!*/
+/*    -webkit-font-smoothing: antialiased;*/
+/*    -moz-osx-font-smoothing: grayscale;*/
+/*    text-rendering: optimizeLegibility;*/
+/*}*/
+
+a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
@@ -72,6 +87,11 @@ html {
 }
 
 body {
+    background: url('/img/background-landing.jpg') no-repeat scroll 0px 100% / cover transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    
     /* Margin bottom by footer height */
     /*margin-bottom: 60px;*/
 }
@@ -107,12 +127,42 @@ body {
     padding-bottom: 0;
 }
 
+.text-white-custom {
+    color: #fff !important
+}
+ 
+.bg-base {
+    background-color: rgb(255, 255, 255); /* Fallback color */
+    background-color: rgba(255, 255, 255, 0.50); /* opacity/see-through */
+    color: white;
+    border: 0 solid #f1f1f1;
+    border-radius: 50px;
+    z-index: 2;
+    padding: 20px;
+}
+
+.bg-solid {
+    background-color: rgb(255, 255, 255); /* Fallback color */
+    background-color: rgba(255, 255, 255, 0.85); /* opacity/see-through */
+}
+
+.center {
+    position: absolute;
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .bg-text {
     background-color: rgb(255, 255, 255); /* Fallback color */
     background-color: rgba(255, 255, 255, 0.85); /* opacity/see-through */
     color: white;
     border: 0 solid #f1f1f1;
-    border-radius: 1%;
+    /*border-radius: 1%;*/
+    border-radius: 50px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -120,7 +170,6 @@ body {
     z-index: 2;
     width: 80%;
     padding: 20px;
-    text-align: center;
 }
 
 .footer {
@@ -246,12 +295,20 @@ p {
     color: black;
 }
 
+li .black-text:hover {
+    color: rgba(0, 0, 0, 0.82);
+}
+
 .admin-role-color {
     color: #28a745;
 }
 
 .admin-role-demote-color {
     color: #FFC107;
+}
+
+.text-danger {
+    color: #ff0900 !important;
 }
 
 .btn-like,
@@ -298,6 +355,21 @@ input[type=text]:focus {
     color: black;
 }
 
+input,
+input[type=email],
+input[type=email]:hover,
+input[type=email]:active,
+input[type=email]:focus {
+    color: black;
+}
+
+input,
+input[type=password],
+input[type=password]:hover,
+input[type=password]:active,
+input[type=password]:focus {
+    color: black;
+}
 
 input,
 input[type=number],

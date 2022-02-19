@@ -146,16 +146,16 @@ sudo -u postgres psql WeLearn
 root
 root
 ```
-5. Make sure to install the .NET 5 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
+5. Make sure to install the .NET 6 SDK (https://docs.microsoft.com/en-us/dotnet/core/install/linux)
 
 6. Run the following commands inside /src/
 ```
 dotnet restore
 dotnet build
 dotnet publish -c Release
-cd WeLearn.Web/bin/Release/net5.0/publish
+cd WeLearn.Web/bin/Release/ne6.0/publish
 export ASPNETCORE_ENVIRONMENT=Development
-export CLOUDINARY_URL=cloudinary://example:xyz@123456
+export CLOUDINARY_URL=cloudinary://your:credentials@here
 dotnet WeLearn.Web.dll
 ```
 
@@ -224,6 +224,7 @@ Some of the many resources used for creating this project:
 - https://github.com/NikolayIT/ArtificialIntelligencePlayground/tree/master/ML.NET/Recommendation/SoftUniCoursesRecommendation
 - https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
 - https://www.npmjs.com/package/@joeattardi/emoji-button
+- https://www.youtube.com/playlist?list=PL3_YUnRN3Uhiz2HomrXKcaEW6b3pDhKTX
 
 Structure influenced by:
 - https://github.com/NikolayIT/ASP.NET-Core-Template

@@ -1,0 +1,37 @@
+@using Microsoft.AspNetCore.Identity;
+@model WeLearn.Web.ViewModels.ApplicationUser.ProfileViewModel;
+
+<div class="contrainer body-content">
+    <div class="row section-header">
+        <div class="section-heading">
+            User profile
+        </div>
+        
+        @* todo: make admin page for listing the user, maybe ban or deactivate *@
+        @if (User.IsInRole("Admin"))
+        {
+            
+        }
+        <div class="row userProfile">
+            <div class="col-md-4">
+                <div class="userProfileImage">
+                    @if (User.Identity?.Name == Model.UserName)
+                    {
+                        
+                        @*<form method="post" enctype="multipart/form-data" asp-controller="Profile" asp-action="UploadProfileImage">
+                            <div class="upload">
+                                <label class="btn btn-sm btn-default btn-file">
+                                    Browse <input type="file" name="file" class="upload-profile-image"/>
+                                </label>
+                            </div>
+                            
+                            <buttono type="submit" id="btn-profile" class="btn btn-sm btn-success">
+                                Submit
+                            </buttono>
+                        </form>*@
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

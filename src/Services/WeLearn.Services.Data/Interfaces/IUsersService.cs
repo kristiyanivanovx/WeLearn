@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using WeLearn.Data.Models.Identity;
@@ -8,6 +9,8 @@ namespace WeLearn.Services.Data.Interfaces
     public interface IUsersService
     {
         int GetCount();
+
+        Task SetProfileImageAsync(string id, Uri uri);
 
         Task<IEnumerable<string>> GetRoleNamesByUserId(string userId);
 

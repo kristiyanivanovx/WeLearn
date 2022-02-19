@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,8 +20,8 @@
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
         <PackageReference Include="CsvHelper" Version="27.2.1" />
-        <PackageReference Include="Hangfire.Core" Version="1.7.23" />
-        <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="5.0.13" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.28" />
+        <PackageReference Include="Microsoft.AspNetCore.Cryptography.Internal" Version="6.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
         <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
             <PrivateAssets>all</PrivateAssets>

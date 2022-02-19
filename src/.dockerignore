@@ -1,10 +1,11 @@
 */bin
 */obj
-.dockerignore
+bin/
+obk/
 .env
 .git
 .gitignore
-.vs
-.vscode
 **/.toolstarget
-.idea
+.idea/
+.vs/
+.vscode/

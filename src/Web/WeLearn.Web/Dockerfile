@@ -1,13 +1,13 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 WORKDIR /app
-
 COPY . ./
-RUN dotnet publish Web/WeLearn.Web -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0
+RUN pwd
+RUN dotnet restore
+RUN dotnet publish Web/WeLearn.Web -c Release -o /app/publish
 
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine as runtime
 WORKDIR /app
-COPY --from=build-env /app/out .
-
+COPY --from=build /app/publish /app
 # ENTRYPOINT ["dotnet", "PROJECT_NAME.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet WeLearn.Web.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet /app/WeLearn.Web.dll

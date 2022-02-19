@@ -18,7 +18,6 @@ namespace WeLearn.Data.Models.Identity
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.ApplicationUserRoles = new HashSet<ApplicationUserRole>();
-
             this.Examinations = new HashSet<Examination>();
             this.Recommendations = new HashSet<LessonModule.Recommendation>();
             this.Likes = new HashSet<Like>();
@@ -29,6 +28,8 @@ namespace WeLearn.Data.Models.Identity
             this.Organizations = new HashSet<Organization>();
             this.CreatedOrganizations = new HashSet<Organization>();
         }
+
+        public string ProfileImageUrl { get; set; }
 
         // Audit info
         public DateTime CreatedOn { get; set; }

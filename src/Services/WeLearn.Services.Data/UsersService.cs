@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using AngleSharp.Dom;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WeLearn.Data.Common.Repositories;
@@ -39,6 +40,14 @@ namespace WeLearn.Services.Data
                 .ToList();
 
             return roles;
+        }
+
+        public async Task SetProfileImageAsync(string id, Uri uri)
+        {
+            var user = await this.GetByIdAsync(id);
+            user.ProfileImageUrl = uri.AbsoluteUri;
+            this.appUserRepository.Update(user);
+            await this.appUserRepository.SaveChangesAsync();
         }
 
         public async Task<ApplicationUser> GetByIdAsync(string userId)
